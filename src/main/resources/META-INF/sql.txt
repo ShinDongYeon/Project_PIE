@@ -1,0 +1,30 @@
+--user table 
+CREATE TABLE user (
+    email char(200) NOT NULL,
+    nickName char(200) NOT NULL,
+	pwd char(200) NOT NULL,
+    enabled int NOT NULL DEFAULT 1,
+    PRIMARY KEY (email)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--role table
+CREATE TABLE role (
+	email char(200) NOT NULL,
+    ROLE_NAME char(200) NOT NULL,
+	FOREIGN KEY (email) REFERENCES user(email)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--role 권한 부여 트리거 
+DELIMITER $$
+CREATE TRIGGER insert_role_trigger
+AFTER INSERT ON user
+FOR EACH ROW
+BEGIN
+	IF NEW.email = 'admin' THEN
+    INSERT INTO role (email, ROLE_NAME) values (NEW.email, 'ROLE_ADMIN'),(NEW.email, 'ROLE_USER');
+    ELSE
+    INSERT INTO role values(NEW.email, 'ROLE_USER');
+    END IF;
+END $$
+DELIMITER ;
+
