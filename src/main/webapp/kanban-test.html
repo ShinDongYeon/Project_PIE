@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+    <link rel="stylesheet" href="/kanban-test.css">
+    <script src="/kanban-test.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <!--List-->
+    <div id="listAddWrap">
+        <div id="addListLabel" class="addListLabel">+ Add another list</div>
+        <form id="addList" class="addList" style="display: none;">
+            <input id="addListTitle" type="text" placeholder="Enter list title" autocomplete="off">
+            <button id="creatList" class="creatList">Add List</button>
+            <button class="btn btn-green">Add List</button><span class="close" id="addListClose">&times</span>
+        </form>
+    </div>    
+    <!--empty space-->
+    <div class="theWholeColumn"  style="width:80%;float: left;">
+        <div class="sortable connectedColumn" style="width:100%; height:500px; margin: 0px; float: left;">
+      
+        <div class="column" >
+        <div class="container" style="background-color:rgb(145, 145, 145);">
+            <div class="title"><h2>TODO</h2></div>
+            <ul class="sortable connectedSortable">
+                
+            </ul>
+            <div class="cardAddWrap">
+                <div class="addLabel">+ Add another card</div>
+                <form class="addCard" style="display: none;">
+                    <textarea name="" class="addCardContent" cols="30" rows="10" placeholder="card content..."></textarea>
+                    <button class="addCardBtn">Add Card</button><span class="close" id="addCardClose">×</span>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+      
+    <div class="column">
+        <div class="container" style="background-color:skyblue;">
+            <div class="title"><h2>In Progress</h2></div>
+            <ul class="sortable connectedSortable" ></ul>
+            <div class="cardAddWrap">
+                <div class="addLabel">+ Add another card</div>
+                <form class="addCard" style="display: none;">
+                    <textarea name="" class="addCardContent" cols="30" rows="10" placeholder="card content..."></textarea>
+                    <button class="addCardBtn">Add Card</button><span class="close" id="addCardClose">×</span>
+                </form>
+            </div>
+        </div>
+    </div> 
+
+   
+       
+    <div class="column">
+        <div class="container" style="background-color:pink;">
+            <div class="title"><h2>Done</h2></div>
+            <ul class="sortable connectedSortable" ></ul>
+            <div class="cardAddWrap">
+                <div class="addLabel">+ Add another card</div>
+                <form class="addCard" style="display: none;">
+                    <textarea name="" class="addCardContent" cols="30" rows="10" placeholder="card content..."></textarea>
+                    <button class="addCardBtn">Add Card</button><span class="close" id="addCardClose">×</span>
+                </form>
+            </div>
+        </div>
+    </div> 
+    
+    </div>
+    
+</div>
+    
+</div>
+
+</body>
+</html>
