@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>test page</title>
+	<title>KANBAN-BOARD</title>
 	<jsp:include page="/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" type="text/css" href="/resources/css/projectMainStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
@@ -39,9 +39,7 @@
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
-			<div style="background-color: red;">
-				asdf
-			</div>
+			<jsp:include page="/kanban-board.jsp"></jsp:include>
 		</div>
 	</div>
 	
