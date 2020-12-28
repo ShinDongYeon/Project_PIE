@@ -75,11 +75,24 @@ $(document).ready(function(){
         });
     });
 
+    const details = document.getElementById("detailsModal");
+
     $(document).on("click",".cardContent",function(e){
         e.preventDefault();
-        const details = document.getElementById("detailsModal");
         details.style.display="block";
     });
+
+    $(document).on("click",".closeModal",function(e){
+        e.preventDefault();
+        details.style.display="none";
+    });
+
+    window.onclick=function(e){
+        if(e.target==details){
+            details.style.display="none";
+        }
+    }
+
 
     $(document).on("click",".addCard-btn",function(e){
         e.preventDefault();
@@ -111,6 +124,7 @@ $(document).ready(function(){
                 '<div class="list">'+
                 '<div class="listTitleWrap">'+
                     '<div class="listTitle">'+listTitle+'</div>'+
+                    '<span class="deleteList">&times;</span>'+
                     '<form class="listTitleEdit">'+
                         '<input type="text" class="listTitleInput" placeholder="List Title">'+
                     '</form>'+
@@ -124,7 +138,7 @@ $(document).ready(function(){
                     '</form></div></div>'
             );
         }
-        $(this).parent().children("#addListTitleInput").val("");
+        $(this).children("#addListTitleInput").val("");
         addListForm.hide();
         addListTitle.show();
         $(".cardWrap").sortable({
@@ -133,6 +147,7 @@ $(document).ready(function(){
         });
     });
 
+    
     $("#closeList").click(function(e){
         $("#addListTitleInput").val("");
         addListForm.hide();

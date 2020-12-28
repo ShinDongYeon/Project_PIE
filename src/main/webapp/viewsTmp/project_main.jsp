@@ -39,9 +39,7 @@
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
-			<div style="background-color: red;">
-				asdf
-			</div>
+			<jsp:include page="/kanban-board.jsp"></jsp:include>
 		</div>
 	</div>
 	
