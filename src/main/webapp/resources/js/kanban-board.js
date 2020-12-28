@@ -1,7 +1,7 @@
 /*
 파일명: kanban-board.js
 설명: kanban-board js
-작성일: 2020-12-27
+작성일: 2020-12-28
 작성자: 문지연
 */
 
@@ -144,6 +144,26 @@ $(document).ready(function(){
         $(".cardWrap").sortable({
             connectWith: ".cardWrap",
             placeholder: "card-placeholder"
+        });
+    });
+
+    $(document).on("click",".deleteList",function(e){
+        swal({
+            title:'Warning',
+            text:'Are u sure to delete the List?',
+            icon:'warning',
+            closeOnClickOutside:false,
+            dangerMode : true,
+            buttons: {
+                cancle : {
+                    text : 'Cancel',
+                    value : false
+                },
+                confirm : {
+                    text : 'Delete',
+                    value : true
+                }
+            }
         });
     });
 
