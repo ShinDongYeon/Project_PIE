@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+
+.login-wrapper{
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	padding-top: 130px;
+	color: #fff;
+	overflow: auto;
+	
+}
+
+.login-contents{
+	width: 270px;
+}
+
+.login-title{
+	text-align: center;
+	font-size: 2.3rem;
+	margin-bottom: 20px;
+}
+
+.login-title-pie{
+	color: #f2dd68;
+	font-weight: 600;
+}
+
+.login-form{
+	font-size: 0.9rem;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.login-email-wrapper{
+	margin-bottom: 10px;
+}
+
+.login-email-letter{
+	margin: 3px 5px;
+}
+.login-email{
+	width: 100%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 20px;
+	outline-style: none;
+	-webkit-appearance: none;
+}
+
+.login-password-wrapper{
+	margin-bottom: 5px;
+}
+
+.login-password-letter{
+	margin: 3px 5px;
+}
+
+.login-password{
+	width: 100%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 20px;
+	outline-style: none;
+	-webkit-appearance: none;
+}
+
+.login-btn-wrapper{
+	margin-bottom: 60px;
+}
+
+.login-btn{
+	width: 100%;
+	background-color: #f2dd68;
+	border: none;
+	border-radius: 40px;
+	color: #31353d;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: 600;
+	padding: 5px;
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+.login-btn:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+}
+
+.password-forgot-letter{
+	color: #666666;
+	text-align: center;	
+	font-size: 0.7rem;
+	margin-bottom: 40px;
+}
+
+.password-forgot-letter:hover{
+	color: #fff;
+	cursor: pointer;
+}
+
+.login-page-register-wrapper{
+	text-align: center;
+}
+
+.login-page-register-letter{
+	color: #666666;
+	text-align: center;
+	font-size: 0.8rem;
+	margin-bottom: 10px;
+}
+
+.login-page-register-btn{
+	width: 40%;
+	background-color: #f2dd68;
+	border: none;
+	border-radius: 50px;
+	color: #31353d;
+	text-align: center;
+	text-decoration: none;
+	font-size: 0.8rem;
+	font-weight: 600;
+	padding: 4px;
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+.login-page-register-btn:hover{
+	background-color: #31353d;
+	color: #f2dd68;	
+}

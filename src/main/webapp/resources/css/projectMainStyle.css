@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/*project-main-top*/
+.top-menu {
+	display: flex;
+	justify-content: space-between;
+	height: 65px;
+	background: #31353d;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 101;
+	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+}
+
+/*project-main-navbar*/
+.navbar {
+	padding: 10px 20px 10px 10px;
+	font-size: 1.6rem;
+	color: #fff;
+}
+
+.nav-link{
+	margin: auto;
+}
+.nav-link:hover {
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+/*Sidebar*/
+.sidebar{
+	display: block;
+	width: 62px;
+	height: 100vh;
+	position: fixed;
+	background: #d8d8d8;
+	padding-top: 65px;
+	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+	z-index: 100;
+	transition: width .5s;
+}
+
+.sidebar > i{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.6rem;
+	color: #31353d;
+	height: 62px;
+	margin: 0;
+	padding: 0 15px;
+}
+
+.sidebar > i:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.sidebar .sidebar-icon-tooltip{
+	visibility: hidden;
+	width: 90px;
+	background-color: #f2dd68;
+	color: #31353d;
+	font-size: 0.9rem;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 14px;
+	padding: 10px 0;
+	position: absolute;
+	z-index: 99;
+	right: 110%;
+  	opacity: 0;
+  	transition: opacity 1s;
+}
+
+.sidebar i:hover .sidebar-icon-tooltip{
+	visibility: visible;
+	opacity: 1;
+}
+
+.sidebar .sidebar-icon-tooltip::after{
+	content: "";
+	position: absolute;
+	top:50%;
+	left: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent transparent #f2dd68;
+}
+
+.right-sidebar-contents-wrapper-display{
+	background-color: #31353e;
+	width: 450px;
+	height: 100vh;
+	padding-top: 65px;
+	padding-right: 62px;
+	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
+	transition: width .5s;
+}
+
+.right-sidebar-contents-wrapper-hidden{
+	display: none;
+	width: 0px;
+	height: 100vh;
+	padding-top: 65px;
+	padding-right: 62px;
+	transition: width .5s;
+}
+
+.right-sidebar-star{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: red;
+}
+.right-sidebar-bell{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: orange;
+}
+.right-sidebar-file{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: yellow;
+}
+.right-sidebar-chat{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: green;
+}
+.right-sidebar-calendar{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: blue;
+}
+.right-sidebar-users{
+	position: fixed;
+	width: 0;
+	height: 100%;
+	visibility: hidden;
+	background-color: purple;
+}
+/**********project main top & sidebar end *****************/
+
+/* project main wrapper */
+.project-main-wrapper {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.project-main-body-wrapper {
+	width: 100%;
+	height: 100vh;
+	padding-top: 65px;
+}
+
