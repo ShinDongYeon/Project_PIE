@@ -33,9 +33,9 @@
             <!--KANBAN BOARD LISTS-->
             <div id="listWrap">
                 <!--To-do List-->
-                <div class="list">
+                <div class="list"> 
                     <div class="listTitleWrap">
-                        <div class="listTitle">To-Do</div>
+                        <div class="listTitle">To-Do</div>                
                         <span class="deleteList">&times;</span>
                         <form class="listTitleEdit">
                             <input type="text" class="listTitleInput" placeholder="List Title">
@@ -104,7 +104,11 @@
         <div id="detailsModal" class="detailsModal">
             <div class="modal-detail">
                 <span class="closeModal" id="closeModal">&times;</span>
-                <div class="cardTitleMo"></div>
+                <div class="cardTitleMo">Card Title</div>
+                <h2><i class="fa fa-check"></i> CheckList</h2>
+		            <form id="checkListForm">
+		                <i class="fa fa-plus"></i> Add an item
+		            </form>
             </div>
         </div>
 </body>

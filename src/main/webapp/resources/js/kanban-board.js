@@ -36,6 +36,7 @@ $(document).ready(function(){
         listTitleEdit.children(".listTitleInput").val($(this).html());
         listTitleEdit.children(".listTitleInput").focus();
         $(this).hide();
+        $(this).parent().children(".deleteList").hide();
         listTitleEdit.show();
     });
 
@@ -46,6 +47,7 @@ $(document).ready(function(){
         listTitle.html(lt_val);
         $(this).hide();
         listTitle.show();
+        $(this).parent().children(".deleteList").show();
     });
 
 
