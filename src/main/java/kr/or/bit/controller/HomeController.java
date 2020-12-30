@@ -21,19 +21,19 @@ public class HomeController {
 	}
 	
 	//로그인 성공 후 projectList 페이지로 이동 
-	@RequestMapping(value = "projectList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "projectList.pie", method = RequestMethod.GET)
 	public String projectList() {
 		return "projectList";
 	}
 	
 	//회원가입 페이지로 이동 
-	@RequestMapping(value = "join.do", method = RequestMethod.GET)
+	@RequestMapping(value = "join.pie", method = RequestMethod.GET)
 	public String join() {
 		return "user/join";
 	}
 	
 	//비밀번호 찾기 페이지로 이동
-	@RequestMapping(value = "findPassword.do", method = RequestMethod.GET)
+	@RequestMapping(value = "findPassword.pie", method = RequestMethod.GET)
 	public String findPassword() {
 		return "user/findPassword";
 	}

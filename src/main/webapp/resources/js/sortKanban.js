@@ -1,3 +1,10 @@
+/*
+파일명: sortKanban.js
+설명: kanban-board db,sort
+작성일: 2020-12-29 ~ 
+작성자: 문지연,변재홍
+*/
+
 $(function() {
 
 	//페이지 입장시 프로젝트 번호 뽑아오는 함수 필요 
@@ -7,7 +14,7 @@ $(function() {
 	console.log("created");
 	
 		let lastNum = Number($("#listWrap").children().last().attr("id"));//오른쪽 끝에 있는 리스트의 id 값 (제일 마지막 리스트 id 값)
-		$("#createBtn").click(function(){//create 버튼 
+		/*$("#createBtn").click(function(){//create 버튼 
 		$("#allAround").append("<div class = 'sortable all' id="+(lastNum+1)+">"+//새로운 리스트 추가 
 							   "<div class = 'mini' id="+(lastNum+1)+"-1>"+(lastNum+1)+"-1</div>"+
 							   "<div class = 'mini' id="+(lastNum+1)+"-2>"+(lastNum+1)+"-2</div>"+
@@ -16,10 +23,9 @@ $(function() {
 		miniSortable();//새로운 리스트 만들어주고 sortable 활성화 
 		lastNum = lastNum+1;
 		console.log("리스트의 마지막 값 : "+lastNum);
-		});
+		});*/
 	
 	function allSortable(){//리스트 단위 sortable 
-		console.log("all sortable");
 		$("#listWrap").sortable({
 			handle : ".listTitleWrap",
 			start : function(event, ui) {	//드래그 시작시 동작하는 함수 
@@ -220,7 +226,7 @@ function updateKanban(projectNum){
 	  $.ajax(
 				 {  
 					type : "post",
-					url  : "updateKanban.do?projectNum="+projectNum,
+					url  : "updateKanban.pie?projectNum="+projectNum,
 					contentType: "application/json; charset=UTF-8",
 					dataType : "json",
 					async : false,
@@ -263,7 +269,7 @@ function loadKanban(projectNum){
 	  $.ajax(
 				 {  
 					type : "post",
-					url  : "loadKanban.do?projectNum="+projectNum,
+					url  : "loadKanban.pie?projectNum="+projectNum,
 					contentType: "application/json; charset=UTF-8",
 					dataType : "json",
 					async : false,//필수 안 해주면 순서 보장이 안 됨 
