@@ -4,11 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-<<<<<<< HEAD:src/main/webapp/viewsTmp/project_main.jsp
-	<title>project main</title>
-=======
 	<title>KANBAN-BOARD</title>
->>>>>>> 7bad43fd666d04ef2d06642b9c130019c1c02a27:src/main/webapp/WEB-INF/views/project_main.jsp
 	<jsp:include page="/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/projectMainStyle.css">
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
