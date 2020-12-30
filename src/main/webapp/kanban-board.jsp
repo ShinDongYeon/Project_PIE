@@ -18,6 +18,7 @@
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
 <script src="/resources/js/kanban-board.js"></script>
+<script src="/resources/js/sortKanban.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>
@@ -31,8 +32,20 @@
                 </form>
             </div>
             <!--KANBAN BOARD LISTS-->
-            <div id="listWrap">
-                <!--To-do List-->
+       <div id="listWrap">
+            <!--Add another List-->
+            
+        </div>
+        <div id="addListWrap">
+                <div id="addListLabel">+ Add another List</div>
+                <form id="addList">
+                    <input type="text" id="addListTitleInput" placeholder="Enter a List Title">
+                    <button class="addList-btn">Add List</button><span class="close" id="closeList">&times;</span>
+                </form>
+            </div>
+        </div>
+            
+                <!--To-do List
                 <div class="list"> 
                     <div class="listTitleWrap">
                         <div class="listTitle">To-Do</div>                
@@ -41,7 +54,7 @@
                             <input type="text" class="listTitleInput" placeholder="List Title">
                         </form>
                     </div>
-                    <!--To-do Card-->
+                   
                     <div class="cardWrap"></div>
                     <div class="cardAddWrap">
                         <div class="addCardLabel">+ Add another Card</div>
@@ -51,7 +64,7 @@
                         </form>
                     </div>
                 </div>
-                <!--In progress List-->
+                
                 <div class="list">
                     <div class="listTitleWrap">
                         <div class="listTitle">In Progress</div>
@@ -60,7 +73,7 @@
                             <input type="text" class="listTitleInput" placeholder="List Title">
                         </form>
                     </div>
-                    <!--In progress Card-->
+                   
                     <div class="cardWrap"></div>
                     <div class="cardAddWrap">
                         <div class="addCardLabel">+ Add another Card</div>
@@ -70,7 +83,7 @@
                         </form>
                     </div>
                 </div>
-                <!--Done List-->
+          
                 <div class="list">
                     <div class="listTitleWrap">
                         <div class="listTitle">Done</div>
@@ -79,7 +92,7 @@
                             <input type="text" class="listTitleInput" placeholder="List Title">
                         </form>
                     </div>
-                    <!--Done Card-->
+                    
                     <div class="cardWrap"></div>
                     <div class="cardAddWrap">
                         <div class="addCardLabel">+ Add another Card</div>
@@ -90,15 +103,8 @@
                     </div>
                 </div>
             </div>
-            <!--Add another List-->
-            <div id="addListWrap">
-                <div id="addListLabel">+ Add another List</div>
-                <form id="addList">
-                    <input type="text" id="addListTitleInput" placeholder="Enter a List Title">
-                    <button class="addList-btn">Add List</button><span class="close" id="closeList">&times;</span>
-                </form>
-            </div>
-        </div>
+            -->
+            
 
         <!--Details Modal-->
         <div id="detailsModal" class="detailsModal">
