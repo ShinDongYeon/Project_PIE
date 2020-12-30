@@ -4,8 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>KANBAN-BOARD</title>
-	<jsp:include page="/common/head.jsp"></jsp:include>
+	<title>project main</title>
+	<jsp:include page="/WEB-INF/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/projectMainStyle.css">
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
@@ -15,11 +15,11 @@
 <body>
 	<div></div>
 	<!-- Top -->
-	<jsp:include page="/common/project_main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/common/project_main_top.jsp"></jsp:include>
 	
 	<div class="project-main-wrapper">
 		<!-- right sidebar -->
-		<jsp:include page="/common/project_main_sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/common/project_main_sidebar.jsp"></jsp:include>
 		
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
@@ -44,7 +44,9 @@
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
-			<jsp:include page="/kanban-board.jsp"></jsp:include>
+			<div style="background-color: red;">
+				asdf
+			</div>
 		</div>
 	</div>
 </body>

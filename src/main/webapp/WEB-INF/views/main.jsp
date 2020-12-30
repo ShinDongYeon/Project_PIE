@@ -6,13 +6,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Main</title>
-	<jsp:include page="/common/head.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/mainStyle.css">
 	<link rel="stylesheet" href="/resources/css/mainTopStyle.css">
 </head>
 <body>
 	<!-- Top -->
-	<jsp:include page="/common/main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/common/main_top.jsp"></jsp:include>
 	
 	<!-- Main Page -->
 	<div class="main-wrapper">
