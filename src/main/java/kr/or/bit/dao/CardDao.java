@@ -10,5 +10,8 @@ public interface CardDao {
 	public void updateWholeCard(HashMap<String,Object> cardAndProjectNum);
 	
 	public ArrayList<card> loadWholeCard(int projectNum);
-
+	
+	public void insertKanbanCard(HashMap<String,Object> cardAndProjectNum);
+	
+	public int getCardSeq(int projectNum);
 }
