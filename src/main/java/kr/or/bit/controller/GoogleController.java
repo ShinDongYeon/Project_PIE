@@ -23,7 +23,7 @@ public class GoogleController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 구글로 로그인시 타는 컨트롤러
-	@RequestMapping(value = "googleLogin.do", method = RequestMethod.GET)
+	@RequestMapping(value = "googleLogin.pie", method = RequestMethod.GET)
 	public String googleLogin(@RequestParam("loginuser") String loginuser, @RequestParam("name") String name,
 			HttpSession session) {
 

@@ -14,7 +14,7 @@
 	
 	<security:http use-expressions="true" auto-config="true">
 	<security:csrf disabled="true"/>
-	<security:form-login default-target-url="/projectList.do"
+	<security:form-login default-target-url="/projectList.pie"
 						 login-page="/index.htm"
 						 authentication-failure-url="/index.htm?error"
 						 authentication-success-handler-ref="loginSuccessHandler"/>

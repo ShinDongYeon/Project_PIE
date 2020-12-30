@@ -4,5 +4,5 @@ function onSignIn(googleUser) {
 	let email = profile.getEmail();
 	let name = profile.getName()
 	//url로 컨트롤러에게 사용자 이메일과 닉네임을 넘겨준다 
-	location.href = 'googleLogin.do?loginuser=' + email + '&name=' + name;
+	location.href = 'googleLogin.pie?loginuser=' + email + '&name=' + name;
 }	
