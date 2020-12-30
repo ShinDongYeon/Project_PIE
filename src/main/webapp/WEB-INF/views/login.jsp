@@ -5,13 +5,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>
-	<jsp:include page="/WEB-INF/common/head.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/mainTopStyle.css">
 	<link rel="stylesheet" href="/resources/css/loginStyle.css">
 </head>
 <body>
 	<!-- Top -->
-	<jsp:include page="/WEB-INF/common/main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login left navbar -->
 	<jsp:include page="loginRegisterLeftNavbar.jsp"></jsp:include>
