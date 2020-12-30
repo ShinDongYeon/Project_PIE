@@ -11,8 +11,9 @@
 <!-- StyleSheets -->
 <link rel="stylesheet" type="text/css" href="/resources/css/commonStyle.css">
 
-<!-- sweetAlert CDN -->
+<!-- sweetAlert1,2 CDN -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!-- Jquery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"

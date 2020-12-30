@@ -1,0 +1,103 @@
+@charset "UTF-8";
+/* login contents */
+.register-wrapper{
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	padding-top: 65px;
+	color: #fff;
+	overflow: auto;
+}
+
+.register-contents{
+	width: 270px;
+	height: fit-content;
+	align-self: center;
+	margin-bottom: 50px;
+}
+
+.register-user-pic{
+	
+}
+
+.register-form{
+	font-size: 0.9rem;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.register-email-wrapper{
+	margin-bottom: 10px;
+}
+
+.register-email-letter{
+	margin: 3px 5px;
+}
+.register-email{
+	width: 100%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 20px;
+	outline-style: none;
+	-webkit-appearance: none;
+}
+.register-email-check{
+	color: #fe0000;
+	font-size: 0.8rem;
+	font-weight: 200;
+	padding: 3px 3px 3px 10px;
+}
+
+.register-password-wrapper{
+	margin-bottom: 30px;
+}
+
+.register-password-letter{
+	margin: 3px 5px;
+}
+.register-password-check{
+	color: #fe0000;
+	font-size: 0.8rem;
+	font-weight: 200;
+	padding: 3px 3px 3px 10px;
+}
+
+.register-password{
+	width: 100%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 20px;
+	outline-style: none;
+	-webkit-appearance: none;
+}
+
+/* register button */
+.register-btn-wrapper{
+	margin-bottom: 60px;
+}
+
+.register-btn{
+	width: 100%;
+	background-color: #f2dd68;
+	border: none;
+	border-radius: 40px;
+	color: #31353d;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: 600;
+	padding: 5px;
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+.register-btn:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+}

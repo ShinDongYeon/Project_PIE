@@ -1,7 +1,7 @@
 /*
 파일명: kanban-board.js
-설명: kanban-board js
-작성일: 2020-12-28
+설명: kanban-board front 
+작성일: 2020-12-28 ~
 작성자: 문지연
 */
 
@@ -30,10 +30,11 @@ $(document).ready(function(){
     });
 
     /*List Title*/
+    
     $(document).on("dblclick",".listTitle",function(e){
         e.preventDefault();
         const listTitleEdit = $(this).parent().children(".listTitleEdit");
-        listTitleEdit.children(".listTitleInput").val($(this).html());
+        listTitleEdit.children(".	listTitleInput").val($(this).html());
         listTitleEdit.children(".listTitleInput").focus();
         $(this).hide();
         $(this).parent().children(".deleteList").hide();

@@ -30,7 +30,7 @@ public class KanbanController {
 	
 		//kanban update 
 		@ResponseBody
-		@RequestMapping(value = "updateKanban.do", method = RequestMethod.POST)
+		@RequestMapping(value = "updateKanban.pie", method = RequestMethod.POST)
 		public View updateKanban(@RequestBody kanban k,
 								 @RequestParam("projectNum") int projectNum,
 								 Model model) {
@@ -69,7 +69,7 @@ public class KanbanController {
 		}
 		
 		//해당 프로젝트의 해당되는 칸반 객체를 뷰에게 전달  
-		@RequestMapping(value = "loadKanban.do", method = RequestMethod.POST)
+		@RequestMapping(value = "loadKanban.pie", method = RequestMethod.POST)
 		public View loadKanban(@RequestParam("projectNum") int projectNum, Model model) {
 			System.out.println("프로젝트 넘버 : "+projectNum);
 			
