@@ -20,8 +20,8 @@
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/spring?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
-		<property name="username" value="MYSQLUSER" />
+			value="jdbc:mysql://localhost:3306/pie?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
+		<property name="username" value="pie" />
 		<property name="password" value="1004" />
 	</bean>
 
