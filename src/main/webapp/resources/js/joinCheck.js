@@ -17,7 +17,7 @@ $(document).ready(function() {
 		$.ajax(
 			{
 				type: "post",
-				url: "searchEmail.do",
+				url: "searchEmail.pie",
 				data: { email: $('#email').val() },
 				success: function(data) {
 					if (emailCheck === false) {

@@ -27,7 +27,7 @@ function check(){
 			  $.ajax(
 					 {  
 						type : "post",
-						url  : "searchEmail.do",
+						url  : "searchEmail.pie",
 						data : { email :$('#email').val()},
 						async : false,
 						success : function(data){
@@ -39,7 +39,7 @@ function check(){
 									  $.ajax(
 											 {  
 												type : "post",
-												url  : "findPassword.do",
+												url  : "findPassword.pie",
 												data : { email :$('#email').val()},
 												async : false,
 												success : function(data){
@@ -65,7 +65,7 @@ function check(){
 			  $.ajax(
 						 {  
 							type : "post",
-							url  : "certifyCheck.do",
+							url  : "certifyCheck.pie",
 							data : { certifyNum :$('#certifyNum').val()},
 							async : false,
 							success : function(data){
@@ -77,7 +77,7 @@ function check(){
 										$("#emailCheck").remove();
 										$(".p").html("비밀번호 변경");
 										$('#email').prop('readonly', true);
-										$("body").append("<form onsubmit='return check()' action='modifyPassword.do'method='post'><div id = 'pwdDiv'><input type = 'password' id = 'pwd' name = 'pwd' placeholder = '새로운 비밀번호'></div>"+
+										$("body").append("<form onsubmit='return check()' action='modifyPassword.pie'method='post'><div id = 'pwdDiv'><input type = 'password' id = 'pwd' name = 'pwd' placeholder = '새로운 비밀번호'></div>"+
 														 "<div id = 'pwdCheckDiv'><input type = 'password' id = 'pwdCheck' placeholder = '새로운 비밀번호 확인'></div>"+
 														 "<div><input type = 'submit' id = 'modifyPwd' value = '비밀번호 변경'></div>"+
 														 "<input type = 'hidden' value = "+$('#email').val()+" name = 'email'></form>");
