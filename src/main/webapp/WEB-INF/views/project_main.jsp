@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>project main</title>
-	<jsp:include page="/WEB-INF/common/head.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/projectMainStyle.css">
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
@@ -15,11 +15,11 @@
 <body>
 	<div></div>
 	<!-- Top -->
-	<jsp:include page="/WEB-INF/common/project_main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	
 	<div class="project-main-wrapper">
 		<!-- right sidebar -->
-		<jsp:include page="/WEB-INF/common/project_main_sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/project_main_sidebar.jsp"></jsp:include>
 		
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
