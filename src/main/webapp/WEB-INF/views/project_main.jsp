@@ -4,44 +4,50 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>KANBAN-BOARD</title>
-	<jsp:include page="/common/head.jsp"></jsp:include>
-	<link rel="stylesheet" type="text/css" href="/resources/css/projectMainStyle.css">
+	<title>project main</title>
+	<jsp:include page="/WEB-INF/common/head.jsp"></jsp:include>
+	<link rel="stylesheet" href="/resources/css/projectMainStyle.css">
+	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/projectSidebar.js"></script>
+	<script src="/resources/js/projectMainChat.js"></script>
 </head>
 <body>
-	<jsp:include page="/common/project_main_top.jsp"></jsp:include>
+	<div></div>
+	<!-- Top -->
+	<jsp:include page="/WEB-INF/common/project_main_top.jsp"></jsp:include>
+	
 	<div class="project-main-wrapper">
 		<!-- right sidebar -->
-		<jsp:include page="/common/project_main_sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/common/project_main_sidebar.jsp"></jsp:include>
 		
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
-			<div id="fas fa-star" class="right-sidebar-star">
-				즐겨찾기창
-			</div>
-			<div id="far fa-bell" class="right-sidebar-bell">
-				bell창
-			</div>
+			<!-- bookmark -->
+			<jsp:include page="project_main_bookmark.jsp"></jsp:include>
+			
+			<!-- alarm -->
+			<jsp:include page="project_main_alarm.jsp"></jsp:include>
+			
+			<!-- file -->
 			<div id="far fa-folder-open" class="right-sidebar-file">
 				file창
 			</div>
-			<div id="far fa-comment-dots" class="right-sidebar-chat">
-				채팅창
-			</div>
-			<div id="fas fa-calendar-alt" class="right-sidebar-calendar">
-				캘린더창
-			</div>
+			
+			<!-- chat -->
+			<jsp:include page="project_main_chat.jsp"></jsp:include>
+			
+			<!-- users -->
 			<div id="fas fa-users" class="right-sidebar-users">
 				사용자창
 			</div>
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
-			<jsp:include page="/kanban-board.jsp"></jsp:include>
+			<div style="background-color: red;">
+				asdf
+			</div>
 		</div>
 	</div>
-	
 </body>
 </html>
