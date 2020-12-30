@@ -1,18 +1,20 @@
 @charset "UTF-8";
 
-
+/* login contents */
 .login-wrapper{
 	display: flex;
 	justify-content: center;
 	height: 100vh;
-	padding-top: 130px;
+	padding-top: 65px;
 	color: #fff;
 	overflow: auto;
-	
 }
 
 .login-contents{
 	width: 270px;
+	height: fit-content;
+	align-self: center;
+	margin-bottom: 50px;
 }
 
 .login-title{
@@ -50,13 +52,25 @@
 	outline-style: none;
 	-webkit-appearance: none;
 }
+.login-email-check{
+	color: #fe0000;
+	font-size: 0.8rem;
+	font-weight: 200;
+	padding: 3px 3px 3px 10px;
+}
 
 .login-password-wrapper{
-	margin-bottom: 5px;
+	margin-bottom: 30px;
 }
 
 .login-password-letter{
 	margin: 3px 5px;
+}
+.login-password-check{
+	color: #fe0000;
+	font-size: 0.8rem;
+	font-weight: 200;
+	padding: 3px 3px 3px 10px;
 }
 
 .login-password{
@@ -95,29 +109,54 @@
 	color: #f2dd68;
 }
 
-.password-forgot-letter{
-	color: #666666;
-	text-align: center;	
-	font-size: 0.7rem;
-	margin-bottom: 40px;
-}
-
-.password-forgot-letter:hover{
-	color: #fff;
-	cursor: pointer;
+.login-btn-check{
+	color: #fe0000;
+	text-align: center;
+	font-size: 0.8rem;
+	font-weight: 200;
+	padding: 3px;
 }
 
 .login-page-register-wrapper{
 	text-align: center;
 }
 
-.login-page-register-letter{
-	color: #666666;
+.login-page-register-letter-wrapper{
+	color: #fff;
 	text-align: center;
 	font-size: 0.8rem;
 	margin-bottom: 10px;
 }
 
+.login-page-register-letters{
+	margin-bottom: 15px;
+}
+
+.login-page-register-letters > span {
+	padding: 5px;
+}
+.login-page-register-letters > span:hover{
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.login-page-register-letter-social{
+	color: #666666;
+	text-align: center;	
+	font-size: 0.8rem;
+}
+
+/* register button */
+.login-page-register-btn >img{
+	width: 35px;
+	height: 35px;
+	border-radius: 100%;
+	margin: 0 5px;
+}
+.login-page-register-btn >img:hover{
+	cursor: pointer;
+}
+/*
 .login-page-register-btn{
 	width: 40%;
 	background-color: #f2dd68;
@@ -137,3 +176,4 @@
 	background-color: #31353d;
 	color: #f2dd68;	
 }
+*/
