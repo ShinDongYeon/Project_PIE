@@ -1,9 +1,3 @@
-<!-- 
-파일명: kanban-board.jsp
-설명: kanban-board jsp
-작성일: 2020-12-28
-작성자: 문지연 -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -32,8 +26,9 @@
             </div>
             <!--KANBAN BOARD LISTS-->
        <div id="listWrap">
-            <!--Add another List-->
-            
+       
+       
+        <!--Add another List-->
         </div>
         <div id="addListWrap">
                 <div id="addListLabel">+ Add another List</div>
@@ -43,7 +38,6 @@
                 </form>
             </div>
         </div>
-      
 
         <!--Details Modal-->
         <div id="detailsModal" class="detailsModal">
