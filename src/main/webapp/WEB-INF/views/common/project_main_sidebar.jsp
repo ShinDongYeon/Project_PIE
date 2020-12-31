@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <div id="sidebar" class="sidebar">
 	<i id="sidebar-kanban" class="fas fa-columns"><span class="sidebar-icon-tooltip">칸반</span></i>
 	<i id="sidebar-star" class="fas fa-star"><span class="sidebar-icon-tooltip">즐겨찾기</span></i>
