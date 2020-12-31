@@ -34,7 +34,7 @@ $(document).ready(function(){
     $(document).on("dblclick",".listTitle",function(e){
         e.preventDefault();
         const listTitleEdit = $(this).parent().children(".listTitleEdit");
-        listTitleEdit.children(".	listTitleInput").val($(this).html());
+        listTitleEdit.children(".listTitleInput").val($(this).html());
         listTitleEdit.children(".listTitleInput").focus();
         $(this).hide();
         $(this).parent().children(".deleteList").hide();

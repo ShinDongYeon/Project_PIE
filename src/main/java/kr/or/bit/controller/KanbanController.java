@@ -19,6 +19,12 @@ import kr.or.bit.dto.kanban;
 import kr.or.bit.dto.list;
 import kr.or.bit.service.KanbanService;
 
+/*
+파일명: KanbanController.java
+설명: kanban controller
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+*/
 @Controller
 public class KanbanController {
 	
@@ -102,7 +108,6 @@ public class KanbanController {
 	        });
 	        
 	        //여기까지 오면 리스트는 리스트 order_num 순서에 맞게 정렬됨 
-	        
 	        for(int i = 0; i < listList.size(); i ++) {
 	            Collections.sort(listList.get(i).getCardList(), new Comparator<card>() {//리스트의 카드를 정렬해줌 
 		            @Override
@@ -120,12 +125,81 @@ public class KanbanController {
 	        }
 	        
 	        //여기까지 오면 카드까지 정렬됨 
-	        	
 			model.addAttribute("listList", listList);
-			
 			System.out.println(listList);	
 			return jsonview;
 		}
-				
 		
-}
+		//Make_kanban_List 
+		@ResponseBody
+		@RequestMapping(value = "makeKanbanList.pie", method = RequestMethod.POST)
+		public View makeKanbanList(@RequestBody list li,
+	  							   @RequestParam("projectNum") int projectNum, Model model) {
+					
+					System.out.println(li);
+					
+					HashMap<String,Object> listInfoAndProjectNum = new HashMap<String,Object>();//db update시 파라미터 담을 해쉬맵 
+					listInfoAndProjectNum.put("list", li);
+					listInfoAndProjectNum.put("projectNum", projectNum);
+					boolean check  = kanbanservice.insertKanbanListService(listInfoAndProjectNum);
+					
+					if(check) {
+						int getLiSeq = kanbanservice.getListSeqService(projectNum);
+						
+						System.out.println("리스트 인서트 성공");
+						
+						model.addAttribute("data", getLiSeq);
+						
+						return jsonview;
+						
+					}
+					
+					model.addAttribute("data", false);
+					
+					return jsonview;
+				}
+		
+		//get_Last_List_Num
+		@ResponseBody
+		@RequestMapping(value = "getLastListNum.pie", method = RequestMethod.POST)
+		public View getLastListNum(@RequestParam("projectNum") int projectNum, Model model) {
+							
+			
+		int lastNum = kanbanservice.getLastListNumService(projectNum);
+			
+		model.addAttribute("data", lastNum);
+		
+					return jsonview;
+			}
+		
+		//Make_kanban_card
+		@ResponseBody
+		@RequestMapping(value = "makeKanbanCard.pie", method = RequestMethod.POST)
+		public View makeKanbanCard(@RequestBody card c,
+	  							   @RequestParam("projectNum") int projectNum, Model model) {
+					
+					
+					HashMap<String,Object> cardInfoAndProjectNum = new HashMap<String,Object>();//db update시 파라미터 담을 해쉬맵 
+					cardInfoAndProjectNum.put("card", c);
+					cardInfoAndProjectNum.put("projectNum", projectNum);
+					boolean check  = kanbanservice.insertKanbanCardService(cardInfoAndProjectNum);
+					
+					if(check) {
+						int getCardSeq = kanbanservice.getCardSeqService(projectNum);
+						
+						System.out.println("카드 인서트 성공");
+						
+						model.addAttribute("data", getCardSeq);
+						
+						return jsonview;
+						
+					}
+					
+					model.addAttribute("data", false);
+					
+					return jsonview;
+				}
+		
+		
+		
+	}

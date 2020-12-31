@@ -11,6 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="loadWholeList" resultType="listDto" parameterType="int">
 		SELECT * FROM KANBANLIST WHERE PROJECT_SEQ = #{param1}
 	</select>
+	
+	<insert id="insertKanbanList" parameterType="HashMap">
+		INSERT INTO KANBANLIST(LIST_SEQ, LIST_NAME, LIST_ORDER_NUM, PROJECT_SEQ) VALUES(nextval('list_seq'), #{list.list_name}, #{list.list_order_num}, #{projectNum})
+	</insert>
+	
+	<select id="getListSeq" resultType="int" parameterType="int">
+		SELECT max(LIST_SEQ) FROM KANBANLIST WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
+	<select id="getLastListNum" resultType="int" parameterType="int">
+		SELECT count(LIST_NAME) FROM KANBANLIST WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
 </mapper>
 
 	
