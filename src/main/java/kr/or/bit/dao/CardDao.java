@@ -14,4 +14,6 @@ public interface CardDao {
 	public void insertKanbanCard(HashMap<String,Object> cardAndProjectNum);
 	
 	public int getCardSeq(int projectNum);
+	
+	public void deleteKanbanCard(int cardSeq);
 }

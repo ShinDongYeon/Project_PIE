@@ -1,10 +1,3 @@
-/*
-파일명: sortKanban.js
-설명: kanban-board db,sort
-작성일: 2020-12-29 ~ 
-작성자: 문지연,변재홍
-*/
-
 $(function() {
 	let lastNum = getLastNumFromController(1);
 
@@ -251,7 +244,8 @@ function updateKanban(projectNum){
 
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
-	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+"</div>";
+	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
+	"<span class='deleteCard' style='display:none;'>&times;</span>"+"</div>";
 	return cardTag;
 	}  
 
@@ -322,7 +316,7 @@ addListForm.submit(function(e){
 	//리스트 seq 가져오는 ajax 
     $.ajax({  
 				type : "post",
-				url  : "makeKanbanList.pie?projectNum="+1, 
+				url  : "makeKanbanList.pie?projectNum="+1, //**************프로젝트 넘버 추가 
 				contentType: "application/json; charset=UTF-8",
 				dataType : "json",
 				async : false,
@@ -364,22 +358,49 @@ $(document).on("click",".deleteList",function(e){
         cancelButtonColor: '#d33',
         confirmButtonText: 'Delete'
     }).then((result) => {
+
+
+		
+		//리스트 삭제 ajax 
     	if(result.isConfirmed) {
+
+    		let projectNum = 1; //************************ 프로젝트 넘버 가져오기 
+
+    		let listOb = new Object();//삭제할 리스트의 값을 임시로 담을 obj
+
+    		listOb.list_seq = $(this).parent().parent().attr("data-list-seq"); //삭제하는 리스트의 seq 
+    		listOb.list_order_num = $(this).parent().parent().attr("id"); //삭제하는 리스트의 정렬 번호 
+				
+			let cardArray = new Array();//해당 리스트에 속한 카드를 담을 array  
+			
+			$(this).parent().next().children().each(function(){//for문 돌면서 array에 카드를 담아줌 
+				let cardOb = new Object();
+				cardOb.card_seq = $(this).attr("data-card-seq")
+				cardArray.push(cardOb);
+			});
+			listOb.cardList = cardArray; //리스트에 카드를 할당해줌 
+    		//let card = JSON.stringify(cardArray);//컨트롤러로 보낼 카드 array
+    		let list = JSON.stringify(listOb);//컨트롤러로 보낼 리스트 
+        	
     		$.ajax({
-    		url:"deleteKanbanList.pie?projectNum="+1,
-			type:"POST",
+    		url: "deleteKanbanList.pie?projectNum="+projectNum, //************************* 프로젝트 넘버 
+    		contentType: "application/json; charset=UTF-8",
+			type: "post",
 			async : false,
-			data:data,
+			dataType : "json",
+			data : list,
   			success : function () {
+  	  			
   				swal.fire("Done!", "It's succesfully deleted!","success");
+
   			},
   			error : function() {
   				swal.fire("Error", "Try Again", "error");
   			}
-    		});
-    			}
-			});
+    	  });
+    	}
 	});
+});
 
 $("#closeList").click(function(e){
     $("#addListTitleInput").val("");
@@ -436,6 +457,41 @@ $(document).on("click",".addCardLabel",function(e){
     $(this).hide();
     $(this).parent().children("form").show();
     $(this).parent().children("form").children("textarea").focus();
+});
+
+$('.cardContent').mouseover(function(){
+	let cardDelteBtn = $(this).children('.deleteCard');
+	cardDelteBtn.fadeIn();
+	cardDelteBtn.click(function(e){
+		e.stopPropagation();
+		swal.fire({
+        title:'Warning',
+        text:'Are u sure to delete the Card?',
+        icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+    	if(result.isConfirmed) {
+    		$.ajax({
+    		url:"deleteKanbanCard.pie?projectNum="+1,
+			type:"POST",
+			async : false,
+  			success : function () {
+  				swal.fire("Done!", "It's succesfully deleted!","success");
+  			},
+  			error : function() {
+  				swal.fire("Error", "Try Again", "error");
+  			}
+    		});
+    			}
+			});
+	});
+});
+
+$('.cardContent').mouseleave(function(){
+	$(this).children('.deleteCard').fadeOut();
 });
 
 $(document).on("submit",".addCard",function(e, item){
@@ -529,21 +585,43 @@ $(document).on("click","#closeCard",function(e){
 
 /*List Title*/
 
+//리스트 제목 눌렀을 때 
 $(document).on("click",".listTitle",function(e){
     e.preventDefault();
     let listTitleEdit = $(this).parent().children(".listTitleEdit");
-	listTitleEdit.children(".listTitleInput").attr("placeholder",$(this).html());
+	listTitleEdit.children(".listTitleInput").attr("placeholder",$(this).html());//플레이스홀더 선택한 제목 값으로 할당 
     listTitleEdit.children(".listTitleInput").focus();
     $(this).hide();
     $(this).parent().children(".deleteList").hide();
     listTitleEdit.show();
 });
 
+//리스트 제목 수정 
 $(document).on("submit",".listTitleEdit",function(e){
     e.preventDefault();
     const listTitle = $(this).parent().children(".listTitle");
-    const lt_val = $(this).children(".listTitleInput").val();
-    listTitle.html(lt_val);
+    const lt_val = $(this).children(".listTitleInput").val(); //수정한 리스트 제목 
+    let listSeq = $(this).parent().parent().attr("data-list-seq"); //리스트의 seq값 
+
+    let listOb = new Object();
+    listOb.list_seq = listSeq;
+    listOb.list_name = lt_val;
+
+    let list = JSON.stringify(listOb);//컨트롤러에게 보낼 list 
+
+   $.ajax({  //리스트 제목 수정 ajax
+		type : "post",
+		url  : "editKanbanListTitle.pie",
+		contentType: "application/json; charset=UTF-8",
+		dataType : "json",
+		async : false,
+		data : list,
+		success : function(data){
+			console.log(data);
+		} 
+	 });
+   
+    listTitle.html(lt_val);//화면상에 리스트 제목을 바꿈 
     $(this).hide();
     listTitle.show();
     $(this).parent().children(".deleteList").show();
@@ -563,12 +641,12 @@ $(document).on("submit",".listTitleEdit",function(e){
 -추가로 필요한 기능 
 
 모두 프로젝트 넘버 고려 
-1. 리스트 수정 (이름) 해당 리스트 seq만 수정 하면 됨 
+%%%%%%%%%%%%%%%%%%%%%%%% 1. 리스트 수정 (이름) 해당 리스트 seq만 수정 하면 됨 %%%%%%%%%%%%%%%%%%%%%%%% 
 2. 리스트 삭제 해당 리스트의 seq로 삭제하고 카드도 삭제 트랜잭션 처리 + lastNum - 1 >> 리스트 인덱싱 >> 카드 인덱싱 ******
 %%%%%%%%%%%%%%%%%%%%%%%% 3. 리스트 추가 추가된 리스트 seq만들고 lastNum +1 해주고 insert 맨 오른쪽에서 생기기 때문에 정렬은 필요없음 %%%%%%%%%%%%%%%%%%%%%%%%
 4. 카드 수정 (이름) 해당 카드 seq만 수정 하면 됨 
 5. 카드 삭제 >> 해당 seq로 카드 삭제하고 삭제된 곳의 카드 리스트만 인덱싱 해주고 update  
-6. 카드 추가 >> 해당 리스트의 +1씩 해서 카드를 만들어주고 insert 만 하면 됨 
+%%%%%%%%%%%%%%%%%%%%%%%% 6. 카드 추가 >> 해당 리스트의 +1씩 해서 카드를 만들어주고 insert 만 하면 됨 %%%%%%%%%%%%%%%%%%%%%%%% 
 7. 카드 선택(클릭) >> 해당 seq로 요청 
 
 */
