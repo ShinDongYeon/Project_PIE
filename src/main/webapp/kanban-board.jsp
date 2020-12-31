@@ -24,9 +24,9 @@
         <div id="kanbanPage-wrapper">
             <!-- A title of a project -->
             <div id="projectTitleWrap">
-                <div id="projectTitle">KANBAN BOARD</div>
+                <div id="projectTitle">PROJECT TITLE</div>
                 <form id="projectTitleEdit">
-                    <input type="text" id="projectTitleInput" placeholder="Project Title">
+                    <input type="text" id="projectTitleInput" placeholder="">
                     <input type="submit" style="display: none;">
                 </form>
             </div>
@@ -43,67 +43,7 @@
                 </form>
             </div>
         </div>
-            
-                <!--To-do List
-                <div class="list"> 
-                    <div class="listTitleWrap">
-                        <div class="listTitle">To-Do</div>                
-                        <span class="deleteList">&times;</span>
-                        <form class="listTitleEdit">
-                            <input type="text" class="listTitleInput" placeholder="List Title">
-                        </form>
-                    </div>
-                   
-                    <div class="cardWrap"></div>
-                    <div class="cardAddWrap">
-                        <div class="addCardLabel">+ Add another Card</div>
-                        <form class="addCard" style="display: none;">
-                            <textarea class="addCardTitle" id="addCardTitle" cols="30" rows="10" placeholder="Enter a Card Title"></textarea>
-                            <button class="addCard-btn">Add Card</button><span class="close" id="closeCard">&times;</span>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="list">
-                    <div class="listTitleWrap">
-                        <div class="listTitle">In Progress</div>
-                        <span class="deleteList">&times;</span>
-                        <form class="listTitleEdit">
-                            <input type="text" class="listTitleInput" placeholder="List Title">
-                        </form>
-                    </div>
-                   
-                    <div class="cardWrap"></div>
-                    <div class="cardAddWrap">
-                        <div class="addCardLabel">+ Add another Card</div>
-                        <form class="addCard" style="display: none;">
-                            <textarea class="addCardTitle" id="addCardTitle" cols="30" rows="10" placeholder="Card Title"></textarea>
-                            <button class="addCard-btn">Add Card</button><span class="close" id="closeCard">&times;</span>
-                        </form>
-                    </div>
-                </div>
-          
-                <div class="list">
-                    <div class="listTitleWrap">
-                        <div class="listTitle">Done</div>
-                        <span class="deleteList">&times;</span>
-                        <form class="listTitleEdit">
-                            <input type="text" class="listTitleInput" placeholder="List Title">
-                        </form>
-                    </div>
-                    
-                    <div class="cardWrap"></div>
-                    <div class="cardAddWrap">
-                        <div class="addCardLabel">+ Add another Card</div>
-                        <form class="addCard" style="display: none;">
-                            <textarea class="addCardTitle" id="addCardTitle" cols="30" rows="10" placeholder="Card Title"></textarea>
-                            <button class="addCard-btn">Add Card</button><span class="close" id="closeCard">&times;</span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            -->
-            
+      
 
         <!--Details Modal-->
         <div id="detailsModal" class="detailsModal">

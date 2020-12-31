@@ -25,7 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT max(CARD_SEQ) FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
 	</select>
 	
+	<delete id="deleteKanbanCard" parameterType="int">
+		DELETE FROM KANBANCARD WHERE CARD_SEQ = #{param1}
+	</delete>
+	
 </mapper>
+
 
 	
 
