@@ -38,11 +38,11 @@ var end;
 var allDay;
 var color;
 var content;
-
+var events=[];
  function editCalendar(info){
-	seq = info.event.id;
-	startDate = info.event.start;
-	endDate = info.event.end;
+	id = info.event.id;
+	start = info.event.start;
+	end = info.event.end;
 	if (info.event.allDay == true) {
 		if(info.event.start !== info.event.end)
 		endDate = moment(info.event.end).subtract(1, 'days')._d;
@@ -52,31 +52,66 @@ var content;
 	$.ajax({
 		type:'POST',
 		data:{
-			seq:seq,
-			startDate:startDate,
-			endDate:endDate
+			id:id,
+			start:start,
+			end:end
 			},
 			datetype:'json',
 			async:false,
 			url:"calendarEdit.pie",
 			success: function(data){
-				location.reload();
+				
 				}
 		})
 	 }
-
-function deleteCalendar(info){
-	
-   	$.ajax({  
-		type : "POST",
-		url  : "calendarDelete.pie",
-		data : {
-				seq:info.event.id
-			},
-		success : function(data){
-			location.reload();
-		}   
-});	
+	function deleteCalendar(info){
+			
+		   	$.ajax({  
+				type : "POST",
+				url  : "calendarDelete.pie",
+				data : {
+						id:info.event.id
+					},
+				success : function(data){
+					
+				}   
+		});	
+		}
+	var eventsFeed = function(info, successCallback, failureCallback){
+		$.ajax({  
+			type : "GET",
+			url  : "calendarList.pie",
+			dataType:'json',
+			success : function(data){	
+				console.log(data)
+			/* 	$.each(data,function(index,value){
+					id = value.seq
+					title = value.title
+					start = value.startDate
+					end = value.endDate
+					allDay = value.allDay
+					color = value.eventColor
+					content = value.content
+					if (value.allDay == true) {
+						if(value.startDate !== value.endDate)
+						end = moment(value.endDate).add(1, 'days')._d;
+					
+			          }			
+					events.push({
+					id: id,
+					title: title,
+					start: start,
+					end: end,
+					color:color,
+					allDay: allDay,
+					content: value.content
+					});								
+						}) */
+				
+						successCallback(data);
+			}
+		 });
+		
 }
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -110,15 +145,43 @@ document.addEventListener('DOMContentLoaded', function() {
       timeFormat : 'HH:mm',
       dayMaxEvents: true,
       locales:'ko',
-      dateClick: function(info) {
+	  dateClick: function(info) {
         let today = new Date();
         let hours = today.getHours();
         let minutes =today.getMinutes();
         document.getElementById('schedulerInsert').style.display='block'
           $('#startDate').val(info.dateStr +" "+ hours+":"+ "00")
           $('#insertCancel').click(function(){
-					location.reload();
+					$('#endDate').val("")
+					$('#title').val("")
+					$('#content').val("")
+					$('#eventColor').val("#D25565")					
 				})
+		  $('#insertCalendar').click(function(){			  
+			  if($("input:checkbox[name=allDay]").is(":checked") == true) {
+				  allDay=true
+				}else{
+					allDay=false
+					}
+			  $.ajax({  
+					type : "POST",
+					url  : "calendarInsert.pie",
+					dataType:'json',
+					data:{
+						start:$('#startDate').val(),
+						end:$('#endDate').val(),
+						title:$('#title').val(),
+						content:$('#content').val(),
+						allDay:allDay,
+						eventColor:$('#eventColor').val()
+						},
+					success : function(data){
+
+						//calendar.removeAllEvents();
+	                   	calendar.refetchEvents();
+					}
+			  })
+		  })
         },
         eventDrop: function(info){
         	 swal({
@@ -153,44 +216,9 @@ document.addEventListener('DOMContentLoaded', function() {
         		});
 
              },
-        events:function(info, successCallback, failureCallback){
-    		$.ajax({  
-				type : "GET",
-				url  : "calendarList.pie",
-				dataType:'json',
-				success : function(data){
-					var events=[];
-					$.each(data,function(index,value){
-					
-						id = value.seq
-						title = value.title
-						start = value.startDate
-						end = value.endDate
-						allDay = value.allDay
-						color = value.eventColor
-						content = value.content
-						if (value.allDay == true) {
-							if(value.startDate !== value.endDate)
-							end = moment(value.endDate).add(1, 'days')._d;
-						
-				          }
-						
-						events.push({
-						id: id,
-						title: title,
-						start: start,
-						end: end,
-						color:color,
-						allDay: allDay,
-						content: value.content
-						});								
-   						})
-		
-					successCallback(events);
-				}
-			 });
-
-    },
+             eventSources:[{
+        events:eventsFeed
+             }],
     eventClick: function(info){        		
 				document.getElementById('schedulerView').style.display='block'
 					start = info.event.start;
@@ -217,6 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				  		.then((willDelete) => {
 				  		  if (willDelete) {
 				  			deleteCalendar(info)
+				  		var event=calendar.getEventById(info.event.id);
+				  			event.remove();
+				  			 //calendar.refetchEvents();
 				  		  } else {
 		
 				  		  }
@@ -238,14 +269,18 @@ document.addEventListener('DOMContentLoaded', function() {
 					 $('#okCalendar').css("display","none");
 					 $('#deleteCalendar').css("display","none");					
 					})
-			$('#okCalendar').click(function(){
-					location.reload();
-				})
-			
-			$('#editCancel').click(function(){
-					location.reload();
-				})	 
-					
+
+				$('#editCancel').click(function(){
+				$('#titleView').attr("readonly");
+					 $('#startDateView').attr("readonly");
+					 $('#endDateView').attr("readonly");
+					 $('#contentView').attr("readonly");
+					 $('#editCalendar').css("display","");
+					 $('#okeditCalendar').css("display","none");
+					 $('#editCancel').css("display","none")
+					 $('#okCalendar').css("display","");
+					 $('#deleteCalendar').css("display","");	
+				})	 			
     }
     });
 
@@ -259,7 +294,7 @@ $(document).ready(function(){
 </script>
 <style>
 
-  .calendarbody {
+   .calendarbody {
     margin: 40px 10px;
     padding: 0;
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
@@ -296,12 +331,13 @@ $(document).ready(function(){
 
 </style>
 </head>
-<body class="calendarbody">
+<body>
+<div class="calendarbody">
 <div id="calendar"> </div>
 
 
  <!-- The Modal -->
-  <form action ="${pageContext.request.contextPath}/calendarInsert.pie" method ="post"> 
+ <%--  <form action ="${pageContext.request.contextPath}/calendarInsert.pie" method ="post"> --%> 
   <div class="w3-modal" id="schedulerInsert">
       <div class="w3-modal-content w3-card-4 w3-animate-zoom schedulerHead">      
       <header class="w3-container modalhead"> 
@@ -311,23 +347,23 @@ $(document).ready(function(){
         <div class="w3-container schedulerBody">		      
          <div class="w3-row">
          
-         <div class="w3-col m12"><label class="w3-col m2 ">AllDay</label><input style="margin-top:5px;" class="w3-col m1" type="checkbox" name="allDay" value="true"/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2 ">AllDay</label><input style="margin-top:5px;" class="w3-col m1" type="checkbox" id="allDay" name="allDay" /></div><br>
          </div>
          <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">일정명</label><input class="w3-col m10" type='text'name="title"/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2">일정명</label><input class="w3-col m10" type='text'name="title" id="title"/></div><br>
          </div>
          <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="startDate" id="startDate" autocomplete="off"/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="start" id="startDate" autocomplete="off"/></div><br>
          </div>
          <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="endDate" id="endDate" autocomplete="off"/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="end" id="endDate" autocomplete="off"/></div><br>
          </div>
          <div class="w3-row">
          <div class="w3-col m12"><label class="w3-col m2">내용</label><input class="w3-col m10" type='text'name="content" id="content" autocomplete="off"/></div><br>
          </div>
          <div class="w3-row">
          <div class="w3-col m12"><label class="w3-col m2">색상</label>
-         		<select class="w3-col m10" name="eventColor" id="edit-color">
+         		<select class="w3-col m10" name="color" id="eventColor">
              	<option value="#D25565" style="color:#D25565;" >빨간색</option>
 	             <option value="#9775fa" style="color:#9775fa;" >보라색</option>
 	             <option value="#ffa94d" style="color:#ffa94d;" >주황색</option>
@@ -341,7 +377,8 @@ $(document).ready(function(){
             	</div>
              </div>
              <div class="w3-row">
-        	<input class="w3-btn w3-border w3-border-blue w3-round-large w3-display-bottomleft" id="insertCalendar"type ="submit" value ="등록"> 
+        	<input class="w3-btn w3-border w3-border-blue w3-round-large w3-display-bottomleft" 
+        	onclick="document.getElementById('schedulerInsert').style.display='none'" id="insertCalendar"type ="submit" value ="등록"> 
         	
         	<input class="w3-btn w3-border w3-border-red w3-round-large w3-display-bottomright" 
         	onclick="document.getElementById('schedulerInsert').style.display='none'" type ="button" id="insertCancel"value ="취소"> 
@@ -349,7 +386,7 @@ $(document).ready(function(){
       </div>
   </div>
   </div>
-   </form>  
+   <%-- </form>  --%> 
    
     <form action ="${pageContext.request.contextPath}/calendarUpdate.pie" method ="post"> 
    <div class="w3-modal" id="schedulerView">
@@ -363,10 +400,10 @@ $(document).ready(function(){
          <div class="w3-col m12"><label class="w3-col m2">일정명</label><input class="w3-col m10" type='text'name="title" id="titleView" readonly/></div><br>
          </div>
          <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="startDate" id="startDateView" readonly/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="start" id="startDateView" readonly/></div><br>
          </div>
          <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="endDate"  id="endDateView" readonly/></div><br>
+         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="end"  id="endDateView" readonly/></div><br>
          </div>
          <div class="w3-row">
          <div class="w3-col m12"><label class="w3-col m2">내용</label><input class="w3-col m10" type='text'name="content" id="contentView" readonly/></div><br>
@@ -389,5 +426,6 @@ $(document).ready(function(){
       </div>
   </div>
 </form>
+</div>
 </body>
 </html>
