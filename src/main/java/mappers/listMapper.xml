@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="deleteKanbanList" parameterType="int">
-		DELETE FROM KANBANLIST WHERE CARD_SEQ = #{param1}
+		DELETE FROM KANBANLIST WHERE LIST_SEQ = #{param1}
 	</delete>
 	
 </mapper>

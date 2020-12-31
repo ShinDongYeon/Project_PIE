@@ -187,33 +187,25 @@ public class KanbanController {
 		//edit_list_title
 		@ResponseBody
 		@RequestMapping(value = "editKanbanListTitle.pie", method = RequestMethod.POST)
-		public String editKanbanListTitle(@RequestBody list li){
+		public View editKanbanListTitle(@RequestBody list li, Model model){
 					kanbanservice.editKanbanListTitleService(li);
-					System.out.println("제목수정완료");
-					return "success";
+					System.out.println("제목 수정 완료");
+					
+					model.addAttribute("data", "success");
+					return jsonview;
 			}
 		
-		//edit_list_title
+		//delete_list_and_card
 		@ResponseBody
 		@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
-		public String editKanbanListTitle(@RequestBody list li,
-										  @RequestParam("projectNum") int projectNum){
-					
+		public View deleteKanbanList(@RequestBody list li,
+									 @RequestParam("projectNum") int projectNum,
+									 Model model){
 			
-					ArrayList<card> cardList = li.getCardList();
-					
-					
-					for(int i = 0; i < cardList.size(); i++) {
-						int cardSeq = cardList.get(i).getCard_seq();
-						kanbanservice.deleteKanbanCardService(cardSeq); //카드 지움 
-					}
-					
-					kanbanservice.deleteKanbanListService(li.getList_seq());
-					System.out.println("삭제할 리스트"+li);
-					System.out.println("프로젝트 번호"+projectNum);
-			
-			
-				return null;
-					}
-
-	}
+					kanbanservice.deleteKanbanListAndCardService(li);
+					System.out.println("리스트 삭제 완료");
+					model.addAttribute("data", "success");
+					return jsonview;
+			}
+		
+	}				
