@@ -13,6 +13,13 @@ import kr.or.bit.dao.ListDao;
 import kr.or.bit.dto.card;
 import kr.or.bit.dto.list;
 
+/*
+파일명: KanbanService.java
+설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 정렬 작업 후 db에 저장
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+*/
+
 @Service
 public class KanbanService {
 
@@ -86,6 +93,7 @@ public class KanbanService {
 	}
 	
 	//칸반 리스트 제목 수정하기   
+	//칸반 카드 seq 가져오기  
 	public void editKanbanListTitleService(list li) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
 		listdao.editKanbanListTitle(li);			

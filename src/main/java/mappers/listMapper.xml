@@ -2,7 +2,12 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!-- 
+파일명: listMapper.xml
+설명: listMapper.xml
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+ -->
 <mapper namespace="kr.or.bit.dao.ListDao">
 	<update id="updateKanbanList" parameterType="HashMap">
 		UPDATE KANBANLIST SET LIST_ORDER_NUM = #{list.list_order_num} WHERE LIST_SEQ = #{list.list_seq} AND PROJECT_SEQ = #{projectNum}
@@ -33,7 +38,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 </mapper>
-
 	
 
 

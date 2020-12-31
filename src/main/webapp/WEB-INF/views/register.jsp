@@ -6,7 +6,6 @@
 	<meta charset="UTF-8">
 	<title>Login</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
-	<link rel="stylesheet" href="/resources/css/mainTopStyle.css">
 	<link rel="stylesheet" href="/resources/css/registerStyle.css">
 	
 </head>
@@ -15,18 +14,24 @@
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login-register left navbar -->
-	<jsp:include page="loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- Register Page -->
 	<div class="register-wrapper">
 		<div class="register-contents">
-			<div class="register-user-pic">
-				user pic
+			<div class="register-user-pic-wrapper">
+				<div class="register-user-pic">
+					<i class="fas fa-user"></i>		
+				</div>
+				<div class="register-user-pic-select-wrapper">
+					<i class="fas fa-camera"></i>
+				</div>
 			</div>
 			
 			<!-- Register Form -->
-			<div class="login-form">
+			<div class="register-form">
 				<form action="">
+					<!-- 아이디 입력 -->
 					<div class="register-email-wrapper">
 						<div class="register-email-letter">
 							이메일(아이디)
@@ -36,9 +41,30 @@
 							등록되지 않은 이메일입니다.
 						</div>
 					</div>
+					
+					<!-- 이름 입력 -->
+					<div class="register-name-wrapper">
+						<div class="register-name-letter">
+							이름
+						</div>
+						<input type="text" class="register-name" id="name" name="name">
+					</div>
+					
+					<!-- 비밀번호 입력 -->
 					<div class="register-password-wrapper">
 						<div class="register-password-letter">
 							비밀번호
+						</div>
+						<input type="text" class="register-password" id="pwd" name="pwd" placeholder="">	
+						<div class="register-password-check">
+							영문, 숫자, 특수문자 포함 8~16글자
+						</div>					
+					</div>
+					
+					<!-- 비밀번호 재입력 -->
+					<div class="register-password-wrapper">
+						<div class="register-password-letter">
+							비밀번호 재입력
 						</div>
 						<input type="text" class="register-password" id="pwd" name="pwd" placeholder="">	
 						<div class="register-password-check">

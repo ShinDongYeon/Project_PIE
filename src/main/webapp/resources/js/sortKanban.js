@@ -1,12 +1,9 @@
-
 /*
 파일명: sortKanban.js
 설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 모달창 jqery&js
 작성일: 2020-12-28 ~ 
 작성자: 문지연,변재홍
 */
-
-
 $(function() {
 
 	let projectNum = 1; //추후에 세션에서 가져와야 됨 *******매우 중요 
@@ -38,6 +35,7 @@ $(function() {
 	
 	function miniSortable(){//카드 단위 sortable 
 		$(".cardWrap").sortable({
+			placeholder: "card-placeholder",
 			connectWith : ".cardWrap",//해당 셀렉터의 요소와 드래그를 가능하게 공유하겠다.  
 			start : function(event, ui) {//드래그 시작시 동작하는 함수 
 				$(this).attr('data-previndex', ui.item.index()+1);//드래그 시작시 선택한 요소의 인덱스 값을 'data-previndex'으로 지정 
@@ -75,6 +73,58 @@ $(function() {
 		});
 		$(".list").disableSelection();//텍스트가 드래그 되는 것을 방지하는 함수 
 	}
+	
+///////project Title
+const proTitle = $("#projectTitle");
+const proTitleEdit = $("#projectTitleEdit");
+    
+    /*Project Title*/
+    proTitle.dblclick(function(e){
+        e.preventDefault();
+       	proTitleEdit.children("#projectTitleInput").attr("placeholder",$(this).html());
+       	proTitle.hide();
+       	proTitleEdit.show();
+       	proTitleEdit.children("#projectTitleInput").focus();
+    });
+	
+	//make proTitleInput disappear
+	$(document).on("click",function(e){
+		if(!$(e.target).closest("#projectTitle").length){
+		proTitleEdit.hide();
+		proTitle.show();
+		}
+	});
+	
+	//edit project Title
+    proTitleEdit.submit(function(e){
+        e.preventDefault();
+		console.log("projectTitle")
+		console.log(proTitleEdit.children("#projectTitleInput").val());
+		let originTitle = $("#projectTitle");
+        let editedTitle = proTitleEdit.children("#projectTitleInput").val();
+		let projectSeq = projectNum;
+		
+		let projectOb = new Object();
+		projectOb.project_seq = projectSeq;
+		projectOb.project_name = editedTitle;
+		
+		let project = JSON.stringify(projectOb);
+		
+		$.ajax({
+			type : "post",
+			url : "editProjectTitle.pie",
+			contentType : "application/json; charset=UTF-8",
+			dataType : "json",
+			async : false,
+			data : project,
+			success : function(data){
+				console.log(data);
+			}
+		});
+        proTitle.html(editedTitle);
+        proTitleEdit.hide();
+        proTitle.show();
+    });
 
 //페이지 입장시 모든 요소에 sortable 부여 	
 allSortable();
@@ -126,7 +176,6 @@ function listUp(){
 			list.list_order_num = Number($("#"+i.toString()).attr("id"));//리스트의 순서 번호 
 			list.list_seq = Number($("#"+i.toString()).attr("data-list-seq"));//리스트의 고유 번호 
 
-			console.log("리스트리스트리");
 			console.log(list);
 			//여기서 리스트의 다른 항목들 추가되면 추가 
 			//ex) list.listTitle = ...
@@ -282,6 +331,7 @@ addListForm.submit(function(e){
         console.log(listTag);
         lastNum += 1;
        	console.log("마지막 번호 : "+lastNum);
+       	updateKanban(projectNum);
     }
     $(this).children("#addListTitleInput").val("");
     addListForm.hide();
@@ -350,8 +400,11 @@ $(document).on("click",".deleteList",function(e){
 						listIndexing();
 						cardIndexing();
 						
-						//3. 데이터 다시 업데이트 
-	  					updateKanban(1); //**************** 프로젝트 넘버 추가 
+						//3. 마지막 번호 -1
+						lastNum -= 1;
+						
+						//4. 데이터 다시 업데이트 
+	  					updateKanban(projectNum); //**************** 프로젝트 넘버 추가 
 
 	  				
   				},
@@ -478,11 +531,15 @@ $(document).on("submit",".addCard",function(e, item){
 			card.card_order_num = card_order_num;
 			card.card_name = cardTitleVal;
 
+			
 			//db에서 셀렉트해서 card_seq 가져옴 
 			let card_seq = makeKanbanCard(card, projectNum);//************************
 
 			let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 			$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+			
+			miniSortable();
+			updateKanban(projectNum);
 			
 		}else{
 			let upper_order_num = upperCard
@@ -501,15 +558,15 @@ $(document).on("submit",".addCard",function(e, item){
 
 			let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 			$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+				
+			miniSortable();
+			updateKanban(projectNum);
+			
 		} 
     }
     $(this).children(".addCardTitle").val("");
     $(this).hide();
     cardLabel.show();
-    $(".cardWrap").sortable({
-        connectWith: ".cardWrap",
-        placeholder: "card-placeholder"
-    });
 });
 
 const details = document.getElementById("detailsModal");
@@ -596,6 +653,11 @@ $(document).on("submit",".listTitleEdit",function(e){
     $(this).hide();
     listTitle.show();
     $(this).parent().children(".deleteList").show();
+});
+
+$("#listWrap").sortable({
+    placeholder: "list-placeholder",
+    handle: ".listTitleWrap",
 });
 
 

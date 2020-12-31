@@ -11,13 +11,12 @@
 <link rel="stylesheet" href="/resources/css/loginStyle.css">
 <jsp:include page="/resources/static/static.jsp"></jsp:include>
 <script src="<c:url value="/resources/js/googleLogin.js"/>"></script>
-</head>
 <body>
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 
 	<!-- login left navbar -->
-	<jsp:include page="loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- 이메일 인증 성공 or 실패 alert -->
 	<c:if test="${sessionScope.trueOrFalse == true}">

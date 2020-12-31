@@ -173,3 +173,6 @@
     border-radius: 100% !important;
     margin: 0 5px !important;
 }
+.login-page-register-btn >img:hover{
+	cursor: pointer;
+}

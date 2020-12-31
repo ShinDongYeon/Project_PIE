@@ -10,6 +10,7 @@
 
 <!-- StyleSheets -->
 <link rel="stylesheet" type="text/css" href="/resources/css/commonStyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/mainTopStyle.css">
 
 <!-- sweetAlert1,2 CDN -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
