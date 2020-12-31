@@ -35,6 +35,7 @@
 		</beans:bean>
 	</mvc:message-converters>
 </mvc:annotation-driven> 
-	
+
+<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
 </beans:beans>

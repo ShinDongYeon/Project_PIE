@@ -22,57 +22,26 @@
 		</div>
 		
 		<!-- chat-list -->
-		<div class="chat-list-wrapper">
-			<div class="chat-list-img">
-				<i class="fas fa-th-large"></i>
+		<div id="chat-list" class="chat-lists-wrapper">
+			<!-- 
+			sample data
+			<div id="complete_Chatting_Room" class="chat-list-wrapper">
+				<div class="chat-list-img">
+					<i class="fas fa-th-large"></i>
+				</div>
+				<div class="chat-list-letter-wrapper">
+					<div class="chat-list-letter-title">프로젝트방</div>
+					<div class="chat-list-letter-members">#신동연#도재구#문지연</div>
+				</div>
+				<div class="chat-list-cancel">
+					<i class="fas fa-times"></i>
+				</div>
 			</div>
-			<div class="chat-list-letter-wrapper">
-				<div class="chat-list-letter-title">프로젝트방</div>
-				<div class="chat-list-letter-members">#신동연#도재구#문지연</div>
-			</div>
-			<div class="chat-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
+			 -->
 		</div>
+
 		
-		<div class="chat-list-wrapper">
-			<div class="chat-list-img">
-				<i class="fas fa-th-large"></i>
-			</div>
-			<div class="chat-list-letter-wrapper">
-				<div class="chat-list-letter-title">프로젝트방</div>
-				<div class="chat-list-letter-members">#신동연#도재구#문지연</div>
-			</div>
-			<div class="chat-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
 		
-		<div class="chat-list-wrapper">
-			<div class="chat-list-img">
-				<i class="fas fa-th-large"></i>
-			</div>
-			<div class="chat-list-letter-wrapper">
-				<div class="chat-list-letter-title">조장방</div>
-				<div class="chat-list-letter-members">#조용선#문지연</div>
-			</div>
-			<div class="chat-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
-		
-		<div class="chat-list-wrapper">
-			<div class="chat-list-img">
-				<i class="fas fa-th-large"></i>
-			</div>
-			<div class="chat-list-letter-wrapper">
-				<div class="chat-list-letter-title">시나리오</div>
-				<div class="chat-list-letter-members">#도재구#신동연</div>
-			</div>
-			<div class="chat-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
 	</div>
 </body>
 </html>
