@@ -8,11 +8,25 @@
 	<title>Main</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/mainStyle.css">
-	<link rel="stylesheet" href="/resources/css/mainTopStyle.css">
+	<link rel="stylesheet" href="/resources/css/userEdit.css">
+	<link rel="stylesheet" href="/resources/css/userEditPwdCheck.css">
+	<link rel="stylesheet" href="/resources/css/userEditWithdrawal.css">
+	
+	<script src="/resources/js/main.js"></script>
 </head>
 <body>
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
+	
+	<!-- userEdit modal background -->
+	<div id="userEdit_modal_background"></div>
+	<!-- userEdit modal -->
+	<jsp:include page="/WEB-INF/views/userEdit.jsp"></jsp:include>
+	<!-- userEdit_pwdCheck modal -->
+	<jsp:include page="/WEB-INF/views/userEdit_pwdCheck.jsp"></jsp:include>
+	<!-- userEdit_withdrawal_complete modal -->
+	<jsp:include page="/WEB-INF/views/userEdit_withdrawal.jsp"></jsp:include>
+	
 	
 	<!-- Main Page -->
 	<div class="main-wrapper">
@@ -27,7 +41,7 @@
 			<!-- info-wrapper -->
 			<div class="main-profile-inner-wrapper">
 				<div class="main-profile-edit">
-					<i class="fas fa-edit"></i><span class="main-profile-edit-letter">프로필 설정</span>
+					<i id="user_edit" class="fas fa-edit"></i><span class="main-profile-edit-letter">회원정보 수정</span>
 				</div>
 				<div class="main-profile-info">
 					<span class="main-profile-name">신동연</span><i class="far fa-envelope"></i><br>
