@@ -2,7 +2,12 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!-- 
+파일명: cardMapper.xml
+설명: cardMapper.xml
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+ -->
 <mapper namespace="kr.or.bit.dao.CardDao">
 	<update id="updateWholeCard" parameterType="HashMap">
 		UPDATE KANBANCARD SET CARD_ORDER_NUM = #{card.card_order_num} WHERE CARD_SEQ = #{card.card_seq} AND PROJECT_SEQ = #{projectNum}
@@ -11,6 +16,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="loadWholeCard" resultType="cardDto" parameterType="int">
 		SELECT * FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
 	</select>
+	
+	<insert id="insertKanbanCard" parameterType="HashMap">
+		INSERT INTO KANBANCARD(CARD_SEQ, CARD_NAME, CARD_ORDER_NUM, PROJECT_SEQ) VALUES(nextval('card_seq'), #{card.card_name}, #{card.card_order_num}, #{projectNum})
+	</insert>
+	
+	<select id="getCardSeq" resultType="int" parameterType="int">
+		SELECT max(CARD_SEQ) FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
 </mapper>
 
 	

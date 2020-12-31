@@ -12,6 +12,13 @@ import kr.or.bit.dao.ListDao;
 import kr.or.bit.dto.card;
 import kr.or.bit.dto.list;
 
+/*
+파일명: KanbanService.java
+설명: KanbanService
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+*/
+
 @Service
 public class KanbanService {
 
@@ -48,4 +55,43 @@ public class KanbanService {
 		listList = listdao.loadWholeList(projectNum);
 		return listList;
 	}
+	
+	//칸반 리스트 추가 
+	public boolean insertKanbanListService(HashMap<String,Object> listInfoAndProjectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		listdao.insertKanbanList(listInfoAndProjectNum);
+		return true;
+	}
+	
+	//칸반 리스트 seq 가져오기  
+	public int getListSeqService(int projectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		int list_seq = listdao.getListSeq(projectNum);
+		return list_seq;
+	}
+	
+	//칸반 리스트 seq 가져오기  
+	public int getLastListNumService(int projectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		int list_seq = listdao.getLastListNum(projectNum);
+		return list_seq;
+	}
+	
+	//칸반 카드 추가 
+	public boolean insertKanbanCardService(HashMap<String,Object> cardInfoAndProjectNum) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		carddao.insertKanbanCard(cardInfoAndProjectNum);
+		return true;
+	}
+	
+	//칸반 카드 seq 가져오기  
+	public int getCardSeqService(int projectNum) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		int card_seq = carddao.getCardSeq(projectNum);
+		return card_seq;
+	}
+		
+	
+	
+	
 }
