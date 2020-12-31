@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.bit.dao.CardDao;
 import kr.or.bit.dao.ListDao;
@@ -97,16 +98,25 @@ public class KanbanService {
 		listdao.editKanbanListTitle(li);			
 	}
 	
-	//칸반 카드 삭제하기 
-	public void deleteKanbanCardService(int cardSeq) {
+	//칸반 리스트와 카드 삭제하기(동시에) 
+	@Transactional
+	public void deleteKanbanListAndCardService(list li) {
 		CardDao carddao  = sqlsession.getMapper(CardDao.class);
-		carddao.deleteKanbanCard(cardSeq);			
-	}
-		
-		//칸반 카드 삭제하기 
-	public void deleteKanbanListService(int listSeq) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
-		listdao.deleteKanbanList(listSeq);			
+		
+		ArrayList<card> cardList = li.getCardList();
+		int list_seq = li.getList_seq();
+		
+		try {
+			for(int i = 0; i < cardList.size(); i++) {
+				int cardSeq = cardList.get(i).getCard_seq();
+				carddao.deleteKanbanCard(cardSeq); //카드 삭제
+			}
+			listdao.deleteKanbanList(list_seq);	//리스트 삭제 
+		} catch (Exception e) {
+			System.out.println("트랜잭션빔!!!!!!!!!!!!"+e.getMessage());
+			throw e; //시점에 트랜잭션 감지하고 있다가 롤백 처리 
+		}
 	}
 	
 }
