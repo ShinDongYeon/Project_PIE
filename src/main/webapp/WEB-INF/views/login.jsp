@@ -6,7 +6,6 @@
 	<meta charset="UTF-8">
 	<title>Login</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
-	<link rel="stylesheet" href="/resources/css/mainTopStyle.css">
 	<link rel="stylesheet" href="/resources/css/loginStyle.css">
 </head>
 <body>
@@ -14,7 +13,7 @@
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login left navbar -->
-	<jsp:include page="loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- Login Page -->
 	<div class="login-wrapper">
