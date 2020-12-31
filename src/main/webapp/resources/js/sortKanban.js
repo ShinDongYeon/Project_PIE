@@ -1,3 +1,10 @@
+/*
+파일명: KanbanService.java
+설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 모달창 jqery&js
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+*/
+
 $(function() {
 	let lastNum = getLastNumFromController(1);
 
@@ -362,7 +369,7 @@ $(document).on("click",".deleteList",function(e){
 
 		
 		//리스트 삭제 ajax 
-    	if(result.isConfirmed) {
+    	if(result.value) {
 
     		let projectNum = 1; //************************ 프로젝트 넘버 가져오기 
 
