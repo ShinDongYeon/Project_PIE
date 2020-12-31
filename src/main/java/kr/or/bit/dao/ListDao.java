@@ -16,4 +16,10 @@ public interface ListDao {
 	public int getListSeq(int projectNum);
 	
 	public int getLastListNum(int projectNum);
+	
+	public void editKanbanListTitle(list li);
+	
+	public void deleteKanbanList(int listSeq);
+	
+	
 }

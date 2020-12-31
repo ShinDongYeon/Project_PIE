@@ -21,7 +21,7 @@ import kr.or.bit.service.KanbanService;
 
 /*
 파일명: KanbanController.java
-설명: kanban controller
+설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 정렬 작업 후 db에 저장
 작성일: 2020-12-28 ~ 
 작성자: 문지연,변재홍
 */
@@ -145,17 +145,11 @@ public class KanbanController {
 					
 					if(check) {
 						int getLiSeq = kanbanservice.getListSeqService(projectNum);
-						
 						System.out.println("리스트 인서트 성공");
-						
 						model.addAttribute("data", getLiSeq);
-						
 						return jsonview;
-						
 					}
-					
 					model.addAttribute("data", false);
-					
 					return jsonview;
 				}
 		
@@ -163,12 +157,9 @@ public class KanbanController {
 		@ResponseBody
 		@RequestMapping(value = "getLastListNum.pie", method = RequestMethod.POST)
 		public View getLastListNum(@RequestParam("projectNum") int projectNum, Model model) {
-							
 			
 		int lastNum = kanbanservice.getLastListNumService(projectNum);
-			
 		model.addAttribute("data", lastNum);
-		
 					return jsonview;
 			}
 		
@@ -178,7 +169,6 @@ public class KanbanController {
 		public View makeKanbanCard(@RequestBody card c,
 	  							   @RequestParam("projectNum") int projectNum, Model model) {
 					
-					
 					HashMap<String,Object> cardInfoAndProjectNum = new HashMap<String,Object>();//db update시 파라미터 담을 해쉬맵 
 					cardInfoAndProjectNum.put("card", c);
 					cardInfoAndProjectNum.put("projectNum", projectNum);
@@ -186,20 +176,44 @@ public class KanbanController {
 					
 					if(check) {
 						int getCardSeq = kanbanservice.getCardSeqService(projectNum);
-						
 						System.out.println("카드 인서트 성공");
-						
 						model.addAttribute("data", getCardSeq);
-						
 						return jsonview;
-						
 					}
-					
 					model.addAttribute("data", false);
-					
 					return jsonview;
 				}
 		
+		//edit_list_title
+		@ResponseBody
+		@RequestMapping(value = "editKanbanListTitle.pie", method = RequestMethod.POST)
+		public String editKanbanListTitle(@RequestBody list li){
+					kanbanservice.editKanbanListTitleService(li);
+					System.out.println("제목수정완료");
+					return "success";
+			}
 		
-		
+		//edit_list_title
+		@ResponseBody
+		@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
+		public String editKanbanListTitle(@RequestBody list li,
+										  @RequestParam("projectNum") int projectNum){
+					
+			
+					ArrayList<card> cardList = li.getCardList();
+					
+					
+					for(int i = 0; i < cardList.size(); i++) {
+						int cardSeq = cardList.get(i).getCard_seq();
+						kanbanservice.deleteKanbanCardService(cardSeq); //카드 지움 
+					}
+					
+					kanbanservice.deleteKanbanListService(li.getList_seq());
+					System.out.println("삭제할 리스트"+li);
+					System.out.println("프로젝트 번호"+projectNum);
+			
+			
+				return null;
+					}
+
 	}

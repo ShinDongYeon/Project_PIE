@@ -14,7 +14,7 @@ import kr.or.bit.dto.list;
 
 /*
 파일명: KanbanService.java
-설명: KanbanService
+설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 정렬 작업 후 db에 저장
 작성일: 2020-12-28 ~ 
 작성자: 문지연,변재홍
 */
@@ -90,8 +90,23 @@ public class KanbanService {
 		int card_seq = carddao.getCardSeq(projectNum);
 		return card_seq;
 	}
+	
+	//칸반 카드 seq 가져오기  
+	public void editKanbanListTitleService(list li) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		listdao.editKanbanListTitle(li);			
+	}
+	
+	//칸반 카드 삭제하기 
+	public void deleteKanbanCardService(int cardSeq) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		carddao.deleteKanbanCard(cardSeq);			
+	}
 		
-	
-	
+		//칸반 카드 삭제하기 
+	public void deleteKanbanListService(int listSeq) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		listdao.deleteKanbanList(listSeq);			
+	}
 	
 }

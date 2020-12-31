@@ -2,7 +2,12 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!-- 
+파일명: listMapper.xml
+설명: listMapper.xml
+작성일: 2020-12-28 ~ 
+작성자: 문지연,변재홍
+ -->
 <mapper namespace="kr.or.bit.dao.ListDao">
 	<update id="updateKanbanList" parameterType="HashMap">
 		UPDATE KANBANLIST SET LIST_ORDER_NUM = #{list.list_order_num} WHERE LIST_SEQ = #{list.list_seq} AND PROJECT_SEQ = #{projectNum}
@@ -24,8 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT count(LIST_NAME) FROM KANBANLIST WHERE PROJECT_SEQ = #{param1}
 	</select>
 	
+	<update id="editKanbanListTitle" parameterType="listDto">
+		UPDATE KANBANLIST SET LIST_NAME = #{list_name} WHERE LIST_SEQ = #{list_seq}
+	</update>
+	
+	<delete id="deleteKanbanList" parameterType="int">
+		DELETE FROM KANBANLIST WHERE CARD_SEQ = #{param1}
+	</delete>
+	
 </mapper>
-
 	
 
 
