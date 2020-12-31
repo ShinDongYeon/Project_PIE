@@ -293,7 +293,10 @@ $(document).ready(function(){
 
 </script>
 <style>
-
+	body{
+		font-size: initial;
+		line-height: initial;
+	}
    .calendarbody {
     margin: 40px 10px;
     padding: 0;

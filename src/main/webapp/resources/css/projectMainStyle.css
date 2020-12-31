@@ -105,6 +105,7 @@
 	padding-right: 62px;
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
 	transition: width .5s;
+	z-index: 2;
 }
 
 .right-sidebar-contents-wrapper-hidden{
