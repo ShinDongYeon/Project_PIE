@@ -11,6 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="loadWholeCard" resultType="cardDto" parameterType="int">
 		SELECT * FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
 	</select>
+	
+	<insert id="insertKanbanCard" parameterType="HashMap">
+		INSERT INTO KANBANCARD(CARD_SEQ, CARD_NAME, CARD_ORDER_NUM, PROJECT_SEQ) VALUES(nextval('card_seq'), #{card.card_name}, #{card.card_order_num}, #{projectNum})
+	</insert>
+	
+	<select id="getCardSeq" resultType="int" parameterType="int">
+		SELECT max(CARD_SEQ) FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
+	<delete id="deleteKanbanCard" parameterType="int">
+		DELETE FROM KANBANCARD WHERE CARD_SEQ = #{param1}
+	</delete>
+	
 </mapper>
 
 	

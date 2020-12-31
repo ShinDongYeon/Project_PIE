@@ -1,97 +1,33 @@
+
 /*
 파일명: sortKanban.js
-설명: kanban-board db,sort
-작성일: 2020-12-29 ~ 
+설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 모달창 jqery&js
+작성일: 2020-12-28 ~ 
 작성자: 문지연,변재홍
 */
 
+
 $(function() {
 
-	//페이지 입장시 프로젝트 번호 뽑아오는 함수 필요 
+	let projectNum = 1; //추후에 세션에서 가져와야 됨 *******매우 중요 
 	
-	loadKanban(1);//**********************
-	
+	let lastNum = getLastNumFromController(projectNum); //******************
+	console.log("페이지 로드시 리스트 개수 : "+lastNum);
+
+	loadKanban(projectNum);//**********************
 	console.log("created");
 	
-		let lastNum = Number($("#listWrap").children().last().attr("id"));//오른쪽 끝에 있는 리스트의 id 값 (제일 마지막 리스트 id 값)
-		/*$("#createBtn").click(function(){//create 버튼 
-		$("#allAround").append("<div class = 'sortable all' id="+(lastNum+1)+">"+//새로운 리스트 추가 
-							   "<div class = 'mini' id="+(lastNum+1)+"-1>"+(lastNum+1)+"-1</div>"+
-							   "<div class = 'mini' id="+(lastNum+1)+"-2>"+(lastNum+1)+"-2</div>"+
-							   "<div class = 'mini' id="+(lastNum+1)+"-3>"+(lastNum+1)+"-3</div>"+
-							   "</div>");
-		miniSortable();//새로운 리스트 만들어주고 sortable 활성화 
-		lastNum = lastNum+1;
-		console.log("리스트의 마지막 값 : "+lastNum);
-		});*/
-	
 	function allSortable(){//리스트 단위 sortable 
+		console.log("all sortable");
 		$("#listWrap").sortable({
 			handle : ".listTitleWrap",
 			start : function(event, ui) {	//드래그 시작시 동작하는 함수 
 				$(this).attr('data-previndex', ui.item.index()+1);
 			},
 	 		update: function(event, ui) {//드래그로 위치 변경이 생겼을 시 동작하는 함수 
-			    let newIndex = ui.item.index()+1; 
-			    let oldIndex = $(this).attr('data-previndex'); 
-			    let old_id = ui.item.attr('id'); 
-		        $(this).removeAttr('data-previndex');
-
-				//리스트의 위치변경이 생겼을 시 모든 리스트의 id를 새로 부여  
-				
-				//1. 리스트가 이동후 왼쪽에 다른 리스트가 없을 시 (맨 왼쪽으로 이동)
-				if(newIndex===1){
-					console.log("맨 왼쪽으로 이동"); 
-					firstItem = ui.item;//맨 왼쪽으로 이동한 요소 
-					firstItem.attr('id',1);//맨 왼쪽으로 이동한 요소의 id를 1로 할당 
-					for(let i = 2; i < lastNum+1; i++){//for문 돌면서 다음 형제 요소들을 1씩 크게 할당 
-						firstItem.next().attr("id", i);
-						firstItem = firstItem.next();
-					} 
-				}
-				
-				//2. 리스트가 이동후 오른쪽에 다른 리스트가 없을 시
-				if(newIndex===lastNum){
-					console.log("맨 오른쪽으로 이동");
-					lastItem = ui.item;//맨 오른쪽으로 이동한 요소 
-					lastItem.attr("id", lastNum);//맨 오른쪽으로 이동한 요소에 id를 리스트의 마지막 번호로 할당 
-					for(let i = lastNum-1; i > 0; i--){//for문 돌면서 이전 형제 요소들을 1씩 작게 할당
-						lastItem.prev().attr("id", i);
-						lastItem = lastItem.prev();
-						}
-				}
-				
-				//3. 리스트가 리스트 사이(중간)로 가는 경우
-				if(newIndex!=1 && newIndex!=lastNum){
-					console.log("중간으로 이동");
-
-					//3.1 리스트가 리스트 사이로 이동하면서 왼쪽 요소는 그대로 있는 경우  
-					if(Number(ui.item.attr("id")) < Number(ui.item.next().attr("id"))){
-						console.log("움직인 요소가 오른쪽 요소보다 작을 경우 ");
-						let movedItem = ui.item;//중간으로 이동한 요소 
-						let nextNum = Number(movedItem.next().attr("id"));//다음 요소의 숫자 
-						movedItem.attr("id", nextNum-1);
-						for(let i = nextNum-2; i > 0; i--){//for문 돌면서 움직인 요소의 이전 숫자를 1씩 작게 함 
-							movedItem.prev().attr("id", i);
-							movedItem = movedItem.prev();
-						}
-					}
-					
-					//3.2 리스트가 리스트 사이로 이동하면서 오른쪽 요소는 그대로 있는 경우 
-					if(Number(ui.item.attr("id")) > Number(ui.item.next().attr("id"))){
-						console.log("움직인 요소가 오른쪽 요소보다 큰 경우 ");
-						let movedItem = ui.item;//중간으로 이동한 요소 
-						let prevNum = Number(movedItem.prev().attr("id"));//이전 요소의 숫자 
-						movedItem.attr("id", prevNum+1);
-						for(let i = prevNum+2; i <= lastNum; i++){//for문 돌면서 움직인 요소의 다음 숫자를 1씩 크게 할 
-							movedItem.next().attr("id", i);
-							movedItem = movedItem.next();
-							}
-						}
-					}
-				
+				listIndexing(); //리스트 인덱싱 
 				cardIndexing(); //리스트의 위치의 변화가 생기고 모든 카드의 id를 재할당하는 역할
-				updateKanban(1); //********************** //컨트롤러에게 칸반 객체 전달 & 파라미터는 프로젝트 번호 
+				updateKanban(projectNum); //********************** //컨트롤러에게 칸반 객체 전달 & 파라미터는 프로젝트 번호 
 			    },
 		});
 		}
@@ -133,7 +69,7 @@ $(function() {
 		    		oldListIndex++;	
 				});
 				console.log("db insert");
-				updateKanban(1);//********************** //컨트롤러에게 칸반 객체 전달 & 파라미터는 프로젝트 번호 
+				updateKanban(projectNum);//********************** //컨트롤러에게 칸반 객체 전달 & 파라미터는 프로젝트 번호 
 				
 			},
 		});
@@ -143,30 +79,6 @@ $(function() {
 //페이지 입장시 모든 요소에 sortable 부여 	
 allSortable();
 miniSortable();
-
-/*
-1. 리스트가 추가되면 맨 오른쪽에 insert  
-	-1 : 리스트 인덱싱, 라스트 넘버 1증가 
-2. 리스트가 삭제되면 (라스트 넘버 1감소)
-	-1 : 리스트 인덱싱, 카드 인덱싱
-3. 리스트 수정 
-	-1 : 이름만 수정
-	
-4. 카드 생성
-	-1 : 항상 리스트에 마지막 부분에 추가 카드 인덱싱  
-5. 카드 삭제 
-	-1 : 삭제되면 삭제된 리스트에 카드 인덱싱 
-6. 카드 수정 
-	-1 : 수정된 카드만 update 
-	
-*/
-
-/*
-디폴트 칸반 : 
-	프로젝트 생성시 트리거로 default 칸반 추가 
-	ex) to-do, in-progress, done
-
-*/
 
 //카드의 인덱싱을 해주는 함수 
 function cardIndexing(){
@@ -179,15 +91,43 @@ function cardIndexing(){
 		}
 	}
 
+//리스트를 인덱싱 해주는 함수 
+function listIndexing(){
+
+	function isNull(value) {
+	    return (value === undefined || value === null) ? true : false;
+	}
+	
+	let listM = $(".list").first();
+	console.log("listM")
+	console.log(listM);
+	
+	if(isNull(listM)){
+		console.log("첫번째 요소가 없음");
+		return;
+	}else{
+		for(let i = 1; i < $(".list").length+1; i++) {
+			listM.attr("id", i);
+			listM = listM.next();
+		}
+	}
+
+}
+
 //리스트와 카드의 정보를 JSON 형태로 리턴하는 함수 
 function listUp(){
 		let kanban = new Object();//모든 리스트와 카드를 담을 오브젝트 
 		let listList = new Array();//각각의 리스트객체를 담을 리스트array 
+
+		console.log(lastNum);
+		
 		for(let i = 1; i <= lastNum; i++){//첫번째 카드 리스트부터 마지막 리스트까지 
 			let list = new Object();//하나의 리스트의 정보를 담을 리스트 객체 
 			list.list_order_num = Number($("#"+i.toString()).attr("id"));//리스트의 순서 번호 
 			list.list_seq = Number($("#"+i.toString()).attr("data-list-seq"));//리스트의 고유 번호 
 
+			console.log("리스트리스트리");
+			console.log(list);
 			//여기서 리스트의 다른 항목들 추가되면 추가 
 			//ex) list.listTitle = ...
 			//ex) list.listDate = ... 
@@ -210,6 +150,8 @@ function listUp(){
 				listList.push(list);//하나의 리스트 객체를 리스트array에 담아준다. 
 			}
 		kanban.kanban = listList;
+		console.log(kanban);
+		
 		return kanban;
 	}
 
@@ -243,21 +185,22 @@ function updateKanban(projectNum){
 	function makeList(list_order_num, data_list_seq, list_name){
 	let listTag = "<div class = 'list' id ='"+list_order_num+"' data-list-seq ='"+data_list_seq+"'>"+
 				  "<div class='listTitleWrap'><div class='listTitle'>"+list_name+"</div><span class='deleteList'>&times;</span>"+
-				  "<form class='listTitleEdit'><input type='text' class='istTitleInput' placeholder='List Title'></form></div><div class ='cardWrap'>";
+				  "<form class='listTitleEdit'><input type='text' class='listTitleInput' placeholder=''></form></div><div class ='cardWrap'>";
 	return listTag;
 	}  
 
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
-	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+"</div>";
+	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
+	"<span class='deleteCard' style='display:none;'>&times;</span>"+"</div>";
 	return cardTag;
-	}  
+	}
 
 //card add button
 	function makeCardAddBtn(){
 
 		let cardAddBtn = "<div class='cardAddWrap'><div class='addCardLabel'>+ Add another Card</div><form class='addCard' style='display: none;'>"+
-			 "<textarea class='addCardTitle' id='addCardTitle' cols='30' rows='10' placeholder='Card Title'></textarea><button class='addCard-btn'>Add Card"+
+			 "<textarea class='addCardTitle' cols='30' rows='10' placeholder='Card Title'></textarea><button class='addCard-btn'>Add Card"+
 			 "</button><span class='close' id='closeCard'>&times;</span></form></div>";
 		
 		return cardAddBtn;
@@ -292,14 +235,368 @@ function loadKanban(projectNum){
 				 } 
 		       ) 
 	}
+	
 console.log("요소의 마지막 번호 : "+lastNum);
+
+/*Add a List*/
+const addListTitle = $("#addListLabel");
+const addListForm = $("#addList");
+addListTitle.click(function(e){
+    e.preventDefault();
+    $(this).hide();
+    $(this).parent().children("#addList").show();
+    $(this).parent().children("#addListTitleInput").focus();
+});
+
+//list 만들기 
+addListForm.submit(function(e){
+    e.preventDefault();
+    const listTitle = $("#addListTitleInput").val(); //리스트 제목 
+
+    //컨트롤러에게 보낼 list 객체 
+    let listOb = new Object(); 
+    listOb.list_order_num = (lastNum+1); 
+    listOb.list_name = listTitle;
+	let list = JSON.stringify(listOb);
+	let list_seq_by_controller = 0;
+
+	//리스트 seq 가져오는 ajax 
+    $.ajax({  
+				type : "post",
+				url  : "makeKanbanList.pie?projectNum="+projectNum, //**************프로젝트 넘버 추가 
+				contentType: "application/json; charset=UTF-8",
+				dataType : "json",
+				async : false,
+				data : list,
+				success : function(data){
+					list_seq_by_controller = data.data;
+				} 
+			 } 
+	);
+    
+    if(listTitle.length>0){
+    	let listTag = makeList((lastNum+1), list_seq_by_controller, listTitle); //만들기 
+		listTag += "</div>";
+		listTag += makeCardAddBtn();
+        $("#listWrap").append(listTag);
+        console.log(listTag);
+        lastNum += 1;
+       	console.log("마지막 번호 : "+lastNum);
+    }
+    $(this).children("#addListTitleInput").val("");
+    addListForm.hide();
+    addListTitle.show();
+    
+    //sortable 
+    $(".cardWrap").sortable({
+        connectWith: ".cardWrap",
+        placeholder: "card-placeholder"
+    });
+});
+
+//sweet alert 
+$(document).on("click",".deleteList",function(e){
+    swal.fire({
+        title:'Warning',
+        text:'Are u sure to delete the List?',
+        icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+
+
+		
+		//리스트 삭제 ajax 
+    	if(result.isConfirmed) {
+
+    		 //************************ 프로젝트 넘버 가져오기 
+
+    		let listOb = new Object();//삭제할 리스트의 값을 임시로 담을 obj
+
+    		listOb.list_seq = $(this).parent().parent().attr("data-list-seq"); //삭제하는 리스트의 seq 
+    		listOb.list_order_num = $(this).parent().parent().attr("id"); //삭제하는 리스트의 정렬 번호 
+				
+			let cardArray = new Array();//해당 리스트에 속한 카드를 담을 array  
+			
+			$(this).parent().next().children().each(function(){//for문 돌면서 array에 카드를 담아줌 
+				let cardOb = new Object();
+				cardOb.card_seq = $(this).attr("data-card-seq")
+				cardArray.push(cardOb);
+			});
+			listOb.cardList = cardArray; //리스트에 카드를 할당해줌 
+    		//let card = JSON.stringify(cardArray);//컨트롤러로 보낼 카드 array
+    		let list = JSON.stringify(listOb);//컨트롤러로 보낼 리스트 
+
+
+    		let listView = $(this).parent().parent();
+        	
+    		$.ajax({
+	    		url: "deleteKanbanList.pie?projectNum="+projectNum, //************************* 프로젝트 넘버 
+	    		contentType: "application/json; charset=UTF-8",
+				type: "post",
+				async : false,
+				dataType : "json",
+				data : list,
+				success : function(data){
+					console.log("hihihihihi");
+	  				swal.fire("Done!", "It's succesfully deleted!","success");
+	  				
+						//1. 리스트 화면에서 삭제 
+						listView.remove();
+						
+						//2. 리스트 및 카드 재정렬 
+						listIndexing();
+						cardIndexing();
+						
+						//3. 데이터 다시 업데이트 
+	  					updateKanban(1); //**************** 프로젝트 넘버 추가 
+
+	  				
+  				},
+  				error : function(data) {
+  	  				console.log(data);
+  	  				console.log("error error error error");
+  				swal.fire("Error", "Try Again", "error");
+  				
+  				} 
+    	  });
+    	}
+	});
+});
+
+$("#closeList").click(function(e){
+    $("#addListTitleInput").val("");
+    addListForm.hide();
+    addListTitle.show();
+});
+
+//컨트롤러를 통해 리스트 seq를 가져오는 ajax 
+function getLastNumFromController(projectNum){
+	let lastNum = null;
+
+    $.ajax({  
+		type : "post",
+		url  : "getLastListNum.pie?projectNum="+projectNum, //**************프로젝트 넘버 추가 
+		contentType: "application/json; charset=UTF-8",
+		dataType : "json",
+		async : false,
+		success : function(data){
+			console.log(data);
+			lastNum = data.data;
+		} 
+	 });
+	
+	return lastNum;
+}
+
+
+///////////////////////////////////////////////
+
+//컨트롤러를 통해 카드 seq를 가져오는 ajax
+function makeKanbanCard(jsonCard, projectNum){
+
+	let card = JSON.stringify(jsonCard);
+	let card_seq = null;
+
+	 $.ajax({  
+			type : "post",
+			url  : "makeKanbanCard.pie?projectNum="+projectNum, //**************프로젝트 넘버 추가 
+			contentType: "application/json; charset=UTF-8",
+			dataType : "json",
+			async : false,
+			data : card,
+			success : function(data){
+				card_seq = data.data;
+			} 
+		 } 
+	);
+	return card_seq;
+}
+
+/*Add Card Label*/
+$(document).on("click",".addCardLabel",function(e){
+    e.preventDefault();
+    $(this).hide();
+    $(this).parent().children("form").show();
+    $(this).parent().children("form").children("textarea").focus();
+});
+
+$('.cardContent').mouseover(function(){
+	let cardDelteBtn = $(this).children('.deleteCard');
+	cardDelteBtn.fadeIn();
+	cardDelteBtn.click(function(e){
+		e.stopPropagation();
+		swal.fire({
+        title:'Warning',
+        text:'Are u sure to delete the Card?',
+        icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+    	if(result.isConfirmed) {
+    		$.ajax({
+    		url:"deleteKanbanCard.pie?projectNum="+1,
+			type:"POST",
+			async : false,
+  			success : function () {
+  				swal.fire("Done!", "It's succesfully deleted!","success");
+  			},
+  			error : function() {
+  				swal.fire("Error", "Try Again", "error");
+  			}
+    		});
+    			}
+			});
+	});
+});
+
+$('.cardContent').mouseleave(function(){
+	$(this).children('.deleteCard').fadeOut();
+});
+
+$(document).on("submit",".addCard",function(e, item){
+
+
+    e.preventDefault();
+    const cardLabel = $(this).parent().children(".addCardLabel");
+    const cardTitleVal = $(this).children(".addCardTitle").val();
+    if(cardTitleVal.length>0){
+        
+    	let upperCard = $(this).parent().prev().children().last().attr("id") //만들려는 카드의 바로 위 카드 
+    	let list_order_num = $(this).parent().parent().attr("id"); //만들려는 카드의 리스트의 정렬번호 
+
+	 	if(upperCard===undefined){//리스트에 처음으로 카드를 만드는 경우 
+			let card_order_num = "";
+			card_order_num += list_order_num+"-1";
+			console.log(card_order_num);
+
+			let card = new Object(); //컨트롤러에게 넘길 카드 객체 
+			card.card_order_num = card_order_num;
+			card.card_name = cardTitleVal;
+
+			//db에서 셀렉트해서 card_seq 가져옴 
+			let card_seq = makeKanbanCard(card, projectNum);//************************
+
+			let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
+			$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+			
+		}else{
+			let upper_order_num = upperCard
+			let card_order_num = "";
+			card_order_num += list_order_num+"-";
+			let card_order_num2 = ($(this).parent().prev().children().length)+1;
+			card_order_num += card_order_num2;
+			console.log(card_order_num);
+
+			let card = new Object(); //컨트롤러에게 넘길 카드 객체 
+			card.card_order_num = card_order_num;
+			card.card_name = cardTitleVal;
+			
+			//db에서 셀렉트해서 card_seq 가져옴 
+			let card_seq = makeKanbanCard(card, projectNum);//************************
+
+			let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
+			$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+		} 
+    }
+    $(this).children(".addCardTitle").val("");
+    $(this).hide();
+    cardLabel.show();
+    $(".cardWrap").sortable({
+        connectWith: ".cardWrap",
+        placeholder: "card-placeholder"
+    });
+});
+
+const details = document.getElementById("detailsModal");
+
+$(document).on("click",".cardContent",function(e){
+    e.preventDefault();
+    details.style.display="block";
+});
+
+$(document).on("click",".closeModal",function(e){
+    e.preventDefault();
+    details.style.display="none";
+});
+
+window.onclick=function(e){
+    if(e.target==details){
+        details.style.display="none";
+    }
+}
+
+$(document).on("click",".addCard-btn",function(e){
+    e.preventDefault();
+    $(this).parent(".addCard").submit();
+});
+
+$(document).on("click","#closeCard",function(e){
+    e.preventDefault();
+    $(this).parent(".addCard").children(".addCardTitle").val("");
+    $(this).parent(".addCard").hide();
+    $(this).parents(".cardAddWrap").children(".addCardLabel").show();
 });
 
 
-/*
-리스트의 id = 리스트의 순서 번호 
-리스트의 data-list-seq = 리스트의 고유 번호 
+////////////////////////////
 
-카드의 id = 카드의 순서 번호 
-카드의 data-card-seq= 카드의 고유 번호 
-*/
+/*List Title*/
+
+//리스트 제목 눌렀을 때 
+$(document).on("click",".listTitle",function(e){
+    e.preventDefault();
+    let listTitleEdit = $(this).parent().children(".listTitleEdit");
+	listTitleEdit.children(".listTitleInput").attr("placeholder",$(this).html());//플레이스홀더 선택한 제목 값으로 할당 
+    $(this).hide();
+    $(this).parent().children(".deleteList").hide();
+    listTitleEdit.show();
+    listTitleEdit.children(".listTitleInput").focus();
+});
+
+//리스트 제목 수정창 사라지게하기 
+$(document).on("click",function(e){
+	if(!$(e.target).closest(".listTitle").length){
+		$(".listTitleEdit").hide();
+		$(".listTitle").show();
+		$(".deleteList").show();
+	}
+});
+
+//리스트 제목 수정 
+$(document).on("submit",".listTitleEdit",function(e){
+    e.preventDefault();
+    const listTitle = $(this).parent().children(".listTitle");
+    const lt_val = $(this).children(".listTitleInput").val(); //수정한 리스트 제목 
+    let listSeq = $(this).parent().parent().attr("data-list-seq"); //리스트의 seq값 
+
+    let listOb = new Object();
+    listOb.list_seq = listSeq;
+    listOb.list_name = lt_val;
+
+    let list = JSON.stringify(listOb);//컨트롤러에게 보낼 list 
+
+   $.ajax({  //리스트 제목 수정 ajax
+		type : "post",
+		url  : "editKanbanListTitle.pie",
+		contentType: "application/json; charset=UTF-8",
+		dataType : "json",
+		async : false,
+		data : list,
+		success : function(data){
+			console.log(data);
+		} 
+	 });
+   
+    listTitle.html(lt_val);//화면상에 리스트 제목을 바꿈 
+    $(this).hide();
+    listTitle.show();
+    $(this).parent().children(".deleteList").show();
+});
+
+
+});

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.bit.dao.CardDao;
 import kr.or.bit.dao.ListDao;
@@ -48,4 +49,67 @@ public class KanbanService {
 		listList = listdao.loadWholeList(projectNum);
 		return listList;
 	}
+	
+	//칸반 리스트 추가 
+	public boolean insertKanbanListService(HashMap<String,Object> listInfoAndProjectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		listdao.insertKanbanList(listInfoAndProjectNum);
+		return true;
+	}
+	
+	//칸반 리스트 seq 가져오기  
+	public int getListSeqService(int projectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		int list_seq = listdao.getListSeq(projectNum);
+		return list_seq;
+	}
+	
+	//칸반 리스트 마지막 번호 가져오기  
+	public int getLastListNumService(int projectNum) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		int list_seq = listdao.getLastListNum(projectNum);
+		return list_seq;
+	}
+	
+	//칸반 카드 추가 
+	public boolean insertKanbanCardService(HashMap<String,Object> cardInfoAndProjectNum) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		carddao.insertKanbanCard(cardInfoAndProjectNum);
+		return true;
+	}
+	
+	//칸반 카드 seq 가져오기  
+	public int getCardSeqService(int projectNum) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		int card_seq = carddao.getCardSeq(projectNum);
+		return card_seq;
+	}
+	
+	//칸반 리스트 제목 수정하기   
+	public void editKanbanListTitleService(list li) {
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		listdao.editKanbanListTitle(li);			
+	}
+	
+	//칸반 리스트와 카드 삭제하기(동시에) 
+	@Transactional
+	public void deleteKanbanListAndCardService(list li) {
+		CardDao carddao  = sqlsession.getMapper(CardDao.class);
+		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		
+		ArrayList<card> cardList = li.getCardList();
+		int list_seq = li.getList_seq();
+		
+		try {
+			for(int i = 0; i < cardList.size(); i++) {
+				int cardSeq = cardList.get(i).getCard_seq();
+				carddao.deleteKanbanCard(cardSeq); //카드 삭제
+			}
+			listdao.deleteKanbanList(list_seq);	//리스트 삭제 
+		} catch (Exception e) {
+			System.out.println("트랜잭션빔!!!!!!!!!!!!"+e.getMessage());
+			throw e; //시점에 트랜잭션 감지하고 있다가 롤백 처리 
+		}
+	}
+	
 }

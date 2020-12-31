@@ -17,7 +17,7 @@ public class HomeController {
 	@RequestMapping(value = "index.htm", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-			return "project_main";
+		return "login";
 	}
 	
 	//로그인 성공 후 projectList 페이지로 이동 

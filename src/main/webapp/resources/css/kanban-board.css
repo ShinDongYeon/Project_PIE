@@ -198,6 +198,23 @@ html, body {
     cursor: pointer;
 }
 
+.deleteCard {
+    color: #000;
+    height: 100%;
+    line-height: 25px;
+    font-weight: 600;
+    width: 40px;
+    width: 5%;
+    margin-right: 5px;
+    float: right;
+}
+
+.deleteCard:hover {
+	color: #6e7579;
+    cursor: pointer;
+}
+
+
 .addCard {
     display: none;
 }
