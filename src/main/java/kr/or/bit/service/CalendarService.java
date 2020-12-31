@@ -19,18 +19,16 @@ public class CalendarService {
 		this.sqlsession = sqlsession;
 	}
 	
-	public String insertCalendar(calendar calendar) {
+	public void insertCalendar(String startDate, String endDate, String title, String content, boolean allDay, String eventColor) {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		System.out.println("날짜:"+calendar.getStartDate());
+	
 		try {
-			calendardao.insertCalendar(calendar);
-			System.out.println("날짜2:"+calendar.getEndDate());
+			calendardao.insertCalendar(startDate,endDate,title,content,allDay,eventColor);
 			System.out.println("insert성공");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:"+e.getMessage());
 		}
-		return "fullcalendar";
 	}
 	
 	public List<calendar> calendarList() throws Exception {
