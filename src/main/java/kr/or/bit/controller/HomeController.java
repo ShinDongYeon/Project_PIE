@@ -29,12 +29,20 @@ public class HomeController {
 	//회원가입 페이지로 이동 
 	@RequestMapping(value = "join.pie", method = RequestMethod.GET)
 	public String join() {
-		return "user/join";
+		return "user/register";
 	}
 	
 	//비밀번호 찾기 페이지로 이동
 	@RequestMapping(value = "findPassword.pie", method = RequestMethod.GET)
 	public String findPassword() {
-		return "user/findPassword";
+		return "user/pwdForgot";
 	}
+	
+	//이메일 인증 번호 보내고 인증 확인 페이지로 이동 
+	@RequestMapping(value = "pwdForgot_emailRequest.pie", method = RequestMethod.GET)
+	public String pwdForgot_emailRequest() {
+		return "user/pwdForgot_emailRequest";
+	}
+	
+	
 }

@@ -44,6 +44,9 @@ function check(){
 												async : false,
 												success : function(data){
 													console.log(data);
+													location.href = "pwdForgot_emailRequest.pie";
+													
+													
 													//인증번호 텍스트 박스 만들기 
 													let success = "<input type = 'text' placeholder = '인증번호' id ='certifyNum' ><input type = 'button' value ='확인' id = 'certifyCheck'>";
 													$("#certify").append(success);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +8,15 @@
 	<title>Login</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/pwdForgotStyle.css">
-	
+	<jsp:include page="/resources/static/static.jsp"></jsp:include>
+	<script src="<c:url value="/resources/js/findPassword.js"/>"></script>
 </head>
 <body>
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login-register left navbar -->
-	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- Register emailRequest Page -->
 	<div class="pwdForgot-wrapper">
@@ -40,7 +42,6 @@
 						</div>
 						<input type="text" class="pwdForgot-email" id="email" name="email" placeholder="pie@pie.com">
 						<div class="pwdForgot-email-check">
-							등록되지 않은 이메일입니다.
 						</div>
 					</div>
 				</form>
@@ -48,7 +49,7 @@
 			
 			<!-- pwdForgot button -->
 			<div class="pwdForgot-btn-wrapper">
-				<button class="pwdForgot-btn">확인</button>
+				<input type = "button" id ="emailCheck" class="pwdForgot-btn" value = "확인">
 			</div>
 		</div>
 	</div>
