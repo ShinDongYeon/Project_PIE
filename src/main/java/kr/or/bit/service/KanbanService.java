@@ -71,7 +71,7 @@ public class KanbanService {
 		return list_seq;
 	}
 	
-	//칸반 리스트 마지막 번호 가져오기  
+	//칸반 리스트 seq 가져오기  
 	public int getLastListNumService(int projectNum) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
 		int list_seq = listdao.getLastListNum(projectNum);
@@ -92,7 +92,6 @@ public class KanbanService {
 		return card_seq;
 	}
 	
-	//칸반 리스트 제목 수정하기   
 	//칸반 카드 seq 가져오기  
 	public void editKanbanListTitleService(list li) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
@@ -119,5 +118,20 @@ public class KanbanService {
 			throw e; //시점에 트랜잭션 감지하고 있다가 롤백 처리 
 		}
 	}
+	
+	//Delete Card
+		public void deleteKanbanCardService(card ca) {
+			CardDao carddao  = sqlsession.getMapper(CardDao.class);
+			int card_seq = ca.getCard_seq();
+			
+			try {
+				carddao.deleteKanbanCard(card_seq);
+			} catch (Exception e) {
+				System.out.println("delteCard Error"+e.getMessage());
+				throw e; 
+			}
+		}
+		
+	//Update Card Title
 	
 }
