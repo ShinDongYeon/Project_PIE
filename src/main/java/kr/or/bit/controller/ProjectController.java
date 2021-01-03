@@ -1,11 +1,15 @@
 package kr.or.bit.controller;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
@@ -36,4 +40,26 @@ public class ProjectController {
 					model.addAttribute("data", "success");
 					return jsonview;
 			}
+		
+		@RequestMapping(value = "createPIE.pie", method = RequestMethod.POST)
+		public String createPIE(project pro){
+					projectservice.createPieService(pro);
+					System.out.println(pro);
+					return "main/main";
+			}
+		
+		@ResponseBody
+		@RequestMapping(value = "getPieList.pie", method = RequestMethod.POST)
+		public View getPieList(@RequestParam("userEmail")String userEmail, Model model){
+					System.out.println("컨트롤러에서 받은 이메일 : "+userEmail);
+					ArrayList<project> pieList = projectservice.getPieListService(userEmail);
+					
+					System.out.println(pieList);
+					
+					model.addAttribute("pieList",pieList);
+			return jsonview;
+			}
+		
+		
+		
 	}				
