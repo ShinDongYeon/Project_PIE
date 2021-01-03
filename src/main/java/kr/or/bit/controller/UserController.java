@@ -48,7 +48,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "user/emailCheck";
+		return "user/register_emailRequest";
 	}
 	
 	//로그아웃
@@ -121,7 +121,13 @@ public class UserController {
 
 	// 비밀번호 변경
 	@RequestMapping(value = "modifyPassword.pie", method = RequestMethod.POST)
-	public String modifyPassword(user u, HttpSession session) {
+	public String modifyPassword(@RequestParam("email") String email ,user u, HttpSession session) {
+		System.out.println("모디 파이");
+		System.out.println(email);
+		
+		u.setEmail(email);
+		
+		System.out.println("모디파이 " + u.getEmail());
 		u.setPwd(this.bCryptPasswordEncoder.encode(u.getPwd()));//비밀번호 암호화 
 		userservice.modifyPassword(u);
 		boolean check = true;

@@ -23,11 +23,14 @@
 		<script>
 				alert("이메일 인증이 완료되었습니다.");
 			</script>
+			<%session.removeAttribute("trueOrFalse"); %>
 	</c:if>
 	<c:if test="${sessionScope.trueOrFalse == false}">
 		<script>
 				alert("이메일 인증이 실패하였습니다.");
 			</script>
+			<%session.removeAttribute("trueOrFalse"); %>
+
 	</c:if>
 	<c:if test="${sessionScope.check}">
 		<script>

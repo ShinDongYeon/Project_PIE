@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>findPassword</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/pwdForgotStyle.css">
 	<jsp:include page="/resources/static/static.jsp"></jsp:include>
@@ -34,7 +34,6 @@
 			
 			<!-- pwdForgot email -->
 			<div class="pwdForgot-email-form">
-				<form action="">
 					<!-- 아이디 입력 -->
 					<div class="pwdForgot-email-wrapper">
 						<div class="pwdForgot-email-letter">
@@ -44,7 +43,12 @@
 						<div class="pwdForgot-email-check">
 						</div>
 					</div>
-				</form>
+					
+					<!-- 인증번호 확인 폼 생성 구역  -->
+					<div id ="certify">	
+						
+						
+					</div>
 			</div>
 			
 			<!-- pwdForgot button -->
