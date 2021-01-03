@@ -105,6 +105,7 @@
 	padding-right: 62px;
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
 	transition: width .5s;
+	z-index: 2;
 }
 
 .right-sidebar-contents-wrapper-hidden{
@@ -348,6 +349,23 @@
 }
 .chat-list-cancel:hover{
     background-color: #f2dd68;
+    color: #000;
+    cursor: pointer;
+}
+.chat-list-update{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 3px;
+    color: #f2dd68;
+    font-size: 1.8rem;
+    margin-left: 10px;
+    padding: 5px;
+}
+.chat-list-update:hover{
+	background-color: #f2dd68;
     color: #000;
     cursor: pointer;
 }

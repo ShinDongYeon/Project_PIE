@@ -30,6 +30,22 @@ $(document).ready(function(){
 	$('#sidebar-chat').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
+		
+		if(wrapper.className === 'right-sidebar-contents-wrapper-display'){
+			$.ajax(
+				{
+					type 		: "GET",
+					url  		: "ChatRoomList",
+					success 	: function(data){
+						console.log(data);
+						chattingRoomList(data);
+					},
+					error		: function(request,status,error){
+						alert(error);
+					}
+				}
+			);
+		}
 	});
 	$('#sidebar-users').click(function(){
 		btnClassName = $(this)[0].className;

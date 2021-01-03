@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class calendar {
 	
-	private String startDate;
-	private String endDate;
+	private String start;
+	private String end;
 	private String content;
-	private int seq;
+	private int id;
 	private boolean allDay;
-	private String eventColor;
+	private String color;
 	private String title;
 }

@@ -6,6 +6,8 @@
 */
 
 $(document).ready(function(){
+
+
     const proTitle = $("#projectTitle");
     const proTitleEdit = $("#projectTitleEdit");
     
@@ -169,6 +171,8 @@ $(document).ready(function(){
             }
         });
     });
+    
+    
 
     
     $("#closeList").click(function(e){
@@ -176,7 +180,10 @@ $(document).ready(function(){
         addListForm.hide();
         addListTitle.show();
     });
-
+    
+    
+	
+	
     $("#listWrap").sortable({
         placeholder: "list-placeholder",
         handle: ".listTitleWrap",
@@ -186,4 +193,5 @@ $(document).ready(function(){
         connectWith: ".cardWrap",
         placeholder: "card-placeholder"
     });
+   
 });

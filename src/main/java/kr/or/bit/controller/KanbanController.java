@@ -208,4 +208,4 @@ public class KanbanController {
 					return jsonview;
 			}
 		
-	}				
+	}

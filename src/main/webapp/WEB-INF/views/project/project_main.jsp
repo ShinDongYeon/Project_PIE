@@ -24,10 +24,10 @@
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
 			<!-- bookmark -->
-			<jsp:include page="project_main_bookmark.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/project_main_bookmark.jsp"></jsp:include>
 			
 			<!-- alarm -->
-			<jsp:include page="project_main_alarm.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/project_main_alarm.jsp"></jsp:include>
 			
 			<!-- file -->
 			<div id="far fa-folder-open" class="right-sidebar-file">
@@ -35,7 +35,7 @@
 			</div>
 			
 			<!-- chat -->
-			<jsp:include page="project_main_chat.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/project_main_chat.jsp"></jsp:include>
 			
 			<!-- users -->
 			<div id="fas fa-users" class="right-sidebar-users">
@@ -44,8 +44,7 @@
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
-			<jsp:include page="/kanban-board.jsp"></jsp:include>
-			
+			<jsp:include page="/kanban-board.jsp"></jsp:include>		
 		</div>
 	</div>
 		

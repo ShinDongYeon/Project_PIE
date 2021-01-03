@@ -71,7 +71,7 @@ public class KanbanService {
 		return list_seq;
 	}
 	
-	//칸반 리스트 seq 가져오기  
+	//칸반 리스트 마지막 번호 가져오기  
 	public int getLastListNumService(int projectNum) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
 		int list_seq = listdao.getLastListNum(projectNum);
@@ -92,6 +92,7 @@ public class KanbanService {
 		return card_seq;
 	}
 	
+	//칸반 리스트 제목 수정하기   
 	//칸반 카드 seq 가져오기  
 	public void editKanbanListTitleService(list li) {
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);

@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login-register left navbar -->
-	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- Register emailRequest Page -->
 	<div class="register-emailRequest-wrapper">
@@ -30,7 +30,7 @@
 			</div>
 			<!-- 이메일 인증 문장2 -->
 			<div class="register-emailRequest-letter2">
-				ooo회원님 회원가입을 축하합니다.<br>
+				회원가입을 축하합니다.<br>
 				메일 인증완료 후 로그인 해주시기 바랍니다.
 			</div>
 			

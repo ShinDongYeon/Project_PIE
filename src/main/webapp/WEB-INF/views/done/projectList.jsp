@@ -24,7 +24,7 @@
 	function signOut() {
 		let auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(function() {
-			location.href = "logout.do";
+			location.href = "logout.pie";
 		});
 	}
 </script>

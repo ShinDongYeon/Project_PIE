@@ -23,6 +23,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		// security로 로그인한 사용자 아이디 session에 주입
 		session.setAttribute("loginuser", auth.getName());
 
-		response.sendRedirect("projectList.pie");
+		response.sendRedirect("main.pie");
 	}
 }
