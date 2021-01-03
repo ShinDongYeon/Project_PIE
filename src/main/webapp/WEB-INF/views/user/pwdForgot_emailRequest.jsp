@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
 	
 	<!-- login-register left navbar -->
-	<jsp:include page="common/loginRegisterLeftNavbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>
 	
 	<!-- pwdForgot emailRequest Page -->
 	<div class="pwdForgot-emailRequest-wrapper">

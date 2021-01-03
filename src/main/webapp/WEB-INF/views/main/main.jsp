@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +13,27 @@
 	<link rel="stylesheet" href="/resources/css/userEdit.css">
 	<link rel="stylesheet" href="/resources/css/userEditPwdCheck.css">
 	<link rel="stylesheet" href="/resources/css/userEditWithdrawal.css">
-	
+	<jsp:include page="/resources/static/static.jsp"></jsp:include>
 	<script src="/resources/js/main.js"></script>
+<script>
+	//google 로그아웃 함수
+	function onLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+
+	//auth2 초기화 
+	onLoad();
+
+	//로그아웃 실행 
+	function signOut() {
+		let auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			location.href = "logout.pie";
+		});
+	}
+</script>
 </head>
 <body>
 	<!-- Top -->
@@ -43,13 +65,15 @@
 					<i id="user_edit" class="fas fa-edit"></i><span class="main-profile-edit-letter">회원정보 수정</span>
 				</div>
 				<div class="main-profile-info">
-					<span class="main-profile-name">신동연</span><i class="far fa-envelope"></i><br>
-					<span class="main-profile-email">dysadfasdf@gmail.com</span>
+					<span class="main-profile-name">여기에서 닉네임 가져오기</span><i class="far fa-envelope"></i><br>
+					<span class="main-profile-email">${sessionScope.loginuser}</span>
 				</div>
-				
+					
 				<!-- logout btn -->
 				<div>
+					<a href="#" onclick="signOut();">
 					<button class="main-profile-logout-btn">로그아웃</button>
+					</a>
 				</div>
 			</div>
 		</div>

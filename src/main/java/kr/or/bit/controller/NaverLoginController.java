@@ -89,7 +89,7 @@ public class NaverLoginController {
         	//아이디가 이미 존재하면 바로 메인 페이지로 이동
         	System.out.println("아이디 존재");
         	session.setAttribute("loginuser", email);
-        	return "projectList";
+        	return "main/main";
         }else {
         	//없으면 디비에 insert 후에 이동 
         	System.out.println("아이디 없음");
@@ -102,7 +102,7 @@ public class NaverLoginController {
         	session.setAttribute("loginuser", email);
         	
         	userservice.insertUser(u); // mysql에 user insert : 회원가입 성공
-        	return "projectList";
+        	return "main/main";
         }
         
     }
