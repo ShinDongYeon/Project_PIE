@@ -19,33 +19,28 @@ public class CalendarService {
 		this.sqlsession = sqlsession;
 	}
 	
-	public void insertCalendar(String startDate, String endDate, String title, String content, boolean allDay, String eventColor) {
+	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color)throws Exception{
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
+		calendardao.insertCalendar(start,end,title,content,allDay,color);
 	
-		try {
-			calendardao.insertCalendar(startDate,endDate,title,content,allDay,eventColor);
-			System.out.println("insert성공");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("에러:"+e.getMessage());
-		}
 	}
+	
 	
 	public List<calendar> calendarList() throws Exception {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		return calendardao.getCalendarList();
 	}
 	
-	public void calendarEdit(String startDate, String endDate, String seq) throws Exception {
+	public void calendarEdit(String start, String end, String id) {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		calendardao.editCalendar(startDate,endDate,seq);
+		calendardao.editCalendar(start,end,id);
 	}
 	public void calendarDelete(String seq) throws Exception {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		calendardao.deleteCalendar(seq);
 	}
-	public void calendarUpdate(calendar calendar) throws Exception {
+	public void calendarUpdate(String start, String end, String title, String content, boolean allDay, String color, String id) {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		calendardao.updateCalendar(calendar);
+		calendardao.updateCalendar(start,end,title,content,allDay,color,id);
 	}
 }
