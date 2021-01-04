@@ -10,9 +10,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
 <mapper namespace="kr.or.bit.dao.ProjectDao">
 
-	<update id="editProjectTitle" parameterType="ProjectDto">
+	<update id="editProjectTitle" parameterType="projectDto">
 		UPDATE PROJECT SET PROJECT_NAME = #{project_name} WHERE PROJECT_SEQ = #{project_seq}
 	</update>
+	
+	<insert id="createPie" parameterType="projectDto">
+		INSERT INTO PROJECT(PROJECT_SEQ, PROJECT_NAME, LEADER_EMAIL) VALUES(nextval('project_seq'), #{project_name}, #{leader_email})
+	</insert>
+	
+	<select id="getPieList" parameterType="String" resultType="projectDto">
+		SELECT * FROM PROJECT WHERE PROJECT_SEQ = ANY (SELECT PROJECT_SEQ FROM PROJECT_MEMBER WHERE EMAIL = #{param1})
+	</select>
+	
 
 </mapper>
 	

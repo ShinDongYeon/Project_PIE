@@ -1,5 +1,7 @@
 package kr.or.bit.service;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +23,24 @@ public class ProjectService {
 	private SqlSession sqlsession;
 	
 	//edit project title
-		public void editProjectTitleService(project pro) {
-			ProjectDao projectdao  = sqlsession.getMapper(ProjectDao.class);
-			projectdao.editProjectTitle(pro);			
-		}
+	public void editProjectTitleService(project pro) {
+		ProjectDao projectdao = sqlsession.getMapper(ProjectDao.class);
+		projectdao.editProjectTitle(pro);			
+	}
+	
+	//create pie 
+	public void createPieService(project pro) {
+		ProjectDao projectdao = sqlsession.getMapper(ProjectDao.class);
+		projectdao.createPie(pro);
+	}
+	
+	//create pie 
+	public ArrayList<project> getPieListService(String userEmail) {
+		ProjectDao projectdao = sqlsession.getMapper(ProjectDao.class);
+		ArrayList<project> proList = projectdao.getPieList(userEmail);
+		System.out.println("DAO를 거친 LIST : "+proList);
+		return proList;
+	}
+	
+		
 }
