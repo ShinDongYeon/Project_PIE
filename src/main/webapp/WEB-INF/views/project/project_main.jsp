@@ -45,6 +45,7 @@
 		<!-- main body -->
 		<div class="project-main-body-wrapper">
 			<jsp:include page="/WEB-INF/views/kanban/kanban-board.jsp"></jsp:include>		
+
 		</div>
 	</div>
 		

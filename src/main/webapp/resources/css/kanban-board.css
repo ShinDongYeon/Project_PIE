@@ -1,4 +1,3 @@
-
 /*
 파일명: kanban-board.css
 설명: kanban-board style
@@ -199,7 +198,7 @@ html, body {
     cursor: pointer;
 }
 
-.deleteCard {
+#deleteCard {
     color: #000;
     height: 100%;
     line-height: 25px;
@@ -210,7 +209,7 @@ html, body {
     float: right;
 }
 
-.deleteCard:hover {
+#deleteCard:hover {
 	color: #6e7579;
     cursor: pointer;
 }
@@ -254,6 +253,10 @@ html, body {
 }
 
 .addCard-btn:hover{
+    background-color: #f8df8c;
+}
+
+.editCard-btn:hover{
     background-color: #f8df8c;
 }
 

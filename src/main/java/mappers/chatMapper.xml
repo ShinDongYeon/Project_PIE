@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.bit.dao.ChatDao">
+	
+	<!-- public List<user> chatUserList(); -->
+	<select id="chatUserList" resultType="userDto">
+		SELECT EMAIL, NICKNAME, PROFILE FROM USER
+	</select>
+	
+	<!-- public List<user> chatUserListByEmail(String[] user_array); -->
+	<select id="chatUserListByEmail" parameterType="java.util.ArrayList" resultType="userDto">
+		SELECT EMAIL, NICKNAME, PROFILE FROM USER
+		WHERE EMAIL IN(
+			<foreach collection="array" item="item" index="index" separator=",">
+				#{item}
+			</foreach>
+		)
+	</select>
+	
+	<!-- public void insertChattingRoom(String CHATTING_ROOM_NAME); -->
+	<insert id="insertChattingRoom">
+		INSERT INTO CHATTINGROOM(CHATTING_ROOM_NAME,PROJECT_PROJECT_SEQ)
+		VALUES(#{CHATTING_ROOM_NAME},1)
+	</insert>
+	
+	<!-- public List<room> getRoomList(); -->
+	<select id="getRoomList" resultType="roomDto">
+		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_PROJECT_SEQ 
+		FROM CHATTINGROOM
+	</select>
+	
+	<!-- public void deleteRoom(int CHATTING_ROOM_SEQ); -->
+	<delete id="deleteRoom">
+		DELETE FROM CHATTINGROOM WHERE CHATTING_ROOM_SEQ = #{CHATTING_ROOM_SEQ}
+	</delete>
+	
+	<!-- public void updateRoom(String CHATTING_ROOM_NAME); -->
+	<update id="updateRoom">
+		UPDATE CHATTINGROOM 
+		SET CHATTING_ROOM_NAME = #{param2}
+		WHERE CHATTING_ROOM_SEQ = #{param1}
+	</update>
+
+</mapper>
