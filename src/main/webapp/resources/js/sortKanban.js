@@ -241,7 +241,7 @@ function updateKanban(projectNum){
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
 	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
-	"<i class='far fa-trash-alt' id='deleteCard' style='display:none;'></i>"+"</div>";
+	"<i class='far fa-trash-alt deleteCard' style='display:none;'></i>"+"</div>";
 	return cardTag;
 	}
 
@@ -477,7 +477,7 @@ $(document).on("click",".addCardLabel",function(e){
 });
 
 $('.cardContent').mouseover(function(){
-	let cardDelteBtn = $(this).children('#deleteCard');
+	let cardDelteBtn = $(this).children('.deleteCard');
 	cardDelteBtn.fadeIn();
 	cardDelteBtn.click(function(e){
 		e.stopPropagation();
@@ -531,7 +531,7 @@ $('.cardContent').mouseover(function(){
 });
 
 $('.cardContent').mouseleave(function(){
-	$(this).children('#deleteCard').fadeOut();
+	$(this).children('.deleteCard').fadeOut();
 });
 
 $(document).on("submit",".addCard",function(e, item){
@@ -593,6 +593,7 @@ const details = document.getElementById("detailsModal");
 
 $(document).on("click",".cardContent",function(e){
     e.preventDefault();
+	console.log($(this));
     details.style.display="block";
 });
 
@@ -606,6 +607,17 @@ window.onclick=function(e){
         details.style.display="none";
     }
 }
+
+//edit card Title in Modal
+$(document).on("click",".cardTitleMo",function(e){
+	e.preventDefault();
+	console.log($(this).parents());
+	$(this).hide();
+	let cardTitleForm = $(this).parent().children("#cardTitleForm");
+	cardTitleForm.children("#cardTitleInput").attr("placeholder",$(this).html());
+	cardTitleForm.show();
+	cardTitleForm.focus();
+});
 
 $(document).on("click",".addCard-btn",function(e){
     e.preventDefault();
@@ -623,7 +635,6 @@ $(document).on("click","#closeCard",function(e){
 ////////////////////////////
 
 /*List Title*/
-
 //리스트 제목 눌렀을 때 
 $(document).on("click",".listTitle",function(e){
     e.preventDefault();
