@@ -1,8 +1,7 @@
 package kr.or.bit.controller;
 
 import java.util.ArrayList;
-
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
-
 import kr.or.bit.dto.project;
 import kr.or.bit.service.ProjectService;
 
@@ -46,6 +44,23 @@ public class ProjectController {
 					projectservice.createPieService(pro);
 					System.out.println(pro);
 					return "main/main";
+			}
+		
+		//파이 버튼을 눌러서 해당 프로젝트로 이동 (프로젝트 넘버 가지고)
+		@RequestMapping(value = "goToMain.pie", method = RequestMethod.GET)
+		public String goToMain(@RequestParam("projectNum") int projectNum, HttpSession session){
+					System.out.println("입장한 프로젝트 넘버 : "+projectNum);
+					session.setAttribute("projectNum", projectNum);
+					return "project/project_main";
+			}
+		
+		//프로젝트 번호 리턴하는 메소드
+		@ResponseBody
+		@RequestMapping(value = "getProjectNum.pie", method = RequestMethod.POST)
+		public View getProjectNum(HttpSession session, Model model){
+					int pjNum = (int)session.getAttribute("projectNum");
+					model.addAttribute("projectNum",pjNum);
+					return jsonview;
 			}
 		
 		@ResponseBody

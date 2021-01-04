@@ -139,5 +139,7 @@ BEGIN
     INSERT INTO PROJECT_MEMBER (PROJECT_SEQ, EMAIL) VALUES (NEW.PROJECT_SEQ, NEW.LEADER_EMAIL);
 END $$
 DELIMITER ;
+
+#seq = 3개 project_seq, card_seq, list_seq 
  
 

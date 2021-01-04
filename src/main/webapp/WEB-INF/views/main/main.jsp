@@ -75,54 +75,8 @@
 					<button id = "createNewPIE" class="main-list-create-btn">+ 파이 생성하기</button>
 				</div>
 			</div>
-			<div class="main-list-body">
-				<!-- Project example1 -->
-				<div class="main-list-project-wrapper">
-					<div class="main-list-project-left-info">
-						<div class="main-list-project-logo-wrapper">
-							<img src="/resources/img/pie_logo.png" class="project-logo">
-						</div>
-						<div class="main-list-project-letter">
-							<div class="main-list-project-letter1">
-								3차 2조
-							</div>
-							<div class="main-list-project-letter2">
-								bit2team.jandi.com
-							</div>
-							<div class="main-list-project-letter3">
-								adhiofhodf@gmail.com
-							</div>
-						</div>
-					</div>
-					<div class="main-list-project-right-btn-wrapper">
-						<button class="main-list-project-right-btn1">설정</button>
-						<button class="main-list-project-right-btn2">PIE로 가기</button>
-					</div>
-				</div>
-				
-				<!-- Project example2 -->
-				<div class="main-list-project-wrapper">
-					<div class="main-list-project-left-info">
-						<div class="main-list-project-logo-wrapper">
-							<img src="/resources/img/pie_logo.png" class="project-logo">
-						</div>
-						<div class="main-list-project-letter">
-							<div class="main-list-project-letter1">
-								3차 2조
-							</div>
-							<div class="main-list-project-letter2">
-								bit2team.jandi.com
-							</div>
-							<div class="main-list-project-letter3">
-								adhiofhodf@gmail.com
-							</div>
-						</div>
-					</div>
-					<div class="main-list-project-right-btn-wrapper">
-						<button class="main-list-project-right-btn1">설정</button>
-						<button class="main-list-project-right-btn2">PIE로 가기</button>
-					</div>
-				</div>
+			<div id = "pie-list" class="main-list-body">
+				<!-- Project section -->
 			</div>
 		</div>
 	</div>
