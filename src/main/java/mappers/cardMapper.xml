@@ -29,6 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBANCARD WHERE CARD_SEQ = #{param1}
 	</delete>
 	
+	<update id="editKanbanCardTitle" parameterType="cardDto">
+		UPDATE KANBANCARD SET CARD_NAME = #{card_name} WHERE CARD_SEQ = #{card_seq}
+	</update>
 </mapper>
 
 
