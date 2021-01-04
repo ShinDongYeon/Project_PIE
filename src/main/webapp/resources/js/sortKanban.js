@@ -262,7 +262,7 @@ function updateKanban(projectNum){
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
 	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
-	"<i class='far fa-trash-alt' id='deleteCard' style='display:none;'></i>"+"</div>";
+	"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>"+"</div>";
 	return cardTag;
 	}
 

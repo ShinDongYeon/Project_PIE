@@ -10,7 +10,7 @@
 	<div class="top-menu">
 		<!-- Logo -->
 		<div class="logo-box">
-			<a href="">
+			<a href="main.pie">
 				<img src="/resources/img/pie_logo_letter.png" alt="PIE logo" class="logo">
 			</a>
 		</div>

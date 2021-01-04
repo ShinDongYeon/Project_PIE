@@ -54,6 +54,12 @@ public class ProjectController {
 					return "project/project_main";
 			}
 		
+		//파이 버튼을 눌러서 해당 프로젝트로 이동 (프로젝트 넘버 가지고)
+		@RequestMapping(value = "reKanban.pie", method = RequestMethod.GET)
+		public String reKanban(){
+					return "project/project_main";
+			}
+		
 		//프로젝트 번호 리턴하는 메소드
 		@ResponseBody
 		@RequestMapping(value = "getProjectNum.pie", method = RequestMethod.POST)
