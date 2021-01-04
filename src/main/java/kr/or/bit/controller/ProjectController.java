@@ -69,6 +69,7 @@ public class ProjectController {
 					return jsonview;
 			}
 		
+		//로그인 후 해당 사용자에 파이 리스트 가져오기
 		@ResponseBody
 		@RequestMapping(value = "getPieList.pie", method = RequestMethod.POST)
 		public View getPieList(@RequestParam("userEmail")String userEmail, Model model){
@@ -81,7 +82,7 @@ public class ProjectController {
 			return jsonview;
 			}
 		
-		
+		//프로젝트 타이틀 가져오기 
 		@ResponseBody
 		@RequestMapping(value = "getProjectTitle.pie", method = RequestMethod.POST)
 		public View getProjectTitle(@RequestParam("projectNum")int projectNum, Model model){

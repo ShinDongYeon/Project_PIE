@@ -28,7 +28,7 @@ public class HomeController {
 		return "user/login";
 	}
 	
-	//로그인 성공 후 projectList 페이지로 이동 	
+	//로그인 성공 후 파이리스트 페이지로 이동 	
 	@RequestMapping(value = "main.pie", method = RequestMethod.GET)
 	public String projectList() {
 		return "main/main";
