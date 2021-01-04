@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
-<!-- <script src="/resources/js/kanban-board.js"></script> -->
+<link rel="stylesheet" href="/resources/css/checkList .css">
+<script src="/resources/js/checkList.js"></script>
 <script src="/resources/js/sortKanban.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
@@ -44,10 +45,18 @@
             <div class="modal-detail">
                 <span class="closeModal" id="closeModal">&times;</span>
                 <div class="cardTitleMo">Card Title</div>
-                <h2><i class="fa fa-check"></i> CheckList</h2>
-		            <form id="checkListForm">
-		                <i class="fa fa-plus"></i> Add an item
-		            </form>
+                <form id="cardTitleForm">
+                    <input type="text" id="cardTitleInput" placeholder="">
+                    <input type="submit" style="display: none;">
+                </form>
+                <div id="checkListWrap">
+	            <h2 class="checkListTitle"><i class="fa fa-check"></i> CheckList</h2>
+	            <form id="checkListFrom">
+	                <div id="add-todo">
+	                    <i class="fa fa-plus"></i> Add an item
+	                </div>
+            	</form>
+            </div>
             </div>
         </div>
 </body>
