@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>FullCalendar</title>
 <!-- calendar를 위한 lib -->
-
+<link rel="stylesheet" href="/resources/css/calendar.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href='resources/fullcalendar/packages/core/main.css' rel='stylesheet' />
@@ -24,7 +24,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
@@ -46,7 +46,6 @@ var events=[];
 	if (info.event.allDay == true) {
 		if(info.event.start !== info.event.end)
 		endDate = moment(info.event.end).subtract(1, 'days')._d;
-	
       }
 	var msg;
 	$.ajax({
@@ -59,21 +58,18 @@ var events=[];
 			datetype:'json',
 			async:false,
 			url:"calendarEdit.pie",
-			success: function(data){
-				
+			success: function(data){				
 				}
 		})
 	 }
-	function deleteCalendar(info){
-			
+	function deleteCalendar(info){			
 		   	$.ajax({  
 				type : "POST",
 				url  : "calendarDelete.pie",
 				data : {
 						id:info.event.id
 					},
-				success : function(data){
-					
+				success : function(data){					
 				}   
 		});	
 		}
@@ -82,49 +78,51 @@ var events=[];
 			type : "GET",
 			url  : "calendarList.pie",
 			dataType:'json',
-			success : function(data){	
-				console.log(data)
-			/* 	$.each(data,function(index,value){
-					id = value.seq
-					title = value.title
-					start = value.startDate
-					end = value.endDate
-					allDay = value.allDay
-					color = value.eventColor
-					content = value.content
-					if (value.allDay == true) {
-						if(value.startDate !== value.endDate)
-						end = moment(value.endDate).add(1, 'days')._d;
-					
-			          }			
-					events.push({
-					id: id,
-					title: title,
-					start: start,
-					end: end,
-					color:color,
-					allDay: allDay,
-					content: value.content
-					});								
-						}) */
-				
-						successCallback(data);
+			success : function(data){				
+			var fixedDate = data.map(function(array){
+				 if (array.allDay === true && array.start !== array.end) {
+			            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+				          }
+		        array.end = moment(array.end).format('YYYY-MM-DD'+" "+'HH:mm')
+		          return array;
+				})
+			successCallback(fixedDate);
+			
 			}
-		 });
-		
+		 });		
 }
+		function editButton(){
+			$('#titleView').attr("readonly",true);
+			 $('#startDateView').attr("readonly",true);
+			 $('#endDateView').attr("readonly",true);
+			 $('#contentView').attr("readonly",true);
+			 $('#allDayView').attr("disabled",true);
+			 $('#eventColorView').attr("disabled",true);
+			 $('#editCalendar').css("display","");
+			 $('#okeditCalendar').css("display","none");
+			 $('#okeditCalendarDiv').css("display","none");
+			 $('#deleteCalendar').css("display","");
+			 $("#startDateView, #endDateView").flatpickr({clickOpens:false});	
+		     	$('#endDateView').val("")
+               	$('#titleView').val("")
+               	$('#contentView').val("")
+			}
+		function insertButton(){
+           	$('#endDate').val("")
+           	$('#title').val("")
+           	$('#content').val("")
+           	$('#eventColor').val("#D25565")	
+			}
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
       header: {
-        left: 'prev,next today',
+        left: 'prev,today,next',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-/*         	left   : 'today, prevYear, nextYear, viewWeekends',
-            center : 'prev, title, next',
-            right  : 'month, agendaWeek, agendaDay, listWeek' */
+        right: 'dayGridMonth,listMonth'
+
       },
       buttonText:{
 		today: '오늘',
@@ -145,43 +143,44 @@ document.addEventListener('DOMContentLoaded', function() {
       timeFormat : 'HH:mm',
       dayMaxEvents: true,
       locales:'ko',
-	  dateClick: function(info) {
+ 	 dateClick: function(info) {
         let today = new Date();
         let hours = today.getHours();
         let minutes =today.getMinutes();
-        document.getElementById('schedulerInsert').style.display='block'
+        document.getElementById('calendarInsert_modal_contents').style.display='block'
+       	document.getElementById('calendar_modal_background').style.display = 'block';
           $('#startDate').val(info.dateStr +" "+ hours+":"+ "00")
+          $("#insertCancel").unbind('click');
           $('#insertCancel').click(function(){
-					$('#endDate').val("")
-					$('#title').val("")
-					$('#content').val("")
-					$('#eventColor').val("#D25565")					
+        	  insertButton()			
+        	  document.getElementById('calendar_modal_background').style.display = 'none';
 				})
-		  $('#insertCalendar').click(function(){			  
+		$("#insertCalendar").unbind('click');		
+		$('#insertCalendar').click(function(){
+			 document.getElementById('calendar_modal_background').style.display = 'none';
 			  if($("input:checkbox[name=allDay]").is(":checked") == true) {
 				  allDay=true
 				}else{
 					allDay=false
 					}
-			  $.ajax({  
+		  $.ajax({  
 					type : "POST",
 					url  : "calendarInsert.pie",
-					dataType:'json',
 					data:{
 						start:$('#startDate').val(),
 						end:$('#endDate').val(),
 						title:$('#title').val(),
 						content:$('#content').val(),
 						allDay:allDay,
-						eventColor:$('#eventColor').val()
+						color:$('#eventColor').val()
 						},
-					success : function(data){
-
-						//calendar.removeAllEvents();
-	                   	calendar.refetchEvents();
+					success : function(data){	
+						calendar.refetchEvents();
+						insertButton()		
 					}
 			  })
-		  })
+						
+			})		
         },
         eventDrop: function(info){
         	 swal({
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
        			var msg = editCalendar(info);
        		  } else {
        			  info.revert();
-       		    //swal("Your imaginary file is safe!");
        		  }
        		});
             },
@@ -211,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
         			var msg = editCalendar(info);
         		  } else {
         			  info.revert();
-        		    //swal("Your imaginary file is safe!");
         		  }
         		});
 
@@ -219,13 +216,20 @@ document.addEventListener('DOMContentLoaded', function() {
              eventSources:[{
         events:eventsFeed
              }],
-    eventClick: function(info){        		
-				document.getElementById('schedulerView').style.display='block'
+    eventClick: function(info){    		
+				document.getElementById('calendarEdit_modal_contents').style.display='block'
+				document.getElementById('calendar_modal_background').style.display = 'block';
 					start = info.event.start;
 					end = info.event.end;
 					title = info.event.title;
 					content = info.event.extendedProps.content;
-					if (info.event.allDay == true) {
+					if(info.event.allDay === true){
+						$("#allDayView").prop("checked", true)
+						}else{
+							$("#allDayView").prop("checked", false)
+							}			
+					$('#eventColorView').val(info.event.borderColor)
+					if (info.event.allDay === true) {
 						if(info.event.start !== info.event.end)
 						end = moment(info.event.end).subtract(1, 'days')._d;
 				      }
@@ -233,8 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				$('#endDateView').val(moment(end).format('YYYY-MM-DD'+" "+'HH:mm'));
 				$('#titleView').val(title);
 				$('#contentView').val(content);
-				
-				
+				$("#deleteCalendar").unbind('click');
 				$('#deleteCalendar').click(function(){
 					 swal({
 				  		  title: "일정을 삭제하시겠습니까?",
@@ -247,14 +250,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				  			deleteCalendar(info)
 				  		var event=calendar.getEventById(info.event.id);
 				  			event.remove();
-				  			 //calendar.refetchEvents();
 				  		  } else {
 		
 				  		  }
-				  		});
-					
+				  		});				
 				})
-				
+				$("#editCalendar").unbind('click');
 				$('#editCalendar').click(function(){
 					console.log(info.event.id)
 					swal("수정이 가능합니다");
@@ -263,24 +264,49 @@ document.addEventListener('DOMContentLoaded', function() {
 					 $('#startDateView').removeAttr("readonly");
 					 $('#endDateView').removeAttr("readonly");
 					 $('#contentView').removeAttr("readonly");
+					 $('#allDayView').removeAttr("disabled");
+					 $('#eventColorView').removeAttr("disabled");
 					 $('#editCalendar').css("display","none");
+					 $('#okeditCalendarDiv').css("display","");
 					 $('#okeditCalendar').css("display","");
-					 $('#editCancel').css("display","")
-					 $('#okCalendar').css("display","none");
-					 $('#deleteCalendar').css("display","none");					
+					 $('#deleteCalendar').css("display","none");
+					 $("#startDateView, #endDateView").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"},'disableMobile',false);				
 					})
-
-				$('#editCancel').click(function(){
-				$('#titleView').attr("readonly");
-					 $('#startDateView').attr("readonly");
-					 $('#endDateView').attr("readonly");
-					 $('#contentView').attr("readonly");
-					 $('#editCalendar').css("display","");
-					 $('#okeditCalendar').css("display","none");
-					 $('#editCancel').css("display","none")
-					 $('#okCalendar').css("display","");
-					 $('#deleteCalendar').css("display","");	
-				})	 			
+					 $('#editCancel').click(function(){
+						 document.getElementById('calendar_modal_background').style.display = 'none';
+						 
+						 editButton()
+				})
+				$("#okeditCalendar").unbind('click');	
+				$('#okeditCalendar').click(function(){
+					document.getElementById('calendar_modal_background').style.display = 'none';
+					if($("input:checkbox[name=allDayView]").is(":checked") == true) {
+						  allDay=true
+						}else{
+							allDay=false
+							}
+					console.log($('#seqView').val())
+					  $.ajax({  
+							type : "POST",
+							url  : "calendarUpdate.pie",
+							data:{
+								id:$('#seqView').val(),
+								start:$('#startDateView').val(),
+								end:$('#endDateView').val(),
+								title:$('#titleView').val(),
+								content:$('#contentView').val(),
+								allDay:allDay,
+								color:$('#eventColorView').val()
+								},
+							success : function(data){
+								console.log(data)
+			                   	calendar.refetchEvents();
+			                   	editButton()
+			       
+							}
+					  })
+					})
+					 			
     }
     });
 
@@ -288,85 +314,82 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 $(document).ready(function(){
-	$("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});
-	});
-
+	$("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});	
+window.onclick = function(event) {
+	if(event.target == document.getElementById('calendar_modal_background')) {
+		editButton()
+		insertButton()
+		document.getElementById('calendar_modal_background').style.display = 'none';
+		document.getElementById('calendarEdit_modal_contents').style.display= 'none';
+		document.getElementById('calendarInsert_modal_contents').style.display = 'none';
+	}
+}    
+});
 </script>
 <style>
-	body{
+/* 	body{
 		font-size: initial;
 		line-height: initial;
-	}
-   .calendarbody {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
+	} */
   #calendar {
     max-width: 900px;
     margin: 0 auto;
-    background-color: white;
+    margin-top: 1%;
+   	background-color: #31353d;
+   	background-color: rgba( 255, 255, 255, 0.3 );
+ 	
   }
-
-  .w3-modal-content{
-  width:25%;
-  height: 50%; 
-  }
-  
-  #deleteCalendar , #editCalendar, #insertCalendar, #insertCancel, #okeditCalendar,#editCancel{
-  margin:10px;
-  }
-  #okCalendar{
-  margin:10px 10px 10px 0;
-  }
-
-
-  .w3-row{
-  height:15%;
-  }
-  .schedulerBody{
-  height:75%;
-  }
-
-
 
 </style>
 </head>
 <body>
-<div class="calendarbody">
+
 <div id="calendar"> </div>
-
-
+<div id="calendar_modal_background"></div>
  <!-- The Modal -->
- <%--  <form action ="${pageContext.request.contextPath}/calendarInsert.pie" method ="post"> --%> 
-  <div class="w3-modal" id="schedulerInsert">
-      <div class="w3-modal-content w3-card-4 w3-animate-zoom schedulerHead">      
-      <header class="w3-container modalhead"> 
-          <h4 class="modal-title">일정추가</h4>
-         </header>
-      
-        <div class="w3-container schedulerBody">		      
-         <div class="w3-row">
-         
-         <div class="w3-col m12"><label class="w3-col m2 ">AllDay</label><input style="margin-top:5px;" class="w3-col m1" type="checkbox" id="allDay" name="allDay" /></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">일정명</label><input class="w3-col m10" type='text'name="title" id="title"/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="start" id="startDate" autocomplete="off"/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="end" id="endDate" autocomplete="off"/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">내용</label><input class="w3-col m10" type='text'name="content" id="content" autocomplete="off"/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">색상</label>
-         		<select class="w3-col m10" name="color" id="eventColor">
+ <div id="calendarInsert_modal_contents" class="calendar-contents-wrapper">
+		<!-- userEdit title -->
+		<div class="calendar-title">
+			일정 등록
+		</div>
+		<!-- userEdit password -->
+		<div class="calendar-outer-wrapper">
+				<!-- 비밀번호 입력 -->
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						allDay
+						<input class="" type="checkbox" id="allDay" name="allDay"/>
+					</div>					
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						일정명
+					</div>
+					<input type="text" class="calendar-input" id="title" name="title">
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						시작일
+					</div>
+					<input type="text" class="calendar-input" id="startDate" name="start">
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						종료일
+					</div>
+					<input type="text" class="calendar-input" id="endDate" name="end">
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						내용
+					</div>
+					<input type="text" class="calendar-input" id="content" name="content">
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						색상
+					</div>
+					<select class="calendar-input" name="color" id="eventColor">
              	<option value="#D25565" style="color:#D25565;" >빨간색</option>
 	             <option value="#9775fa" style="color:#9775fa;" >보라색</option>
 	             <option value="#ffa94d" style="color:#ffa94d;" >주황색</option>
@@ -377,58 +400,94 @@ $(document).ready(function(){
 	             <option value="#4d638c" style="color:#4d638c;" >남색</option>
 	             <option value="#495057" style="color:#495057;" >검정색</option>
             	</select>
-            	</div>
-             </div>
-             <div class="w3-row">
-        	<input class="w3-btn w3-border w3-border-blue w3-round-large w3-display-bottomleft" 
-        	onclick="document.getElementById('schedulerInsert').style.display='none'" id="insertCalendar"type ="submit" value ="등록"> 
-        	
-        	<input class="w3-btn w3-border w3-border-red w3-round-large w3-display-bottomright" 
-        	onclick="document.getElementById('schedulerInsert').style.display='none'" type ="button" id="insertCancel"value ="취소"> 
-            </div>
-      </div>
-  </div>
-  </div>
-   <%-- </form>  --%> 
-   
-    <form action ="${pageContext.request.contextPath}/calendarUpdate.pie" method ="post"> 
-   <div class="w3-modal" id="schedulerView">
-       <div class="w3-modal-content w3-card-4 w3-animate-zoom">      
-      <header class="w3-container"> 
-          <h4 class="modal-title">일정보기</h4>
-          
-         </header>               
-        <div class="w3-container schedulerBody">
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">일정명</label><input class="w3-col m10" type='text'name="title" id="titleView" readonly/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">시작일</label><input class="w3-col m10" type='text' name="start" id="startDateView" readonly/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">종료일</label><input class="w3-col m10" type='text'name="end"  id="endDateView" readonly/></div><br>
-         </div>
-         <div class="w3-row">
-         <div class="w3-col m12"><label class="w3-col m2">내용</label><input class="w3-col m10" type='text'name="content" id="contentView" readonly/></div><br>
-         </div>
-         <input type="text" name="seq" id="seqView" hidden/>  
-        </div>   
-        <div class="w3-row">
-        <input class="w3-btn w3-border w3-border-blue w3-round-large w3-display-bottomleft" type ="submit" id="okeditCalendar" 
-      		value ="완료" style="display:none;">
-      	<input class="w3-btn w3-border w3-border-blue w3-round-large w3-display-bottomleft" type ="button" id="editCalendar"value ="수정">
-      	<input class="w3-btn w3-border w3-border-black w3-round-large w3-display-bottommiddle" 
-      		onclick="document.getElementById('schedulerView').style.display='none'" type ="button" id="okCalendar"value ="확인">
-        <input class="w3-btn w3-border w3-border-red w3-round-large w3-display-bottomright" 
-        onclick ="document.getElementById('schedulerView').style.display='none'" type ="button" id="deleteCalendar" value ="삭제"> 
-        <input class="w3-btn w3-border w3-border-red w3-round-large w3-display-bottomright" 
-        onclick="document.getElementById('schedulerView').style.display='none'" type ="button" id="editCancel" value ="취소" style="display:none;"> 
-           
+				</div>
+				
+				  
+		</div>
+		
+		<!-- x버튼 -->
+		<div class="calendar-main-withdrawal-wrapper">
+			<span id='insertCancel' class="calendar-main-withdrawal-btn"onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'">&times;</span>
+		</div>
+		
+		<!-- calendarEdit btn -->
+		<div class="calendar-btn-wrapper">
+			<button class="calendar-btn" id="insertCalendar" 
+			onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'" >등록</button>
+		</div>
+	</div>
 
-      </div>
-      </div>
-  </div>
-</form>
-</div>
+<div id="calendarEdit_modal_contents" class="calendar-contents-wrapper">
+		<!-- userEdit title -->
+		<div class="calendar-title">
+			일정 수정
+		</div>
+		<!-- userEdit password -->
+		<div class="calendar-outer-wrapper">
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						allDay
+						<input class="" type="checkbox" id="allDayView" name="allDayView" disabled />
+					</div>					
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						일정명
+					</div>
+					<input type="text" class="calendar-input" id="titleView" name="title" readonly/>
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						시작일
+					</div>
+					<input type="text" class="calendar-input" id="startDateView" name="start" readonly/>
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						종료일
+					</div>
+					<input type="text" class="calendar-input" id="endDateView" name="end" readonly/>
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						내용
+					</div>
+					<input type="text" class="calendar-input" id="contentView" name="content" readonly/>
+				</div>
+				<div class="calendar-inner-wrapper">
+					<div class="calendar-letter">
+						색상
+					</div>
+					<select class="calendar-input" name="color" id="eventColorView" disabled />
+             	<option value="#D25565" style="color:#D25565;" >빨간색</option>
+	             <option value="#9775fa" style="color:#9775fa;" >보라색</option>
+	             <option value="#ffa94d" style="color:#ffa94d;" >주황색</option>
+	             <option value="#74c0fc" style="color:#74c0fc;" >파란색</option>
+	             <option value="#f06595" style="color:#f06595;" >핑크색</option>
+	             <option value="#63e6be" style="color:#63e6be;" >연두색</option>
+	             <option value="#a9e34b" style="color:#a9e34b;" >초록색</option>
+	             <option value="#4d638c" style="color:#4d638c;" >남색</option>
+	             <option value="#495057" style="color:#495057;" >검정색</option>
+            	</select>
+				</div>
+				<input type="text" name="id" id="seqView" hidden/>
+		</div>
+		
+		<!-- x버튼 -->
+		<div class="calendar-main-withdrawal-wrapper">
+<!-- 			<button id="editCancel" class="calendar-main-withdrawal-btn"
+			onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">X</button> -->
+			<span id='editCancel' class="calendar-main-withdrawal-btn"onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">&times;</span>
+		</div>
+		
+		<!-- calendarEdit btn -->
+		<div class="calendar-btn-wrapper">
+			<button class="calendar-btn" id="editCalendar">수정</button>
+		</div>
+		<div class="calendar-btn-wrapper" id="okeditCalendarDiv"style="display:none;">
+			<button class="calendar-btn" id="okeditCalendar"
+			onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'" style="display:none;">완료</button>
+		</div>
+	</div>
 </body>
 </html>

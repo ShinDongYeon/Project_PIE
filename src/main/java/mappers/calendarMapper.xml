@@ -4,12 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.bit.dao.CalendarDao">
-
+ 
 <insert id="insertCalendar">
 INSERT INTO calendar_ex
 (start,end,title,content,allday,color)
 VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6}) 
 </insert>
+
+
 
 <select id="getCalendarList" resultType="CalendarDto">
 SELECT * FROM calendar_ex 
@@ -17,7 +19,7 @@ SELECT * FROM calendar_ex
 
 <update id="editCalendar">
 UPDATE calendar_ex
-SET start=#{param1},end = #{param2}
+SET start=#{param1},end=#{param2}
 WHERE id = #{param3} 
 </update>
 
@@ -26,10 +28,10 @@ DELETE FROM calendar_ex
 WHERE id = #{param1} 
 </delete>
 
-<update parameterType="CalendarDto" id="updateCalendar">
+<update  id="updateCalendar">
 UPDATE calendar_ex
-SET start=#{start},end = #{end},title = #{title},content = #{content}
-WHERE id = #{seq} 
+SET start=#{param1},end = #{param2},title = #{param3},content = #{param4},allday=#{param5},color=#{param6}
+WHERE id = #{param7} 
 </update>
 
 </mapper>

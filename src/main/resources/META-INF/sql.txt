@@ -1,16 +1,16 @@
 #user table 
 CREATE TABLE user (
-    email char(200) NOT NULL,
-    nickName char(200) NOT NULL,
-	pwd char(200) NOT NULL,
+    email varchar(200) NOT NULL,
+    nickName varchar(200) NOT NULL,
+	pwd varchar(200) NOT NULL,
     enabled int NOT NULL DEFAULT 1,
     PRIMARY KEY (email)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #role table
 CREATE TABLE role (
-	email char(200) NOT NULL,
-    ROLE_NAME char(200) NOT NULL,
+	email varchar(200) NOT NULL,
+    ROLE_NAME varchar(200) NOT NULL,
 	FOREIGN KEY (email) REFERENCES user(email)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,12 +52,7 @@ CREATE TABLE KANBANCARD(
 	CARD_SEQ int NOT NULL,
 	CARD_NAME varchar(45) NOT NULL,
 	CARD_ORDER_NUM varchar(200) NOT NULL,
-<<<<<<< HEAD
 	CARD_CONTENT varchar(200) DEFAULT NULL,
-=======
-	CARD_CONTENT varchar(200) NOT NULL,
->>>>>>> fd08b8d6be21f13adbd02bf17b920df86ed1dba9
-	PROJECT_SEQ int NOT NULL,
 	PRIMARY KEY (CARD_SEQ),
 	FOREIGN KEY (PROJECT_SEQ) REFERENCES PROJECT(PROJECT_SEQ)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -127,6 +122,24 @@ commit;
 
 #샘플 데이터 끝 ---------------------------------------------------------
  
+#project_member table
+CREATE TABLE project_member (
+	PROJECT_SEQ int NOT NULL,
+    EMAIL varchar(200) NOT NULL,
+    FOREIGN KEY (PROJECT_SEQ) REFERENCES PROJECT(PROJECT_SEQ),
+    FOREIGN KEY (EMAIL) REFERENCES user(email)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+#project_member 부여 트리거 
+DELIMITER $$
+CREATE TRIGGER insert_project_member_trigger
+AFTER INSERT ON project
+FOR EACH ROW
+BEGIN    
+    INSERT INTO PROJECT_MEMBER (PROJECT_SEQ, EMAIL) VALUES (NEW.PROJECT_SEQ, NEW.LEADER_EMAIL);
+END $$
+DELIMITER ;
+
+#seq = 3개 project_seq, card_seq, list_seq 
  
 

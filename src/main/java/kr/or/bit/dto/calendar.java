@@ -9,7 +9,7 @@ public class calendar {
 	private String end;
 	private String content;
 	private int id;
-	private boolean allDay;
+	private Boolean allDay;
 	private String color;
 	private String title;
 }

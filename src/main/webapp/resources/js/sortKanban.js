@@ -4,9 +4,30 @@
 작성일: 2020-12-28 ~ 
 작성자: 문지연,변재홍
 */
+
 $(function() {
 
-	let projectNum = 1; //추후에 세션에서 가져와야 됨 *******매우 중요 
+
+	  //칸반 객체를 컨트롤러에게 보내는 ajax 
+	  
+	  let pjNumByController = null;
+	  
+	  $.ajax(
+				 {  
+					type : "post",
+					contentType: "application/json; charset=UTF-8",
+					dataType : "json",
+					url  : "getProjectNum.pie",
+					async : false,
+					success : function(data){
+						pjNumByController = data.projectNum;
+					}
+				 } 
+		       )  
+		
+
+	let projectNum = pjNumByController; //추후에 세션에서 가져와야 됨 *******매우 중요 
+	console.log("프로젝트 seq : "+projectNum);
 	
 	let lastNum = getLastNumFromController(projectNum); //******************
 	console.log("페이지 로드시 리스트 개수 : "+lastNum);
