@@ -10,8 +10,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
-<link rel="stylesheet" href="/resources/css/checkList .css">
-<script src="/resources/js/checkList.js"></script>
 <script src="/resources/js/sortKanban.js"></script>
 <title>KANBAN-BOARD</title>
 </head>

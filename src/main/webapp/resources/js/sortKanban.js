@@ -23,11 +23,32 @@ $(function() {
 						pjNumByController = data.projectNum;
 					}
 				 } 
-		       )  
+		       ) 
+		       
+		  
+	
 		
 
 	let projectNum = pjNumByController; //추후에 세션에서 가져와야 됨 *******매우 중요 
 	console.log("프로젝트 seq : "+projectNum);
+	
+	
+	//프로젝트 제목 가져오는 ajax 
+		  $.ajax(
+				 {  
+					type : "post",
+					contentType: "application/json; charset=UTF-8",
+					dataType : "json",
+					url  : "getProjectTitle.pie?projectNum="+projectNum,
+					async : false,
+					success : function(data){
+					$("#projectTitle").html(data.projectTitle);
+					
+					}
+				 } 
+		       ) 
+	
+	
 	
 	let lastNum = getLastNumFromController(projectNum); //******************
 	console.log("페이지 로드시 리스트 개수 : "+lastNum);
@@ -262,7 +283,7 @@ function updateKanban(projectNum){
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
 	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
-	"<i class='far fa-trash-alt deleteCard' style='display:none;'></i>"+"</div>";
+	"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>"+"</div>";
 	return cardTag;
 	}
 
