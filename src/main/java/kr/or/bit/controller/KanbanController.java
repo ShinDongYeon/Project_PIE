@@ -33,6 +33,11 @@ public class KanbanController {
 		
 		@Autowired
 		private KanbanService kanbanservice;
+		
+		@RequestMapping(value = "kanbanboard.htm", method = RequestMethod.GET)
+		public String home() {
+				return "project/project_main";
+		}
 	
 		//kanban update 
 		@ResponseBody
@@ -207,5 +212,18 @@ public class KanbanController {
 					model.addAttribute("data", "success");
 					return jsonview;
 			}
+		
+		//delete_card
+		@ResponseBody
+		@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
+		public View deleteKanbanCard(@RequestBody card ca,
+									 @RequestParam("projectNum") int projectNum,
+									 Model model){
+					kanbanservice.deleteKanbanCardService(ca);
+					model.addAttribute("data", "success");
+					return jsonview;
+			}
+		//update_card
+		
 		
 	}

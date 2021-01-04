@@ -241,7 +241,7 @@ function updateKanban(projectNum){
 //카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name){
 	let cardTag = "<div class = 'cardContent' id ='"+card_order_num+"' data-card-seq ='"+card_seq+"'>"+card_name+
-	"<span class='deleteCard' style='display:none;'>&times;</span>"+"</div>";
+	"<i class='far fa-trash-alt' id='deleteCard' style='display:none;'></i>"+"</div>";
 	return cardTag;
 	}
 
@@ -477,7 +477,7 @@ $(document).on("click",".addCardLabel",function(e){
 });
 
 $('.cardContent').mouseover(function(){
-	let cardDelteBtn = $(this).children('.deleteCard');
+	let cardDelteBtn = $(this).children('#deleteCard');
 	cardDelteBtn.fadeIn();
 	cardDelteBtn.click(function(e){
 		e.stopPropagation();
@@ -491,14 +491,37 @@ $('.cardContent').mouseover(function(){
         confirmButtonText: 'Delete'
     }).then((result) => {
     	if(result.isConfirmed) {
+    		 //************************ 프로젝트 넘버 가져오기 
+
+    		let cardOb = new Object();
+
+    		cardOb.card_seq = $(this).parent().attr("data-card-seq");
+    		cardOb.card_order_num = $(this).parent().attr("id");
+    		let card = JSON.stringify(cardOb);//컨트롤러로 보낼 카드
+
+    		let cardView = $(this).parent();
+        	
     		$.ajax({
-    		url:"deleteKanbanCard.pie?projectNum="+1,
-			type:"POST",
-			async : false,
-  			success : function () {
-  				swal.fire("Done!", "It's succesfully deleted!","success");
-  			},
-  			error : function() {
+	    		url: "deleteKanbanCard.pie?projectNum="+projectNum, //************************* 프로젝트 넘버 
+	    		contentType: "application/json; charset=UTF-8",
+				type: "post",
+				async : false,
+				dataType : "json",
+				data : card,
+				success : function(data){
+	  				swal.fire("Done!", "It's succesfully deleted!","success");
+						//1.delete card on the view
+						cardView.remove();
+						
+						//2. resort card_id
+						cardIndexing();
+						
+						//3. updateWholeInfo 
+	  					updateKanban(projectNum); //**************** 프로젝트 넘버 추가 
+  				},
+  				error : function(data) {
+  	  				console.log(data);
+  	  				console.log("error error error error");
   				swal.fire("Error", "Try Again", "error");
   			}
     		});
@@ -508,12 +531,10 @@ $('.cardContent').mouseover(function(){
 });
 
 $('.cardContent').mouseleave(function(){
-	$(this).children('.deleteCard').fadeOut();
+	$(this).children('#deleteCard').fadeOut();
 });
 
 $(document).on("submit",".addCard",function(e, item){
-
-
     e.preventDefault();
     const cardLabel = $(this).parent().children(".addCardLabel");
     const cardTitleVal = $(this).children(".addCardTitle").val();
@@ -560,8 +581,7 @@ $(document).on("submit",".addCard",function(e, item){
 			$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
 				
 			miniSortable();
-			updateKanban(projectNum);
-			
+			updateKanban(projectNum);		
 		} 
     }
     $(this).children(".addCardTitle").val("");
