@@ -10,14 +10,16 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
-<script src="/resources/js/sortKanban.js"></script>
+<link rel="stylesheet" href="/resources/css/kanbanDetailModal.css">
+<script src="/resources/js/kanban-board.js"></script>
+<script src="/resources/js/kanbanDetailModal.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>
         <div id="kanbanPage-wrapper">
             <!-- A title of a project -->
             <div id="projectTitleWrap">
-                <div id="projectTitle">PROJECT TITLE</div>
+                <div id="projectTitle"></div>
                 <form id="projectTitleEdit">
                     <input type="text" id="projectTitleInput" placeholder="">
                     <input type="submit" style="display: none;">
@@ -42,9 +44,10 @@
         <div id="detailsModal" class="detailsModal">
             <div class="modal-detail">
                 <span class="closeModal" id="closeModal">&times;</span>
-                <div class="cardTitleMo">Card Title</div>
-                <form id="cardTitleForm">
+                <div class="cardTitleMo"></div>
+                <form id="cardTitleForm" class="cardTitleForm">
                     <input type="text" id="cardTitleInput" placeholder="">
+                    <input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
                     <input type="submit" style="display: none;">
                 </form>
                 <div id="checkListWrap">
