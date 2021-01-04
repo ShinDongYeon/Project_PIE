@@ -419,7 +419,18 @@
 	font-weight: 300;
 }
 .chat-search-box{
+	width: 100%;
+	height: auto;
+	line-height: normal;
+	padding: .6em 20px;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 20px;
+	outline-style: none;
 	-webkit-appearance: none;
+}
+.chat-lists-wrapper{
+	
 }
 .chat-list-wrapper{
 	display: flex;
@@ -431,6 +442,18 @@
 .chat-list-wrapper:hover{
 	background-color: #1d2026;
 	cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #959A9C;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f5df4d;
 }
 
 .chat-list-img{
