@@ -11,4 +11,6 @@ public interface ProjectDao {
 	public void createPie(project pro);
 
 	public ArrayList<project> getPieList(String userEmail);
+	
+	public String getProjectTitle(int projectNum);
 }

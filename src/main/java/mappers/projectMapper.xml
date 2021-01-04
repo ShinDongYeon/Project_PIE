@@ -22,6 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM PROJECT WHERE PROJECT_SEQ = ANY (SELECT PROJECT_SEQ FROM PROJECT_MEMBER WHERE EMAIL = #{param1})
 	</select>
 	
+	<select id="getProjectTitle" parameterType="int" resultType="String">
+		SELECT PROJECT_NAME FROM PROJECT WHERE PROJECT_SEQ = #{param1}
+	</select>
 
 </mapper>
 	
