@@ -46,7 +46,39 @@ $(document).ready(function(){
 		   async : false,
 		   success : function(data){
 		   console.log($("#userEmail").val());
-		   console.log(data);
+		   
+		   //console.log(data.pieList);
+		   
+		   $.each(data.pieList, function(index, item){ 
+		   		let wholePie = makePie(item.project_seq, item.project_name, item.leader_email);
+		   		console.log(item.project_seq);
+		   		$("#pie-list").append(wholePie);
+		   });
+
+		   
+		   
+		function makePie(project_seq, project_name, leader_email){
+				let pie = "<div class='main-list-project-wrapper'>"+
+					"<div class='main-list-project-left-info'>"+
+						"<div class='main-list-project-logo-wrapper'>"+
+							"<img src='/resources/img/pie_logo.png' class='project-logo'>"+
+						"</div>"+
+						"<div class='main-list-project-letter'>"+
+							"<div class='main-list-project-letter1'>"+project_name+"</div>"+
+							"<div class='main-list-project-letter3'>빅파이 : "+leader_email+"</div>"+
+						"</div>"+
+					"</div>"+
+					"<div class='main-list-project-right-btn-wrapper'>"+
+						"<button class='main-list-project-right-btn1'>설정</button>"+
+						"<a href = 'goToMain.pie?projectNum="+project_seq+"'><button class='main-list-project-right-btn2'>PIE로 가기</button></a>"+
+					"</div>"+
+				"</div>";
+				
+			return pie;	
+		}    
+		   
+	
+		   		
 		   }
 		} 
 	  )  

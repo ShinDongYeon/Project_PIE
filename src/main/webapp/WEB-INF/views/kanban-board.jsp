@@ -1,3 +1,4 @@
+<%@page import="org.springframework.http.StreamingHttpOutputMessage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,10 +12,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
 <!-- <script src="/resources/js/kanban-board.js"></script> -->
+<%-- <c:set var = "projectNum" value = "${sessionScope.projectNum}"/> --%>
 <script src="/resources/js/sortKanban.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>
+
         <div id="kanbanPage-wrapper">
             <!-- A title of a project -->
             <div id="projectTitleWrap">
