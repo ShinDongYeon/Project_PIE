@@ -146,6 +146,7 @@
 	padding: 12px 0;
 	cursor: pointer;
 	-webkit-appearance: none;
+	
 }
 .userEdit-btn:hover{
 	background-color: #31353d;
@@ -190,4 +191,92 @@ width: 100%;
 /* 768px */
 @media only screen and (max-width: 768px) {
 	.userEdit-contents-wrapper {right: 23%;}
+}
+/* 사용자 초대 모달 */
+.userInvite-input-letter{
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.userInvite-input-wrapper{
+	display: flex;
+	justify-content: space-around;
+}
+.userInvite{
+	width: 80%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	margin-right: 8px;
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 5px;
+	outline-style: none;
+	-webkit-appearance: none;
+}
+.userInviteBtn{
+	text-align: center;
+	text-decoration: none;
+	font-weight: 600;
+	width: 20%;
+	height: auto;
+	line-height: normal;
+	padding: .6em;
+	font-family: inherit;
+	border: none;
+	border-radius: 5px;
+	outline-style: none;
+	background-color: #f2dd68;
+}
+.userInviteBtn:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.userList-wrapper{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin: 3px auto;
+}
+.userList-email{
+	
+}
+.userList-btn{
+	width: 25px;
+	height: 25px;
+	color: #f2dd68;
+	background-color: #31353d;
+	border-radius: 3px;
+}
+.userList-btn:hover{
+	color: #31353d;
+	background-color: #f2dd68;
+	cursor: pointer;
+}
+.userList-btn i {
+	font-size: 1.1rem;
+}
+
+.userInvite-btn{
+    width: 100%;
+    background-color: #f2dd68;
+    border: none;
+    border-radius: 5px;
+    color: #31353d;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+.userInvite-btn:hover{
+	color: #f2dd68;
+	background-color: #31353d;
+	cursor: pointer;
 }
