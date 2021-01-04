@@ -88,6 +88,7 @@ public class NaverLoginController {
         if(isExist != null) {
         	//아이디가 이미 존재하면 바로 메인 페이지로 이동
         	System.out.println("아이디 존재");
+        	session.setAttribute("nick", isExist.getNickName());
         	session.setAttribute("loginuser", email);
         	return "main/main";
         }else {
@@ -99,6 +100,7 @@ public class NaverLoginController {
         	
         	String pwd = "임시비밀번호";//임시 비밀번호 변경이 필요함..
         	u.setPwd(this.bCryptPasswordEncoder.encode(pwd));
+        	session.setAttribute("nick", nickname);
         	session.setAttribute("loginuser", email);
         	
         	userservice.insertUser(u); // mysql에 user insert : 회원가입 성공

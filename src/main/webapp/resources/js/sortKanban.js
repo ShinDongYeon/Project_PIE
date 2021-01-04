@@ -48,8 +48,6 @@ $(function() {
 				 } 
 		       ) 
 	
-	
-	
 	let lastNum = getLastNumFromController(projectNum); //******************
 	console.log("페이지 로드시 리스트 개수 : "+lastNum);
 

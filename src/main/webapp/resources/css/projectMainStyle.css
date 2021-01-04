@@ -258,7 +258,124 @@
 	width: 100%;
 	height: 100%;
 	padding-right: 62px;
-	background-color: red;
+}
+.file-top-wrapper{
+    display: flex;
+    justify-content: center;
+    width: 298px;
+}
+
+.file-top-icon-wrapper{
+	text-align: center;
+	border: 1.8px dashed #fff;
+	padding: 20px;
+	margin: 30px 0 20px 0;
+}
+.file-top-icon-wrapper:hover{
+	cursor: pointer;
+}
+.file-top-icon{
+	font-size: 5rem;
+	color: #fff;
+}
+.file-top-icon-letter{
+	color: #fff;
+}
+
+.file-search-wrapper{
+	display: flex;
+	justify-content: space-around;
+	margin: 10px 0 10px 0;
+	width: 298px;
+}
+.file-search-item-wrapper{
+	text-align: center;
+}
+.file-search-item-letter{
+	color: #fff;
+	font-size: 0.8rem;
+	font-weight: 300;
+}
+
+/*******************************/
+/*file-search-select customized*/
+.custom-file-select{
+  width: 70px;
+  border: none;
+  border-radius: 5px;
+  background-color: #999999;
+  padding: 3px 8px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 200;
+  margin: 3px;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 1.1;
+  outline: none;
+}
+.custom-file-select::-ms-expand {
+	display: none;
+}
+.custom-file-select:root{
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+/* file-search-select customized end */
+/*************************************/
+
+.file-list-wrapper{
+	display: flex;
+	width: 298px;
+	height: 60px;
+	padding: 10px;
+	border-bottom: 1.5px solid #000;
+}
+.file-list-wrapper:hover{
+	background-color: #1d2026;
+	cursor: pointer;
+}
+.file-list-img{
+	margin-right: 8px;
+}
+.file-list-img img{
+	place-self: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	background-color: #fff;
+	padding: 5px;
+}
+.file-list-letter-wrapper{
+	width: 200px;
+}
+.file-list-letter-title{
+	color: #fff;
+	font-size: 0.9rem;
+}
+.file-list-letter-contents{
+	color: #999999;
+	font-size: 0.6rem;
+	font-weight: 100;
+}
+.file-list-cancel{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 3px;
+    color: #f2dd68;
+    font-size: 1.8rem;
+    margin-left: 10px;
+    padding: 5px;
+}
+.file-list-cancel:hover{
+    background-color: #f2dd68;
+    color: #000;
+    cursor: pointer;
 }
 
 /*chat*/

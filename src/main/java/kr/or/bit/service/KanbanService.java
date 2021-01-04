@@ -132,6 +132,9 @@ public class KanbanService {
 			}
 		}
 		
-	//Update Card Title
-	
+	//Edit Card Title
+		public void editKanbanCardTitleService(card ca) {
+			CardDao carddao  = sqlsession.getMapper(CardDao.class);
+			carddao.editKanbanCardTitle(ca);			
+		}
 }
