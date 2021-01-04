@@ -1,5 +1,6 @@
 package kr.or.bit.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -57,11 +59,12 @@ public class UserService {
 		MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 		Map model = new HashMap();
 		model.put("ranCheck", ranCheck);
+		
 		String mailBody = VelocityEngineUtils.mergeTemplateIntoString( // 보내는 이메일
-				velocityEngineFactoryBean.createVelocityEngine(), "mail.vm", "UTF-8", model);
+				velocityEngineFactoryBean.createVelocityEngine(), "join.vm", "UTF-8", model);
 		messageHelper.setFrom("jgdoh92@naver.com"); // 보내는사람 생략하거나 하면 정상작동을 안함
 		messageHelper.setTo(email); // 받는사람 이메일
-		messageHelper.setSubject(MimeUtility.encodeText("파이에서 회원가입 이메일 보내요~")); // 메일제목은 생략이 가능하다
+		messageHelper.setSubject(MimeUtility.encodeText("회원가입 이메일")); // 메일제목은 생략이 가능하다
 		messageHelper.setText(mailBody, true);
 		mailSender.send(message);
 
@@ -76,6 +79,7 @@ public class UserService {
 		model.put("ran", ranCheck);
 		String mailBody = VelocityEngineUtils.mergeTemplateIntoString( // 보내는 이메일
 				velocityEngineFactoryBean.createVelocityEngine(), "password.vm", "UTF-8", model);
+		//messageHelper.addInline("pass", file);
 		messageHelper.setFrom("jgdoh92@naver.com"); // 보내는사람 생략하거나 하면 정상작동을 안함
 		messageHelper.setTo(email); // 받는사람 이메일
 		messageHelper.setSubject(MimeUtility.encodeText("비밀번호 변경 인증번호")); // 메일제목은 생략이 가능하다

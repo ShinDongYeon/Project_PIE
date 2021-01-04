@@ -50,7 +50,7 @@
 					<i id="user_edit" class="fas fa-edit"></i><span class="main-profile-edit-letter">회원정보 수정</span>
 				</div>
 				<div class="main-profile-info">
-					<span class="main-profile-name">닉네임닉네임닉네임</span><i class="far fa-envelope"></i><br>
+					<span class="main-profile-name">${sessionScope.nick}</span><i class="far fa-envelope"></i><br>
 					<span class="main-profile-email">${sessionScope.loginuser}</span>
 					<input type = "hidden" value = "${sessionScope.loginuser}" id = "userEmail">
 				</div>
