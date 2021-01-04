@@ -31,11 +31,12 @@ $(document).ready(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
 		
+		//채팅방 목록 가져오기
 		if(wrapper.className === 'right-sidebar-contents-wrapper-display'){
 			$.ajax(
 				{
 					type 		: "GET",
-					url  		: "ChatRoomList",
+					url  		: "chat/roomlist",
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
@@ -45,6 +46,11 @@ $(document).ready(function(){
 					}
 				}
 			);
+		}
+		
+		//채팅방 - 검색 입력 내용 초기화
+		if(wrapper.className === 'right-sidebar-contents-wrapper-hidden'){
+			$('#chat-search-box').val('');
 		}
 	});
 	$('#sidebar-users').click(function(){
@@ -67,6 +73,9 @@ $(document).ready(function(){
 				contentDiv.style.display  = 'block';
 				document.getElementById(tmpBtnClassName).style.display = 'none';
 				tmpBtnClassName = btnClassName;
+				
+				//채팅방 - 검색 입력 내용 초기화
+				$('#chat-search-box').val('');
 			}		
 		}
 	};

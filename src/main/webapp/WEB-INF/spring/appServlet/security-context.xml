@@ -35,7 +35,7 @@
 	<security:jdbc-user-service data-source-ref="dataSource" 
 	   							users-by-username-query="SELECT email AS USERNAME, pwd AS PASSWORD, enabled FROM user where email=?" 
 	   							authorities-by-username-query="select u.email , r.ROLE_NAME   
-						            						   from user u join role r on u.email = r.user_email 
+						            						   from user u join role r on u.email = r.email 
 						           							   where u.email=?" />
 <security:password-encoder ref="bCryptPasswordEncoder"/>
 </security:authentication-provider>
