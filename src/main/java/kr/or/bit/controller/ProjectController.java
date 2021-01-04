@@ -82,5 +82,15 @@ public class ProjectController {
 			}
 		
 		
+		@ResponseBody
+		@RequestMapping(value = "getProjectTitle.pie", method = RequestMethod.POST)
+		public View getProjectTitle(@RequestParam("projectNum")int projectNum, Model model){
+					String title = projectservice.getProjectTitleService(projectNum);
+					model.addAttribute("projectTitle",title);
+			return jsonview;
+			}
+		
+		
+		
 		
 	}				

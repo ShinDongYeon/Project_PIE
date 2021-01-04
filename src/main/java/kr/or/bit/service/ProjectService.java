@@ -42,5 +42,13 @@ public class ProjectService {
 		return proList;
 	}
 	
+	//get project title  
+	public String getProjectTitleService(int projectNum) {
+		ProjectDao projectdao = sqlsession.getMapper(ProjectDao.class);
+		String title = projectdao.getProjectTitle(projectNum);
+		return title;
+	}
+	
+	
 		
 }
