@@ -11,17 +11,17 @@
 	
 	
 
-<!--     websocket handler
-	<beans:bean id="websocketHandler" class="kr.or.bit.websocket.websocketHandler" />
+<!--     websocket handler -->
+ 	<beans:bean id="websocketHandler" class="kr.or.bit.websocket.websocketHandler" />
  
 	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/" />
+		<websocket:mapping handler="websocketHandler" path="/websocket/echo" />
 		<websocket:handshake-interceptors>
 	         <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 	      </websocket:handshake-interceptors>
 	      <websocket:sockjs/>
 	 </websocket:handlers>
-	  -->
+
 	<!-- resources 폴더 매핑 -->
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -31,6 +31,7 @@
 	<context:component-scan base-package="kr.or.bit.controller" />
 	<context:component-scan base-package="kr.or.bit.service" />
 	<context:component-scan base-package="kr.or.bit.dao" />
+	<context:component-scan base-package="kr.or.bit.websocket" />
 		
 	<!-- json view -->
 	<beans:bean name="jsonview" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />

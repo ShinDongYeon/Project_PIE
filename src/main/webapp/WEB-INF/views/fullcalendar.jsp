@@ -24,8 +24,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--  -->
@@ -101,7 +101,7 @@ var events=[];
 			 $('#okeditCalendar').css("display","none");
 			 $('#okeditCalendarDiv').css("display","none");
 			 $('#deleteCalendar').css("display","");
-			 $("#startDateView, #endDateView").flatpickr({clickOpens:false});	
+			/*  $("#startDateView, #endDateView").flatpickr({clickOpens:false});	 */
 		     	$('#endDateView').val("")
                	$('#titleView').val("")
                	$('#contentView').val("")
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					 $('#okeditCalendarDiv').css("display","");
 					 $('#okeditCalendar').css("display","");
 					 $('#deleteCalendar').css("display","none");
-					 $("#startDateView, #endDateView").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"},'disableMobile',false);				
+					/*  $("#startDateView, #endDateView").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"},'disableMobile',false); */				
 					})
 					 $('#editCancel').click(function(){
 						 document.getElementById('calendar_modal_background').style.display = 'none';
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 $(document).ready(function(){
-	$("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});	
+	/* $("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"}); */	
 window.onclick = function(event) {
 	if(event.target == document.getElementById('calendar_modal_background')) {
 		editButton()
@@ -501,5 +501,18 @@ window.onclick = function(event) {
 			onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'" style="display:none;">완료</button>
 		</div>
 	</div>
+<!-- ------------------------------------------------------------ -->
+<input id="btnSend" value="Send" type="button">
+<input type="text" id="msg" value="테스트" class="form.control">
+<script>
+	$(document).ready(function(){
+		$("#btnSend").on("click",function(evt){
+			evt.preventDefault();
+			if(socket.readyState != 1) return;
+			let msg =$("#msg").val();
+			socket.send(msg) //소켓에 입력된 메시지를 보낸다
+		})
+		})
+</script>	
 </body>
 </html>
