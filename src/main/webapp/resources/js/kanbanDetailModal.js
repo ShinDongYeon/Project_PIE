@@ -6,7 +6,26 @@
 */
 
 $(document).ready(function(){
+	//get projectSeq
+	let pjNumByController = null;
+
+	$.ajax(
+		{
+			type: "post",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			url: "getProjectNum.pie",
+			async: false,
+			success: function(data) {
+				pjNumByController = data.projectNum;
+			}
+		}
+	)
+
+	let projectNum = pjNumByController; //추후에 세션에서 가져와야 됨 *******매우 중요 
+	console.log("project seq : " + projectNum);
 	
+	//open Modal
 	const details = document.getElementById("detailsModal");
 
 	//get card Title in Modal
@@ -69,14 +88,24 @@ $(document).ready(function(){
 		}
 	});
 	
+	
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
-		console.log($(this));
 		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq');
+		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
+		console.log("cardModalSeq:"+cardSeq);
 		
-		if(isNaN(lastSibling)||lastSibling===undefined){
-			lastSibling=0;
-		}
+		$.ajax({
+				type: "post",
+				url: "getLastCheckSeqNum.pie",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				success: function(data){
+					console.log(data);
+					lastSibling=data.data;
+				}
+			});	
 		
 		let newId = Number(lastSibling) + 1;
 		console.log("lastSibling:"+lastSibling);
@@ -95,7 +124,6 @@ $(document).ready(function(){
 	
 		$('#input-todo'+newId+'').on('blur enterEvent', function() {
 			let checkTitle = $('#input-todo'+newId+'').val();
-			let modal_card_seq = ($(this).parents().children().children('.modal_card_seq').attr('value'));
 			if (checkTitle.length > 0) {
 				$(this).before(checkTitle);
 				$(this).parent().parent().removeClass('editing');
@@ -119,27 +147,28 @@ $(document).ready(function(){
 					$('.editing').remove()
 				}, 400)
 			}
-			
+		
 		console.log("new Id:"+newId);
-		
-		/*let checkOb = new Object();
-		checkOb.check_name=checkTitle;
+		console.log("title:"+checkTitle);
+		console.log("cardSeq:"+cardSeq);
+		let checkOb = new Object;
 		checkOb.check_seq=newId;
+		checkOb.check_name=checkTitle;
+		checkOb.card_seq=cardSeq;
 		
-		let check=JSON.stringify(checkOb);
+		let check = JSON.stringify(checkOb);
 		
 		$.ajax({
-			type:"post",
-			url:"insertCheckList.pie?cardSeq"+modal_card_seq,
-			constentType: "application/json; charset=UTF-8",
+			type: "post",
+			url: "insertCheckList.pie",
+			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,
 			data: check,
 			success: function(data){
 				console.log(data);
 			}
-		})*/
-			
+		});	
 		})
 	});
 	
