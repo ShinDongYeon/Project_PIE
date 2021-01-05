@@ -71,42 +71,44 @@ $(document).ready(function(){
 	
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
-		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('id');
-		console.log(lastSibling);
+		console.log($(this));
+		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq');
+		
 		if(isNaN(lastSibling)||lastSibling===undefined){
-			lastSibling=0;
+			lastSibling=;
 		}
+		
 		let newId = Number(lastSibling) + 1;
-	
-		$(this).before('<span class="editing todo-wrap"><input type="checkbox" id="' +
-			newId + '"/><label for="' + newId +
-			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
-			newId + '"/></label></div>');
-		$('#input-todo' + newId + '').parent().parent().animate({
+		console.log("lastSibling:"+lastSibling);
+		$(this).before('<span class="editing todo-wrap"><input type="checkbox" data-check-seq="'+
+			newId+'"/><label for="'+newId+
+			'" class="todo"><i class="fa fa-check"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ></i><input type="text" class="input-todo" id="input-todo' +
+			newId+'"/></label></div>');
+		$('#input-todo'+newId+'').parent().parent().animate({
 			height: "40px"
 		}, 200)
-		$('#input-todo' + newId + '').focus();
+		$('#input-todo'+newId+'').focus();
 	
-		$('#input-todo' + newId + '').enterKey(function() {
+		$('#input-todo'+newId +'').enterKey(function() {
 			$(this).trigger('enterEvent');
 		})
 	
-		$('#input-todo' + newId + '').on('blur enterEvent', function() {
-			const todoTitle = $('#input-todo' + newId + '').val();
-			const todoTitleLength = todoTitle.length;
-			if (todoTitleLength > 0) {
-				$(this).before(todoTitle);
+		$('#input-todo'+newId+'').on('blur enterEvent', function() {
+			let checkTitle = $('#input-todo'+newId+'').val();
+			let modal_card_seq = ($(this).parents().children().children('.modal_card_seq').attr('value'));
+			if (checkTitle.length > 0) {
+				$(this).before(checkTitle);
 				$(this).parent().parent().removeClass('editing');
 				$(this).parent().after('<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span>');
 				$(this).remove();
 				$('.delete-item').click(function() {
-					var parentItem = $(this).parent();
-					parentItem.animate({
+					var delTodoWrap = $(this).parent();
+					delTodoWrap.animate({
 						left: "-30%",
 						height: 0,
 						opacity: 0
 					}, 200);
-					setTimeout(function() { $(parentItem).remove(); }, 1000);
+					setTimeout(function() { $(delTodoWrap).remove(); }, 1000);
 				});
 			}
 			else {
@@ -117,10 +119,45 @@ $(document).ready(function(){
 					$('.editing').remove()
 				}, 400)
 			}
+			
+		console.log("new Id:"+newId);
+		
+		/*let checkOb = new Object();
+		checkOb.check_name=checkTitle;
+		checkOb.check_seq=newId;
+		
+		let check=JSON.stringify(checkOb);
+		
+		$.ajax({
+			type:"post",
+			url:"insertCheckList.pie?cardSeq"+modal_card_seq,
+			constentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			data: check,
+			success: function(data){
+				console.log(data);
+			}
+		})*/
+			
 		})
-	
 	});
 	
+	$(document).on('click','.todo',function(){
+		console.log($(this).prev());
+		let chk = $(this).prev().is(":checked"); //.attr('checked')
+		if(chk){
+			console.log("unchecked");
+			$(this).prev().prop('checked',false);
+		}else {
+			console.log("checked");
+			$(this).prev().prop('checked',true);
+		}
+	});
+	
+
+	
+
 	/*Remove CheckList in Modal*/
 	$('.delete-item').click(function() {
 		var parentItem = $(this).parent();
