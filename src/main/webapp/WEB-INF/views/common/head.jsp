@@ -21,7 +21,7 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <!-- ------------------------------------------------------------------ -->
-<div id="socketAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+
 <script>
 	var socket = null; //전역변수 선언
 	$(document).ready(function(){
@@ -34,8 +34,11 @@
 			console.log(message)
 			}
 		ws.onmessage = function(event){
-			$("#socketAlert").text(event.data);
-			$("#socketAlert").css("display","block");
+			var alram = $('#socketAlert');
+			alram.empty();
+			alram.append(event.data);
+			alert(event.data)
+			alram.css('display', 'inline');
 			};
 		ws.onclose = function(event){
 			console.log("Server Close")

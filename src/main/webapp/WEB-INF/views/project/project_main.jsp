@@ -13,7 +13,6 @@
 	<script src="/resources/js/projectMainChat.js"></script>
 </head>
 <body>
-	<div></div>
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	

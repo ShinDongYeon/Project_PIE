@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
@@ -39,9 +41,20 @@ public class websocketHandler extends TextWebSocketHandler{
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			System.out.println("받음:"+message);
 			String senderId = getEmail(session);
+			///////////////////////////////////////////////////////
+			JSONObject jsonObj = JsonToObjectParser(message.getPayload());
+			System.out.println(jsonObj);
+			
+			String title = (String) jsonObj.get("title");
+			String state = (String) jsonObj.get("state");
+
+			////////////////////////////////////////////////////////
+			TextMessage tmpMsg = new TextMessage(title + "에 일정이" + state + "되었습니다.");
+			System.out.println(tmpMsg);
 			for(WebSocketSession sess: sessionList) {
-					sess.sendMessage(new TextMessage(senderId + ":" + message.getPayload()));
+					sess.sendMessage(tmpMsg);
 			}
+		
 		}
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
@@ -58,5 +71,15 @@ public class websocketHandler extends TextWebSocketHandler{
 				return loginUser.getEmail();
 			}
 				
+		}
+		private static JSONObject JsonToObjectParser(String jsonStr) {
+			JSONParser parser = new JSONParser();
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(jsonStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return obj;
 		}
 }
