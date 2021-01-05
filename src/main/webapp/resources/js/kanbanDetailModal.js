@@ -75,7 +75,7 @@ $(document).ready(function(){
 		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq');
 		
 		if(isNaN(lastSibling)||lastSibling===undefined){
-			lastSibling=;
+			lastSibling=0;
 		}
 		
 		let newId = Number(lastSibling) + 1;
