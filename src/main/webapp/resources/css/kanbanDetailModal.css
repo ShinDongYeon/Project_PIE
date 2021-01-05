@@ -108,7 +108,7 @@
 	color: #f5df4d;
 }
 
-#checkListFrom {
+#checkListForm {
 	width : 80%;
 	margin: 20px auto 20px 5px;
 	padding: 50px;
@@ -124,7 +124,7 @@
 	border-radius: 5px;
 }
 
-#checkListFrom:before {
+#checkListForm:before {
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -324,3 +324,22 @@ input[type="checkbox"] {
 .editing.todo-wrap {
 	box-shadow: 0 0 400px rgba(0, 0, 0, .8), inset 0 0px 0 2px #ebebeb;
 }
+/* 
+.todo.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.todo.checked {
+  background: #000;
+  color: #fff;
+  text-decoration: line-through;
+} */
