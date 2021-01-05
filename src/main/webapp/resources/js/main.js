@@ -205,7 +205,16 @@ $(document).on("click", "#invite-submit", function(e) {
 				data : data,
 				async: false,
 				success: function(data) {
-					console.log(data);
+					let suc = data.data;
+					if(suc==='success'){
+						modal_background.style.display = 'none';
+						invite_new_pie_modal.style.display = 'none';
+						$("#userList").empty();
+						$("#userName").val('');
+						alert("초대가 완료되었습니다!");
+					}else{
+						
+					}
 				}
 			}
 		)
