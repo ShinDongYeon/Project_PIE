@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+파일명: checkListMapper.xml
+설명: checkListMapper.xml
+작성일: 2021-01-05 ~ 
+작성자: 문지연
+ -->
+<mapper namespace="kr.or.bit.dao.CheckListDao">
+
+	<insert id="insertCheckList" parameterType="HashMap">
+		INSERT INTO CHECKLIST(CHECK_SEQ, CHECK_NAME, ISCHECKED, CARD_SEQ) VALUES(nextval('check_seq'), #{check.check_name}, 0, #{modal_card_seq})
+	</insert>
+	
+</mapper>
+	
+
+
+
+
+
+
+
+
+
+
