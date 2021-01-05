@@ -30,9 +30,7 @@
 			<jsp:include page="/WEB-INF/views/project_main_alarm.jsp"></jsp:include>
 			
 			<!-- file -->
-			<div id="far fa-folder-open" class="right-sidebar-file">
-				file창
-			</div>
+			<jsp:include page="/WEB-INF/views/project_main_file.jsp"></jsp:include>
 			
 			<!-- chat -->
 			<jsp:include page="/WEB-INF/views/project_main_chat.jsp"></jsp:include>

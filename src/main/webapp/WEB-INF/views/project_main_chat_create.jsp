@@ -19,16 +19,19 @@
 					</div>
 				</div>
 				<div class="crtChat-search">
+					<input type="text" maxlength='10' id="crtChat-search-box" class="crtChat-search-box" name="">
 					<i class="fas fa-search"></i>
 				</div>
 			</div>
 			
 			<!-- middle -->
 			<div id="Chatting-UserList" class="crtChat-middle-wrapper">
+				<!-- 
 				<div class="crtChat-select-letter">
 					파이원 선택
 				</div>
-				
+				 -->
+				 
 				<!-- user sample1 -->
 				<!-- 
 				<div class="crtChat-select-users-wrapper">

@@ -223,7 +223,16 @@ public class KanbanController {
 					model.addAttribute("data", "success");
 					return jsonview;
 			}
-		//update_card
+		//edit_Card_title
+		@ResponseBody
+		@RequestMapping(value = "editKanbanCardTitle.pie", method = RequestMethod.POST)
+		public View editKanbanCardTitle(@RequestBody card ca, Model model){
+					kanbanservice.editKanbanCardTitleService(ca);
+					System.out.println("카드 제목 수정 완료");
+					
+					model.addAttribute("data", "success");
+					return jsonview;
+			}
 		
 		
 	}
