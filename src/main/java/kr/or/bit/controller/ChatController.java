@@ -9,22 +9,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.bit.dto.room;
 import kr.or.bit.dto.roomlist;
 import kr.or.bit.dto.user;
 import kr.or.bit.service.ChatService;
 
-@RestController
+@Controller
 public class ChatController {
 	
 	@Autowired
 	private ChatService chatservice;
 
+	@ResponseBody
 	@RequestMapping(value="/chat/members", method = RequestMethod.GET)
 	public List<user> chatUserList(@RequestParam("sessionEmail") String sessionEmail,
 									HttpServletRequest request){
@@ -46,6 +49,7 @@ public class ChatController {
 		return memberList;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/members", method = RequestMethod.POST)
 	public Map<String, Object> makeRoom(@RequestParam("sessionEmail") String sessionEmail, 
 										String[] user_array, 
@@ -112,6 +116,7 @@ public class ChatController {
 		return selectMap;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/members/search", method = RequestMethod.GET)
 	public List<user> searchUser(HttpServletRequest request, 
 								@RequestParam("sessionEmail") String sessionEmail,
@@ -135,6 +140,7 @@ public class ChatController {
 		return user_list;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/members/search", method = RequestMethod.POST)
 	public List<user> searchAnotherUser(HttpServletRequest request, 
 										@RequestParam("sessionEmail") String sessionEmail, 
@@ -159,6 +165,7 @@ public class ChatController {
 		return memberList;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/members/close", method = RequestMethod.GET)
 	public List<user> selectUser(	HttpServletRequest request, 
 									@RequestParam("sessionEmail") String sessionEmail, 
@@ -183,6 +190,7 @@ public class ChatController {
 		return memberList;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/roomlist", method = RequestMethod.GET)
 	public Map<String, Object> chatRoomList(HttpServletRequest request){
 		HttpSession httpsession = request.getSession();
@@ -217,19 +225,7 @@ public class ChatController {
 		return map;
 	}
 	
-	/*
-	@RequestMapping(value="/chat/roomlist", method = RequestMethod.POST)
-	public List<room> insertChatRoomList(){
-		List<room> chat_room_list = null;
-		try {
-			chat_room_list = chatservice.getRoomList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return chat_room_list;
-	}
-	*/
-	
+	@ResponseBody
 	@RequestMapping(value="/chat/roomlist", method = RequestMethod.DELETE)
 	public void deleteRoom(@RequestParam("chatting_room_seq") int chatting_room_seq){
 		try {
@@ -240,29 +236,23 @@ public class ChatController {
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/room", method = RequestMethod.GET)
 	public void updateRoom(	@RequestParam("chatting_room_seq") int chatting_room_seq,
 												@RequestParam("chatting_room_name") String chatting_room_name){
 		List<roomlist> room_list = null;
-		String chat_member = "";
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		try {
+			
 			chatservice.updateRoom(chatting_room_seq, chatting_room_name);
-			//room_list = chatservice.getChattingRoomList(chatting_room_seq);
-			
-			//for(roomlist room : room_list) {
-			//	chat_member += "#" + room.getNickName();
-			//}
-			System.out.println("chat_member_tag:" + chat_member);
-			
-			//map.put("chat_member", chat_member);
-			//map.put("chatting_room_seq", chatting_room_seq);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/chat/room", method = RequestMethod.POST)
 	public Map<String, Object> searchRoom(HttpServletRequest request, String searchKeyword){
 		HttpSession httpsession = request.getSession();
@@ -298,4 +288,10 @@ public class ChatController {
 		return map;
 	}
 	
+	@RequestMapping(value="/chat/open", method = RequestMethod.GET)
+	public String openChatRoom(String select, String roomname, Model model, HttpServletRequest request){
+		System.out.println("select: " + select);
+		System.out.println("roomname: " + roomname);
+		return "chat";
+	}
 }

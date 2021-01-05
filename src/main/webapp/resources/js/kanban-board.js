@@ -192,7 +192,7 @@ $(function() {
 		}
 
 		let listM = $(".list").first();
-		console.log("listM")
+		console.log("listM");
 		console.log(listM);
 
 		if (isNull(listM)) {

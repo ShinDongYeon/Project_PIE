@@ -11,7 +11,7 @@
 	
 	
 
-<!--     websocket handler -->
+	<!-- websocket handler -->
  	<beans:bean id="websocketHandler" class="kr.or.bit.websocket.websocketHandler" />
  
 	<websocket:handlers>
@@ -28,10 +28,7 @@
 
 	<!-- 자동으로 빈 생성 -->
 	<context:annotation-config />
-	<context:component-scan base-package="kr.or.bit.controller" />
-	<context:component-scan base-package="kr.or.bit.service" />
-	<context:component-scan base-package="kr.or.bit.dao" />
-	<context:component-scan base-package="kr.or.bit.websocket" />
+	<context:component-scan base-package="kr.or.bit" />
 		
 	<!-- json view -->
 	<beans:bean name="jsonview" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
