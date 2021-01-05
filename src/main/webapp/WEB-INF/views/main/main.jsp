@@ -33,6 +33,9 @@
 	<!-- 파이 생성하기 모달 -->
 	<jsp:include page="/WEB-INF/views/project/createNewPIE.jsp"></jsp:include>
 	
+	<!-- 파이 초대하기 모달 -->
+	<jsp:include page="/WEB-INF/views/project/invitePIE.jsp"></jsp:include>
+	
 	
 	<!-- Main Page -->
 	<div class="main-wrapper">

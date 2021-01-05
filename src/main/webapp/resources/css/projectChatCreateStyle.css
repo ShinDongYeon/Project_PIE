@@ -5,8 +5,7 @@
 	display: none;
 	position: absolute;
 	z-index: 102;
-	left: -36%;
-    top: 11%;
+	right: 100%;
 }
 #crtChat-modal-background{
     display: none;
@@ -14,10 +13,10 @@
     top: 65px;
     left: 0;
     z-index: 102;
-	background-color: #000000c2;
+    background-color: #585858a6;
     width: 100%;
     height: 100vh;
-    backdrop-filter: blur(2.2px);
+    backdrop-filter: blur(2px);
 }
 
 .crtChat-wrapper{
@@ -60,7 +59,23 @@
 	align-self: flex-end;
 	color: #949699;
 	font-size: 1.2rem;
-	margin-left: 160px;
+}
+
+.crtChat-search-box{
+	width: 100px;
+	margin-left: 65px;
+	border: none;
+	border-bottom : 2px solid gray;
+	height: auto;
+	line-height: normal;
+	padding: .4em 15px;
+	
+	font-family: 'FontAwesome';
+	content: "\f005";
+	
+	border-radius: 20px;
+	outline-style: none;
+	-webkit-appearance: none;
 }
 
 /*middle*/
@@ -220,8 +235,23 @@
 	color: #f2dd68;
 	cursor: pointer;
 }
-
-
+.crtChat-btn-created-not{
+	width: 150px;
+	background-color: #9fa1a5;
+	color: #31353d;
+	font-size: 0.9rem;
+	font-weight: 700;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 4px;
+	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+}
+.crtChat-btn-created-not:hover{
+	background-color: #9fa1a5;
+	color: #31353d;
+	cursor: not-allowed;
+}
 
 
 
