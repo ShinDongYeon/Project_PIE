@@ -10,7 +10,7 @@
 <!-- calendar를 위한 lib -->
 <link rel="stylesheet" href="/resources/css/calendar.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css">
 <link href='resources/fullcalendar/packages/core/main.css' rel='stylesheet' />
 <link href='resources/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 <link href='resources/fullcalendar/packages/timegrid/main.css' rel='stylesheet' />
@@ -24,7 +24,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
@@ -117,7 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list','ui' ],
+      themeSystem: 'jquery-ui',
       header: {
         left: 'prev,today,next',
         center: 'title',
@@ -335,11 +335,23 @@ window.onclick = function(event) {
     max-width: 900px;
     margin: 0 auto;
     margin-top: 1%;
-   	background-color: #31353d;
-   	background-color: rgba( 255, 255, 255, 0.3 );
- 	
+	background-color: rgba( 255, 255, 255, 0.8 );	 
+   	border-radius: 5px;
+   	box-shadow: 0px 0px 20px rgba( 255, 255, 255, 0.8 );
   }
-
+  .fc-right {
+  	position: relative;
+  	top: -2px;
+  }
+   .fc-today{
+   background:rgba( 255, 255, 255, 0.5 )! important;
+}
+.fc-unthemed .fc-today {
+  background:rgba( 255, 255, 255, 0.5 )! important;
+}
+.fc-unthemed td.fc-today {
+  background:rgba( 255, 255, 255, 0.5 )! important;
+}
 </style>
 </head>
 <body>
