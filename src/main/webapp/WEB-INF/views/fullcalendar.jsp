@@ -317,8 +317,8 @@ $(document).ready(function(){
 	/* $("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"}); */	
 window.onclick = function(event) {
 	if(event.target == document.getElementById('calendar_modal_background')) {
-		editButton()
-		insertButton()
+		editButton();
+		insertButton();
 		document.getElementById('calendar_modal_background').style.display = 'none';
 		document.getElementById('calendarEdit_modal_contents').style.display= 'none';
 		document.getElementById('calendarInsert_modal_contents').style.display = 'none';

@@ -85,7 +85,7 @@ $(document).ready(function(){
 	}
 	
 	
-	window.onclick = (event) => {
+	crtChatBackground.onclick = () => {
 		// 채팅방 생성창에서 blur된 화면을 클릭했을때
 		if(event.target == crtChatBackground) {
 			modal.style.display = 'none';
