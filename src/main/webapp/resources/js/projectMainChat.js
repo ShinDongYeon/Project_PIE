@@ -20,7 +20,7 @@ $(document).ready(function(){
 		$.ajax(
 			{
 				type : "GET",
-				url  : "chat/members",
+				url  : "chat/members?sessionEmail="+$('#session_email').val(),
 				success : function(data){
 					//console.log(data);
 					userList(data);
@@ -32,6 +32,9 @@ $(document).ready(function(){
 		if($('#Selected-List').is(':empty')){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
+		
+		//console.log("$('.main-list-project-letter1').html();");
+		//console.log($('.main-list-project-letter1').html(););
 		
 	}
 	
@@ -61,7 +64,7 @@ $(document).ready(function(){
 			$.ajax(
 					{
 						type 		: "POST",
-						url  		: "chat/members",
+						url  		: "chat/members?sessionEmail="+$('#session_email').val(),
 						traditional : true,
 						data 		: {
 							'user_array' : user_array
@@ -130,7 +133,7 @@ $(document).ready(function(){
 			$.ajax(
 				{
 					type : "GET",
-					url  : "chat/members/search",
+					url  : "chat/members/search?sessionEmail="+$('#session_email').val(),
 					data : { 'nickName' : $('#crtChat-search-box').val()},
 					success : function(data){
 						userList(data);
@@ -156,7 +159,7 @@ $(document).ready(function(){
 			$.ajax(
 				{
 					type 		: "POST",
-					url  		: "chat/members/search",
+					url  		: "chat/members/search?sessionEmail="+$('#session_email').val(),
 					data 		: {
 						'nickName' : $('#crtChat-search-box').val(),
 						'user_array' : user_array
@@ -355,7 +358,6 @@ function updateNameOk(me){
 				url  		: "chat/room?chatting_room_seq="+div_substr+"&chatting_room_name="+chat_room_input.val(),
 				success 	: function(data){
 					console.log(data);
-					selectedUserWhenUpdated(data);
 				},
 				error		: function(request,status,error){
 					alert(error);
@@ -380,25 +382,6 @@ function updateNameOk(me){
 	//div 태그에 버튼 이미지 넣기
 	let opr = "<i onclick='updateChatRoomName(this)' class='fas fa-pencil-alt'></i>";
 	$('#chat-list-update-'+div_substr).append(opr);
-	
-}
-
-function selectedUserWhenUpdated(data){
-	"use strict";
-	let chat_member_tag = data.chat_member;
-	//$.each(data,function(index,elem){
-	//	chat_member_tag += "#" + elem.nickName;
-	//}
-	if(chat_member_tag.length > 27){
-		chat_member_tag = chat_member_tag.substr(0,27) + "...";
-	}
-	console.log("chat_member_tag");
-	console.log(chat_member_tag);
-
-	console.log($('#chat-list-letter-members-'+data.chatting_room_seq));
-	
-	$('#chat-list-letter-members-'+data.chatting_room_seq).val(chat_member_tag);
-	
 	
 }
 
@@ -546,7 +529,7 @@ function selectedClose(me){
 		$.ajax(
 			{
 				type 		: "POST",
-				url  		: "chat/members/search",
+				url  		: "chat/members/search?sessionEmail="+$('#session_email').val(),
 				data 		: {
 					'nickName' : $('#crtChat-search-box').val(),
 					'user_array' : user_array
@@ -566,7 +549,7 @@ function selectedClose(me){
 		$.ajax(
 			{
 				type 		: "GET",
-				url  		: "chat/members/close",
+				url  		: "chat/members/close?sessionEmail="+$('#session_email').val(),
 				data 		: {
 					'nickName' : $('#crtChat-search-box').val(),
 					'user_array' : user_array
@@ -587,7 +570,7 @@ function selectedClose(me){
 		$.ajax(
 			{
 				type : "GET",
-				url  : "chat/members/search",
+				url  : "chat/members/search?sessionEmail="+$('#session_email').val(),
 				data : { 'nickName' : $('#crtChat-search-box').val()},
 				success : function(data){
 					userList(data);

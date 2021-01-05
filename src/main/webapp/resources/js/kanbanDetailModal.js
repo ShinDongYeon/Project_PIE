@@ -71,8 +71,12 @@ $(document).ready(function(){
 	
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
-		const lastSibling = $('#checkListFrom > .todo-wrap:last-of-type > input').attr('id');
-		const newId = Number(lastSibling) + 1;
+		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('id');
+		console.log(lastSibling);
+		if(isNaN(lastSibling)||lastSibling===undefined){
+			lastSibling=0;
+		}
+		let newId = Number(lastSibling) + 1;
 	
 		$(this).before('<span class="editing todo-wrap"><input type="checkbox" id="' +
 			newId + '"/><label for="' + newId +

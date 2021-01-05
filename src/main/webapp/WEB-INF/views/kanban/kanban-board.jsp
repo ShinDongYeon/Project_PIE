@@ -52,7 +52,7 @@
                 </form>
                 <div id="checkListWrap">
 	            <h2 class="checkListTitle"><i class="fa fa-check"></i> CheckList</h2>
-	            <form id="checkListFrom">
+	            <form id="checkListForm">
 	                <div id="add-todo">
 	                    <i class="fa fa-plus"></i> Add an item
 	                </div>
