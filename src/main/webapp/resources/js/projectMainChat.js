@@ -181,6 +181,13 @@ $(document).ready(function(){
 	
 });
 
+function popupOpen(roomno,roomname){
+	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
+	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
+	window.open(popUrl, "", popOption);
+	
+}
+
 /*
 파일명: projectSidebar.js 에서 ajax 성공 시 실행되는 함수
 설명: 채팅방리스트를 비동기로 띄움
@@ -200,13 +207,17 @@ function chattingRoomList(data){
 		}else{
 			chat_title_substr = chat_title;
 		}
-			
+		
 		opr += "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
 					"<div class='chat-list-letter-wrapper'>"+
-						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+chat_title_substr+"</div>"+
+						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
+							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");'>"+
+								chat_title_substr+
+							"</a>"+
+						"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 					"</div>"+
 					"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+
@@ -247,7 +258,11 @@ function completeChattingRoom(data){
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
 					"<div id='chat-list-letter-wrapper-"+elem.chatting_room_seq+"' class='chat-list-letter-wrapper'>"+
-						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+chat_title_substr+"</div>"+
+						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
+							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");'>"+
+								chat_title_substr+
+							"</a>"+
+						"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 					"</div>"+
 					"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+
@@ -312,7 +327,7 @@ function updateChatRoomName(me){
 	let chat_room_update = $('#chat-list-update-'+div_substr);
 	
 	//새로운 요소로 대체
-	let input_tag = "<input id='chat-list-letter-title-input-"+div_substr+"' value='"+chat_room_title.html()+"' onfocus='this.select()' type='text' size=12>";
+	let input_tag = "<input id='chat-list-letter-title-input-"+div_substr+"' value='"+chat_room_title.text()+"' onfocus='this.select()' type='text' size=12>";
 	let check_button = "<i id='fas-fa-check-"+div_substr+"' onclick='updateNameOk(this)' class='fas fa-check'></i>";
 	
 	chat_room_title.empty();
@@ -329,6 +344,8 @@ function updateChatRoomName(me){
 			updateNameOk($('#fas-fa-check-'+div_substr));
 		}
 	});
+	
+	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
 
 /*
@@ -367,14 +384,20 @@ function updateNameOk(me){
 		//input 태그 삭제
 		chat_room_input.remove();
 		//div title에 value값 넣기
-		chat_room_title.append(chat_room_input.val());
+		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");'>"+
+						chat_room_input.val()+
+					"</a>";
+		chat_room_title.append(opr);
 		
 	//input 태그에 아무 값도 입력하지 않으면
 	}else{
 		//input 태그 삭제
 		chat_room_input.remove();
 		//div title에 value값 넣기
-		chat_room_title.append(chat_room_input.attr("value"));
+		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.attr("value")+"\");'>"+
+						chat_room_input.attr("value")+
+					"</a>";
+		chat_room_title.append(opr);
 	}
 	
 	//버튼 이미지
