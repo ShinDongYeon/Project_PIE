@@ -44,7 +44,6 @@ public class CheckListService {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		ArrayList<checkList> chkList = new ArrayList<>();
 		chkList = chkdao.loadCheckList(cardSeq);
-		System.out.println("chkListService:"+chkList);
 		return chkList;
 	}
 	

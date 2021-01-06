@@ -65,12 +65,10 @@ public class CheckListController {
 				System.out.println("cardSeq : "+cardSeq);
 				
 				ArrayList<checkList> chkList = checklistservice.loadWholeChkListService(cardSeq);
-				//chc_seq 돌려야함 
 				for (int i = 0; i < chkList.size(); i++) {
 					chkList.get(i).setCard_seq(cardSeq);
 				}
-				
-		        
+
 				model.addAttribute("chkList", chkList);
 				System.out.println("chkListController:"+chkList);
 				return jsonview;
