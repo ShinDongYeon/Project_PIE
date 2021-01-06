@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/resources/css/kanbanDetailModal.css">
 <script src="/resources/js/kanban-board.js"></script>
 <script src="/resources/js/kanbanDetailModal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>

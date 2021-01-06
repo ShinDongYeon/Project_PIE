@@ -7,13 +7,10 @@
 
 $(function() {
 
-
 	//칸반 객체를 컨트롤러에게 보내는 ajax 
-
 	let pjNumByController = null;
 
-	$.ajax(
-		{
+	$.ajax({
 			type: "post",
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
@@ -22,12 +19,7 @@ $(function() {
 			success: function(data) {
 				pjNumByController = data.projectNum;
 			}
-		}
-	)
-
-
-
-
+		});
 
 	let projectNum = pjNumByController; //추후에 세션에서 가져와야 됨 *******매우 중요 
 	console.log("프로젝트 seq : " + projectNum);
@@ -47,8 +39,6 @@ $(function() {
 			}
 		}
 	)
-
-
 
 	let lastNum = getLastNumFromController(projectNum); //******************
 	console.log("페이지 로드시 리스트 개수 : " + lastNum);
@@ -71,8 +61,6 @@ $(function() {
 		});
 	}
 
-	let new_list_id = null;//업데이트 시 새로운 리스트 id 값 
-	let old_list_id = null;//업데이트 시 전 리스트 id 값 
 	let new_list = null;//새로운 리스트 객체 
 
 	function miniSortable() {//카드 단위 sortable 
@@ -257,8 +245,7 @@ $(function() {
 		console.log(wholeList);
 
 		//칸반 객체를 컨트롤러에게 보내는 ajax 
-		$.ajax(
-			{
+		$.ajax({
 				type: "post",
 				url: "updateKanban.pie?projectNum=" + projectNum,
 				contentType: "application/json; charset=UTF-8",
@@ -270,8 +257,7 @@ $(function() {
 					console.log(wholeList);
 				}
 			}
-		)
-	}
+		)}
 
 	//리스트 태그를 만들고 리턴해주는 함수 
 	function makeList(list_order_num, data_list_seq, list_name) {
@@ -398,8 +384,6 @@ $(function() {
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Delete'
 		}).then((result) => {
-
-
 
 			//리스트 삭제 ajax 
 			if (result.isConfirmed) {
@@ -644,9 +628,6 @@ $(function() {
 		$(this).parents(".cardAddWrap").children(".addCardLabel").show();
 	});
 
-
-	////////////////////////////
-
 	/*List Title*/
 	//리스트 제목 눌렀을 때 
 	$(document).on("click", ".listTitle", function(e) {
@@ -701,8 +682,10 @@ $(function() {
 
 	$("#listWrap").sortable({
 		placeholder: "list-placeholder",
-		handle: ".listTitleWrap",
+		handle: ".listTitleWrap"
 	});
-
-
+	
+	$(".cardWrap").sortable({
+		placeholder: "card-placeholder"
+	});
 });
