@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT MAX(CURRVAL) FROM SEQUENCES WHERE NAME='CHECK_SEQ'
 	</select>
 	
+	<select id="loadCheckList" resultType="checkListDto" parameterType="int">
+		SELECT CHECK_SEQ, CHECK_NAME FROM CHECKLIST WHERE CARD_SEQ = #{param1} ORDER BY CHECK_SEQ DESC
+	</select>
+	
 </mapper>
 	
 

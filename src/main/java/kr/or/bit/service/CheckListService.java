@@ -1,5 +1,6 @@
 package kr.or.bit.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.CheckListDao;
+import kr.or.bit.dto.checkList;
 
 /*
 파일명: CheckListService.java
@@ -35,6 +37,14 @@ public class CheckListService {
 		chkdao.insertCheckList(checkListInfo);
 		System.out.println("insert chk Service:"+checkListInfo);
 		return true;
+	}
+	
+	//Load Whole CheckList
+	public ArrayList<checkList> loadWholeChkListService(int cardSeq) {
+		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+		ArrayList<checkList> chkList = new ArrayList<>();
+		chkList = chkdao.loadCheckList(cardSeq);
+		return chkList;
 	}
 	
 }
