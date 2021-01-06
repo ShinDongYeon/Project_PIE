@@ -7,10 +7,16 @@
 		<!-- drag and drop image -->
 		<div class="file-top-wrapper">
 			<div class="file-top-icon-wrapper">
-				<i class="fas fa-folder-plus file-top-icon"></i>
+				<!-- 아이콘 누르면 파일 업로드 가능하게 커스텀 -->
+				<i class="fas fa-folder-plus file-top-icon" onclick="onclick=document.all.file.click()"></i>
 				<div class="file-top-icon-letter">
 					Drag and Drop
+					<form id = "fileForm" method = "post" enctype="multipart/form-data">
+					<input type="file"><!-- style="display:none" -->
+					<div id = "fileSubmit">파일전송</div>
+					</form>
 				</div>			
+				
 			</div>
 		</div>
 		

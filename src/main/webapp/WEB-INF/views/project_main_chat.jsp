@@ -11,7 +11,7 @@
 			<button id="crtChatBtn" class="chat-createBtn">+ 채팅방 생성하기</button>
 			
 			<!-- chatting page to create -->
-			<jsp:include page="project_main_chat_create.jsp"></jsp:include>
+			<jsp:include page="main-sidebar-options/project_main_chat_create.jsp"></jsp:include>
 		</div>
 		
 		<!-- chat search -->
