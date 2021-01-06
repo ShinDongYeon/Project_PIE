@@ -213,7 +213,7 @@ public class KanbanController {
 					return jsonview;
 			}
 		
-		//delete_card
+		//delete_card_checkList
 		@ResponseBody
 		@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
 		public View deleteKanbanCard(@RequestBody card ca,
@@ -226,7 +226,7 @@ public class KanbanController {
 		//edit_Card_title
 		@ResponseBody
 		@RequestMapping(value = "editKanbanCardTitle.pie", method = RequestMethod.POST)
-		public View editKanbanCardTitle(@RequestBody card ca, Model model){
+		public View editKanbanCardTitle(@RequestBody card ca, Model model) {
 					kanbanservice.editKanbanCardTitleService(ca);
 					System.out.println("카드 제목 수정 완료");
 					

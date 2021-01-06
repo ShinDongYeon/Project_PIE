@@ -511,6 +511,29 @@ $(function() {
 
 					cardOb.card_seq = $(this).parent().attr("data-card-seq");
 					cardOb.card_order_num = $(this).parent().attr("id");
+					
+					let chkListArray = new Array();
+					$.ajax({
+						url: "loadCheckList.pie?cardSeq="+cardOb.card_seq,
+						contentType: "application/json; charset=UTF-8",
+						type: "post",
+						async: false,
+						dataType: "json",
+						success: function(data) {
+							//get checkList to delete it first
+							let chkList = data.chkList;
+							$.each(chkList,function(index,item){
+								let checkOb = new Object();
+								checkOb.check_seq = item.check_seq;
+								chkListArray.push(checkOb);
+							});
+						}
+					})
+					
+							cardOb.chkList=chkListArray;
+							console.log("chkListArray");
+							console.log(chkListArray);
+					
 					let card = JSON.stringify(cardOb);//컨트롤러로 보낼 카드
 
 					let cardView = $(this).parent();

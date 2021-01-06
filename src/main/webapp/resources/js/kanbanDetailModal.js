@@ -25,7 +25,7 @@ $(document).ready(function() {
 	
 	function makeChkList(check_seq,check_name){
 		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
-			check_seq + '"/><label for="' + check_seq +
+			check_seq+'"/><label for="' + check_seq +
 			'" class="todo"><i class="fa fa-check"></i>'+check_name+'</label>'+
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
 		return chkTag;
@@ -55,8 +55,13 @@ $(document).ready(function() {
 				let chkList = data.chkList;
 				
 				$.each(chkList, function(index,item){
-					let chkTag = makeChkList(item.check_seq,item.check_name);
-					console.log("chkTag:"+chkTag);
+					let chkTag = makeChkList(item.check_seq,item.check_name,item.ischecked);
+					
+					if(item.ischecked==1){
+						console.log("ischecked");
+						console.log($('.todo').prev());
+						$('.todo').prev().prop('checked', false);
+					}
 					$("#add-todo").parent().prepend(chkTag);
 				});
 			}
@@ -184,16 +189,6 @@ $(document).ready(function() {
 						console.log(data);
 					}
 				});
-				
-				$('.delete-item').click(function() {
-					var delTodoWrap = $(this).parent();
-					delTodoWrap.animate({
-						left: "-30%",
-						height: 0,
-						opacity: 0
-					}, 200);
-					setTimeout(function() { $(delTodoWrap).remove(); }, 1000);
-				});
 			} else {
 				$('.editing').animate({
 					height: '0px'
@@ -201,7 +196,6 @@ $(document).ready(function() {
 				setTimeout(function() {
 					$('.editing').remove()
 				}, 400);
-
 			}
 			console.log("new Id:" + newId);
 			console.log("title:" + checkTitle);
@@ -222,15 +216,36 @@ $(document).ready(function() {
 	});
 
 	/*Remove CheckList in Modal*/
-	$('.delete-item').click(function() {
-		var parentItem = $(this).parent();
-		parentItem.animate({
-			left: "-30%",
-			height: 0,
-			opacity: 0
-		}, 200);
-		setTimeout(function() { $(parentItem).remove(); }, 1000);
-	});
+	$(document).on('click','.delete-item',function(){
+		console.log($(this));
+		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
+		let checkSeq =Number($(this).prev().attr('for'));
+		
+		let checkOb = new Object();
+		checkOb.card_seq=cardSeq;
+		checkOb.check_seq=checkSeq;
+		
+		let check = JSON.stringify(checkOb);
+		let deletedItem = $(this).parent();
+		
+		$.ajax({
+			url: "deleteChkList.pie?cardSeq="+cardSeq,
+			contentType: "application/json; charset=UTF-8",
+			type: "post",
+			async: "false",
+			dataType: "json",
+			data: check,
+			success: function(data){
+				console.log(data);
+				deletedItem.animate({
+						left: "-30%",
+						height: 0,
+						opacity: 0
+					}, 200);
+				setTimeout(function() { $(deletedItem).remove(); }, 1000);
+					}
+				});
+		});
 
 	/*Enter Key Event Handler*/
 	$.fn.enterKey = function(fnc) {

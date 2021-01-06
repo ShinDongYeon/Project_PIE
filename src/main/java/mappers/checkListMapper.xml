@@ -20,8 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="loadCheckList" resultType="checkListDto" parameterType="int">
-		SELECT CHECK_SEQ, CHECK_NAME FROM CHECKLIST WHERE CARD_SEQ = #{param1} ORDER BY CHECK_SEQ DESC
+		SELECT * FROM CHECKLIST WHERE CARD_SEQ = #{param1} ORDER BY CHECK_SEQ DESC
 	</select>
+	
+	<delete id="deleteChkList" parameterType="int">
+		DELETE FROM CHECKLIST WHERE CHECK_SEQ = #{param1}
+	</delete>
 	
 </mapper>
 	

@@ -59,18 +59,28 @@ public class CheckListController {
 	}
 	
 	// Load CheckList
-	//해당 프로젝트의 해당되는 칸반 객체를 뷰에게 전달  
-			@RequestMapping(value = "loadCheckList.pie", method = RequestMethod.POST)
-			public View loadKanban(@RequestParam("cardSeq") int cardSeq, Model model) {
-				System.out.println("cardSeq : "+cardSeq);
-				
-				ArrayList<checkList> chkList = checklistservice.loadWholeChkListService(cardSeq);
-				for (int i = 0; i < chkList.size(); i++) {
-					chkList.get(i).setCard_seq(cardSeq);
-				}
+	@RequestMapping(value = "loadCheckList.pie", method = RequestMethod.POST)
+	public View loadKanban(@RequestParam("cardSeq") int cardSeq, Model model) {
+		System.out.println("cardSeq : " + cardSeq);
 
-				model.addAttribute("chkList", chkList);
-				System.out.println("chkListController:"+chkList);
-				return jsonview;
-			}
+		ArrayList<checkList> chkList = checklistservice.loadWholeChkListService(cardSeq);
+		for (int i = 0; i < chkList.size(); i++) {
+			chkList.get(i).setCard_seq(cardSeq);
+		}
+
+		model.addAttribute("chkList", chkList);
+		System.out.println("chkListController:" + chkList);
+		return jsonview;
+	}
+	
+	// Delete CheckList
+	@ResponseBody
+	@RequestMapping(value = "deleteChkList.pie", method = RequestMethod.POST)
+	public View deleteChkList(@RequestBody checkList chk, @RequestParam("cardSeq") int cardSeq, Model model) {
+
+		checklistservice.deleteChkListService(chk);
+		System.out.println("delete CheckList Seq:"+chk);
+		model.addAttribute("data", "success");
+		return jsonview;
+	}
 }

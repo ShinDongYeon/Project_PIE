@@ -47,4 +47,16 @@ public class CheckListService {
 		return chkList;
 	}
 	
+	// Delete CheckList
+	public void deleteChkListService(checkList chk) {
+		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+		int check_seq = chk.getCheck_seq();
+		try {
+			chkdao.deleteChkList(check_seq);
+		} catch (Exception e) {
+			System.out.println("delteChkList Error" + e.getMessage());
+			throw e;
+		}
+	}
+	
 }
