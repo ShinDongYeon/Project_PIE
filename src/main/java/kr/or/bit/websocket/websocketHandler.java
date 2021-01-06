@@ -34,17 +34,22 @@ public class websocketHandler extends TextWebSocketHandler{
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+			/*Map<String,String> alram = new HashMap<>();*/
 			System.out.println("받음:"+message);
 			String senderId = getEmail(session);
 			///////////////////////////////////////////////////////
 			JSONObject jsonObj = JsonToObjectParser(message.getPayload());
 			System.out.println(jsonObj);
-			
+			String nickName = (String) jsonObj.get("nick");
 			String title = (String) jsonObj.get("title");
 			String state = (String) jsonObj.get("state");
-
+	/*		alram.put("nickName", nickName);
+			alram.put("title", title);
+			alram.put("state", state);*/
+			String[] alram = {nickName,title,state};
+			System.out.println(alram);
 			////////////////////////////////////////////////////////
-			TextMessage tmpMsg = new TextMessage(title + "에 일정이" + state + "되었습니다.");
+			TextMessage tmpMsg = new TextMessage(nickName+" 님이 "+title + "에 일정을 " + state + " 하였습니다.");
 			System.out.println(tmpMsg);
 			for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(tmpMsg);

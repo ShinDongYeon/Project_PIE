@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 			  })
 			  	var alram = {
+			  		nick:"${sessionScope.nick}",
 					title:"캘린더",
 					state:"등록"
 					}
@@ -313,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							}
 					  })
 					var alram = {
+					nick:"${sessionScope.nick}",
 					title:"캘린더",
 					state:"수정"
 					}

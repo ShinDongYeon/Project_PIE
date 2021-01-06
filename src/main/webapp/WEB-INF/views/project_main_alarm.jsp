@@ -5,6 +5,8 @@
 <body>
 	<div id="far fa-bell" class="right-sidebar-alarm">
 		<!-- samples -->
+		<div  id="alram">
+		<!-- 
 		<div class="alarm-item-wrapper">
 			<div class="alarm-top-wrapper">
 				<div class="alarm-user"><i class="fas fa-user"></i></div>
@@ -22,10 +24,10 @@
 			<div class="alarm-bottom-wrapper">
 				내용입니다.
 			</div>
-		</div>
-		
+		</div> -->
+	 
 		<!-- samples -->
-		<div class="alarm-item-wrapper">
+		<!-- <div class="alarm-item-wrapper">
 			<div class="alarm-top-wrapper">
 				<div class="alarm-user"><i class="fas fa-user"></i></div>
 				<div class="alarm-username">강성윤</div>
@@ -42,7 +44,8 @@
 			<div class="alarm-bottom-wrapper">
 				내용입니다.
 			</div>
-		</div>
+		</div> -->
+	</div>
 	</div>
 </body>
 </html>

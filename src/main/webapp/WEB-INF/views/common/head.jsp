@@ -23,6 +23,8 @@
 <!-- ------------------------------------------------------------------ -->
 
 <script>
+
+										
 	var socket = null; //전역변수 선언
 	$(document).ready(function(){
 		connectWS();
@@ -34,10 +36,30 @@
 			console.log(message)
 			}
 		ws.onmessage = function(event){
-			var alram = $('#socketAlert');
-			alram.empty();
-			alram.append(event.data);
-			alert(event.data)
+			let html = '<div class="alarm-item-wrapper">\
+				<div class="alarm-top-wrapper">\
+				<div class="alarm-user"><i class="fas fa-user"></i></div>\
+				<div class="alarm-username">강성윤</div>\
+				<div class="alarm-cancel"><i class="fas fa-times"></i></div>\
+				</div>\
+				<div class="alarm-middle-wrapper">\
+				<div class="alarm-reply">\
+				<i class="far fa-comment-dots"></i>댓글\
+				</div>\
+				<div class="alarm-flag">\
+				<i class="fas fa-star"></i>즐겨찾기\
+				</div>\
+				</div>\
+				<div class="alarm-bottom-wrapper" id="alram">\
+					'+event.data+'\
+				</div>\
+				</div>';
+			var alram = $('#alram');
+			//alram.empty();
+			alram.append(html);
+			console.log(html)
+			//alram.append('<h3>'+event.data+'<h3>')
+			//alram.append(event.data);
 			alram.css('display', 'inline');
 			};
 		ws.onclose = function(event){
