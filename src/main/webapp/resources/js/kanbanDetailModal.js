@@ -20,9 +20,16 @@ $(document).ready(function() {
 		}
 	})
 
-	let projectNum = pjNumByController; //추후에 세션에서 가져와야 됨 *******매우 중요 
+	let projectNum = pjNumByController;
 	console.log("project seq : " + projectNum);
-
+	
+	function makeChkList(check_seq,check_name){
+		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
+			check_seq + '"/><label for="' + check_seq +
+			'" class="todo"><i class="fa fa-check"></i>'+check_name+'</label>'+
+			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
+		return chkTag;
+	}
 	//open Modal
 	const details = document.getElementById("detailsModal");
 
@@ -32,24 +39,41 @@ $(document).ready(function() {
 		details.style.display = "block";
 		//set clicked Card Content cardSeq as a value
 		$('.modal_card_seq').attr("value", $(this).data().cardSeq);
-		let cardSeq = $('.modal_card_seq').attr("value");
+		let cardSeq = Number($('.modal_card_seq').attr("value"));
 		console.log("cardSeq:" + cardSeq);
-
 		//get card Title
 		$('.cardTitleMo').text($(this).context.innerText);
-
+		
 		//get saved checkList
+		$.ajax({
+			type: "post",
+			url: "loadCheckList.pie?cardSeq="+cardSeq,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data){
+				let chkList = data.chkList;
+				
+				$.each(chkList, function(index,item){
+					let chkTag = makeChkList(item.check_seq,item.check_name);
+					console.log("chkTag:"+chkTag);
+					$("#add-todo").parent().prepend(chkTag);
+				});
+			}
+		});
+		
 	});
 
 	//close Modal
 	$(document).on("click", ".closeModal", function(e) {
 		e.preventDefault();
 		details.style.display = "none";
+		$(".todo-wrap").remove();
 	});
 
 	window.onclick = function(e) {
 		if (e.target == details) {
-			details.style.display = "none";
+		details.style.display = "none";
 		}
 	}
 
@@ -96,7 +120,7 @@ $(document).ready(function() {
 
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
-		let lastSibling = $('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq');
+		let lastSibling = Number($('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq'));
 		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
 		console.log("cardModalSeq:" + cardSeq);
 
@@ -116,7 +140,7 @@ $(document).ready(function() {
 		console.log("lastSibling:" + lastSibling);
 		$(this).before('<span class="editing todo-wrap"><input type="checkbox" data-check-seq="' +
 			newId + '"/><label for="' + newId +
-			'" class="todo"><i class="fa fa-check"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ></i><input type="text" class="input-todo" id="input-todo' +
+			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');
 		$('#input-todo' + newId + '').parent().parent().animate({
 			height: "40px"
@@ -196,9 +220,6 @@ $(document).ready(function() {
 			$(this).prev().prop('checked', true);
 		}
 	});
-
-
-
 
 	/*Remove CheckList in Modal*/
 	$('.delete-item').click(function() {

@@ -1,5 +1,6 @@
 package kr.or.bit.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
@@ -55,4 +57,22 @@ public class CheckListController {
 		model.addAttribute("data", false);
 		return jsonview;
 	}
+	
+	// Load CheckList
+	//해당 프로젝트의 해당되는 칸반 객체를 뷰에게 전달  
+			@RequestMapping(value = "loadCheckList.pie", method = RequestMethod.POST)
+			public View loadKanban(@RequestParam("cardSeq") int cardSeq, Model model) {
+				System.out.println("cardSeq : "+cardSeq);
+				
+				ArrayList<checkList> chkList = checklistservice.loadWholeChkListService(cardSeq);
+				//chc_seq 돌려야함 
+				for (int i = 0; i < chkList.size(); i++) {
+					chkList.get(i).setCard_seq(cardSeq);
+				}
+				
+		        
+				model.addAttribute("chkList", chkList);
+				System.out.println("chkListController:"+chkList);
+				return jsonview;
+			}
 }
