@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.bit.dao.CardDao;
+import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.ListDao;
 import kr.or.bit.dto.card;
+import kr.or.bit.dto.checkList;
 import kr.or.bit.dto.list;
 
 /*
@@ -119,15 +121,23 @@ public class KanbanService {
 		}
 	}
 	
-	//Delete Card
+	//Delete Card_CheckList
+	@Transactional
 		public void deleteKanbanCardService(card ca) {
 			CardDao carddao  = sqlsession.getMapper(CardDao.class);
+			CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+			
+			ArrayList<checkList> chkList = ca.getChkList();
 			int card_seq = ca.getCard_seq();
 			
 			try {
+				for(int i=0; i<chkList.size(); i++) {
+					int check_seq = chkList.get(i).getCheck_seq();
+					chkdao.deleteChkList(check_seq);
+				}
 				carddao.deleteKanbanCard(card_seq);
 			} catch (Exception e) {
-				System.out.println("delteCard Error"+e.getMessage());
+				System.out.println("delteCardAndList Error"+e.getMessage());
 				throw e; 
 			}
 		}
