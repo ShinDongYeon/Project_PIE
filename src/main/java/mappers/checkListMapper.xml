@@ -11,8 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.bit.dao.CheckListDao">
 
 	<insert id="insertCheckList" parameterType="HashMap">
-		INSERT INTO CHECKLIST(CHECK_SEQ, CHECK_NAME, ISCHECKED, CARD_SEQ) VALUES(nextval('check_seq'), #{check.check_name}, 0, #{modal_card_seq})
+		INSERT INTO CHECKLIST(CHECK_SEQ, CHECK_NAME, ISCHECKED, CARD_SEQ) 
+		VALUES(nextval('check_seq'), #{checkList.check_name}, 0, #{checkList.card_seq})
 	</insert>
+	
+	<select id="getLastCheckSeq" resultType="int" parameterType="int">
+		SELECT MAX(CURRVAL) FROM SEQUENCES WHERE NAME='CHECK_SEQ'
+	</select>
 	
 </mapper>
 	
