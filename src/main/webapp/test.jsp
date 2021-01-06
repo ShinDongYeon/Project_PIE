@@ -15,7 +15,7 @@
         <script>
             //파이어베이스에 등록한 앱에 CDN클릭 후 해당정보 가져와서 삽입
             var firebaseConfig = {
-                apiKey: "",
+                apiKey: "AIzaSyBHE3RCQLccnFAFpIa4VvYAI4EbzugwB2w",
                 authDomain: "fir-pie-572bb.firebaseapp.com",
                 databaseURL: "https://fir-pie-572bb-default-rtdb.firebaseio.com/",
                 projectId: "fir-pie-572bb",
