@@ -42,7 +42,7 @@ public class FileController {
 			
 		}
 		
-	
+	/*
 		File targetFile = new File(UPLOAD_PATH.resolve(multipartFile.getOriginalFilename()).toString()); 
 		try { 
 			InputStream fileStream = multipartFile.getInputStream(); 
@@ -50,7 +50,7 @@ public class FileController {
 		} catch (IOException e) { 
 			FileUtils.deleteQuietly(targetFile); 
 			log.error("Failed to upload ", e); }
-
+	*/
 		
 		return "success";
 	}
