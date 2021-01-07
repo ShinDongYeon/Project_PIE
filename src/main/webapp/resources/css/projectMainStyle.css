@@ -278,6 +278,10 @@
 	font-size: 5rem;
 	color: #fff;
 }
+.file-text{
+	color : red;
+	
+}
 .file-top-icon-letter{
 	color: #fff;
 }
@@ -376,6 +380,37 @@
     background-color: #f2dd68;
     color: #000;
     cursor: pointer;
+}
+.new-file-wrapper{
+	display: flex;
+	width: 298px;
+	height: 0px;
+	padding: 0px;
+	border-bottom: 1.5px solid #000;
+}
+.new-file{
+	width : 298px;
+	
+}
+
+.file-upload-btn{
+	justify-content: center;
+	width: 90px;
+	height: 30px;
+	background-color: #f2dd68;
+	border: none;
+	border-radius: 6px;
+	color: #31353d;
+	text-align: center;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 700;
+	margin-top  : 5px;
+	margin-left : 200px;
+	padding: 5px;
+	cursor: pointer;
+	-webkit-appearance: none;
+	box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
 }
 
 /*chat*/
@@ -546,4 +581,6 @@
 	height: 100vh;
 	padding-top: 65px;
 }
+
+
 
