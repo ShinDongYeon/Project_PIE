@@ -30,7 +30,8 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarInsert.pie", method = RequestMethod.POST)
 	public String calendarInsert(String start, String end, String title, String content, Boolean allDay,
-			String color) {
+			String color, calendar calendar) {
+		System.out.println("캘린더"+calendar.getStart());
 		try {
 			calendarservice.insertCalendar(start, end, title, content, allDay, color);
 		} catch (Exception e) {

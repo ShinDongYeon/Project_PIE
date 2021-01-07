@@ -26,7 +26,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!--  -->
@@ -39,6 +40,9 @@ var allDay;
 var color;
 var content;
 var events=[];
+let today = new Date();
+let hours = today.getHours();
+let minutes = today.getMinutes();
  function editCalendar(info){
 	id = info.event.id;
 	start = info.event.start;
@@ -91,6 +95,9 @@ var events=[];
 			}
 		 });		
 }
+
+		
+
 		function editButton(){
 			$('#titleView').attr("readonly",true);
 			 $('#startDateView').attr("readonly",true);
@@ -145,13 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
       dayMaxEvents: true,
       locales:'ko',
  	 dateClick: function(info) {
-        let today = new Date();
-        let hours = today.getHours();
-        let minutes =today.getMinutes();
-       
         document.getElementById('calendarInsert_modal_contents').style.display='block'
        	document.getElementById('calendar_modal_background').style.display = 'block';
-          $('#startDate').val(info.dateStr +" "+ hours+":"+ "00")
+          $('#startDate').val(info.dateStr + " "+hours+":00")
+          console.log(info)
           $("#insertCancel").unbind('click');
           $('#insertCancel').click(function(){
         	  insertButton()			
@@ -181,13 +185,14 @@ document.addEventListener('DOMContentLoaded', function() {
 						insertButton()		
 					}
 			  })
-			  	var alram = {
+				  	var alram = {
+			  		email:"${sessionScope}",
 			  		nick:"${sessionScope.nick}",
 					title:"캘린더",
-					state:"등록"
+					state:"등록",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
 					}
-			socket.send(JSON.stringify(alram))
-						
+					socket.send(JSON.stringify(alram))	
 			})		
         },
         eventDrop: function(info){
@@ -313,12 +318,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			       
 							}
 					  })
+
 					var alram = {
 					nick:"${sessionScope.nick}",
 					title:"캘린더",
-					state:"수정"
+					state:"수정",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
 					}
 					socket.send(JSON.stringify(alram))
+
 					})
 					 			
     }
@@ -329,8 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(document).ready(function(){
  $("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});
-});
-$(document).ready(function(){
  window.onclick = function(event) {
 	if(event.target == document.getElementById('calendar_modal_background')) {
 		editButton();
@@ -340,6 +346,7 @@ $(document).ready(function(){
 		document.getElementById('calendarInsert_modal_contents').style.display = 'none';
 	}
 }    
+
 });
 
 </script>
@@ -518,18 +525,6 @@ $(document).ready(function(){
 			onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'" style="display:none;">완료</button>
 		</div>
 	</div>
-	<div id="alram" style="display: none"></div>
-<!-- ------------------------------------------------------------ -->
-<!-- <input id="btnSend" value="Send" type="button">
-<input type="text" id="msg" value="테스트" class="form.control">
-<script>
-	$(document).ready(function(){
-		$("#btnSend").on("click",function(evt){
-			evt.preventDefault();
-			if(socket.readyState != 1) return;
-			let msg =$("#msg").val();
-			socket.send(msg) //소켓에 입력된 메시지를 보낸다
-		})
-</script>	 -->
+
 </body>
 </html>

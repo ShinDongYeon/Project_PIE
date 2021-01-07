@@ -8,13 +8,24 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.or.bit.dto.alram;
+import kr.or.bit.dto.project_member;
 import kr.or.bit.dto.user;
+import kr.or.bit.service.AlramService;
+import kr.or.bit.service.CalendarService;
 
 @Controller
 public class websocketHandler extends TextWebSocketHandler{
@@ -22,7 +33,12 @@ public class websocketHandler extends TextWebSocketHandler{
 		List<WebSocketSession> sessionList = new ArrayList<>();
 		// 1대1
 		Map<String, WebSocketSession>	userSessionsMap = new HashMap<>();
-		
+		ObjectMapper objectMapper = new ObjectMapper();
+		private AlramService alramservice;
+		@Autowired
+		public void setAlramservice(AlramService alramservice) {
+			this.alramservice = alramservice;
+		}
 		//서버에 접속 성공했을때
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) {
@@ -34,25 +50,38 @@ public class websocketHandler extends TextWebSocketHandler{
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-			/*Map<String,String> alram = new HashMap<>();*/
 			System.out.println("받음:"+message);
 			String senderId = getEmail(session);
 			///////////////////////////////////////////////////////
 			JSONObject jsonObj = JsonToObjectParser(message.getPayload());
 			System.out.println(jsonObj);
+			String email = (String) jsonObj.get("email");
 			String nickName = (String) jsonObj.get("nick");
 			String title = (String) jsonObj.get("title");
 			String state = (String) jsonObj.get("state");
-	/*		alram.put("nickName", nickName);
-			alram.put("title", title);
-			alram.put("state", state);*/
-			String[] alram = {nickName,title,state};
-			System.out.println(alram);
+			String alramTime = (String) jsonObj.get("alramTime");
 			////////////////////////////////////////////////////////
-			TextMessage tmpMsg = new TextMessage(nickName+" 님이 "+title + "에 일정을 " + state + " 하였습니다.");
-			System.out.println(tmpMsg);
+			alram alram = new alram();
+			List<String> memberEmail = alramservice.projectMemberList();
+			alram.setNickName(nickName);
+			System.out.println("멤버1:"+memberEmail);
+			alram.setState(state);
+			System.out.println("멤버2:"+memberEmail);
+			alram.setTitle(title);
+			System.out.println("멤버3:"+memberEmail);
+			alram.setAlramTime(alramTime);	
+			System.out.println("멤버4:"+memberEmail);
+			alram.setMemberEmail(memberEmail);
+			System.out.println("멤버5:"+memberEmail);
+			System.out.println("DTO"+alram.getMemberEmail());
+			alramservice.insertAlram(alram); //알람 DB insert
+			System.out.println("멤버6:"+memberEmail);
+			int alramLsatSeq = alramservice.alramLastSeq();
+			alram.setAlramseq(alramLsatSeq);
+			System.out.println(memberEmail);
+			String json = objectMapper.writeValueAsString(alram);
 			for(WebSocketSession sess: sessionList) {
-					sess.sendMessage(tmpMsg);
+					sess.sendMessage(new TextMessage(json));
 			}
 		
 		}

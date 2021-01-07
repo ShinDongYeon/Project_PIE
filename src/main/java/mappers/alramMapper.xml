@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.bit.dao.AlramDao">
+ 
+<insert id="insertAlram" parameterType="alramDto">
+INSERT INTO alram
+(nickName,title,state,alramTime,memberemail)
+VALUES
+<foreach collection="memberEmail" item="item" index="index" separator=",">
+		(#{nickName},#{title},#{state},#{alramTime},'${item}') 
+		</foreach>
+</insert>
+
+<select id="getAlramList" resultType="alramDto">
+	SELECT * FROM alram WHERE memberemail= #{param1}
+</select>
+
+<select id="getAlramLastSeq" resultType="int">
+	SELECT MAX(alramseq) FROM alram;
+</select>
+
+<delete id="deleteAlram" parameterType="int">
+DELETE FROM alram
+WHERE alramseq = #{param1} 
+</delete>
+<select id="projectMemberList" resultType="String">
+	SELECT EMAIL FROM project_member WHERE PROJECT_SEQ = 1;
+</select>
+</mapper>

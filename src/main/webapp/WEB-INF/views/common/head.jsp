@@ -36,30 +36,29 @@
 			console.log(message)
 			}
 		ws.onmessage = function(event){
-			let html = '<div class="alarm-item-wrapper">\
-				<div class="alarm-top-wrapper">\
-				<div class="alarm-user"><i class="fas fa-user"></i></div>\
-				<div class="alarm-username">강성윤</div>\
-				<div class="alarm-cancel"><i class="fas fa-times"></i></div>\
+			let alramMessage = JSON.parse(event.data)
+			let html = '<div class="alram-list-wrapper">\
+				<div class="alram-list-img">\
+				<img src="/resources/img/pie_logo.png">\
 				</div>\
-				<div class="alarm-middle-wrapper">\
-				<div class="alarm-reply">\
-				<i class="far fa-comment-dots"></i>댓글\
+				<div class="alram-list-letter-wrapper">\
+				<div class="alram-list-letter-title">\
+				'+alramMessage.nickName+'님이 '+alramMessage.title+'를 '+alramMessage.state+' 하였습니다.\
 				</div>\
-				<div class="alarm-flag">\
-				<i class="fas fa-star"></i>즐겨찾기\
+				<div class="alram-list-letter-contents">\
+				<span>'+alramMessage.alramTime+'</span>&nbsp;&nbsp;&nbsp;&nbsp;\
 				</div>\
 				</div>\
-				<div class="alarm-bottom-wrapper" id="alram">\
-					'+event.data+'\
+				<div class="alram-list-cancel" id="alramDelete">\
+				<i class="fas fa-times"></i>\
+				<input type="hidden" id="alramseq" name="alramseq" value='+alramMessage.alramseq+' />\
 				</div>\
 				</div>';
+
 			var alram = $('#alram');
-			//alram.empty();
+			console.log(event.data)
+			console.log(alramMessage.title)
 			alram.append(html);
-			console.log(html)
-			//alram.append('<h3>'+event.data+'<h3>')
-			//alram.append(event.data);
 			alram.css('display', 'inline');
 			};
 		ws.onclose = function(event){

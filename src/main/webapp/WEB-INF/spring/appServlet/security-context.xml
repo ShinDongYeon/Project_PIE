@@ -10,11 +10,11 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 	
 	<!-- login 성공시 동작하는 핸들러 객체 -->
-	<context:component-scan base-package="kr.or.bit.util"></context:component-scan>
+		<context:component-scan base-package="kr.or.bit.util" />
 	
 	<security:http use-expressions="true" auto-config="true">
 	<security:csrf disabled="true"/>
-	<security:form-login default-target-url="/main.pie"
+	<security:form-login default-target-url="/projectList.do"
 						 login-page="/index.htm"
 						 authentication-failure-url="/index.htm?error"
 						 authentication-success-handler-ref="loginSuccessHandler"/>
