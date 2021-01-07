@@ -6,29 +6,25 @@
 */
 
 $(document).ready(function() {
-	//get projectSeq
-	let pjNumByController = null;
 
-	$.ajax({
-		type: "post",
-		contentType: "application/json; charset=UTF-8",
-		dataType: "json",
-		url: "getProjectNum.pie",
-		async: false,
-		success: function(data) {
-			pjNumByController = data.projectNum;
-		}
-	})
-
-	let projectNum = pjNumByController;
-	console.log("project seq : " + projectNum);
-	
-	function makeChkList(check_seq,check_name,ischecked){
+	function makeChkList(check_seq, check_name, ischecked) {
 		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
-			check_seq+'" isChecked="'+ischecked+'"/><label for="' + check_seq +
-			'" class="todo"><i class="fa fa-check"></i>'+check_name+'</label>'+
+			check_seq + '" isChecked="' + ischecked + '"/><label for="' + check_seq +
+			'" class="todo"><i class="fa fa-check"></i>' + check_name + '</label>' +
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
 		return chkTag;
+	}
+
+	//show progress bar by checked boxes
+	function progressBar() {
+		let total = $('.todo-wrap').length;
+		let checked = $('.todo-wrap').find('input[ischecked="1"]').length;
+		let percentage = parseInt(((checked / total) * 100), 10);
+
+		$('.progressbar').progressbar({
+			value: percentage
+		});
+		$('.progressbar-label').text(percentage + "%");
 	}
 	//get Modal Id
 	const details = document.getElementById("detailsModal");
@@ -43,29 +39,33 @@ $(document).ready(function() {
 		console.log("cardSeq:" + cardSeq);
 		//get card Title
 		$('.cardTitleMo').text($(this).context.innerText);
-		
+
 		//get saved checkList
 		$.ajax({
 			type: "post",
-			url: "loadCheckList.pie?cardSeq="+cardSeq,
+			url: "loadCheckList.pie?cardSeq=" + cardSeq,
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,
-			success: function(data){
+			success: function(data) {
 				let chkList = data.chkList;
-				$.each(chkList, function(index,item){
-					let chkTag = makeChkList(item.check_seq,item.check_name,item.ischecked);
+				$.each(chkList, function(index, item) {
+					let chkTag = makeChkList(item.check_seq, item.check_name, item.ischecked);
 					$("#add-todo").parent().prepend(chkTag);
 				});
 			}
 		});
-		
-		$('.todo-wrap').each(function(){
+
+		//show checked status
+		$('.todo-wrap').each(function() {
 			let chkVal = $(this).children('input').attr('ischecked');
-			if(chkVal==1){
-			$(this).children('input').prop('checked',true);
-		}
+			if (chkVal == 1) {
+				$(this).children('input').prop('checked', true);
+			}
 		});
+
+		//show progress Bar
+		progressBar();
 	});
 
 	//close Modal
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
 	window.onclick = function(e) {
 		if (e.target == details) {
-		details.style.display = "none";
+			details.style.display = "none";
 		}
 	}
 
@@ -90,8 +90,8 @@ $(document).ready(function() {
 		cardTitleForm.show();
 		cardTitleForm.focus();
 	});
-	
-	//make proTitleInput disappear
+
+	//make edit card Title disappear
 	$(document).on("click", function(e) {
 		if (!$(e.target).closest(".cardTitleMo").length) {
 			$("#cardTitleForm").hide();
@@ -168,7 +168,7 @@ $(document).ready(function() {
 			$(document).on("keydown", "form", function(event) {
 				return event.key != "Enter";
 			});
-			
+
 			//add checkList
 			let checkTitle = $('#input-todo' + newId + '').val();
 			if (checkTitle.length > 0) {
@@ -194,6 +194,7 @@ $(document).ready(function() {
 					data: check,
 					success: function(data) {
 						console.log(data);
+						progressBar();
 					}
 				});
 			} else {
@@ -209,8 +210,8 @@ $(document).ready(function() {
 			console.log("cardSeq:" + cardSeq);
 		})
 	});
-	
-	//change checked status
+
+	//change checked status & progress bar
 	$(document).on('click', '.fa-check', function() {
 		let chkBox = $(this).parent().prev();
 		let chk = chkBox.is(':checked');
@@ -219,19 +220,23 @@ $(document).ready(function() {
 			console.log("unchecked");
 			chkBox.prop('checked', false);
 			chkBox.attr('ischecked', '0');
+			progressBar();
 		} else {
 			console.log("checked");
 			chkBox.prop('checked', true);
 			chkBox.attr('ischecked', '1');
+			progressBar();
 		}
+
+
 		console.log(chkBox.attr('ischecked'));
 		console.log(checkSeq);
 		let chkOb = new Object();
-		chkOb.ischecked=chkBox.attr('ischecked');
-		chkOb.check_seq=checkSeq;
-		
+		chkOb.ischecked = chkBox.attr('ischecked');
+		chkOb.check_seq = checkSeq;
+
 		let check = JSON.stringify(chkOb);
-		
+
 		$.ajax({
 			type: "post",
 			url: "editCheckedStatus.pie",
@@ -239,45 +244,56 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			data: check,
-			success: function(data){
+			success: function(data) {
 				console.log(data);
 			}
 		})
-		
-		
+
+
 	});
 
 	/*Remove CheckList in Modal*/
-	$(document).on('click','.delete-item',function(){
+	$(document).on('click', '.delete-item', function() {
 		console.log($(this));
 		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
-		let checkSeq =Number($(this).prev().attr('for'));
-		
+		let checkSeq = Number($(this).prev().attr('for'));
 		let checkOb = new Object();
-		checkOb.card_seq=cardSeq;
-		checkOb.check_seq=checkSeq;
-		
+		checkOb.card_seq = cardSeq;
+		checkOb.check_seq = checkSeq;
+
 		let check = JSON.stringify(checkOb);
 		let deletedItem = $(this).parent();
-		
+
 		$.ajax({
-			url: "deleteChkList.pie?cardSeq="+cardSeq,
+			url: "deleteChkList.pie?cardSeq=" + cardSeq,
 			contentType: "application/json; charset=UTF-8",
 			type: "post",
 			async: "false",
 			dataType: "json",
 			data: check,
-			success: function(data){
+			success: function(data) {
 				console.log(data);
 				deletedItem.animate({
-						left: "-30%",
-						height: 0,
-						opacity: 0
-					}, 200);
+					left: "-30%",
+					height: 0,
+					opacity: 0
+				}, 200);
 				setTimeout(function() { $(deletedItem).remove(); }, 1000);
-					}
-				});
+			}
+
 		});
+		//change progress bar
+		let total = $(this).parents().children('.todo-wrap').length-1;
+		console.log("total:" + total);
+		let checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length-1;
+		console.log("checked:" + checked);
+		let percentage = parseInt(((checked / total) * 100), 10);
+
+		$('.progressbar').progressbar({
+			value: percentage
+		});
+		$('.progressbar-label').text(percentage + "%");
+	});
 
 	/*Enter Key Event Handler*/
 	$.fn.enterKey = function(fnc) {

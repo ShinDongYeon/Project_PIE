@@ -12,7 +12,6 @@ import kr.or.bit.dao.CardDao;
 import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.ListDao;
 import kr.or.bit.dto.card;
-import kr.or.bit.dto.checkList;
 import kr.or.bit.dto.list;
 
 /*
