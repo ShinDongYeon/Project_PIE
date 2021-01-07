@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	$("#input_file").bind('change', function() {
+	$("#input_file").on('change', function(e) {
+		e.preventDefault();
 		selectFile(this.files);
 	});
 	
@@ -141,6 +142,9 @@ function selectFile(fileObject) {
 	} else {
 		alert("ERROR");
 	}
+	
+	
+	
 }
 
 // 업로드 파일 목록 생성
@@ -220,9 +224,9 @@ function uploadFile() {
 		for (let i = 0; i < uploadFileList.length; i++) {
 			formData.append('files', fileList[uploadFileList[i]]);
 		}
-
+		
 		$.ajax({
-			url: "file.pie",
+			url: "file.pie?projectNum="+$("#projectNum").val(),
 			data: formData,
 			type: 'POST',
 			enctype : 'multipart/form-data', 
@@ -232,6 +236,16 @@ function uploadFile() {
 			cache: false,
 			success: function(data) {
 				console.log(data);
+				
+				//파일 전송 후 남아있는 파일 데이터 삭제 
+				console.log(projectNum);
+				
+				
+				const fileSize = fileList.length;
+				for(let i = 0; i < fileSize; i++){
+					deleteFile(i);
+				}
+				
 			}
 		});
 	}
