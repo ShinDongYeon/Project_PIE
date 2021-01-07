@@ -27,6 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM CHECKLIST WHERE CHECK_SEQ = #{param1}
 	</delete>
 	
+	<delete id="deleteChkListByCardSeq" parameterType="int">
+		DELETE FROM CHECKLIST WHERE CARD_SEQ = #{param1}
+	</delete>
+	
+	
+	
 </mapper>
 	
 
