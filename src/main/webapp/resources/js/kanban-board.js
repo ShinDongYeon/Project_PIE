@@ -392,19 +392,19 @@ $(function() {
 				listOb.list_order_num = $(this).parent().parent().attr("id"); //삭제하는 리스트의 정렬 번호 
 
 				let cardArray = new Array();//해당 리스트에 속한 카드를 담을 array  
-
 				$(this).parent().next().children().each(function() {//for문 돌면서 array에 카드를 담아줌 
 					let cardOb = new Object();
 					cardOb.card_seq = $(this).attr("data-card-seq")
 					cardArray.push(cardOb);
 				});
 				listOb.cardList = cardArray; //리스트에 카드를 할당해줌 
-				//let card = JSON.stringify(cardArray);//컨트롤러로 보낼 카드 array
 				let list = JSON.stringify(listOb);//컨트롤러로 보낼 리스트 
-
+				console.log("list");
+				console.log(list);
 
 				let listView = $(this).parent().parent();
-
+				
+				
 				$.ajax({
 					url: "deleteKanbanList.pie?projectNum=" + projectNum,
 					contentType: "application/json; charset=UTF-8",
@@ -413,7 +413,6 @@ $(function() {
 					dataType: "json",
 					data: list,
 					success: function(data) {
-						console.log("hihihihihi");
 						swal.fire("Done!", "It's succesfully deleted!", "success");
 
 						//1. 리스트 화면에서 삭제 
@@ -511,28 +510,6 @@ $(function() {
 
 					cardOb.card_seq = $(this).parent().attr("data-card-seq");
 					cardOb.card_order_num = $(this).parent().attr("id");
-					
-					let chkListArray = new Array();
-					$.ajax({
-						url: "loadCheckList.pie?cardSeq="+cardOb.card_seq,
-						contentType: "application/json; charset=UTF-8",
-						type: "post",
-						async: false,
-						dataType: "json",
-						success: function(data) {
-							//get checkList to delete it first
-							let chkList = data.chkList;
-							$.each(chkList,function(index,item){
-								let checkOb = new Object();
-								checkOb.check_seq = item.check_seq;
-								chkListArray.push(checkOb);
-							});
-						}
-					})
-					
-							cardOb.chkList=chkListArray;
-							console.log("chkListArray");
-							console.log(chkListArray);
 					
 					let card = JSON.stringify(cardOb);//컨트롤러로 보낼 카드
 

@@ -13,5 +13,7 @@ public interface CheckListDao {
 	
 	public ArrayList<checkList> loadCheckList(int cardSeq); 
 
-	public void deleteChkList(int cardSeq);
+	public void deleteChkList(int checkSeq);
+	
+	public void deleteChkListByCardSeq(int cardSeq);
 }

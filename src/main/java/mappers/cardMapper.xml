@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 
 파일명: cardMapper.xml
 설명: cardMapper.xml
-작성일: 2020-12-28 ~ 
+작성일: 2020-12-28 ~ 2021-01-07 
 작성자: 문지연,변재홍
  -->
 <mapper namespace="kr.or.bit.dao.CardDao">
