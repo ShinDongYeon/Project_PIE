@@ -470,6 +470,18 @@
 	color: #fff;
 	font-size: 0.9rem;
 }
+.chat-list-letter-a:link{
+	color: white;
+	text-decoration: none;
+}
+.chat-list-letter-a:visited{
+	color: white;
+	text-decoration: none;
+}
+.chat-list-letter-a:hover{
+	color: #f2dd68;
+	text-decoration: none;
+}
 .chat-list-letter-members{
 	color: #999999;
 	font-size: 0.6rem;

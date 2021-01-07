@@ -214,7 +214,7 @@ function chattingRoomList(data){
 					"</div>"+
 					"<div class='chat-list-letter-wrapper'>"+
 						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
-							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");'>"+
+							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
 								chat_title_substr+
 							"</a>"+
 						"</div>"+
@@ -259,7 +259,7 @@ function completeChattingRoom(data){
 					"</div>"+
 					"<div id='chat-list-letter-wrapper-"+elem.chatting_room_seq+"' class='chat-list-letter-wrapper'>"+
 						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
-							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");'>"+
+							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
 								chat_title_substr+
 							"</a>"+
 						"</div>"+
@@ -384,7 +384,7 @@ function updateNameOk(me){
 		//input 태그 삭제
 		chat_room_input.remove();
 		//div title에 value값 넣기
-		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");'>"+
+		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");' class='chat-list-letter-a'>"+
 						chat_room_input.val()+
 					"</a>";
 		chat_room_title.append(opr);
@@ -394,7 +394,7 @@ function updateNameOk(me){
 		//input 태그 삭제
 		chat_room_input.remove();
 		//div title에 value값 넣기
-		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.attr("value")+"\");'>"+
+		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.attr("value")+"\");' class='chat-list-letter-a'>"+
 						chat_room_input.attr("value")+
 					"</a>";
 		chat_room_title.append(opr);

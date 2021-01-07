@@ -7,9 +7,16 @@
 	<title>Chat</title>
 	<jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="/resources/css/chatStyle.css">
+	<link rel="stylesheet" href="/resources/css/chatEmojiStyle.css">
+	<script src="/resources/js/chatting.js"></script>
+	<script src="/resources/js/chattingEmoji.js"></script>
 </head>
 <body>
-	<div class="chat-wrapper">	
+<input type="hidden" value="${select}" id="select">
+<input type="hidden" value="${roomname}" id="roomname">
+<input type="hidden" value="${sessionScope.nick}" id="nickname">
+<input type="hidden" value="${sessionScope.loginuser}" id="session_email">
+	<div id="chatArea" class="chat-wrapper">	
 		<!-- chat top -->
 		<div class="chat-top-wrapper">
 			<div class="chat-top-pic">
@@ -17,17 +24,18 @@
 			</div>
 			<div class="chat-top-letters-wrapper">
 				<div class="chat-top-title">
-					프로젝트방
+					${roomname}
 				</div>
 				<div class="chat-top-users">
-					#신동연#도재구#문지연#변재홍#조용선#전선규
+					${participants}
 				</div>
 			</div>
 		</div>
 		
 		<!-- chat body -->
-		<div class="chat-body-wrapper">
+		<div id="chatMessageArea" class="chat-body-wrapper">
 			<!-- date -->
+			<!-- 
 			<div class="chat-body-date">
 				<div class="chat-body-date-line">
 					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
@@ -39,22 +47,28 @@
 					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 				</div>
 			</div>
+			 -->
 			
 			<!-- chat contents -->
 			<!-- sender -->
+			<!-- 
 			<div class="chat-sender-wrapper">
+			-->
 				<!-- sender profile picture -->
+				<!-- 
 				<div class="chat-sender-pic">
 					<i class="fas fa-user"></i>
 				</div>
+				 -->
 				
 				<!-- chat sender message -->
+				<!-- 
 				<div>
 					<div class="chat-sender-name">
 						문지연
 					</div>
 					<div class="chat-sender-message-wrapper">
-						<div class="chat-sender-message">
+						<div id="chatMessageArea" class="chat-sender-message">
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 							sed do eiusmod tempor incididunt ut labore et dolore magna 
 							aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
@@ -64,21 +78,26 @@
 							Excepteur sint occaecat cupidatat non proident, 
 							sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</div>
+
 						<div class="chat-sender-time">
 							오후 1:34
 						</div>
 					</div>
 				</div>
 			</div>
+			 -->
 			
 			<!-- receiver -->
-			<div class="chat-receiver-wrapper">
+			<!-- <div class="chat-receiver-wrapper"> -->
 				<!-- sender profile picture -->
+				<!-- 
 				<div class="chat-receiver-pic">
 					<i class="fas fa-user"></i>
 				</div>
+				 -->
 				
 				<!-- chat receiver message -->
+				<!-- 
 				<div>
 					<div class="chat-receiver-name">
 						문지연
@@ -100,8 +119,10 @@
 					</div>
 				</div>
 			</div>
+			 -->
 			
 			<!-- '여기까지 읽었습니다' unread -->
+			<!-- 
 			<div class="chat-body-unread">
 				<div class="chat-body-unread-line">
 					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
@@ -113,6 +134,7 @@
 					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 				</div>
 			</div>
+			 -->
 		</div>
 		
 		<!-- chat bottom -->
@@ -120,26 +142,31 @@
 			<!-- chat message writing -->
 			<div class="chat-msgWrite-wrapper">
 				<!-- message area -->
-				<textarea class="chat-msgWrite" placeholder="메시지를 입력하세요" onmouseup="this.style.borderColor='red'"></textarea>
+				<textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea>
 
 				<!-- icons & button -->
 				<div class="chat-msgWrite-bottom-wrapper">
 					<!-- icons -->
 					<div class="chat-msgWrite-icons-wrapper">
+						<i class="fas fa-grin-beam smile-o"></i>
+						<div class="emoji">
+							<div class="emoji-content">
+								<div class="emoji-area"></div>
+							</div>
+						</div>
 						<i class="fas fa-at"></i>
 						<i class="fas fa-font"></i>
 						<i class="fas fa-download"></i>
 					</div>
 					
 					<!-- chat send button -->
-					<div class="chat-msgWrite-btn">
-						<button>전송</button>
+					<div id="chat-msgWrite-btn" class="chat-msgWrite-btn">
+						<button id="sendBtn">전송</button>
 					</div>
 				</div>
 			</div>
 			
 		</div>
 	</div>
-	
 </body>
 </html>
