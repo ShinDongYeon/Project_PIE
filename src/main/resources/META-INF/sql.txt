@@ -154,4 +154,39 @@ DELIMITER ;
 
 #seq = 3개 project_seq, card_seq, list_seq 
  
+#캘린더
+CREATE TABLE CALENDAR(
+	start datetime NOT NULL, 
+	end datetime NOT NULL, 
+	content varchar(2000) , 
+	id int NOT NULL, 
+	allday tinyint NOT NULL, 
+	color varchar(45) NOT NULL, 
+	title varchar(1000) NOT NULL,
+	PROJECT_SEQ int NOT NULL,
+	FOREIGN KEY (PROJECT_SEQ) REFERENCES PROJECT(PROJECT_SEQ)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#캘린더 PK,AI
+ALTER TABLE `pie`.`calendar` 
+CHANGE COLUMN `id` `id` INT NOT NULL AUTO_INCREMENT ,
+ADD PRIMARY KEY (`id`);
+;
 
+#알람
+CREATE TABLE ALARM(
+nickName varchar(100) NOT NULL, 
+title varchar(100) NOT NULL,
+state varchar(100) NOT NULL,
+alramTime datetime NOT NULL,
+alramseq int NOT NULL,
+memberemail varchar(100) NOT NULL,
+	PROJECT_SEQ int NOT NULL,
+	FOREIGN KEY (PROJECT_SEQ) REFERENCES PROJECT(PROJECT_SEQ)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#알람 PK, AI    
+ALTER TABLE `pie`.`alarm` 
+CHANGE COLUMN `alramseq` `alramseq` INT NOT NULL AUTO_INCREMENT ,
+ADD PRIMARY KEY (`alramseq`);
+;
+    
