@@ -128,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- public List<roomlist> getChattingRoomList(int chatting_room_seq); -->
 	<select id="getChattingRoomList" resultType="roomlistDto">
-		SELECT U.NICKNAME, C.CHATTING_ROOM_SEQ
+		SELECT U.EMAIL, U.NICKNAME, C.CHATTING_ROOM_SEQ
 		FROM CHATTINGROOMLIST L JOIN USER U
 		ON U.EMAIL = L.EMAIL
 		JOIN CHATTINGROOM C

@@ -8,11 +8,12 @@ $(document).ready(function() {
 	
 	//전송 버튼 CSS 조절 + Enter 키 입력
 	$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
-	$('#message').keyup( (event) => {
+	$('#message').keypress( (event) => {
 		//Enter 키 입력
 		if (event.which == 13) {
 			send();
 			event.preventDefault();
+			$('#message').val('');
 		}
 		//전송버튼 CSS 조절
 		if($('#message').val() == ''){
@@ -95,12 +96,14 @@ function onClose(evt){
 }
 
 function send(){
+	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
 	var msg = $('#message').val();
-	if(msg.trim() != ''){
-		websocket.send(nickname + "|" + msg);
-	}
 	$('#message').val('');
+	if(msg.trim() != ''){
+		websocket.send(email + "|" + msg + "|" + nickname);
+	}
+	
 }
 
 function appendMessage(msg) {
@@ -115,7 +118,7 @@ function appendMessage(msg) {
 			success 	: function(data){
 				console.log(data);
 
-				
+				let myemail = $('#session_email').val();
 				let mynickname = $('#nickname').val();
 				var strarray = msg.split('|');
 			
@@ -123,7 +126,7 @@ function appendMessage(msg) {
 				console.log(">"+msginfo+"<")
 				var message = strarray[1];
 				var msgbox ='';
-				if (msginfo == mynickname) {
+				if (msginfo == myemail) {
 					//현재 시간 구하기
 					let today = new Date();
 					let date_index = today.toLocaleTimeString().lastIndexOf(':');
@@ -166,7 +169,7 @@ function appendMessage(msg) {
 					$.each(data,function(index,elem){
 						console.log(elem.nickName);
 						let today = new Date();
-						if(msginfo == elem.nickName){
+						if(msginfo == elem.email){
 							//현재 시간 구하기
 							let today = new Date();
 							let date_index = today.toLocaleTimeString().lastIndexOf(':');

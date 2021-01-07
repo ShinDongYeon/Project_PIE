@@ -8,4 +8,6 @@ public class roomlist {
 	private String nickName;
 	private int chatting_room_seq;
 	
+	private String email;
+	
 }
