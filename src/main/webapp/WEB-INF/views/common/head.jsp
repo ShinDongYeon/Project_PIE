@@ -21,8 +21,10 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <!-- ------------------------------------------------------------------ -->
-<div id="socketAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+
 <script>
+
+										
 	var socket = null; //전역변수 선언
 	$(document).ready(function(){
 		connectWS();
@@ -34,8 +36,30 @@
 			console.log(message)
 			}
 		ws.onmessage = function(event){
-			$("#socketAlert").text(event.data);
-			$("#socketAlert").css("display","block");
+			let alramMessage = JSON.parse(event.data)
+			let html = '<div class="alram-list-wrapper">\
+				<div class="alram-list-img">\
+				<img src="/resources/img/pie_logo.png">\
+				</div>\
+				<div class="alram-list-letter-wrapper">\
+				<div class="alram-list-letter-title">\
+				'+alramMessage.nickName+'님이 '+alramMessage.title+'를 '+alramMessage.state+' 하였습니다.\
+				</div>\
+				<div class="alram-list-letter-contents">\
+				<span>'+alramMessage.alramTime+'</span>&nbsp;&nbsp;&nbsp;&nbsp;\
+				</div>\
+				</div>\
+				<div class="alram-list-cancel" id="alramDelete">\
+				<i class="fas fa-times"></i>\
+				<input type="hidden" id="alramseq" name="alramseq" value='+alramMessage.alramseq+' />\
+				</div>\
+				</div>';
+
+			var alram = $('#alram');
+			console.log(event.data)
+			console.log(alramMessage.title)
+			alram.append(html);
+			alram.css('display', 'inline');
 			};
 		ws.onclose = function(event){
 			console.log("Server Close")

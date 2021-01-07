@@ -16,6 +16,7 @@
 	<jsp:include page="/resources/static/static.jsp"></jsp:include>
 	<script src="/resources/js/main.js"></script>
 	<script src="/resources/js/googleLogout.js" ></script>
+
 </head>
 <body>
 	<!-- Top -->
