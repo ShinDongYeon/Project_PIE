@@ -31,7 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM CHECKLIST WHERE CARD_SEQ = #{param1}
 	</delete>
 	
-	
+	<update id="editCheckedStatus" parameterType="checkListDto">
+		UPDATE CHECKLIST SET ISCHECKED = #{ischecked} WHERE CHECK_SEQ=#{check_seq}
+	</update>
 	
 </mapper>
 	

@@ -1,7 +1,7 @@
 /*
 파일명: sortKanban.js
 설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 모달창 jqery&js
-작성일: 2020-12-28 ~ 
+작성일: 2020-12-28 ~ 2021-01-07
 작성자: 문지연,변재홍
 */
 
@@ -306,7 +306,6 @@ $(function() {
 						listTag += cardAddTag;
 						listTag += "</div>";
 						$("#listWrap").append(listTag); //리스트 한개 페이지에 추가 
-
 					});
 				}
 			}

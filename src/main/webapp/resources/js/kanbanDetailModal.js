@@ -23,17 +23,17 @@ $(document).ready(function() {
 	let projectNum = pjNumByController;
 	console.log("project seq : " + projectNum);
 	
-	function makeChkList(check_seq,check_name){
+	function makeChkList(check_seq,check_name,ischecked){
 		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
-			check_seq+'"/><label for="' + check_seq +
+			check_seq+'" isChecked="'+ischecked+'"/><label for="' + check_seq +
 			'" class="todo"><i class="fa fa-check"></i>'+check_name+'</label>'+
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
 		return chkTag;
 	}
-	//open Modal
+	//get Modal Id
 	const details = document.getElementById("detailsModal");
 
-	//get card Title in Modal
+	//Open clicked Modal
 	$(document).on("click", ".cardContent", function(e) {
 		e.preventDefault();
 		details.style.display = "block";
@@ -53,20 +53,19 @@ $(document).ready(function() {
 			async: false,
 			success: function(data){
 				let chkList = data.chkList;
-				
 				$.each(chkList, function(index,item){
 					let chkTag = makeChkList(item.check_seq,item.check_name,item.ischecked);
-					
-					if(item.ischecked==1){
-						console.log("ischecked");
-						console.log($('.todo').prev());
-						$('.todo').prev().prop('checked', false);
-					}
 					$("#add-todo").parent().prepend(chkTag);
 				});
 			}
 		});
 		
+		$('.todo-wrap').each(function(){
+			let chkVal = $(this).children('input').attr('ischecked');
+			if(chkVal==1){
+			$(this).children('input').prop('checked',true);
+		}
+		});
 	});
 
 	//close Modal
@@ -90,6 +89,14 @@ $(document).ready(function() {
 		cardTitleForm.children("#cardTitleInput").attr("placeholder", $(this).html());
 		cardTitleForm.show();
 		cardTitleForm.focus();
+	});
+	
+	//make proTitleInput disappear
+	$(document).on("click", function(e) {
+		if (!$(e.target).closest(".cardTitleMo").length) {
+			$("#cardTitleForm").hide();
+			$(".cardTitleMo").show();
+		}
 	});
 
 	//edit card Title in Modal
@@ -202,17 +209,42 @@ $(document).ready(function() {
 			console.log("cardSeq:" + cardSeq);
 		})
 	});
-
-	$(document).on('click', '.todo', function() {
-		console.log($(this).prev());
-		let chk = $(this).prev().is(":checked"); //.attr('checked')
+	
+	//change checked status
+	$(document).on('click', '.fa-check', function() {
+		let chkBox = $(this).parent().prev();
+		let chk = chkBox.is(':checked');
+		let checkSeq = chkBox.attr('data-check-seq');
 		if (chk) {
 			console.log("unchecked");
-			$(this).prev().prop('checked', false);
+			chkBox.prop('checked', false);
+			chkBox.attr('ischecked', '0');
 		} else {
 			console.log("checked");
-			$(this).prev().prop('checked', true);
+			chkBox.prop('checked', true);
+			chkBox.attr('ischecked', '1');
 		}
+		console.log(chkBox.attr('ischecked'));
+		console.log(checkSeq);
+		let chkOb = new Object();
+		chkOb.ischecked=chkBox.attr('ischecked');
+		chkOb.check_seq=checkSeq;
+		
+		let check = JSON.stringify(chkOb);
+		
+		$.ajax({
+			type: "post",
+			url: "editCheckedStatus.pie",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			data: check,
+			success: function(data){
+				console.log(data);
+			}
+		})
+		
+		
 	});
 
 	/*Remove CheckList in Modal*/
