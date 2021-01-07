@@ -210,6 +210,10 @@ public class ChatController {
 				for(roomlist list : user_room_list) {
 					nickname += "#" + list.getNickName();
 				}
+				
+				if(nickname.length() > 19){
+					nickname = nickname.substring(0,19) + "...";
+				}
 				nicknames.add(nickname);
 				nickname = "";
 			}
@@ -276,6 +280,9 @@ public class ChatController {
 				for(roomlist list : user_room_list) {
 					nickname += "#" + list.getNickName();
 				}
+				if(nickname.length() > 19){
+					nickname = nickname.substring(0,19) + "...";
+				}
 				nicknames.add(nickname);
 				nickname = "";
 			}
@@ -289,9 +296,44 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value="/chat/open", method = RequestMethod.GET)
-	public String openChatRoom(String select, String roomname, Model model, HttpServletRequest request){
-		System.out.println("select: " + select);
-		System.out.println("roomname: " + roomname);
+	public String openChatRoom(int select, String roomname, Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		
+		//채팅방 참여자를 넣어줌
+		//해당 채팅방의 참여자 리스트를 구함
+		List<roomlist> user_room_list = null;
+		user_room_list = chatservice.getChattingRoomList(select);
+		
+		//String 가공
+		String nickname = "";
+		for(roomlist list : user_room_list) {
+			nickname += "#" + list.getNickName();
+		}
+		if(nickname.length() > 19){
+			nickname = nickname.substring(0,19) + "...";
+		}
+		System.out.println("nickname: "+ session.getAttribute("nick"));
+		
+		model.addAttribute("select", select);
+		model.addAttribute("roomname", roomname);
+		model.addAttribute("participants", nickname);
+		model.addAttribute("user_room_list", user_room_list);
+		model.addAttribute("loginuser", session.getAttribute("loginuser"));
+		
 		return "chat";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/chat/users", method = RequestMethod.GET)
+	public List<roomlist> chatmembers(@RequestParam("select") int select){
+		
+		List<roomlist> room_list = null;
+
+		try {
+			room_list = chatservice.getChattingRoomList(select);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return room_list;
 	}
 }

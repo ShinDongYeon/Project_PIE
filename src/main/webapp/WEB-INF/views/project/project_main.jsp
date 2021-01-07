@@ -23,13 +23,13 @@
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
 			<!-- bookmark -->
-			<jsp:include page="/WEB-INF/views/project_main_bookmark.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_bookmark.jsp"></jsp:include>
 			
 			<!-- alarm -->
-			<jsp:include page="/WEB-INF/views/project_main_alarm.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_alarm.jsp"></jsp:include>
 			
 			<!-- file -->
-			<jsp:include page="/WEB-INF/views/project_main_file.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_file.jsp"></jsp:include>
 			
 			<!-- chat -->
 			<jsp:include page="/WEB-INF/views/project_main_chat.jsp"></jsp:include>

@@ -82,19 +82,30 @@ $(document).ready(function(){
 			}		
 		}
 	};
+	
+	
+	
+	//파일 이벤트 
+	$('#fileSubmit').click(function(){
+		 
+		 const formData = new FormData($('#fileForm')[0]); 
+		 $.ajax({ 
+			 type: "POST", 
+			 enctype: 'multipart/form-data', // 필수 
+			 url: 'file.pie', 
+			 data: formData, // 필수 
+			 processData: false, // 필수 
+			 contentType: false, // 필수 
+			 cache: false, 
+			 success: function(result){ 
+		 		
+	 		 }, 
+			 error: function (e){ 
+			
+			 }
+			});
+	 });
 });
-/*window.onload(function(){
-	$('#sidebar-kanban').click(function(){
-		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		document.getElementById('calendarMain').style.display = 'none';
-		document.getElementById('kanban').style.display = 'block';
-		
-	});
-	$('#sidebar-calendar').click(function(){
-		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		document.getElementById('kanban').style.display = 'none';
-		document.getElementById('calendarMain').style.display = 'block';
-	});
-})*/
 
-/*//right sidebar contents wrapper*/
+
+

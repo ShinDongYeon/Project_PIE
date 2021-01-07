@@ -112,4 +112,16 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
+	<!-- file -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   		<!--  파일업로드 용량 (10MB)-->
+    	<property name="maxUploadSize" value="10485760"/>
+    	<property name="defaultEncoding" value="UTF-8" />
+ 	</bean>
+  
+	<!--  파일업로드 디렉토리 설정 -->
+	<bean id="uploadPath" class="java.lang.String">
+	    <constructor-arg value="Project_PIE/src/main/webapp/resources/files"/>
+	</bean>
+	
 </beans>
