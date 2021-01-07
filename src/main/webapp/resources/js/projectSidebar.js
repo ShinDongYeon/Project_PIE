@@ -82,29 +82,6 @@ $(document).ready(function(){
 			}		
 		}
 	};
-	
-	
-	
-	//파일 이벤트 
-	$('#fileSubmit').click(function(){
-		 
-		 const formData = new FormData($('#fileForm')[0]); 
-		 $.ajax({ 
-			 type: "POST", 
-			 enctype: 'multipart/form-data', // 필수 
-			 url: 'file.pie', 
-			 data: formData, // 필수 
-			 processData: false, // 필수 
-			 contentType: false, // 필수 
-			 cache: false, 
-			 success: function(result){ 
-		 		
-	 		 }, 
-			 error: function (e){ 
-			
-			 }
-			});
-	 });
 });
 
 

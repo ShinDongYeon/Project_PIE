@@ -1,42 +1,38 @@
 package kr.or.bit.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 
 @Controller
 public class FileController {
-
+	
+	private final String UPLOAD_PATH = "Project_PIE/src/main/webapp/resources/files"; 
+	
+	@ResponseBody
 	@RequestMapping(value = "file.pie", method = RequestMethod.POST)
-	public String uploadFile(MultipartFile multipartFile) {
-//		 //파일 저장 경로 
-//		 String uploadPath = "Project_PIE/src/main/webapp/resources/files";
-//		 
-//		 System.out.println("파일 객체 : "+file);
-//		 System.out.println("파일명 : "+file.getOriginalFilename());
-//		 
-//	     String fileName = file.getOriginalFilename();
-//	        File target = new File(uploadPath, fileName);
-//	        
-//	        //경로 생성
-//	        if ( ! new File(uploadPath).exists()) {
-//	            new File(uploadPath).mkdirs();
-//	        }
-//	        //파일 복사
-//	        try {
-//	            FileCopyUtils.copy(file.getBytes(), target);
-//	        } catch(Exception e) {
-//	            e.printStackTrace();
-//	        }
-	
+	public String uploadFile(@RequestParam("files") ArrayList<MultipartFile> files) {
 		
-		System.out.println("==================");
-		System.out.println("파일 객체 : "+multipartFile);
+		
+		System.out.println(files);
+		for(int i = 0; i < files.size(); i ++) {
+			System.out.println(files.get(i).getOriginalFilename());
+			
+		}
+		
+//		 String filename = file.getName();
+//		 String fileOGName =  file.getOriginalFilename();
+//		 
+//		 System.out.println("파일 og 네임 : "+fileOGName);
+//		 System.out.println("파일 네임 : "+filename);
+//		 System.out.println("파일 객체 : "+file);
 
-		return null;
+		return "success";
 	}
-
-	
-
 }

@@ -2,23 +2,36 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<head>
+<script src="/resources/js/file.js"></script>
+</head>
 <body>
 	<div id="far fa-folder-open" class="right-sidebar-file">
 		<!-- drag and drop image -->
 		<div class="file-top-wrapper">
-			<div class="file-top-icon-wrapper">
-				<!-- 아이콘 누르면 파일 업로드 가능하게 커스텀 -->
-				<i class="fas fa-folder-plus file-top-icon" onclick="onclick=document.all.file.click()"></i>
+			<div class="file-top-icon-wrapper" id = "dropZone">
+				<label for="input_file" style = "cursor: pointer;">
+				<i class="fas fa-folder-plus file-top-icon"></i>
+				</label>
 				<div class="file-top-icon-letter">
 					Drag and Drop
-					<form id = "fileForm" method = "post" enctype="multipart/form-data">
-					<input type="file"><!-- style="display:none" -->
-					<div id = "fileSubmit">파일전송</div>
-					</form>
 				</div>			
-				
 			</div>
 		</div>
+				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
+				       <div class="upload-btn-wrapper">
+           			   <input type="file" id="input_file" name="files" multiple style="display:none"/>
+     				   </div>
+				</form>
+				<!-- 	<table id="fileListTable">
+                    <tbody id="fileTableTbody">
+    
+                    </tbody>
+              		</table> -->
+              		<div class = "new-file-wrapper">
+              			
+              		</div>
+              	<input type="button" class="file-upload-btn" onclick="uploadFile(); return false;" value="업로드">
 		
 		<!-- file search -->
 		<div class="file-search-wrapper">
