@@ -53,6 +53,11 @@
                 </form>
                 <div id="checkListWrap">
 	            <h2 class="checkListTitle"><i class="fa fa-check"></i> CheckList</h2>
+	            <div class="progressbar-container">
+	            		<div class="progressbar"></div>
+	            		<div class="progressbar-label"></div>
+	            	</div>
+	            	<div class="ready"></div>
 	            <form id="checkListForm">
 	                <div id="add-todo">
 	                    <i class="fa fa-plus"></i> Add an item

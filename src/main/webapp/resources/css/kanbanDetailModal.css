@@ -104,17 +104,55 @@ cursor: pointer;
 	font-size: 25px;
 	font-weight: 200;
 	color: #454545;
+	margin-bottom: 10px;
 }
 
 .checkListTitle .fa-check {
 	font-size: 25px;
 	margin-right: 5px;
-	color: #f5df4d;
+	color: rgb(255, 255, 96);
 }
 
+/*CheckList Progress Bar*/
+.ready{font-size: 5px;}
+
+.ui-progressbar-value {
+	background:#f5df4d;
+	/*box-shadow*/
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progressbar-container {
+  position: relative;
+  width: 100%; 
+  margin-left: 10px;
+  display: inline-flex;
+}
+
+.progressbar {
+	height:10px;
+	border-radius: 5px;
+	width: 85%;
+	/*box-shadow*/
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progressbar-label {
+	width: 5%;
+	font-size:13px;
+	margin-left: 10px;
+	padding-bottom: 5px;
+}
+
+
+/*CheckList Details*/
 #checkListForm {
 	width : 95%;
-	margin: 20px auto 20px 5px;
+	margin: 5px auto 5px 5px;
 	padding: 30px;
 	background: white;
 	position: relative;
