@@ -13,6 +13,9 @@
 	<script src="/resources/js/projectMainChat.js"></script>
 </head>
 <body>
+	<!-- projectNum(Sequence) -->
+	<input type = "hidden" id = "projectNum" value = "${sessionScope.projectNum}">
+
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	

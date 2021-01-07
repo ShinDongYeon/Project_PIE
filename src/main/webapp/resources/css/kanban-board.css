@@ -51,6 +51,10 @@ html, body {
     float: left;
 }
 
+#projectTitle:hover {
+cursor: pointer;
+}
+
 #projectTitleEdit {
     height: 100%;
     float: left;
@@ -108,6 +112,10 @@ html, body {
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.listTitle:hover {
+cursor: pointer;
 }
 
 .listTitleEdit {
@@ -195,6 +203,10 @@ html, body {
     -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
     -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
     box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+}
+
+.cardContent:hover {
+cursor: pointer;
 }
 
 .cardAddWrap {
