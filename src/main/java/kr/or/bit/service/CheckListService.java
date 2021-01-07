@@ -23,30 +23,30 @@ public class CheckListService {
 	@Autowired
 	private SqlSession sqlsession;
 
-	//Get Last CheckList Seq 
+	// Get Last CheckList Seq
 	public int getLastCheckSeqService() {
-		CheckListDao chkdao  = sqlsession.getMapper(CheckListDao.class);
+		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		int check_seq = chkdao.getLastCheckSeq();
-		System.out.println("check_seq:"+check_seq);
+		System.out.println("check_seq:" + check_seq);
 		return check_seq;
 	}
-	
-	//Insert CheckList 
-	public boolean insertCheckListService(HashMap<String,Object> checkListInfo) {
+
+	// Insert CheckList
+	public boolean insertCheckListService(HashMap<String, Object> checkListInfo) {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		chkdao.insertCheckList(checkListInfo);
-		System.out.println("insert chk Service:"+checkListInfo);
+		System.out.println("insert chk Service:" + checkListInfo);
 		return true;
 	}
-	
-	//Load Whole CheckList
+
+	// Load Whole CheckList
 	public ArrayList<checkList> loadWholeChkListService(int cardSeq) {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		ArrayList<checkList> chkList = new ArrayList<>();
 		chkList = chkdao.loadCheckList(cardSeq);
 		return chkList;
 	}
-	
+
 	// Delete CheckList
 	public void deleteChkListService(checkList chk) {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
@@ -58,5 +58,11 @@ public class CheckListService {
 			throw e;
 		}
 	}
-	
+
+	// Edit checked status
+	public void editCheckedStatusService(checkList chk) {
+		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+		chkdao.editCheckedStatus(chk);
+	}
+
 }

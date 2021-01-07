@@ -16,4 +16,6 @@ public interface CheckListDao {
 	public void deleteChkList(int checkSeq);
 	
 	public void deleteChkListByCardSeq(int cardSeq);
+	
+	public void editCheckedStatus(checkList chk);
 }

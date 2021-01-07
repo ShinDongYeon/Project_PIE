@@ -42,7 +42,7 @@ public class CheckListController {
 		return jsonview;
 	}
 
-	// Insert Check List 
+	// Insert Check List
 	@ResponseBody
 	@RequestMapping(value = "insertCheckList.pie", method = RequestMethod.POST)
 	public View insertCheckList(@RequestBody checkList chk, Model model) {
@@ -50,14 +50,14 @@ public class CheckListController {
 		HashMap<String, Object> checkListInfo = new HashMap<String, Object>();// db update시 파라미터 담을 해쉬맵
 		checkListInfo.put("checkList", chk);
 		boolean check = checklistservice.insertCheckListService(checkListInfo);
-		if(check) {
+		if (check) {
 			System.out.println("insertCheckList");
 			return jsonview;
 		}
 		model.addAttribute("data", false);
 		return jsonview;
 	}
-	
+
 	// Load CheckList
 	@RequestMapping(value = "loadCheckList.pie", method = RequestMethod.POST)
 	public View loadKanban(@RequestParam("cardSeq") int cardSeq, Model model) {
@@ -72,14 +72,24 @@ public class CheckListController {
 		System.out.println("chkListController:" + chkList);
 		return jsonview;
 	}
-	
+
 	// Delete CheckList
 	@ResponseBody
 	@RequestMapping(value = "deleteChkList.pie", method = RequestMethod.POST)
 	public View deleteChkList(@RequestBody checkList chk, @RequestParam("cardSeq") int cardSeq, Model model) {
 
 		checklistservice.deleteChkListService(chk);
-		System.out.println("delete CheckList Seq:"+chk);
+		System.out.println("delete CheckList Seq:" + chk);
+		model.addAttribute("data", "success");
+		return jsonview;
+	}
+
+	//Edit checked status
+	@ResponseBody
+	@RequestMapping(value = "editCheckedStatus.pie", method = RequestMethod.POST)
+	public View editCheckedStatus(@RequestBody checkList chk, Model model) {
+		checklistservice.editCheckedStatusService(chk);
+		System.out.println("edit checked status");
 		model.addAttribute("data", "success");
 		return jsonview;
 	}
