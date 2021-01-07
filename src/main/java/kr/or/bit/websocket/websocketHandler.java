@@ -64,21 +64,13 @@ public class websocketHandler extends TextWebSocketHandler{
 			alram alram = new alram();
 			List<String> memberEmail = alramservice.projectMemberList();
 			alram.setNickName(nickName);
-			System.out.println("멤버1:"+memberEmail);
 			alram.setState(state);
-			System.out.println("멤버2:"+memberEmail);
 			alram.setTitle(title);
-			System.out.println("멤버3:"+memberEmail);
 			alram.setAlramTime(alramTime);	
-			System.out.println("멤버4:"+memberEmail);
 			alram.setMemberEmail(memberEmail);
-			System.out.println("멤버5:"+memberEmail);
-			System.out.println("DTO"+alram.getMemberEmail());
 			alramservice.insertAlram(alram); //알람 DB insert
-			System.out.println("멤버6:"+memberEmail);
 			int alramLsatSeq = alramservice.alramLastSeq();
 			alram.setAlramseq(alramLsatSeq);
-			System.out.println(memberEmail);
 			String json = objectMapper.writeValueAsString(alram);
 			for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(new TextMessage(json));
