@@ -93,18 +93,18 @@ $(document).ready(function() {
 		let cardTitleForm = $(this).parent().children("#cardTitleForm");
 		$(this).hide();
 		cardTitleForm.children("#cardTitleInput").attr("placeholder", $(this).html());
-		cardTitleForm.focus();
 		cardTitleForm.show();
+		cardTitleForm.children("#cardTitleInput").focus();
 	});
 
-	/*//make edit card Title disappear
+	//make edit card Title disappear
 	$(document).on("click", function(e) {
 		if (!$(e.target).closest(".cardTitleMo").length) {
 			$("#cardTitleForm").hide();
 			$(".cardTitleMo").show();
 		}
 	});
-*/
+
 	//edit card Title in Modal
 	$(document).on("submit", ".cardTitleForm", function(e) {
 		e.preventDefault();
