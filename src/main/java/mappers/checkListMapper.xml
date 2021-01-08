@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 
 파일명: checkListMapper.xml
 설명: checkListMapper.xml
-작성일: 2021-01-05 ~ 
+작성일: 2021-01-05 ~ 2021-01-07
 작성자: 문지연
  -->
 <mapper namespace="kr.or.bit.dao.CheckListDao">

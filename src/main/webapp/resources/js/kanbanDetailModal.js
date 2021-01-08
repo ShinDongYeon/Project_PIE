@@ -1,7 +1,7 @@
 /*
 파일명: checkList.js
 설명: 칸반 카드 상세페이지 내 구현될 체크리스트 jqery&js
-작성일: 2021-01-04 ~ 
+작성일: 2021-01-04 ~ 2021-01-07 
 작성자: 문지연
 */
 
@@ -254,15 +254,33 @@ $(document).ready(function() {
 
 	/*Remove CheckList in Modal*/
 	$(document).on('click', '.delete-item', function() {
-		console.log($(this));
 		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
 		let checkSeq = Number($(this).prev().attr('for'));
+		let ischecked = Number($(this).prev().prev().attr('ischecked'));
 		let checkOb = new Object();
 		checkOb.card_seq = cardSeq;
 		checkOb.check_seq = checkSeq;
+		checkOb.ischecked = ischecked;
 
 		let check = JSON.stringify(checkOb);
 		let deletedItem = $(this).parent();
+		
+		//change progress bar
+		let total = $(this).parents().children('.todo-wrap').length-1;
+		let checked = 0;
+		console.log("total:" + total);
+		if(ischecked===1){
+			checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length-1;
+		}else{
+			checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length
+		}
+		console.log("checked:" + checked);
+		let percentage = parseInt(((checked/ total) * 100), 10);
+
+		$('.progressbar').progressbar({
+			value: percentage
+		});
+		$('.progressbar-label').text(percentage + "%");
 
 		$.ajax({
 			url: "deleteChkList.pie?cardSeq=" + cardSeq,
@@ -282,17 +300,6 @@ $(document).ready(function() {
 			}
 
 		});
-		//change progress bar
-		let total = $(this).parents().children('.todo-wrap').length-1;
-		console.log("total:" + total);
-		let checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length-1;
-		console.log("checked:" + checked);
-		let percentage = parseInt(((checked / total) * 100), 10);
-
-		$('.progressbar').progressbar({
-			value: percentage
-		});
-		$('.progressbar-label').text(percentage + "%");
 	});
 
 	/*Enter Key Event Handler*/
