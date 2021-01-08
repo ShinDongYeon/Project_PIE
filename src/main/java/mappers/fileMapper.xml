@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.bit.dao.FileDao">
+ 
+<insert id="fileUploadToDB" parameterType="fileDto">
+	INSERT INTO FILE(FILE_SEQ, PROJECT_SEQ, FILE_ORIGINAL_NAME, FILE_UPLOADED_NAME, EXTENSION, UPLOAD_DATE, NICKNAME) 
+			  VALUES(file_seq,#{project_seq},#{file_original_name},#{file_uploaded_name},#{extension},#{upload_date}, #{nickName}) 
+</insert>
+
+<select id = "getFile" resultType = "fileDto">
+	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1}
+</select>
+</mapper>

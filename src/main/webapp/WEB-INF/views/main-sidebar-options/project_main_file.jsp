@@ -23,11 +23,6 @@
            			   <input type="file" id="input_file" name="files" multiple style="display:none"/>
      				   </div>
 				</form>
-				<!-- 	<table id="fileListTable">
-                    <tbody id="fileTableTbody">
-    
-                    </tbody>
-              		</table> -->
               		<div class = "new-file-wrapper">
               			
               		</div>
@@ -73,7 +68,7 @@
 
 		
 		<!-- file list -->
-		<div class="file-list-wrapper">
+<!-- 		<div class="file-list-wrapper">
 			<div class="file-list-img">
 				<img src="/resources/img/icon/excel.png">
 			</div>
@@ -88,41 +83,9 @@
 			<div class="file-list-cancel">
 				<i class="fas fa-times"></i>
 			</div>
-		</div>
+		</div> -->
 		
-		<div class="file-list-wrapper">
-			<div class="file-list-img">
-				<img src="/resources/img/icon/ppt.png">
-			</div>
-			<div class="file-list-letter-wrapper">
-				<div class="file-list-letter-title">프로젝트 보고서.ppt</div>
-				<div class="file-list-letter-contents">
-					<span>변재홍</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>500kb</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>2021.1.1</span>
-				</div>
-			</div>
-			<div class="file-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
-		
-		<div class="file-list-wrapper">
-			<div class="file-list-img">
-				<img src="/resources/img/icon/pdf.png">
-			</div>
-			<div class="file-list-letter-wrapper">
-				<div class="file-list-letter-title">최종피티.pdf</div>
-				<div class="file-list-letter-contents">
-					<span>신동연</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>500kb</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>2021.1.1</span>
-				</div>
-			</div>
-			<div class="file-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
+
 	</div>
 </body>
 </html>
