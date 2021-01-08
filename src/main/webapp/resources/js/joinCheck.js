@@ -8,52 +8,55 @@ let nickNameCheck = false;
 let emailDoubleCheck = false;
 
 //검증 확인, 실패 변수 
-let success = "<p style ='font-size: small; margin : 0; color : blue; padding-top : 0; padding-bottom : 0;'>올바른 형식입니다.</p>";
-let fail = "<p style ='font-size: small; margin : 0; color : red; padding-top : 0; padding-bottom : 0;'>올바르지 않은 형식입니다.</p>";
+let success = "<p style ='font-size: small; margin : 0; color : green; padding-top : 0; padding-bottom : 0;'>올바른 형식입니다.</p>";
+let fail = "<p style ='font-size: small; margin : 0; color : yellow; padding-top : 0; padding-bottom : 0;'>올바르지 않은 형식입니다.</p>";
 
 $(document).ready(function() {
 	//이메일 중복검사 ajax 
 	$('#emailCheck').click(function() {
-		$.ajax(
+
+	});
+
+	//이메일 정규표현 확인 함수
+	$("#email").keyup(function() {
+		if ($("#email").val().search(/\s/) != -1) {
+			//alert("공백은 허용되지 않습니다.");
+			$("#email").val("");
+		}
+		if (isEmail($("#email").val())) {
+			$("#emailDiv").children().remove();
+			$("#email").css("background-color", "lightgrey");
+			//$("#emailDiv").append(success);
+					$.ajax(
 			{
 				type: "post",
 				url: "searchEmail.pie",
 				data: { email: $('#email').val() },
 				success: function(data) {
 					if (emailCheck === false) {
-						alert("올바른 형식으로 작성해주세요.")
+						//alert("올바른 형식으로 작성해주세요.")
 						$("#email").val("");
 						$("#email").focus();
 						return;
 					}
 					if (data.user === null) {
-						alert("사용가능한 이메일입니다.");
+						//alert("사용가능한 이메일입니다.");
 						emailDoubleCheck = true;
 					} else {
-						alert("이미 사용하고 있는 이메일입니다.");
+						//alert("이미 사용하고 있는 이메일입니다.");
 						$("#email").val("");
 						$("#emailDiv").children().remove();
-						$("#emailDiv").append(fail);
+						$("#emailDiv").append("<p style ='font-size: small; margin : 0; color : yellow; padding-top : 0; padding-bottom : 0;'>중복된 이메일 입니다.</p>");
 						emailCheck = false;
 						console.log("사용 불가");
 					}
 				}
 			}
 		)
-	});
-
-	//이메일 정규표현 확인 함수
-	$("#email").keyup(function() {
-		if ($("#email").val().search(/\s/) != -1) {
-			alert("공백은 허용되지 않습니다.");
-			$("#email").val("");
-		}
-		if (isEmail($("#email").val())) {
-			$("#emailDiv").children().remove();
-			$("#emailDiv").append(success);
 			emailCheck = true;
 		} else {
 			$("#emailDiv").children().remove();
+			$("#email").css("background-color", "white");
 			$("#emailDiv").append(fail);
 			emailCheck = false;
 			emailDoubleCheck = false;
@@ -64,15 +67,17 @@ $(document).ready(function() {
 		console.log(firstPwdCheck);
 		console.log($("#pwd").val())
 		if ($("#pwd").val().search(/\s/) != -1) {
-			alert("공백은 허용되지 않습니다.");
+			//alert("공백은 허용되지 않습니다.");
 			$("#pwd").val("");
 		}
 		if (isPassword($("#pwd").val())) {
 			$("#pwdDiv").children().remove();
-			$("#pwdDiv").append(success);
+			//$("#pwdDiv").append(success);
+			$("#pwd").css("background-color", "lightgrey");
 			firstPwdCheck = true;
 		} else {
 			$("#pwdDiv").children().remove();
+			$("#pwd").css("background-color", "white");
 			$("#pwdDiv").append(fail);
 			firstPwdCheck = false;
 		}
@@ -80,31 +85,34 @@ $(document).ready(function() {
 	//비밀번호 2차 확인 함수
 	$("#pwdCheck").keyup(function() {
 		if ($("#pwdCheck").val().search(/\s/) != -1) {
-			alert("공백은 허용되지 않습니다.");
+			//alert("공백은 허용되지 않습니다.");
 			$("#pwdCheck").val("");
 		}
 		if ($("#pwd").val() === $("#pwdCheck").val()) {
 			$("#pwdCheckDiv").children().remove();
-			$("#pwdCheckDiv").append("<p style ='font-size: small; margin : 0; color : blue; padding-top : 0; padding-bottom : 0;'>비밀번호와 동일합니다.</p>");
+			$("#pwdCheck").css("background-color", "lightgrey");
+			//$("#pwdCheckDiv").append("<p style ='font-size: small; margin : 0; color : blue; padding-top : 0; padding-bottom : 0;'>비밀번호와 동일합니다.</p>");
 			doublePwdCheck = true;
 		} else {
 			$("#pwdCheckDiv").children().remove();
-			$("#pwdCheckDiv").append("<p style ='font-size: small; margin : 0; color : red; padding-top : 0; padding-bottom : 0;'>비밀번호와 동일하지않습니다.</p>");
+			$("#pwdCheck").css("background-color", "white");
+			$("#pwdCheckDiv").append("<p style ='font-size: small; margin : 0; color : yellow; padding-top : 0; padding-bottom : 0;'>비밀번호와 동일하지않습니다.</p>");
 			doublePwdCheck = false;
 		}
 	});
 	//닉네임 정규표현 확인 함수
 	$("#nickName").keyup(function() {
 		if ($("#nickName").val().search(/\s/) != -1) {
-			alert("공백은 허용되지 않습니다.");
+			//alert("공백은 허용되지 않습니다.");
 			$("#nickName").val("");
 		}
 		if (isName($("#nickName").val())) {
 			$("#nickNameDiv").children().remove();
-			$("#nickNameDiv").append(success);
+			$("#nickName").css("background-color", "lightgrey");
 			nickNameCheck = true;
 		} else {
 			$("#nickNameDiv").children().remove();
+			$("#nickName").css("background-color", "white");
 			$("#nickNameDiv").append(fail);
 			nickNameCheck = false;
 		}

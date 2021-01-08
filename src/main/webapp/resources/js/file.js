@@ -8,38 +8,44 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				success: function(data) {
-				
-					console.log(data);
+						
+						$.each(data.files, function(index, item) {
+							let file = makeFileOnPage(item.nickName, item.upload_date, item.file_original_name);
+							console.log(item.file_original_name);
+							console.log(item.file_uploaded_name);
+							console.log(item.extension);
+							console.log(item.nickName);
+							console.log(item.file_seq);
+							console.log(item.project_seq);
+							$("#far fa-folder-open").append(file);
+							});
 					
 					
-					//$("#far fa-folder-open").append();
+					
 				}
 			});
 		}
 		
-		/*
-		function makeFileOnPage(){
+function makeFileOnPage(nickName, upload_date, file_original_name){
 			
-		let file 	
- 		<div class="file-list-wrapper">
-			<div class="file-list-img">
-				<img src="/resources/img/icon/excel.png">
-			</div>
-			<div class="file-list-letter-wrapper">
-				<div class="file-list-letter-title">정산서.xlsx</div>
-				<div class="file-list-letter-contents">
-					<span>도재구</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>500kb</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span>2021.1.1</span>
-				</div>
-			</div>
-			<div class="file-list-cancel">
-				<i class="fas fa-times"></i>
-			</div>
-		</div> -->
+let file = "<div class='file-list-wrapper'>"+
+			 "<div class='file-list-img'>"+
+			    "<img src='/resources/img/icon/file.png'>"+
+			 "</div>"+
+		   "<div class='file-list-letter-wrapper'>"+
+				"<div class='file-list-letter-title'>"+file_original_name+"</div>"+
+				"<div class='file-list-letter-contents'>"+
+					"<span>"+nickName+"</span>&nbsp;&nbsp;|&nbsp;&nbsp;"+
+					"<span>"+upload_date+"</span>"+
+				"</div>"+
+			"</div>"+
+			"<div class='file-list-cancel'>"+
+				"<i class='fas fa-times'></i>"+
+			"</div>"+
+		"</div>";
+		
 			return file;
 		} 
-		*/
 	
 	loadFiles($("#projectNum").val());
 	
