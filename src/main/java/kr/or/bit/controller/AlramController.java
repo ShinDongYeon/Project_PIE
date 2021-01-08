@@ -23,11 +23,10 @@ public class AlramController {
 	
 	@ResponseBody
 	@RequestMapping(value = "alramList.pie", method = RequestMethod.GET)
-	public List<alram> alramList(String email){
-		
+	public List<alram> alramList(String email,int project_seq){
 		List<alram> alramList = null;
 		try {
-			alramList = alramservice.alramList(email);
+			alramList = alramservice.alramList(email,project_seq);
 			System.out.println("메일메일:"+alramList);
 		} catch (Exception e) {
 			e.printStackTrace();

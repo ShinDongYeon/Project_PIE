@@ -9,10 +9,11 @@ $(document).ready(function(){
 		type : "GET",
 		url  : "alramList.pie",
 		data:{
-			email:"${sessionScope.loginuser}"
+			email:"${sessionScope.loginuser}",
+			project_seq:$("#projectNum").val()
 			},
 		success : function(data){
-			console.log(data)
+			console.log($("#projectNum").val())
 			createAlram(data);
 		}
 	});
@@ -20,7 +21,7 @@ $(document).ready(function(){
 
 function createAlram(data){
 	$.each(data,function(index,alram){
-		console.log(alram.alramseq)
+		console.log(alram)
 		let alramTime = moment(alram.alramTime).format('YYYY-MM-DD'+" "+'HH:mm')
 		html += '<div class="alram-list-wrapper">\
 			<div class="alram-list-img">\
@@ -37,6 +38,7 @@ function createAlram(data){
 			<div class="alram-list-cancel">\
 			<i class="fas fa-times"></i>\
 			<input type="hidden" id="alramseq" name="alramseq" value='+alram.alramseq+' />\
+			<input type="hidden" id="memberEmail" name="memberEmail" value='+alram.memberEmail+' />\
 			</div>\
 			</div>';
 	});

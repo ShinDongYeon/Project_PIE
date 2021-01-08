@@ -60,15 +60,18 @@ public class websocketHandler extends TextWebSocketHandler{
 			String title = (String) jsonObj.get("title");
 			String state = (String) jsonObj.get("state");
 			String alramTime = (String) jsonObj.get("alramTime");
+			String project_num = (String)jsonObj.get("project_seq");
 			////////////////////////////////////////////////////////
+			int project_seq = Integer.parseInt(project_num);
 			alram alram = new alram();
-			List<String> memberEmail = alramservice.projectMemberList();
+			List<String> memberEmail = alramservice.projectMemberList(project_seq);
 			alram.setNickName(nickName);
 			alram.setState(state);
 			alram.setTitle(title);
 			alram.setAlramTime(alramTime);	
 			alram.setMemberEmail(memberEmail);
-			alramservice.insertAlram(alram); //알람 DB insert
+			alram.setProject_seq(project_seq);
+			alramservice.insertAlram(alram);//알람 DB insert
 			int alramLsatSeq = alramservice.alramLastSeq();
 			alram.setAlramseq(alramLsatSeq);
 			String json = objectMapper.writeValueAsString(alram);

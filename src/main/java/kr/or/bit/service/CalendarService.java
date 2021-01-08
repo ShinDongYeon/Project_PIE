@@ -19,16 +19,16 @@ public class CalendarService {
 		this.sqlsession = sqlsession;
 	}
 	
-	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color)throws Exception{
+	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color,int project_seq)throws Exception{
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		calendardao.insertCalendar(start,end,title,content,allDay,color);
+		calendardao.insertCalendar(start,end,title,content,allDay,color,project_seq);
 	
 	}
 	
 	
-	public List<calendar> calendarList() throws Exception {
+	public List<calendar> calendarList(int project_seq) throws Exception {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		return calendardao.getCalendarList();
+		return calendardao.getCalendarList(project_seq);
 	}
 	
 	public void calendarEdit(String start, String end, String id) {
