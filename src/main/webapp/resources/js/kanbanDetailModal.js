@@ -84,6 +84,7 @@ $(document).ready(function() {
 	window.onclick = function(e) {
 		if (e.target == details) {
 			details.style.display = "none";
+			$(".todo-wrap").remove();
 		}
 	}
 
@@ -91,8 +92,8 @@ $(document).ready(function() {
 	$(document).on("click", ".cardTitleMo", function(e) {
 		e.preventDefault();
 		let cardTitleForm = $(this).parent().children("#cardTitleForm");
-		$(this).hide();
 		cardTitleForm.children("#cardTitleInput").attr("placeholder", $(this).html());
+		$(".cardTitleMo").hide();
 		cardTitleForm.show();
 		cardTitleForm.children("#cardTitleInput").focus();
 	});
@@ -128,8 +129,9 @@ $(document).ready(function() {
 					console.log(data);
 				}
 			});
-			$('.cardTitleMo').text(editedCardTitle);
-			$("[data-card-seq=" + modal_card_seq + "]").text(editedCardTitle);
+			$('.cardTitleMo').html(editedCardTitle);
+			$("[data-card-seq=" + modal_card_seq + "]").html(editedCardTitle);
+			$(this).parents().children().children("#cardTitleInput").val("");
 			$('.cardTitleForm').hide();
 			$('.cardTitleMo').show();
 		}
@@ -321,5 +323,20 @@ $(document).ready(function() {
 				}
 			})
 		})
+	}
+	
+	/*Open Card Members Modal*/
+	const memModal = document.getElementById("inviteModal");
+
+	//Open clicked Modal
+	$(document).on("click", ".cardMembersBtn", function(e) {
+		e.preventDefault();
+		memModal.style.display = "block";
+		});
+	
+	window.onclick = function(e) {
+		if (e.target == memModal) {
+			memModal.style.display = "none";
+		}
 	}
 });
