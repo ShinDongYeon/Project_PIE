@@ -3,11 +3,17 @@ package kr.or.bit.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import kr.or.bit.dao.FileDao;
+import kr.or.bit.dto.file;
 
 @Service
 public class FileService{
@@ -19,7 +25,7 @@ public class FileService{
 	private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files"; 
 	
 	//파일 업로드 서비스 
-	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum) {
+	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
 		
 		//파일 저장 경로 (프로젝트번호 기준)
 		String specific_path = "/file_directory_project_seq_"+projectNum;
@@ -38,10 +44,11 @@ public class FileService{
 			System.out.println("list size : "+files.size());
 			String fileOGName = files.get(i).getOriginalFilename();
 			System.out.println(i+" 번째 파일 OG 명 "+fileOGName);
-		File fileCheck = new File(UPLOAD_PATH+specific_path+"/"+fileOGName);
+			File fileCheck = new File(UPLOAD_PATH+specific_path+"/"+fileOGName);
 		
 		//파일 확장자 
 		String ext = fileOGName.substring(fileOGName.lastIndexOf(".") + 1);
+		String upload_file_name = "";
 		
 		//파일 이름 중복 시 
 		if(fileCheck.exists()) {
@@ -49,7 +56,9 @@ public class FileService{
 			
 			//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 			String Changed_fileName = fileOGName.substring(0, fileOGName.indexOf("."));
-			fileOGName = Changed_fileName+"@."+ext;
+			upload_file_name = Changed_fileName+"@."+ext;
+		}else {
+			upload_file_name = fileOGName;
 		}
 	
 		System.out.println("파일 확장자 : "+ext);
@@ -59,13 +68,23 @@ public class FileService{
 				data = files.get(i).getBytes();
 				
 				//절대경로 + 프로젝트번호 + 파일이름 
-				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+fileOGName);
+				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
 				
 				//파일 업로드 
 				fos.write(data);
 				
+				System.out.println("저장 시간 : "+makeDate());
+				
+				file f = new file();
+				f.setFile_original_name(fileOGName);
+				f.setFile_uploaded_name(upload_file_name);
+				f.setProject_seq(projectNum);
+				f.setExtension(ext);
+				f.setUpload_date(makeDate());
+				f.setNickName(nick);
 				//디비에 파일 정보 저장
-				//원래 이름, 저장된 이름, 프로젝트 번호, 확장자, 저장시간 
+				fileUploadToDBMethod(f);
+				
 				fos.close();
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
@@ -74,6 +93,29 @@ public class FileService{
 			}
 		}
 		return true;
+	}
+	
+	//db에 파일 정보 저장하는 메서드 
+	public boolean fileUploadToDBMethod(file fi) {
+
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		filedao.fileUploadToDB(fi);
+		return true;
+	}
+	
+	//시간 리턴하는 함수 
+	public String makeDate() {
+		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		return nowDateTime;
+	}
+	
+	
+	public ArrayList<file> getFileService(int projectNum){
+
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		 ArrayList<file> files = filedao.getFile(projectNum);
+		return files;
+		
 	}
 
 

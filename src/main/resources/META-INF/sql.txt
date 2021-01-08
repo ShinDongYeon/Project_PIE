@@ -153,5 +153,20 @@ END $$
 DELIMITER ;
 
 #seq = 3개 project_seq, card_seq, list_seq 
- 
+
+#file 
+CREATE TABLE file (
+	file_seq int NOT NULL AUTO_INCREMENT,
+    project_seq int NOT NULL,
+    file_original_name varchar(200) NOT NULL,
+    file_uploaded_name varchar(200) NOT NULL,
+    extension varchar(50) NOT NULL,
+    upload_date varchar(100) NOT NULL,
+    nickName varchar(200) NOT NULL,
+    FOREIGN KEY (PROJECT_SEQ) REFERENCES PROJECT(PROJECT_SEQ),
+    PRIMARY KEY (file_seq)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 

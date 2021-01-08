@@ -14,6 +14,7 @@
 		<typeAlias type="kr.or.bit.dto.project_member" alias="project_memberDto"/>
 		<typeAlias type="kr.or.bit.dto.checkList" alias="checkListDto"/>
 		<typeAlias type="kr.or.bit.dto.alram" alias="alramDto"/>
+		<typeAlias type="kr.or.bit.dto.file" alias="fileDto"/>
 	</typeAliases>
 </configuration>
 
