@@ -23,12 +23,13 @@ public class AlramService {
 	}
 	public void insertAlram(alram alram)throws Exception{
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
+		System.out.println("알람리스트:"+alram);
 		alramdao.insertAlram(alram);
 	
 	}
-	public List<alram> alramList(String email) throws Exception {
+	public List<alram> alramList(String email,int project_seq) throws Exception {
 	AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
-	return alramdao.getAlramList(email);
+	return alramdao.getAlramList(email,project_seq);
 	}
 	public int alramLastSeq() {
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
@@ -39,8 +40,8 @@ public class AlramService {
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
 		alramdao.deleteAlram(alramseq);
 	}
-	public List<String> projectMemberList(){
+	public List<String> projectMemberList(int project_seq){
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
-		return alramdao.projectMemberList();
+		return alramdao.projectMemberList(project_seq);
 	}
 }

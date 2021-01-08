@@ -22,6 +22,8 @@ $(document).ready(function() {
 		}
 	});
 	
+
+	
 	//처음 입장시 메시지 입력창 CSS 색 입히기
 	$('#message').focus();
 	if($('#message').is(':focus')){
@@ -95,12 +97,14 @@ function onClose(evt){
 }
 
 function send(){
+	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
 	var msg = $('#message').val();
-	if(msg.trim() != ''){
-		websocket.send(nickname + "|" + msg);
-	}
 	$('#message').val('');
+	if(msg.trim() != ''){
+		websocket.send(email + "|" + msg + "|" + nickname);
+	}
+	
 }
 
 function appendMessage(msg) {
@@ -115,7 +119,7 @@ function appendMessage(msg) {
 			success 	: function(data){
 				console.log(data);
 
-				
+				let myemail = $('#session_email').val();
 				let mynickname = $('#nickname').val();
 				var strarray = msg.split('|');
 			
@@ -123,7 +127,7 @@ function appendMessage(msg) {
 				console.log(">"+msginfo+"<")
 				var message = strarray[1];
 				var msgbox ='';
-				if (msginfo == mynickname) {
+				if (msginfo == myemail) {
 					//현재 시간 구하기
 					let today = new Date();
 					let date_index = today.toLocaleTimeString().lastIndexOf(':');
@@ -166,7 +170,7 @@ function appendMessage(msg) {
 					$.each(data,function(index,elem){
 						console.log(elem.nickName);
 						let today = new Date();
-						if(msginfo == elem.nickName){
+						if(msginfo == elem.email){
 							//현재 시간 구하기
 							let today = new Date();
 							let date_index = today.toLocaleTimeString().lastIndexOf(':');

@@ -60,25 +60,20 @@ public class websocketHandler extends TextWebSocketHandler{
 			String title = (String) jsonObj.get("title");
 			String state = (String) jsonObj.get("state");
 			String alramTime = (String) jsonObj.get("alramTime");
+			String project_num = (String)jsonObj.get("project_seq");
 			////////////////////////////////////////////////////////
+			int project_seq = Integer.parseInt(project_num);
 			alram alram = new alram();
-			List<String> memberEmail = alramservice.projectMemberList();
+			List<String> memberEmail = alramservice.projectMemberList(project_seq);
 			alram.setNickName(nickName);
-			System.out.println("멤버1:"+memberEmail);
 			alram.setState(state);
-			System.out.println("멤버2:"+memberEmail);
 			alram.setTitle(title);
-			System.out.println("멤버3:"+memberEmail);
 			alram.setAlramTime(alramTime);	
-			System.out.println("멤버4:"+memberEmail);
 			alram.setMemberEmail(memberEmail);
-			System.out.println("멤버5:"+memberEmail);
-			System.out.println("DTO"+alram.getMemberEmail());
-			alramservice.insertAlram(alram); //알람 DB insert
-			System.out.println("멤버6:"+memberEmail);
+			alram.setProject_seq(project_seq);
+			alramservice.insertAlram(alram);//알람 DB insert
 			int alramLsatSeq = alramservice.alramLastSeq();
 			alram.setAlramseq(alramLsatSeq);
-			System.out.println(memberEmail);
 			String json = objectMapper.writeValueAsString(alram);
 			for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(new TextMessage(json));

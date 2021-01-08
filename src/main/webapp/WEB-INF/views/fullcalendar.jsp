@@ -81,6 +81,9 @@ let minutes = today.getMinutes();
 		$.ajax({  
 			type : "GET",
 			url  : "calendarList.pie",
+			data:{
+				project_seq:$("#projectNum").val()
+				},
 			dataType:'json',
 			success : function(data){				
 			var fixedDate = data.map(function(array){
@@ -152,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
       dayMaxEvents: true,
       locales:'ko',
  	 dateClick: function(info) {
+ 	 	 console.log($("#projectNum").val())
         document.getElementById('calendarInsert_modal_contents').style.display='block'
        	document.getElementById('calendar_modal_background').style.display = 'block';
           $('#startDate').val(info.dateStr + " "+hours+":00")
@@ -178,7 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						title:$('#title').val(),
 						content:$('#content').val(),
 						allDay:allDay,
-						color:$('#eventColor').val()
+						color:$('#eventColor').val(),
+						project_seq:$("#projectNum").val()
 						},
 					success : function(data){	
 						calendar.refetchEvents();
@@ -186,11 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 			  })
 				  	var alram = {
+			  	
 			  		email:"${sessionScope}",
 			  		nick:"${sessionScope.nick}",
 					title:"캘린더",
 					state:"등록",
 					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:$("#projectNum").val(),
 					}
 					socket.send(JSON.stringify(alram))	
 			})		
@@ -320,10 +327,12 @@ document.addEventListener('DOMContentLoaded', function() {
 					  })
 
 					var alram = {
-					nick:"${sessionScope.nick}",
+					email:"${sessionScope}",
+				  	nick:"${sessionScope.nick}",
 					title:"캘린더",
 					state:"수정",
 					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:Number($("#projectNum").val()),
 					}
 					socket.send(JSON.stringify(alram))
 

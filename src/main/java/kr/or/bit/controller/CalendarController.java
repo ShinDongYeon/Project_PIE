@@ -30,10 +30,9 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarInsert.pie", method = RequestMethod.POST)
 	public String calendarInsert(String start, String end, String title, String content, Boolean allDay,
-			String color, calendar calendar) {
-		System.out.println("캘린더"+calendar.getStart());
+			String color,int project_seq) {
 		try {
-			calendarservice.insertCalendar(start, end, title, content, allDay, color);
+			calendarservice.insertCalendar(start, end, title, content, allDay, color,project_seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:" + e.getMessage());
@@ -57,10 +56,10 @@ public class CalendarController {
 
 	@ResponseBody
 	@RequestMapping(value = "calendarList.pie", method = RequestMethod.GET)
-	public List<calendar> calendarList() {
+	public List<calendar> calendarList(int project_seq) {
 		List<calendar> calendarList = null;
 		try {
-			calendarList = calendarservice.calendarList();
+			calendarList = calendarservice.calendarList(project_seq);
 
 		} catch (Exception e) {
 			e.printStackTrace();

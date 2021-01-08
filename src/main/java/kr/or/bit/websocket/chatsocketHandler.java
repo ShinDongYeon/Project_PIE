@@ -67,7 +67,9 @@ public class chatsocketHandler extends TextWebSocketHandler{
 			
 			
 			String chatname = getCurrentChatRoom(session);
+			String email = getLoginUser(session);
 			System.out.println("메시지가 입력된 채팅방 :" + chatname);
+			System.out.println("message : "+message);
 			System.out.println("message : "+message.getPayload());
 			for(Map.Entry m : usermap.get(chatname).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 				WebSocketSession sess = (WebSocketSession) m.getValue();

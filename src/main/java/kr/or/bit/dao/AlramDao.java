@@ -9,12 +9,12 @@ public interface AlramDao {
 
 	public void insertAlram(alram alram);
 	
-	public List<alram> getAlramList(String email);
+	public List<alram> getAlramList(String email,int project_seq);
 	
 	public int getAlramLastSeq();
 	
 	public void deleteAlram(int alrmaseq);
 	
-	public List<String> projectMemberList();
+	public List<String> projectMemberList(int project_seq);
 
 }
