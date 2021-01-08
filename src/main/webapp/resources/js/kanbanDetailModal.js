@@ -20,11 +20,17 @@ $(document).ready(function() {
 		let total = $('.todo-wrap').length;
 		let checked = $('.todo-wrap').find('input[ischecked="1"]').length;
 		let percentage = parseInt(((checked / total) * 100), 10);
-
+		
 		$('.progressbar').progressbar({
 			value: percentage
 		});
-		$('.progressbar-label').text(percentage + "%");
+		
+		if(isNaN(percentage)||percentage<0){
+			$('.progressbar-label').text(0 + "%");
+		}else{
+			$('.progressbar-label').text(percentage + "%");
+		}
+		
 	}
 	//get Modal Id
 	const details = document.getElementById("detailsModal");
@@ -280,8 +286,11 @@ $(document).ready(function() {
 		$('.progressbar').progressbar({
 			value: percentage
 		});
-		$('.progressbar-label').text(percentage + "%");
-
+		if(isNaN(percentage)||percentage<0){
+			$('.progressbar-label').text(0 + "%");
+		}else{
+			$('.progressbar-label').text(percentage + "%");
+		}
 		$.ajax({
 			url: "deleteChkList.pie?cardSeq=" + cardSeq,
 			contentType: "application/json; charset=UTF-8",
