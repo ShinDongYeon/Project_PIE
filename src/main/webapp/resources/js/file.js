@@ -1,6 +1,6 @@
-$(document).ready(function() {
-	
+		//파일 로드하는 함수
 		function loadFiles(projectNum) {
+		$("#fileZone").empty();
 		$.ajax({
 				type: "post",
 				url: "showFile.pie?projectNum=" + projectNum,
@@ -10,25 +10,22 @@ $(document).ready(function() {
 				success: function(data) {
 						
 						$.each(data.files, function(index, item) {
-							let file = makeFileOnPage(item.nickName, item.upload_date, item.file_original_name);
-							console.log(item.file_original_name);
-							console.log(item.file_uploaded_name);
-							console.log(item.extension);
-							console.log(item.nickName);
-							console.log(item.file_seq);
-							console.log(item.project_seq);
-							$("#far fa-folder-open").append(file);
+							let file = makeFileOnPage(item.nickName, item.upload_date, 
+													  item.file_original_name, item.file_seq,
+													  item.file_uploaded_name);
+							$("#fileZone").append(file);
 							});
-					
-					
 					
 				}
 			});
 		}
-		
-function makeFileOnPage(nickName, upload_date, file_original_name){
+	
+//파일 만들기 		
+function makeFileOnPage(nickName, upload_date, file_original_name, file_seq, file_uploaded_name){
 			
 let file = "<div class='file-list-wrapper'>"+
+			"<input id = 'file_seq' type = 'hidden' value = '"+file_seq+"'>"+
+			"<input id = 'file_uploaded_name' type = 'hidden' value = '"+file_uploaded_name+"'>"+
 			 "<div class='file-list-img'>"+
 			    "<img src='/resources/img/icon/file.png'>"+
 			 "</div>"+
@@ -46,10 +43,40 @@ let file = "<div class='file-list-wrapper'>"+
 		
 			return file;
 		} 
+		
 	
+	$(document).on("click", ".file-list-wrapper", function(e) {
+		
+		let seq = Number($(this).children().val());
+		let fileUploadName = $(this).children().next().val();
+		
+		let fileOb = new Object();
+		fileOb.file_seq = seq;
+		fileOb.project_seq = $("#projectNum").val();
+		fileOb.file_uploaded_name = fileUploadName;
+		
+		let file = JSON.stringify(fileOb);
+		
+		//파일 클릭시 파일 다운로드 ajax 
+		$.ajax({
+				type: "post",
+				url: "downloadFile.pie",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				data : file,
+				success: function(data) {
+					console.log(data);	
+				},
+				error: function(data){
+					console.log(data);					
+				}
+			});
+	});
+	
+
+$(document).ready(function() {
 	loadFiles($("#projectNum").val());
-	
-	
 	
 	$("#input_file").on('change', function(e) {
 		e.preventDefault();
@@ -298,6 +325,8 @@ function uploadFile() {
 				for(let i = 0; i < fileSize; i++){
 					deleteFile(i);
 				}
+				
+				loadFiles($("#projectNum").val());
 				
 			}
 		});

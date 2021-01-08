@@ -11,6 +11,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <select id = "getFile" resultType = "fileDto">
-	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1}
+	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1} ORDER BY FILE_SEQ DESC
 </select>
 </mapper>

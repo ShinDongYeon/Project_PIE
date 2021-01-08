@@ -65,6 +65,8 @@
 				</form>
 			</div>
 		</div>
+		<div id = "fileZone">
+		</div>
 
 		
 		<!-- file list -->
