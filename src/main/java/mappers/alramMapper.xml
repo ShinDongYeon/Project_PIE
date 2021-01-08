@@ -6,27 +6,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.bit.dao.AlramDao">
  
 <insert id="insertAlram" parameterType="alramDto">
-INSERT INTO alram
-(nickName,title,state,alramTime,memberemail)
+INSERT INTO alarm
+(nickName,title,state,alramTime,project_seq,memberemail)
 VALUES
 <foreach collection="memberEmail" item="item" index="index" separator=",">
-		(#{nickName},#{title},#{state},#{alramTime},'${item}') 
+		(#{nickName},#{title},#{state},#{alramTime},#{project_seq},'${item}') 
 		</foreach>
 </insert>
 
 <select id="getAlramList" resultType="alramDto">
-	SELECT * FROM alram WHERE memberemail= #{param1}
+	SELECT * FROM alarm WHERE memberemail= #{param1} AND project_seq=#{param2}
 </select>
 
 <select id="getAlramLastSeq" resultType="int">
-	SELECT MAX(alramseq) FROM alram;
+	SELECT MAX(alramseq) FROM alarm;
 </select>
 
 <delete id="deleteAlram" parameterType="int">
-DELETE FROM alram
+DELETE FROM alarm
 WHERE alramseq = #{param1} 
 </delete>
-<select id="projectMemberList" resultType="String">
-	SELECT EMAIL FROM project_member WHERE PROJECT_SEQ = 1;
+<select id="projectMemberList" resultType="String" parameterType="int">
+	SELECT EMAIL FROM project_member WHERE PROJECT_SEQ = #{param1};
 </select>
 </mapper>

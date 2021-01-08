@@ -6,30 +6,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.bit.dao.CalendarDao">
  
 <insert id="insertCalendar">
-INSERT INTO calendar_ex
-(start,end,title,content,allday,color)
-VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6}) 
+INSERT INTO calendar
+(start,end,title,content,allday,color,project_seq)
+VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7}) 
 </insert>
 
 
 
 <select id="getCalendarList" resultType="CalendarDto">
-SELECT * FROM calendar_ex 
+SELECT * FROM calendar WHERE project_seq = #{param1}
 </select>
 
 <update id="editCalendar">
-UPDATE calendar_ex
+UPDATE calendar
 SET start=#{param1},end=#{param2}
 WHERE id = #{param3} 
 </update>
 
 <delete id="deleteCalendar">
-DELETE FROM calendar_ex
+DELETE FROM calendar
 WHERE id = #{param1} 
 </delete>
 
 <update  id="updateCalendar">
-UPDATE calendar_ex
+UPDATE calendar
 SET start=#{param1},end = #{param2},title = #{param3},content = #{param4},allday=#{param5},color=#{param6}
 WHERE id = #{param7} 
 </update>

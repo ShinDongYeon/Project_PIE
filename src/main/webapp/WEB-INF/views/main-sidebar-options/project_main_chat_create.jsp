@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div class="crtChat-search">
-					<input type="text" maxlength='10' id="crtChat-search-box" class="crtChat-search-box" name="">
+					<input type="text" maxlength='10' placeholder="이름 검색" id="crtChat-search-box" class="crtChat-search-box" name="">
 					<i class="fas fa-search"></i>
 				</div>
 			</div>

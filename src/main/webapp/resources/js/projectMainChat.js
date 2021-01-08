@@ -202,8 +202,8 @@ function chattingRoomList(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 17){
-			chat_title_substr = chat_title.substr(0,17) + "...";
+		if(chat_title.length > 15){
+			chat_title_substr = chat_title.substr(0,15) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
@@ -247,8 +247,8 @@ function completeChattingRoom(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 17){
-			chat_title_substr = chat_title.substr(0,17) + "...";
+		if(chat_title.length > 15){
+			chat_title_substr = chat_title.substr(0,15) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
@@ -284,28 +284,47 @@ function completeChattingRoom(data){
 */
 function deleteChatRoom(me){
 	"use strict";
-	let div = $(me).closest('div');
-	let div_attr = div.attr("id");
-	let div_index = div_attr.lastIndexOf("-")+1;
-	let div_substr = div_attr.substring(div_index);
-	
-	console.log("div_substr");
-	console.log(div_substr);
-	
-	$('#chat-list-wrapper-'+div_substr).remove();
-	
-	$.ajax(
-		{
-			type 		: "DELETE",
-			url  		: "chat/roomlist?chatting_room_seq="+div_substr,
-			success 	: function(data){
-				console.log(data);
-			},
-			error		: function(request,status,error){
-				alert(error);
+	swal.fire({
+			title: 'Warning',
+			text: '채팅방을 목록에서 숨기시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '확인',
+			cancelButtonText: '취소',
+			
+		}).then((result) => {
+			
+			if(result.isConfirmed){
+				let div = $(me).closest('div');
+				let div_attr = div.attr("id");
+				let div_index = div_attr.lastIndexOf("-")+1;
+				let div_substr = div_attr.substring(div_index);
+				
+				console.log("div_substr");
+				console.log(div_substr);
+				
+				$('#chat-list-wrapper-'+div_substr).remove();
+				
+				/*
+				$.ajax(
+					{
+						type 		: "DELETE",
+						url  		: "chat/roomlist?chatting_room_seq="+div_substr,
+						success 	: function(data){
+							swal.fire("Done!", "It's succesfully deleted!", "success");
+						},
+						error		: function(request,status,error){
+							alert(error);
+						}
+					}
+				);
+				*/
 			}
-		}
-	);
+
+		});
+	
 }
 
 /*

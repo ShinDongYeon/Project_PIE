@@ -1,4 +1,50 @@
 $(document).ready(function() {
+	
+		function loadFiles(projectNum) {
+		$.ajax({
+				type: "post",
+				url: "showFile.pie?projectNum=" + projectNum,
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+				
+					console.log(data);
+					
+					
+					//$("#far fa-folder-open").append();
+				}
+			});
+		}
+		
+		/*
+		function makeFileOnPage(){
+			
+		let file 	
+ 		<div class="file-list-wrapper">
+			<div class="file-list-img">
+				<img src="/resources/img/icon/excel.png">
+			</div>
+			<div class="file-list-letter-wrapper">
+				<div class="file-list-letter-title">정산서.xlsx</div>
+				<div class="file-list-letter-contents">
+					<span>도재구</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span>500kb</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span>2021.1.1</span>
+				</div>
+			</div>
+			<div class="file-list-cancel">
+				<i class="fas fa-times"></i>
+			</div>
+		</div> -->
+			return file;
+		} 
+		*/
+	
+	loadFiles($("#projectNum").val());
+	
+	
+	
 	$("#input_file").on('change', function(e) {
 		e.preventDefault();
 		selectFile(this.files);
@@ -225,8 +271,9 @@ function uploadFile() {
 			formData.append('files', fileList[uploadFileList[i]]);
 		}
 		
+		
 		$.ajax({
-			url: "file.pie?projectNum="+$("#projectNum").val(),
+			url: "file.pie?projectNum="+$("#projectNum").val()+"&nick="+$("#nick").val(),
 			data: formData,
 			type: 'POST',
 			enctype : 'multipart/form-data', 

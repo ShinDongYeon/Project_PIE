@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON U.EMAIL = P.EMAIL
 		WHERE U.EMAIL NOT IN (#{sessionEmail})
 		AND P.PROJECT_SEQ = #{projectNum}
+		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 	
 	<!-- public List<user> chatUserListByEmail(String[] user_array); -->
@@ -71,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE NICKNAME LIKE CONCAT('%',#{nickName},'%')
 			AND P.PROJECT_SEQ = #{projectNum}
 			AND U.EMAIL NOT IN (#{sessionEmail})
+		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 	
 	<select id="searchAnotherUser" parameterType="hashMap" resultType="userDto">
@@ -85,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND U.NICKNAME LIKE CONCAT('%',#{nickName},'%')
 		AND P.PROJECT_SEQ = #{projectNum}
 		AND U.EMAIL NOT IN (#{sessionEmail})
+		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 	
 	<select id="selectedUserClose" parameterType="java.util.ArrayList" resultType="userDto">
@@ -98,6 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 		AND P.PROJECT_SEQ = #{projectNum}
 		AND U.EMAIL NOT IN (#{sessionEmail})
+		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 	
 	<!-- public void deleteRoom(int chatting_room_seq); -->
