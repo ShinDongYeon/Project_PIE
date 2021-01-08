@@ -8,10 +8,10 @@ import kr.or.bit.dto.user;
 public interface CalendarDao {
 
 	
-	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color);
+	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color,int project_seq);
 	 
 
-	public List<calendar> getCalendarList();
+	public List<calendar> getCalendarList(int project_seq);
 	
 	public void editCalendar(String start, String end, String id);
 	
