@@ -94,7 +94,7 @@ $(document).ready(function() {
 		$(this).hide();
 		cardTitleForm.children("#cardTitleInput").attr("placeholder", $(this).html());
 		cardTitleForm.show();
-		cardTitleForm.focus();
+		cardTitleForm.children("#cardTitleInput").focus();
 	});
 
 	//make edit card Title disappear

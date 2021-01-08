@@ -108,7 +108,7 @@ $(function() {
 	const proTitleEdit = $("#projectTitleEdit");
 
 	/*Project Title*/
-	proTitle.dblclick(function(e) {
+	proTitle.click(function(e) {
 		e.preventDefault();
 		proTitleEdit.children("#projectTitleInput").attr("placeholder", $(this).html());
 		proTitle.hide();
@@ -672,4 +672,23 @@ $(function() {
 	$(".cardWrap").sortable({
 		placeholder: "card-placeholder"
 	});
+	
+	/*Web Socket
+	function connectWS(){
+		let socket = new WebSocket("ws://localhost:8090/websocket/kanban/websocket");
+		socket = ws;
+		ws.open = function(msg){
+			console.log(msg);
+		}
+		
+		ws.onclose = function(){
+			console.log("Sever Close");
+		}
+		
+		ws.onerror = function(){
+			console.log("Server Error");
+		}
+	};
+	connectWS();
+	*/
 });
