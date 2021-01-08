@@ -77,10 +77,9 @@ public class CheckListController {
 	@ResponseBody
 	@RequestMapping(value = "deleteChkList.pie", method = RequestMethod.POST)
 	public View deleteChkList(@RequestBody checkList chk, @RequestParam("cardSeq") int cardSeq, Model model) {
-
 		checklistservice.deleteChkListService(chk);
 		System.out.println("delete CheckList Seq:" + chk);
-		model.addAttribute("data", "success");
+		model.addAttribute("data", chk);
 		return jsonview;
 	}
 
@@ -90,7 +89,7 @@ public class CheckListController {
 	public View editCheckedStatus(@RequestBody checkList chk, Model model) {
 		checklistservice.editCheckedStatusService(chk);
 		System.out.println("edit checked status");
-		model.addAttribute("data", "success");
+		model.addAttribute("data", chk);
 		return jsonview;
 	}
 }
