@@ -30,8 +30,43 @@
     border-radius: 15px;
 }
 
-.details {
-    margin-left: 20px;
+.main{
+	width:75%; 
+	display:inline-block;
+}
+.side{
+	display:inline-block;
+	position:fixed;
+	margin-top:50px;
+	margin-left:10px;
+}
+
+.cardMembersBtn {
+	background: transparent;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: none;    
+}
+
+.cardMembersBtn:hover {
+	background : #31353d;
+	cursor: pointer;
+	border-radius: 5px;
+	color: #f2dd68;
+}
+
+.setDueDateBtn {
+	background: transparent;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: none;
+}
+
+.setDueDateBtn:hover {
+	background : #31353d;
+	cursor: pointer;
+	border-radius: 5px;
+	color: #f2dd68;
 }
 
 .closeModal {
@@ -55,7 +90,7 @@
 	font-size:30px;
     padding-left:10px;
     margin-bottom:10px;
-    width:30%;
+    width:70%;
     font-weight: 200;
 	color: #454545;
 }
@@ -367,3 +402,32 @@ input[type=checkbox]:checked + label.todo .fa-check {
 .editing.todo-wrap {
 	box-shadow: 0 0 400px rgba(0, 0, 0, .8), inset 0 0px 0 2px #ebebeb;
 }
+
+/*Invite Card Members Modal*/
+#inviteModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #000;
+    background-color: rgb(0,0,0,0.4);
+}
+
+.invite-detail{
+    background-color: #6e7579;
+    color:white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 15%;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 150px;
+    margin-left: 60%;
+}
+
