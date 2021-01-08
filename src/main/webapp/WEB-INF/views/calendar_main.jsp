@@ -13,7 +13,8 @@
 	<script src="/resources/js/projectMainChat.js"></script>
 </head>
 <body>
-	<div></div>
+	<input type = "hidden" id = "projectNum" value = "${sessionScope.projectNum}">
+	<input type = "hidden" id = "nick" value = "${sessionScope.nick}">
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	
