@@ -8,12 +8,11 @@ $(document).ready(function() {
 	
 	//전송 버튼 CSS 조절 + Enter 키 입력
 	$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
-	$('#message').keypress( (event) => {
+	$('#message').keyup( (event) => {
 		//Enter 키 입력
 		if (event.which == 13) {
 			send();
 			event.preventDefault();
-			$('#message').val('');
 		}
 		//전송버튼 CSS 조절
 		if($('#message').val() == ''){
@@ -22,6 +21,8 @@ $(document).ready(function() {
 			$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
 		}
 	});
+	
+
 	
 	//처음 입장시 메시지 입력창 CSS 색 입히기
 	$('#message').focus();
