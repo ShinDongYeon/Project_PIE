@@ -13,8 +13,11 @@
 	<script src="/resources/js/projectMainChat.js"></script>
 </head>
 <body>
+	<!-- projectNum(Sequence) -->
 	<input type = "hidden" id = "projectNum" value = "${sessionScope.projectNum}">
 	<input type = "hidden" id = "nick" value = "${sessionScope.nick}">
+	<input type = "hidden" id = "email" value = "${sessionScope.loginuser}">
+
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	
@@ -25,18 +28,16 @@
 		<!-- right sidebar contents -->
 		<div id="right-sidebar-contents-wrapper" class="right-sidebar-contents-wrapper-hidden">
 			<!-- bookmark -->
-			<jsp:include page="main-sidebar-options/project_main_bookmark.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_bookmark.jsp"></jsp:include>
 			
 			<!-- alarm -->
-			<jsp:include page="main-sidebar-options/project_main_alarm.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_alarm.jsp"></jsp:include>
 			
 			<!-- file -->
-			<div id="far fa-folder-open" class="right-sidebar-file">
-				file창
-			</div>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_file.jsp"></jsp:include>
 			
 			<!-- chat -->
-			<jsp:include page="project_main_chat.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/project_main_chat.jsp"></jsp:include>
 			
 			<!-- users -->
 			<div id="fas fa-users" class="right-sidebar-users">
@@ -44,12 +45,12 @@
 			</div>
 		</div>
 		<!-- main body -->
-		<div class="project-main-body-wrapper">
-			<jsp:include page="/WEB-INF/views/fullcalendar.jsp"></jsp:include>
-			
+		<div class="project-main-body-wrapper" id="calendarMain" style="display: block">
+			<jsp:include page="/WEB-INF/views/calendar/fullcalendar.jsp"></jsp:include>		
 		</div>
+
+		
 	</div>
-	
-			
+		
 </body>
 </html>

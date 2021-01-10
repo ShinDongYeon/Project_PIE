@@ -14,11 +14,11 @@ $(document).ready(function(){
 			},
 		success : function(data){
 			console.log($("#projectNum").val())
+			console.log("알람갯수"+data.length)
 			createAlram(data);
 		}
 	});
 })
-
 function createAlram(data){
 	$.each(data,function(index,alram){
 		console.log(alram)

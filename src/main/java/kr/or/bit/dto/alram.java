@@ -11,7 +11,8 @@ public class alram {
 	private String state;
 	private String alramTime;
 	private int alramseq;
-	private int project_seq;;
+	private int project_seq;
+	private int alramCount;
 	
 	private List<String> memberEmail;
 

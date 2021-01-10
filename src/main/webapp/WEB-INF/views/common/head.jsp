@@ -60,6 +60,11 @@
 			console.log(alramMessage.title)
 			alram.append(html);
 			alram.css('display', 'inline');
+
+			var alramCount = $('#alramCount');
+			alramCount.empty();
+			console.log("카운트:"+alramMessage.alramCount)
+			document.getElementById('alramCount').innerText=alramMessage.alramCount;
 			};
 		ws.onclose = function(event){
 			console.log("Server Close")

@@ -24,7 +24,7 @@ public class CalendarController {
 
 	@RequestMapping(value = "fullcalendar.htm", method = RequestMethod.GET)
 	public String home() {
-		return "calendar_main";
+		return "project/calendar_main";
 	}
 
 	@ResponseBody

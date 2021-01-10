@@ -6,8 +6,7 @@ $(document).ready(function(){
 	
 		$('#sidebar-kanban').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		document.getElementById('calendarMain').style.display = 'none';
-		document.getElementById('kanban').style.display = 'block';
+		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();
 		});
 	$('#sidebar-calendar').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';

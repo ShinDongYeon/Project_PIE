@@ -72,8 +72,11 @@ public class websocketHandler extends TextWebSocketHandler{
 			alram.setMemberEmail(memberEmail);
 			alram.setProject_seq(project_seq);
 			alramservice.insertAlram(alram);//알람 DB insert
+			List<alram> alramList = alramservice.alramList(email,project_seq);
+			int alramCount = alramList.size();
 			int alramLsatSeq = alramservice.alramLastSeq();
 			alram.setAlramseq(alramLsatSeq);
+			alram.setAlramCount(alramCount);
 			String json = objectMapper.writeValueAsString(alram);
 			for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(new TextMessage(json));
