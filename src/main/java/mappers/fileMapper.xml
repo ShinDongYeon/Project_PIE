@@ -13,4 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id = "getFile" resultType = "fileDto">
 	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1} ORDER BY FILE_SEQ DESC
 </select>
+
+<select id = "getFileWithOGName" resultType = "fileDto">
+	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') ORDER BY FILE_SEQ DESC LIMIT 10
+</select>
+
 </mapper>

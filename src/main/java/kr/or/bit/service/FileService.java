@@ -3,6 +3,7 @@ package kr.or.bit.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.mysql.cj.util.StringUtils;
 
 import kr.or.bit.dao.FileDao;
 import kr.or.bit.dto.file;
@@ -45,7 +48,7 @@ public class FileService{
 			String fileOGName = files.get(i).getOriginalFilename();
 			System.out.println(i+" 번째 파일 OG 명 "+fileOGName);
 			File fileCheck = new File(UPLOAD_PATH+specific_path+"/"+fileOGName);
-		
+
 		//파일 확장자 
 		String ext = fileOGName.substring(fileOGName.lastIndexOf(".") + 1);
 		String upload_file_name = "";
@@ -65,19 +68,21 @@ public class FileService{
 		
 			byte[] data;
 			try {
-				data = files.get(i).getBytes();
+				System.out.println("확인 : "+files.get(i).getOriginalFilename());
 				
+				data = files.get(i).getBytes();
 				//절대경로 + 프로젝트번호 + 파일이름 
 				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
-				
 				//파일 업로드 
 				fos.write(data);
 				
 				System.out.println("저장 시간 : "+makeDate());
-				
+				 
 				file f = new file();
+				
 				f.setFile_original_name(fileOGName);
 				f.setFile_uploaded_name(upload_file_name);
+				
 				f.setProject_seq(projectNum);
 				f.setExtension(ext);
 				f.setUpload_date(makeDate());
@@ -109,11 +114,20 @@ public class FileService{
 		return nowDateTime;
 	}
 	
-	
+	//파일 리턴하는 서비스
 	public ArrayList<file> getFileService(int projectNum){
 
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
-		 ArrayList<file> files = filedao.getFile(projectNum);
+		ArrayList<file> files = filedao.getFile(projectNum);
+		return files;
+		
+	}
+	
+	//파일 리턴하는 서비스 (이름으로 검색)
+	public ArrayList<file> getFileWithOGNameService(String file_og_name){
+
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		ArrayList<file> files = filedao.getFileWithOGName(file_og_name);
 		return files;
 		
 	}

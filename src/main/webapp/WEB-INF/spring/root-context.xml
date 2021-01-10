@@ -25,7 +25,7 @@
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 			<!-- com.mysql.cj.jdbc.Driver -->
 		<property name="url"
-			value="jdbc:log4jdbc:mysql://localhost:3306/pie?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
+			value="jdbc:log4jdbc:mysql://localhost:3306/pie?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="pie" />
 		<property name="password" value="1004" />
 	</bean>
