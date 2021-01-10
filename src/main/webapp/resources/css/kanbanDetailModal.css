@@ -419,12 +419,12 @@ input[type=checkbox]:checked + label.todo .fa-check {
 }
 
 .invite-detail{
-    background-color: #6e7579;
+    background-color: #31343c;
     color:white;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 15%;
+    width: 25%;
     height: auto;
     border-radius: 15px;
     margin-top: 150px;

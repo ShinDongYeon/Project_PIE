@@ -1,7 +1,7 @@
 /*
 파일명: checkList.js
-설명: 칸반 카드 상세페이지 내 구현될 체크리스트 jqery&js
-작성일: 2021-01-04 ~ 2021-01-07 
+설명: 칸반 카드 상세페이지 내 구현될 체크리스트, 담당자 등록 jqery&js
+작성일: 2021-01-04 ~ 2021-01-12
 작성자: 문지연
 */
 
@@ -332,11 +332,53 @@ $(document).ready(function() {
 	$(document).on("click", ".cardMembersBtn", function(e) {
 		e.preventDefault();
 		memModal.style.display = "block";
+		
+		//get projectSeq$CardSeq
+		cardSeq=$(this).parents().children().children(".modal_card_seq").val();
+		console.log("cardSeq:::"+cardSeq);
+		$(".invite-detail").attr("data-invite-card",cardSeq);
+		
+		//get project Member List
+		$.ajax({
+			type: "get",
+			url: "getProjectMemList?sessionEmail="+$('#session_email').val(),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				console.log(data);
+				let memberLi = "Member List";
+				$.each(data, function(index, item) {
+					memberLi += "<div id='crtChat-select-users-wrapper-"+index+"' class='crtChat-select-users-wrapper'>"+
+					"<div class='crtChat-select-user-wrapper'>"+
+						"<div class='crtChat-select-user-subWrapper'>"+
+							"<div class='crtChat-select-user-pic'>"+
+								"<i class='fas fa-user'></i>"+					
+							"</div>"+
+							"<div class='crtChat-select-user-letters-wrapper'>"+
+								"<div id='crtChat-select-user-name-"+index+"' class='crtChat-select-user-name'>"+
+									item.nickName+
+								"</div>"+
+								"<div id='crtChat-select-user-email-"+index+"' class='crtChat-select-user-email'>"+
+									item.email+
+								"</div>"+
+							"</div>"+
+						"</div>"+
+						"<div id='crtChat-select-user-btn-"+index+"' class='crtChat-select-user-btn'>"+
+							"<i onclick='selectUser(this)' class='fas fa-plus'></i>"+
+						"</div>"+
+					"</div>"+
+				"</div>";
+	});
+	$('.projectMemList').append(memberLi);	
+			}
+		});
 		});
 	
 	window.onclick = function(e) {
 		if (e.target == memModal) {
 			memModal.style.display = "none";
+			$('.projectMemList').empty();	
 		}
 	}
 });

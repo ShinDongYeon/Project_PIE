@@ -53,8 +53,8 @@
 			<!-- Card Title -->
 			<div class="cardTitleMo"></div>
 			<form id="cardTitleForm" class="cardTitleForm">
-				<input type="text" id="cardTitleInput" placeholder=""> <input
-					type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
+				<input type="text" id="cardTitleInput" placeholder=""> 
+				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
 			
@@ -92,8 +92,8 @@
 	
 	<!-- invite Card Members Modal -->
 		<div id="inviteModal">
-			<div class="invite-detail">
-				hihi
+			<div class="invite-detail" data-project-card="" data-invite-card="">
+				<div class="projectMemList"></div>
 			</div>
 		</div>
 
