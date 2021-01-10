@@ -29,7 +29,7 @@ public class ChatService {
 		return dao.chatUserListByEmail(user_array);
 	}
 	
-	public List<user> selectedUserClose(HashMap<String, Object> map){
+	public List<user> selectedUserClose(Map<String, Object> map){
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.selectedUserClose(map);
 	}
@@ -44,14 +44,19 @@ public class ChatService {
 		return dao.getChattingRoomByName(chatting_room_name);
 	}
 	
-	public void insertChattingRoomList(HashMap<String, Object> map){
+	public void insertChattingRoomList(Map<String, Object> map){
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		dao.insertChattingRoomList(map);
 	}
 	
-	public List<room> getRoomList(int projectNum) {
+	public List<room> getRoomList(Map<String, Object> getRoomListMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		return dao.getRoomList(projectNum);
+		return dao.getRoomList(getRoomListMap);
+	}
+	
+	public List<room> getRoomList2(Map<String, Object> getRoomListMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getRoomList2(getRoomListMap);
 	}
 	
 	public room getRoomListBySeq(int room_seq) {
@@ -64,24 +69,24 @@ public class ChatService {
 		return dao.searchUser(searchUserMap);
 	}
 	
-	public List<user> searchAnotherUser(HashMap<String, Object> map) {
+	public List<user> searchAnotherUser(Map<String, Object> map) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.searchAnotherUser(map);
 	}
 	
-	public void deleteRoom(int chatting_room_seq) {
+	public void hideRoom(Map<String, Object> hideRoomMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.deleteRoom(chatting_room_seq);
+		dao.hideRoom(hideRoomMap);
 	}
 	
-	public void deleteRoomList(int chatting_room_seq) {
+	public void unhideRoom(Map<String, Object> unhideRoomMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.deleteRoomList(chatting_room_seq);
+		dao.unhideRoom(unhideRoomMap);
 	}
 	
-	public void updateRoom(int chatting_room_seq, String chatting_room_name) {
+	public void updateRoom(Map<String, Object> updateMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.updateRoom(chatting_room_seq, chatting_room_name);
+		dao.updateRoom(updateMap);
 	}
 	
 	public List<room> searchRoom(Map<String, Object> searchRoomMap) {
@@ -89,9 +94,19 @@ public class ChatService {
 		return dao.searchRoom(searchRoomMap);
 	}
 	
-	public List<roomlist> getChattingRoomList(int chatting_room_seq) {
+	public List<room> getRoomListByProjectSeq(int projectNum) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		return dao.getChattingRoomList(chatting_room_seq);
+		return dao.getRoomListByProjectSeq(projectNum);
+	}
+	
+	public List<String> getChattingRoomList(Map<String, Object> chattingRoomListMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getChattingRoomList(chattingRoomListMap);
+	}
+	
+	public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getChattingRoomUserListByRoomSeq(chatting_room_seq);
 	}
 	
 }

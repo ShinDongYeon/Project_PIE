@@ -1,6 +1,13 @@
 /*right sidebar contents wrapper*/
 "use strict";
 
+/*
+파일명: projectMainChat.js
+설명: 채팅방 기능 구현
+작성일: 2021-01-10
+디자인: 전선규
+기능구현: 도재구
+*/
 $(document).ready(function(){
 	var modal = document.getElementById('crtChat-modal')
 	var crtChatBtn = document.getElementById('crtChatBtn');
@@ -64,7 +71,7 @@ $(document).ready(function(){
 			$.ajax(
 					{
 						type 		: "POST",
-						url  		: "chat/members?sessionEmail="+$('#session_email').val(),
+						url  		: "chat/members",
 						traditional : true,
 						data 		: {
 							'user_array' : user_array
@@ -95,7 +102,7 @@ $(document).ready(function(){
 			$.ajax(
 				{
 					type 		: "GET",
-					url  		: "chat/roomlist",
+					url  		: "chat/room/list",
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
@@ -181,6 +188,12 @@ $(document).ready(function(){
 	
 });
 
+/*
+파일명: projectMainChat.js
+설명: 대화할 채팅방 오픈
+작성일: 2021-01-06
+작성자: 도재구
+*/
 function popupOpen(roomno,roomname){
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
 	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
@@ -190,7 +203,7 @@ function popupOpen(roomno,roomname){
 
 /*
 파일명: projectSidebar.js 에서 ajax 성공 시 실행되는 함수
-설명: 채팅방리스트를 비동기로 띄움
+설명: 우측사이드바에 채팅방리스트를 비동기로 띄움
 작성일: 2020-12-31
 작성자: 도재구
 */
@@ -208,7 +221,7 @@ function chattingRoomList(data){
 			chat_title_substr = chat_title;
 		}
 		
-		opr += "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+		opr += 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -235,7 +248,7 @@ function chattingRoomList(data){
 
 /*
 파일명: projectMainChat.js
-설명: 채팅방 생성시 채팅방리스트에 생성된 것을 반영하여 리스트에 띄움
+설명: 채팅방 생성시 채팅방리스트에 생성된 것을 반영하여 새로 리스트에 띄움
 작성일: 2020-12-31
 작성자: 도재구
 */
@@ -285,7 +298,6 @@ function completeChattingRoom(data){
 function deleteChatRoom(me){
 	"use strict";
 	swal.fire({
-			title: 'Warning',
 			text: '채팅방을 목록에서 숨기시겠습니까?',
 			icon: 'warning',
 			showCancelButton: true,
@@ -307,21 +319,30 @@ function deleteChatRoom(me){
 				
 				$('#chat-list-wrapper-'+div_substr).remove();
 				
-				/*
 				$.ajax(
-					{
-						type 		: "DELETE",
-						url  		: "chat/roomlist?chatting_room_seq="+div_substr,
-						success 	: function(data){
-							swal.fire("Done!", "It's succesfully deleted!", "success");
-						},
-						error		: function(request,status,error){
-							alert(error);
+						{
+							type 		: "POST",
+							url  		: "chat/room/list",
+							data 		: {
+								'chatting_room_seq' : div_substr
+							},
+							success 	: function(data){
+								console.log(data);
+							},
+							error		: function(request,status,error){
+								alert(error);
+							}
 						}
-					}
-				);
-				*/
-			}
+				);//ajax end
+				
+				swal.fire({
+					text: '동일인원과의 채팅기록은 저장됩니다',
+					icon: 'success',
+					confirmButtonColor: '#3085d6',
+					confirmButtonText: '확인',
+				})
+				
+			}//if(result.isConfirmed) end
 
 		});
 	
@@ -369,7 +390,7 @@ function updateChatRoomName(me){
 
 /*
 파일명: projectMainChat.js
-설명: 채팅방 이름 수정을 적용합니다.
+설명: 채팅방 이름을 수정합니다.
 작성일: 2020-12-31
 작성자: 도재구
 */
@@ -388,25 +409,65 @@ function updateNameOk(me){
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
-		$.ajax(
-			{
-				type 		: "GET",
-				url  		: "chat/room?chatting_room_seq="+div_substr+"&chatting_room_name="+chat_room_input.val(),
-				success 	: function(data){
-					console.log(data);
-				},
-				error		: function(request,status,error){
-					alert(error);
-				}
+		if (chat_room_input.val().length > 15) {
+			swal.fire({
+				text: '15자 이하로 입력해주세요',
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: '확인',
+			})
+			chat_room_input.val(chat_room_input.attr("value"));
+			return;
+		}
+		
+		swal.fire({
+			text: '채팅방 이름을 수정하시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '수정',
+			cancelButtonText: '취소',
+			
+		}).then((result) => {
+			if(result.isConfirmed){
+				$.ajax(
+					{
+						type 		: "GET",
+						url  		: "chat/room?chatting_room_seq="+div_substr+"&chatting_room_name="+chat_room_input.val(),
+						success 	: function(data){
+							console.log(data);
+						},
+						error		: function(request,status,error){
+							alert(error);
+						}
+					}
+				);
+				//input 태그 삭제
+				chat_room_input.remove();
+				//div title에 value값 넣기
+				let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");' class='chat-list-letter-a'>"+
+								chat_room_input.val()+
+							"</a>";
+				chat_room_title.append(opr);
+				
+				swal.fire({
+					text: '수정이 완료되었습니다',
+					icon: 'success',
+					confirmButtonColor: '#3085d6',
+					confirmButtonText: '확인',
+				})
+				
+			}else{
+				//input 태그 삭제
+				chat_room_input.remove();
+				//div title에 value값 넣기
+				let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");' class='chat-list-letter-a'>"+
+								chat_room_input.attr("value")+
+							"</a>";
+				chat_room_title.append(opr);
 			}
-		);
-		//input 태그 삭제
-		chat_room_input.remove();
-		//div title에 value값 넣기
-		let opr = 	"<a id='chat-list-letter-a"+div_substr+"' href='javascript:popupOpen("+div_substr+",\""+chat_room_input.val()+"\");' class='chat-list-letter-a'>"+
-						chat_room_input.val()+
-					"</a>";
-		chat_room_title.append(opr);
+		});
 		
 	//input 태그에 아무 값도 입력하지 않으면
 	}else{
@@ -568,6 +629,7 @@ function selectedClose(me){
 		console.log('user_array');
 		console.log(user_array);
 		
+		//채팅방 취소버튼을 눌렀을 떄 유저리스트에 적용될 데이터 전달
 		$.ajax(
 			{
 				type 		: "POST",
@@ -588,6 +650,7 @@ function selectedClose(me){
 			}
 		);
 		
+		//채팅방 취소버튼을 눌렀을 떄 '선택된파이원' 리스트에 적용될 데이터 전달
 		$.ajax(
 			{
 				type 		: "GET",
@@ -608,6 +671,7 @@ function selectedClose(me){
 			}
 		);
 		
+	//선택된 파이원 리스트에 데이터가 비어있을 때 실행
 	}else{
 		$.ajax(
 			{
@@ -623,8 +687,9 @@ function selectedClose(me){
 			}
 		);
 		
-	}
+	}//if($('#Selected-List').html() != '') end
 	
+	//'채팅방 생성하기' 버튼 CSS 적용
 	if($('#Selected-List').is(':empty')){
 		$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 	}
@@ -632,6 +697,12 @@ function selectedClose(me){
 
 }
 
+/*
+파일명: projectMainChat.js
+설명: 선택된 리스트 중에서 취소 버튼을 눌렀을 때 실행되는 함수
+작성일: 2021-01-06
+작성자: 도재구
+*/
 function selectedUserList(data){
 	"use strict";
 	$('#Selected-List').empty();

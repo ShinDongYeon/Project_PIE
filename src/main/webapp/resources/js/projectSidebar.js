@@ -39,7 +39,7 @@ $(document).ready(function(){
 			$.ajax(
 				{
 					type 		: "GET",
-					url  		: "chat/roomlist",
+					url  		: "chat/room/list",
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
