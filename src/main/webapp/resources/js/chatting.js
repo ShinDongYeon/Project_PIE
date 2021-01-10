@@ -6,6 +6,8 @@ $(document).ready(function() {
 	//웹소켓 연결
 	connect();
 	
+	var rootRef = firebase.database().ref();
+	
 	//전송 버튼 CSS 조절 + Enter 키 입력
 	$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
 	$('#message').keyup( (event) => {
@@ -85,6 +87,35 @@ function disconnect(){
 
 function onOpen(evt){
 	
+	//최초 메시지 0번을 생성함
+	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/0').set({
+		chatting_room_seq : $('#select').val(),
+		message_seq : 0
+	});
+
+	
+	//SELECT * FROM Users WHERE UID = 1; 
+	/*
+	firebase.database().ref().child('chatting_room_seq').child('1').once('value',function(data){
+	console.log('1번:',data.val());
+	})
+	/*
+	//SELECT * FROM Users WHERE name= 'Backho Kang'; 
+	firebase.database().ref('users').orderByChild('name').equalTo('Backho Kang').once('value',function(data){
+	console.log('2번:',data.val());
+	})
+
+	//SELECT * FROM Users LIMIT 3 ; 
+	rootRef.child('users').limitToFirst(3).once('value', function(data){
+	    console.log('3번 :' , data.val());
+	});
+
+	//SELECT * FROM Users WHERE email LIKE 'S%' ; 
+	rootRef.child('users').orderByChild('email').startAt('S').endAt('S\uf8ff').once('value', function(data){
+	    console.log('4번 :' , data.val());
+	});
+	*/
+	
 }
 
 function onMessage(evt){
@@ -152,6 +183,25 @@ function appendMessage(msg) {
 									"</div>"+
 								"</div>";
 								
+							//SELECT chatting_room_seq
+							firebase.database().ref().child('chatting_room_seq').once('value',function(data){
+								//message_seq 추출
+								let message_seq = Object.keys(data.val()[$('#select').val()].messages).length;
+								
+								//INSERT message
+								firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/'+message_seq).set({
+									chatting_room_seq : $('#select').val(),
+									message_seq : message_seq,
+									message_content : message,
+									message_date : date,
+									message_file : null,
+									email : $('#session_email').val(),
+									nickName : $('#nickname').val(),
+									profile : null,
+									my_room_name : $('#roomname').val()
+								});
+							})
+							
 				}else if(msginfo == "알림"){
 					console.log("알림에 걸림");
 					msgbox += 	"<div class='chat-body-date'>"+
@@ -194,8 +244,9 @@ function appendMessage(msg) {
 												"</div>"+
 											"</div>"+
 										"</div>";
-						}
-					});
+										
+						}//if
+					});//each
 
 				}
 				$("#chatMessageArea").append(msgbox);

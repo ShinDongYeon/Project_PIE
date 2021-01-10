@@ -33,93 +33,93 @@
 		</div>
 		
 		<!-- chat body -->
-		<div id="chatMessageArea" class="chat-body-wrapper">
-			<!-- date -->
-			<!-- 
-			<div class="chat-body-date">
-				<div class="chat-body-date-line">
-					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-				</div>
-				<div class="chat-body-date-letter">
-					2020년 12월 12일
-				</div>
-				<div class="chat-body-date-line">
-					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-				</div>
-			</div>
-			 -->
-			
-			<!-- chat contents -->
-			<!-- sender -->
-			<!-- 
-			<div class="chat-sender-wrapper">
-			-->
-				<!-- sender profile picture -->
+		<div id="chatMessageArea" class="chat-body-wrapper"></div>
+				<!-- date -->
 				<!-- 
-				<div class="chat-sender-pic">
-					<i class="fas fa-user"></i>
+				<div class="chat-body-date">
+					<div class="chat-body-date-line">
+						――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+					</div>
+					<div class="chat-body-date-letter">
+						2020년 12월 12일
+					</div>
+					<div class="chat-body-date-line">
+						――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+					</div>
 				</div>
 				 -->
 				
-				<!-- chat sender message -->
+				<!-- chat contents -->
+				<!-- sender -->
 				<!-- 
-				<div>
-					<div class="chat-sender-name">
-						문지연
+				<div class="chat-sender-wrapper">
+				-->
+					<!-- sender profile picture -->
+					<!-- 
+					<div class="chat-sender-pic">
+						<i class="fas fa-user"></i>
 					</div>
-					<div class="chat-sender-message-wrapper">
-						<div id="chatMessageArea" class="chat-sender-message">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna 
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-							ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-							Duis aute irure dolor in reprehenderit in voluptate velit 
-							esse cillum dolore eu fugiat nulla pariatur. 
-							Excepteur sint occaecat cupidatat non proident, 
-							sunt in culpa qui officia deserunt mollit anim id est laborum.
+					 -->
+					
+					<!-- chat sender message -->
+					<!-- 
+					<div>
+						<div class="chat-sender-name">
+							문지연
 						</div>
-
-						<div class="chat-sender-time">
-							오후 1:34
+						<div class="chat-sender-message-wrapper">
+							<div id="chatMessageArea" class="chat-sender-message">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna 
+								aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+								ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+								Duis aute irure dolor in reprehenderit in voluptate velit 
+								esse cillum dolore eu fugiat nulla pariatur. 
+								Excepteur sint occaecat cupidatat non proident, 
+								sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+		
+							<div class="chat-sender-time">
+								오후 1:34
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			 -->
-			
-			<!-- receiver -->
-			<!-- <div class="chat-receiver-wrapper"> -->
-				<!-- sender profile picture -->
-				<!-- 
-				<div class="chat-receiver-pic">
-					<i class="fas fa-user"></i>
 				</div>
 				 -->
 				
-				<!-- chat receiver message -->
-				<!-- 
-				<div>
-					<div class="chat-receiver-name">
-						문지연
+				<!-- receiver -->
+				<!-- <div class="chat-receiver-wrapper"> -->
+					<!-- sender profile picture -->
+					<!-- 
+					<div class="chat-receiver-pic">
+						<i class="fas fa-user"></i>
 					</div>
-					<div class="chat-receiver-message-wrapper">
-						<div class="chat-receiver-message">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna 
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-							ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-							Duis aute irure dolor in reprehenderit in voluptate velit 
-							esse cillum dolore eu fugiat nulla pariatur. 
-							Excepteur sint occaecat cupidatat non proident, 
-							sunt in culpa qui officia deserunt mollit anim id est laborum.
+					 -->
+					
+					<!-- chat receiver message -->
+					<!-- 
+					<div>
+						<div class="chat-receiver-name">
+							문지연
 						</div>
-						<div class="chat-receiver-time">
-							오후 1:35
+						<div class="chat-receiver-message-wrapper">
+							<div class="chat-receiver-message">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna 
+								aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+								ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+								Duis aute irure dolor in reprehenderit in voluptate velit 
+								esse cillum dolore eu fugiat nulla pariatur. 
+								Excepteur sint occaecat cupidatat non proident, 
+								sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+							<div class="chat-receiver-time">
+								오후 1:35
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			 -->
+				 -->
 			
 			<!-- '여기까지 읽었습니다' unread -->
 			<!-- 
@@ -135,8 +135,7 @@
 				</div>
 			</div>
 			 -->
-		</div>
-		
+			 
 		<!-- chat bottom -->
 		<div class="chat-bottom-wrapper">
 			<!-- chat message writing -->
