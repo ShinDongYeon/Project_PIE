@@ -2,21 +2,43 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 
-파일명: cardMemberMapper.xml
-설명: cardMemberMapper.xml
-작성일: 2021-01-10 ~
-작성자: 문지연
- -->
+<!-- 파일명: cardMemberMapper.xml 
+	설명: cardMemberMapper.xml 
+	작성일: 2021-01-10 ~ 
+	작성자: 문지연 
+-->
 <mapper namespace="kr.or.bit.dao.CardMemberDao">
-	<select id="projectMemList" resultType="userDto" parameterType="hashMap">
-		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, P.PROJECT_SEQ 
+	<select id="projectMemList" resultType="userDto"
+		parameterType="hashMap">
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, P.PROJECT_SEQ
 		FROM USER U JOIN PROJECT_MEMBER P
 		ON U.EMAIL = P.EMAIL
-		WHERE U.EMAIL NOT IN (#{sessionEmail})
+		WHERE U.EMAIL NOT
+		IN (#{sessionEmail})
 		AND P.PROJECT_SEQ = #{projectNum}
-		ORDER BY U.NICKNAME, U.EMAIL
+		ORDER BY
+		U.NICKNAME, U.EMAIL
 	</select>
+
+	<insert id="insertCardMem" parameterType="HashMap">
+		INSERT INTO
+		KANBANCARD_MEMBER(EMAIL, CARD_SEQ)
+		VALUES(#{cardMember.email},
+		#{cardMember.card_seq})
+	</insert>
+
+
+	<select id="showMemberByCard" resultType="userDto"
+		parameterType="int">
+		SELECT U.NICKNAME
+		FROM USER U JOIN KANBANCARD_MEMBER K
+		ON
+		U.EMAIL = K.EMAIL
+		WHERE K.CARD_SEQ = #{cardSeq}
+	</select>
+
+
+
 </mapper>
 
 

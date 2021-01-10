@@ -1,5 +1,5 @@
 /*
-파일명: checkList.js
+파일명: kanbanDetailModal.css
 설명: 칸반 카드 모달 상세페이지 내 구현될 카드 정보, 체크리스트 css
 작성일: 2021-01-04 ~ 
 작성자: 문지연
@@ -402,32 +402,3 @@ input[type=checkbox]:checked + label.todo .fa-check {
 .editing.todo-wrap {
 	box-shadow: 0 0 400px rgba(0, 0, 0, .8), inset 0 0px 0 2px #ebebeb;
 }
-
-/*Invite Card Members Modal*/
-#inviteModal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: #000;
-    background-color: rgb(0,0,0,0.4);
-}
-
-.invite-detail{
-    background-color: #31343c;
-    color:white;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 25%;
-    height: auto;
-    border-radius: 15px;
-    margin-top: 150px;
-    margin-left: 60%;
-}
-
