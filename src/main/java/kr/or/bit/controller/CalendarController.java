@@ -24,22 +24,22 @@ public class CalendarController {
 
 	@RequestMapping(value = "fullcalendar.htm", method = RequestMethod.GET)
 	public String home() {
-		return "calendar_main";
+		return "project/calendar_main";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "calendarInsert.pie", method = RequestMethod.POST)
 	public String calendarInsert(String start, String end, String title, String content, Boolean allDay,
-			String color,int project_seq) {
+			String color,int project_seq,int card_seq) {
 		try {
-			calendarservice.insertCalendar(start, end, title, content, allDay, color,project_seq);
+			calendarservice.insertCalendar(start, end, title, content, allDay, color,project_seq,card_seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:" + e.getMessage());
 		}
 			return "a";
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value = "calendarUpdate.pie", method = RequestMethod.POST)
 	public String calendarUpdate(String start, String end, String title, String content, boolean allDay,
@@ -91,10 +91,22 @@ public class CalendarController {
 
 	@ResponseBody
 	@RequestMapping(value = "calendarDelete.pie", method = RequestMethod.POST)
-	public void calendarDelete(String id) {
+	public void calendarDelete(int id) {
 		System.out.println("번호:" + id);
 		try {
 			calendarservice.calendarDelete(id);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	@ResponseBody
+	@RequestMapping(value = "calendarDeleteKanban.pie", method = RequestMethod.POST)
+	public void calendarDeleteKanban(int card_seq) {
+		System.out.println("카드번호"+card_seq);
+		try {
+			calendarservice.calendarDeleteKandan(card_seq);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

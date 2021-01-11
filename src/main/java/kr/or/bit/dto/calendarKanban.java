@@ -3,7 +3,7 @@ package kr.or.bit.dto;
 import lombok.Data;
 
 @Data
-public class calendar {
+public class calendarKanban {
 	
 	private String start;
 	private String end;

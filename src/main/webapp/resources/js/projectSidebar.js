@@ -6,14 +6,11 @@ $(document).ready(function(){
 	
 		$('#sidebar-kanban').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		document.getElementById('calendarMain').style.display = 'none';
-		document.getElementById('kanban').style.display = 'block';
-		
-	});
+		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();
+		});
 	$('#sidebar-calendar').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		document.getElementById('kanban').style.display = 'none';
-		document.getElementById('calendarMain').style.display = 'block';
+		location.href= "fullcalendar.htm";
 	});
 	/*kanban & calendar 아이콘 클릭 시 다른 창 display: none */
 	

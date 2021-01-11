@@ -716,8 +716,6 @@ $(function() {
 			ws.onmessage = function(event){
 			let alramMessage = JSON.parse(event.data)
 			loadKanban(projectNum);
-
-
 			};
 		ws.onclose = function(){
 			console.log("Sever Close");
