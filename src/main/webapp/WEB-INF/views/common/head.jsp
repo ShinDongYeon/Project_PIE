@@ -39,6 +39,19 @@
 			}
 		ws.onmessage = function(event){
 			let alramMessage = JSON.parse(event.data)
+			console.log(alramMessage)
+			if(alramMessage.title == null){
+				console.log("알람카운트:"+alramMessage.alramCount)
+				var alramCount = $('#alramCount');
+				alramCount.empty();
+				document.getElementById('alramCount').innerText=alramMessage.alramCount;
+				 if(alramMessage.alramCount == 0){
+					$("#sidebar-bell").removeClass('bell')
+					$(".right-sidebar-alarm").attr('id','far fa-bell')
+					document.getElementById('alramCount').style.display='none'
+						}
+			}else{
+			if(alramMessage.email !== $("#email")){
 			let html = '<div class="alram-list-wrapper">\
 				<div class="alram-list-img">\
 				<img src="/resources/img/pie_logo.png">\
@@ -57,7 +70,7 @@
 				<input type="hidden" id="memberEmail" name="memberEmail" value='+alramMessage.email+' />\
 				</div>\
 				</div>';
-
+			}
 			var alram = $('#alram');
 			alram.append(html);
 			alram.css('display', 'inline');
@@ -65,12 +78,13 @@
 			var alramCount = $('#alramCount');
 			alramCount.empty();
 			if(alramMessage.alramCount !== 0){
-				$("#far fa-bell").attr('id','far fa-bell bell')
+				$(".right-sidebar-alarm").attr('id','far fa-bell bell')
 				$("#sidebar-bell").addClass('bell')
 				document.getElementById('alramCount').style.display='block'
-				document.getElementById('alramCount').innerText=alramMessage.alramCount;
-				
+				document.getElementById('alramCount').innerText=alramMessage.alramCount;		
 				}
+			}
+			
 			};
 		ws.onclose = function(event){
 			console.log("Server Close")

@@ -31,8 +31,7 @@ public class AlramController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return alramList;
-		
+		return alramList;	
 	}
 	@ResponseBody
 	@RequestMapping(value = "alramLastSeq.pie", method = RequestMethod.POST)
@@ -45,11 +44,8 @@ public class AlramController {
 	
 	@ResponseBody
 	@RequestMapping(value = "alramDelete.pie", method = RequestMethod.POST)
-	public void deleteAlram(int alramseq) {
-    System.out.println("삭제1");
-	alramservice.alramDelete(alramseq);
-	System.out.println("삭제2");
-
+	public void deleteAlram(int alramseq,String email) {
+	alramservice.alramDelete(alramseq,email);
 	}
 
 	/*

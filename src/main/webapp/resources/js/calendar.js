@@ -170,16 +170,24 @@ document.addEventListener('DOMContentLoaded', function() {
 						insertButton()		
 					}
 			  })
-				  	var alram = {
-			  	
+					$.ajax({
+						type:"POST",
+						url:"alramLastSeq.pie",
+						success:function(data){
+							console.log("알람갯수"+data)
+					var alram = {
 			  		email:$("#email").val(),
 			  		nick:$("#nick").val(),
 					title:"캘린더",
 					state:"등록",
 					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
 					project_seq:$("#projectNum").val(),
+					deleteNum:"1",
+					alramseq:(data+1),
 					}
-					socket.send(JSON.stringify(alram))	
+					socket.send(JSON.stringify(alram))
+						}
+					})
 			})		
         },
         eventDrop: function(info){
@@ -327,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 $(document).ready(function(){
+	console.log("오늘날짜:"+today)
  $("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});
  window.onclick = function(event) {
 	if(event.target == document.getElementById('calendar_modal_background')) {

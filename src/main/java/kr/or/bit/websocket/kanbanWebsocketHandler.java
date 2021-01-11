@@ -47,11 +47,14 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 			sessionList.add(session);
 			String senderEmail = getEmail(session);
 			userSessionsMap.put(senderEmail, session);
-			System.out.println("연결됨:"+getEmail(session));
+			System.out.println("칸반연결됨:"+getEmail(session));
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-			
+			System.out.println("받음2222:"+message);
+			for(WebSocketSession sess: sessionList) {
+				sess.sendMessage(new TextMessage("로드"));
+		}	
 		
 		}
 		

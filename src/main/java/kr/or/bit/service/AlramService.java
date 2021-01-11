@@ -36,9 +36,9 @@ public class AlramService {
 		int alramLastSeq = alramdao.getAlramLastSeq();
 		return alramLastSeq;
 	}
-	public void alramDelete(int alramseq) {
+	public void alramDelete(int alramseq,String email) {
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
-		alramdao.deleteAlram(alramseq);
+		alramdao.deleteAlram(alramseq,email);
 	}
 	public List<String> projectMemberList(int project_seq){
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);

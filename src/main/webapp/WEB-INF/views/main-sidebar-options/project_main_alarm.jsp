@@ -39,7 +39,7 @@ function createAlram(data){
 			<div class="alram-list-cancel">\
 			<i class="fas fa-times"></i>\
 			<input type="hidden" id="alramseq" name="alramseq" value='+alram.alramseq+' />\
-			<input type="hidden" id="memberEmail" name="memberEmail" value='+alram.email+' />\
+			<input type="hidden" id="memberEmail" name="memberEmail" value='+$("#email").val()+' />\
 			</div>\
 			</div>';
 	});
@@ -53,12 +53,19 @@ function createAlram(data){
 				type : "POST",
 				url  : "alramDelete.pie",
 				data:{ 
-					alramseq:alramseq
+					alramseq:alramseq,
+					email:$("#email").val()
 					},
 				success : function(data){
 				}
 			});
 			console.log($(this).parent().remove())
+			var alram = {
+			  	deleteNum:"0",
+			  	email:$("#email").val(),
+			  	project_seq:$("#projectNum").val(),
+					}
+					socket.send(JSON.stringify(alram))
 		})
 	
 }
@@ -70,8 +77,7 @@ function createCount(data){
 		$(".right-sidebar-alarm").attr('id','far fa-bell bell')
 		$("#sidebar-bell").addClass('bell')
 		document.getElementById('alramCount').style.display='block'
-		document.getElementById('alramCount').innerText=data.length;
-		
+		document.getElementById('alramCount').innerText=data.length;	
 	}
 }
 </script>
@@ -79,26 +85,6 @@ function createCount(data){
 	<div id="far fa-bell" class="right-sidebar-alarm">
 		<!-- samples -->
 		<div  id="alram">
-
-		<!-- samples -->
-		<!-- <div class="alarm-item-wrapper">
-			<div class="alarm-top-wrapper">
-				<div class="alarm-user"><i class="fas fa-user"></i></div>
-				<div class="alarm-username">강성윤</div>
-				<div class="alarm-cancel"><i class="fas fa-times"></i></div>
-			</div>
-			<div class="alarm-middle-wrapper">
-				<div class="alarm-reply">
-					<i class="far fa-comment-dots"></i>댓글
-				</div>
-				<div class="alarm-flag">
-					<i class="fas fa-star"></i>즐겨찾기
-				</div>
-			</div>
-			<div class="alarm-bottom-wrapper">
-				내용입니다.
-			</div>
-		</div> -->
 	</div>
 	</div>
 </body>

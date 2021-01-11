@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/resources/css/calendar.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/resources/js/kanbanCalendar.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>

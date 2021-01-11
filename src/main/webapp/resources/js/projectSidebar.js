@@ -19,7 +19,11 @@ $(document).ready(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
 	});
-	$('#sidebar-bell').click(function(){
+	/*$('#sidebar-bell').click(function(){
+		btnClassName = $(this)[0].className;
+		sidebarToggle();
+	});*/
+	$(document).on("click","#sidebar-bell",function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
 	});
@@ -66,10 +70,12 @@ $(document).ready(function(){
 			contentDiv.style.display = 'block';
 			tmpBtnClassName = btnClassName;
 		} else {
+			tmpBtnClassName = btnClassName;
 			if(btnClassName === tmpBtnClassName){
 				wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 				contentDiv.style.display = 'none';
 			} else{ //이전에 클릭한 버튼과 일치하지 않을 때
+				console.log("aaa"+tmpBtnClassName)
 				contentDiv.style.display  = 'block';
 				document.getElementById(tmpBtnClassName).style.display = 'none';
 				tmpBtnClassName = btnClassName;
