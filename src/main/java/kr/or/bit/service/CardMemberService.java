@@ -41,9 +41,15 @@ public class CardMemberService {
 		return true;
 	}
 
-	//get selected Member by Card
+	// get selected Member by Card
 	public List<user> showMemberByCardService(Map<String, Object> selectedMemInfo) {
 		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
 		return cardmemdao.showMemberByCard(selectedMemInfo);
+	}
+
+	// DELETE SELECTED CARD MEMBER
+	public void deleteCardMemService(cardMember cm) {
+		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
+		cardmemdao.deleteCardMem(cm);
 	}
 }

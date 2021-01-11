@@ -15,10 +15,19 @@ $(document).ready(function() {
 		return chkTag;
 	}
 	
-	function makeCardMem(nickName) {
-		let cardMem = "<i class='fas fa-user'> "+nickName+"</i> "
+	function makeCardMem(email,nickName) {
+		let cardMem = "<i class='fas fa-user selectedMemPro' id='selectedMemPro' title='"+nickName+
+		"("+email+")' value="+email+"></i> "
 		return cardMem;
 	}
+	
+	//get selectedMemInfo with tooltip
+	$('#selectedMemPro').tooltip({
+		show: {
+			effect: "slideDown",
+			delay: 150
+		}
+	});
 
 	//show progress bar by checked boxes
 	function progressBar() {
@@ -39,7 +48,7 @@ $(document).ready(function() {
 	}
 	//get Modal Id
 	const details = document.getElementById("detailsModal");
-
+	
 	//Open clicked Modal
 	$(document).on("click", ".cardContent", function(e) {
 		e.preventDefault();
@@ -53,7 +62,6 @@ $(document).ready(function() {
 		
 		
 		//get cardMember 
-		
 		$.ajax({
 			type:"get",
 			url:"showMemberByCard.pie?cardSeq="+cardSeq,
@@ -61,11 +69,12 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				$('.members').show();
 				$.each(data, function(index, item) {
-					let cardMem = makeCardMem(item.nickName);
-					console.log(cardMem);
-					$("#checkListWrap").prepend(cardMem);
+					let cardMem = makeCardMem(item.email,item.nickName);
+					$(".memList").append(cardMem);
+				if(data.length>0){
+					$('#memTitle').text($(this).context).show();
+				}
 				});
 			}
 		});
@@ -104,6 +113,7 @@ $(document).ready(function() {
 		details.style.display = "none";
 		$(".todo-wrap").remove();
 		$('.fa-user').remove();
+		$('#memTitle').hide();
 	});
 
 	window.onclick = function(e) {
@@ -111,6 +121,7 @@ $(document).ready(function() {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
 			$('.fa-user').remove();
+			$('#memTitle').hide();
 		}
 	}
 
@@ -368,13 +379,13 @@ $(document).ready(function() {
 		//get project Member List
 		$.ajax({
 			type: "get",
-			url: "getProjectMemList?sessionEmail="+$('#session_email').val(),
+			url: "getProjectMemList?sessionEmail="+$('#session_email').val()+"&cardSeq="+cardSeq,
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,
 			success: function(data) {
 				console.log(data);
-				let memberLi = "Member List";
+				let memberLi = "Project Member List";
 				$.each(data, function(index, item) {
 					memberLi += "<div id='membersWrap-"+index+"' class='membersWrap'>"+
 					"<div class='memberWrap'>"+
@@ -429,7 +440,8 @@ $(document).ready(function() {
 			async: false,
 			data: cardMem,
 			success: function(data) {
-			console.log(data);
+			//show title
+			$('#memTitle').show();
 			//delete selectd MemInfo from View
 			selectedWrap.animate({
 					left: "-30%",
@@ -437,7 +449,11 @@ $(document).ready(function() {
 					opacity: 0
 				}, 200);
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
-				}
+			//show card Member
+			let cardMem = makeCardMem(email,nickName);
+			$(".memList").append(cardMem);
+			
+			}
 			});
 		
 		
@@ -445,6 +461,13 @@ $(document).ready(function() {
 		
 		
 		});
+
+	//close Mem Modal
+	$(document).on("click", ".closeMemModal", function(e) {
+		e.preventDefault();
+		memModal.style.display = "none";
+		$('.projectMemList').empty();	
+	});
 	
 	window.onclick = function(e) {
 		if (e.target == memModal) {
@@ -452,5 +475,57 @@ $(document).ready(function() {
 			$('.projectMemList').empty();	
 		}
 	}
+	
+	//sweet alert 
+	$(document).on("click", ".selectedMemPro", function(e) {
+		swal.fire({
+			title: 'Warning',
+			text: 'Are u sure to delete this Member from the card?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Delete'
+		}).then((result) => {
+			//selected Member delete ajax
+			if (result.isConfirmed) {
+				let cardMemOb = new Object();
+				let email = $(this).attr('value');
+				let cardSeq = Number($(this).parents().children().children('.modal_card_seq').attr('value'));
+				cardMemOb.email=email;
+				cardMemOb.card_seq = cardSeq;
+				
+				console.log("email:::"+email);
+				console.log("cardSeq:::"+cardSeq);
+				
+				let cardMem = JSON.stringify(cardMemOb);
+				let deletedMem = $(this);
+				
+				$.ajax({
+					url:"deleteCardMem.pie",
+					contentType: "application/json; charset=UTF-8",
+					type: "post",
+					async: "false",
+					dataType: "json",
+					data: cardMem,
+					success: function(data) {
+						console.log(data);
+						deletedMem.animate({
+							bottom: "-30%",
+							height: 0,
+							opacity: 0
+						}, 200);
+						setTimeout(function() { 
+							$(deletedMem).remove(); 
+						}, 200);
+						console.log("lenght:::"+$('.selectedMemPro').length);
+						if($('.selectedMemPro').length===1){
+						$('#memTitle').hide();
+					}
+					}
+				});
+			}
+		});
+	});
 	
 });

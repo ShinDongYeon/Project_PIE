@@ -51,11 +51,17 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+<<<<<<< HEAD
 			System.out.println("받음2222:"+message);
 			for(WebSocketSession sess: sessionList) {
 				sess.sendMessage(new TextMessage("로드"));
 		}	
 		
+=======
+				for(WebSocketSession sess: sessionList) {
+					sess.sendMessage(new TextMessage("kanban"));
+			}
+>>>>>>> 2d242857cb444415986dbbb71682e25a75e6ea1d
 		}
 		
 		
