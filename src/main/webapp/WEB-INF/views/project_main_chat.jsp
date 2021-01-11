@@ -18,7 +18,7 @@
 		<div class="chat-search-wrapper">
 			<div class="chat-search-letter">채팅방 검색</div>
 			<div>
-				<input id="chat-search-box" class="chat-search-box" type="search">
+				<input id="chat-search-box" maxlength='15' placeholder="이름 검색" class="chat-search-box" type="search">
 			</div>
 		</div>
 		

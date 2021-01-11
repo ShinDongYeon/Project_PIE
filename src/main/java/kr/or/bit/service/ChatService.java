@@ -29,6 +29,11 @@ public class ChatService {
 		return dao.chatUserListByEmail(user_array);
 	}
 	
+	public List<String> chatUserEmailListByEmailByOrder(String[] user_array){
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.chatUserEmailListByEmailByOrder(user_array);
+	}
+	
 	public List<user> selectedUserClose(Map<String, Object> map){
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.selectedUserClose(map);

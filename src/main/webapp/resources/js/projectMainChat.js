@@ -29,7 +29,6 @@ $(document).ready(function(){
 				type : "GET",
 				url  : "chat/members?sessionEmail="+$('#session_email').val(),
 				success : function(data){
-					//console.log(data);
 					userList(data);
 				}
 			}
@@ -39,17 +38,22 @@ $(document).ready(function(){
 		if($('#Selected-List').is(':empty')){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
-		
-		//console.log("$('.main-list-project-letter1').html();");
-		//console.log($('.main-list-project-letter1').html(););
-		
+	}
+	
+	//ESC 키 입력 시
+	window.onkeydown = function(event){
+		if(modal.style.display == 'block' && crtChatBackground.style.display == 'block'){
+			if (event.keyCode == 27 || event.which == 27) {
+				modal.style.display = 'none';
+				crtChatBackground.style.display = 'none';
+			}
+		}
 	}
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
 	crtChatCancelBtn.onclick = () => {
 		modal.style.display = 'none';
 		crtChatBackground.style.display = 'none';
-		
 	}
 	
 	// 채팅생성창에서 생성하기 버튼을 눌렀을 때
@@ -65,8 +69,7 @@ $(document).ready(function(){
 				let div = $('#Selected-List').find('div:eq('+j+')').text();
 				user_array.push(div);
 			}
-			console.log('user_array');
-			console.log(user_array);
+			user_array.push($('#session_email').val());
 			
 			$.ajax(
 					{
@@ -78,7 +81,6 @@ $(document).ready(function(){
 						},
 						dataType	: "json",
 						success 	: function(data){
-							console.log(data);
 							completeChattingRoom(data);
 						},
 						error		: function(request,status,error){
@@ -87,6 +89,8 @@ $(document).ready(function(){
 					}
 			);
 		}
+		
+		
 
 		
 	}

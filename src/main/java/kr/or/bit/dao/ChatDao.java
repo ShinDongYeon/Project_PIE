@@ -14,6 +14,8 @@ public interface ChatDao {
 	 
 	 public List<user> chatUserListByEmail(String[] user_array);
 	 
+	 public List<String> chatUserEmailListByEmailByOrder(String[] user_array);
+	 
 	 public List<user> selectedUserClose(Map<String, Object> map);
 	 
 	 public void insertChattingRoom(String chatting_room_name, int projectNum);

@@ -25,6 +25,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</select>
 	
+	<select id="chatUserEmailListByEmailByOrder" parameterType="java.util.ArrayList" resultType="String">
+		SELECT EMAIL FROM USER
+		WHERE EMAIL IN (
+			<foreach collection="array" item="item" index="index" separator=",">
+				#{item}
+			</foreach>
+		)
+		ORDER BY EMAIL
+	</select>
+	
 	<!-- public void insertChattingRoom(String chatting_room_name); -->
 	<insert id="insertChattingRoom">
 		INSERT INTO CHATTINGROOM(CHATTING_ROOM_NAME,PROJECT_SEQ)
@@ -38,7 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<foreach collection="user_array" item="item" index="index" separator=",">
 				(#{room_number},#{item},#{chatting_room_name})
 			</foreach>
-		,(#{room_number},#{loginuser},#{chatting_room_name})
 	</insert>
 	 
 	<!-- public List<room> getRoomList(Map<String, Object> getRoomListMap); -->
@@ -150,6 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
 		WHERE C.PROJECT_SEQ = #{projectNum}
 			AND C.CHATTING_ROOM_SEQ = #{room_num}
+		ORDER BY L.EMAIL
 	</select>
 	
 	<!-- public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq); -->
