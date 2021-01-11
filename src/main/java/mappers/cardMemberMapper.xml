@@ -36,6 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		U.EMAIL = K.EMAIL
 		WHERE K.CARD_SEQ = #{cardSeq}
 	</select>
+	
+	<delete id="deleteCardMem" parameterType="cardMemberDto">
+		DELETE FROM KANBANCARD_MEMBER WHERE CARD_SEQ=#{card_seq} AND EMAIL=#{email}
+	</delete>
 
 
 

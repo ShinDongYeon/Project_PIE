@@ -91,4 +91,15 @@ public class CardMemberController {
 		}
 		return cardMemList;
 	}
+	
+	//DELETE SELECTED CARD MEMBER
+		@ResponseBody
+		@RequestMapping(value = "deleteCardMem.pie", method = RequestMethod.POST)
+		public View deleteCardMem(@RequestBody cardMember cm, Model model) {
+			cardMemService.deleteCardMemService(cm);
+			model.addAttribute("data", cm);
+			System.out.println("deleted Mem:::"+cm);
+			return jsonview;
+		}
+	
 }

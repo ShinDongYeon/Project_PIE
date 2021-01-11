@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	function makeCardMem(email,nickName) {
 		let cardMem = "<i class='fas fa-user selectedMemPro' id='selectedMemPro' title='"+nickName+
-		"("+email+")"+"'></i> "
+		"("+email+")' value="+email+"></i> "
 		return cardMem;
 	}
 	
@@ -71,8 +71,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$.each(data, function(index, item) {
 					let cardMem = makeCardMem(item.email,item.nickName);
-					console.log(cardMem);
-					$("#checkListWrap").prepend(cardMem);
+					$(".main").prepend(cardMem);
 				if(data.length>0){
 					$('#memTitle').text($(this).context).show();
 				}
@@ -451,8 +450,8 @@ $(document).ready(function() {
 				}, 200);
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
 			//show card Member
-			let cardMem = makeCardMem(data.email,data.nickName);
-			$("#checkListWrap").prepend(cardMem);
+			let cardMem = makeCardMem(email,nickName);
+			$(".main").prepend(cardMem);
 			
 			}
 			});
@@ -476,5 +475,58 @@ $(document).ready(function() {
 			$('.projectMemList').empty();	
 		}
 	}
+	
+	//sweet alert 
+	$(document).on("click", ".selectedMemPro", function(e) {
+		console.log("this:::::"+$(this).parents().children().children('.modal_card_seq').attr('value'));
+		swal.fire({
+			title: 'Warning',
+			text: 'Are u sure to delete this Member from the card?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Delete'
+		}).then((result) => {
+			//selected Member delete ajax
+			if (result.isConfirmed) {
+				let cardMemOb = new Object();
+				let email = $(this).attr('value');
+				let cardSeq = Number($(this).parents().children().children('.modal_card_seq').attr('value'));
+				cardMemOb.email=email;
+				cardMemOb.card_seq = cardSeq;
+				
+				console.log("email:::"+email);
+				console.log("cardSeq:::"+cardSeq);
+				
+				let cardMem = JSON.stringify(cardMemOb);
+				let deletedMem = $(this);
+				
+				$.ajax({
+					url:"deleteCardMem.pie",
+					contentType: "application/json; charset=UTF-8",
+					type: "post",
+					async: "false",
+					dataType: "json",
+					data: cardMem,
+					success: function(data) {
+						console.log(data);
+						deletedMem.animate({
+							bottom: "-30%",
+							height: 0,
+							opacity: 0
+						}, 200);
+						setTimeout(function() { 
+							$(deletedMem).remove(); 
+						}, 200);
+						console.log("length:::"+data);
+						if(!$('.main').hasClass('.selectedMem')){
+						$('#memTitle').hide();
+					}
+					}
+				});
+			}
+		});
+	});
 	
 });
