@@ -25,43 +25,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</select>
 	
+	<select id="chatUserEmailListByEmailByOrder" parameterType="java.util.ArrayList" resultType="String">
+		SELECT EMAIL FROM USER
+		WHERE EMAIL IN (
+			<foreach collection="array" item="item" index="index" separator=",">
+				#{item}
+			</foreach>
+		)
+		ORDER BY EMAIL
+	</select>
+	
 	<!-- public void insertChattingRoom(String chatting_room_name); -->
 	<insert id="insertChattingRoom">
 		INSERT INTO CHATTINGROOM(CHATTING_ROOM_NAME,PROJECT_SEQ)
 		VALUES(#{param1},#{param2})
 	</insert>
 	
-	
-	<!-- public room getChattingRoomByName(String chatting_room_name); -->
-	<!-- 
-	<select id="getChattingRoomByName" resultType="roomDto">
-		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_SEQ 
-		FROM CHATTINGROOM WHERE CHATTING_ROOM_NAME = #{chatting_room_name}
-	</select>
-	 -->
-	
 	<!-- public void insertChattingRoomList(HashMap<String, Object> map); -->
 	<insert id="insertChattingRoomList" parameterType="hashMap">
-		INSERT INTO CHATTINGROOMLIST(CHATTING_ROOM_SEQ, EMAIL)
+		INSERT INTO CHATTINGROOMLIST(CHATTING_ROOM_SEQ, EMAIL, CHATTING_ROOM_NAME)
 		VALUES
 			<foreach collection="user_array" item="item" index="index" separator=",">
-				(#{room_number},#{item})
+				(#{room_number},#{item},#{chatting_room_name})
 			</foreach>
-		,(#{room_number},#{sessionEmail})
 	</insert>
 	 
-	<!-- public List<room> getRoomList(); -->
-	<select id="getRoomList" resultType="roomDto">
+	<!-- public List<room> getRoomList(Map<String, Object> getRoomListMap); -->
+	<select id="getRoomList" resultType="roomDto" parameterType="hashMap">
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ 
+		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
+		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
+		WHERE PROJECT_SEQ = #{projectNum}
+			AND L.EMAIL = #{loginuser}
+			AND L.ENABLED NOT IN(0)
+	</select>
+	
+	<select id="getRoomList2" resultType="roomDto" parameterType="hashMap">
 		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_SEQ 
 		FROM CHATTINGROOM
 		WHERE PROJECT_SEQ = #{projectNum}
-	</select>
-	
-	<!-- public room getRoomListBySeq(int chatting_room_seq); -->
-	<select id="getRoomListBySeq" resultType="roomDto" parameterType="int">
-		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_SEQ 
-		FROM CHATTINGROOM 
-		WHERE CHATTING_ROOM_SEQ = ${room_seq}
 	</select>
 	
 	<!-- public List<user> searchUser(String searchKeyword); -->
@@ -104,21 +106,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 	
-	<!-- public void deleteRoom(int chatting_room_seq); -->
-	<delete id="deleteRoom">
-		DELETE FROM CHATTINGROOM WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
-	</delete>
+	<!-- public void hideRoom(Map<String, Object> hideRoomMap); -->
+	<update id="hideRoom" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET ENABLED = 0
+		WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
+			AND EMAIL = #{loginuser}
+	</update>
+	
+	<!-- public void hideRoom(Map<String, Object> hideRoomMap); -->
+	<update id="unhideRoom" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET ENABLED = 1
+		WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
+			AND EMAIL = #{loginuser}
+	</update>
 	
 	<!-- public void deleteRoomList(int chatting_room_seq); -->
+	<!-- 
 	<delete id="deleteRoomList">
 		DELETE FROM CHATTINGROOMLIST WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
 	</delete>
+	 -->
 	
 	<!-- public void updateRoom(int chatting_room_seq, String chatting_room_name); -->
-	<update id="updateRoom">
-		UPDATE CHATTINGROOM 
-		SET CHATTING_ROOM_NAME = #{param2}
-		WHERE CHATTING_ROOM_SEQ = #{param1}
+	<update id="updateRoom" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CHATTING_ROOM_NAME = #{chatting_room_name}
+		WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
+			AND EMAIL = #{loginuser}
 	</update>
 
 	<!-- public List<room> searchRoom(String searchKeyword); -->
@@ -129,9 +145,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND PROJECT_SEQ = #{projectNum}
 	</select>
 	
+	<!-- public List<room> getRoomListByProjectSeq(int projectNum); -->
+	<select id="getRoomListByProjectSeq" resultType="roomDto" parameterType="int">
+		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_SEQ 
+		FROM CHATTINGROOM
+		WHERE PROJECT_SEQ = #{projectNum}
+	</select>
 	
-	<!-- public List<roomlist> getChattingRoomList(int chatting_room_seq); -->
-	<select id="getChattingRoomList" resultType="roomlistDto">
+	<!-- public List<String> getChattingRoomList(Map<String, Object> chattingRoomListMap); -->
+	<select id="getChattingRoomList" resultType="String" parameterType="hashMap">
+		SELECT L.EMAIL
+		FROM CHATTINGROOMLIST L JOIN CHATTINGROOM C
+		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
+		WHERE C.PROJECT_SEQ = #{projectNum}
+			AND C.CHATTING_ROOM_SEQ = #{room_num}
+		ORDER BY L.EMAIL
+	</select>
+	
+	<!-- public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq); -->
+	<select id="getChattingRoomUserListByRoomSeq" resultType="roomlistDto">
 		SELECT U.EMAIL, U.NICKNAME, C.CHATTING_ROOM_SEQ
 		FROM CHATTINGROOMLIST L JOIN USER U
 		ON U.EMAIL = L.EMAIL

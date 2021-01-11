@@ -51,7 +51,7 @@ public class AlramController {
 	System.out.println("삭제2");
 
 	}
-	
+
 	/*
 	  @ResponseBody
 	  @RequestMapping(value = "projectMemberList.pie", method = RequestMethod.GET)

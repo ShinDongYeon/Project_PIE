@@ -7,10 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <insert id="insertCalendar">
 INSERT INTO calendar
-(start,end,title,content,allday,color,project_seq)
-VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7}) 
+(start,end,title,content,allday,color,project_seq,card_seq)
+VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8}) 
 </insert>
-
 
 
 <select id="getCalendarList" resultType="CalendarDto">
@@ -26,6 +25,11 @@ WHERE id = #{param3}
 <delete id="deleteCalendar">
 DELETE FROM calendar
 WHERE id = #{param1} 
+</delete>
+
+<delete id="deleteCalendarKanban">
+DELETE FROM calendar
+WHERE card_seq = #{param1} 
 </delete>
 
 <update  id="updateCalendar">

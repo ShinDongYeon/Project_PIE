@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.bit.dao.CalendarDaoKanban">
+ 
+
+<insert id="insertCalendarKanban">
+INSERT INTO calendar_kanban
+(start,end,title,content,allday,color,project_seq,card_seq)
+VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8}) 
+</insert>
+
+<select id="getCalendarList_Kanban" resultType="calendarKanbanDto">
+SELECT * FROM calendar_kanban WHERE project_seq = #{param1}
+</select>
+
+
+</mapper>

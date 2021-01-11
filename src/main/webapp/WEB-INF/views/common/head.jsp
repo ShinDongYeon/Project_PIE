@@ -20,6 +20,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <!-- ------------------------------------------------------------------ -->
 
 <script>
@@ -52,14 +54,23 @@
 				<div class="alram-list-cancel" id="alramDelete">\
 				<i class="fas fa-times"></i>\
 				<input type="hidden" id="alramseq" name="alramseq" value='+alramMessage.alramseq+' />\
+				<input type="hidden" id="memberEmail" name="memberEmail" value='+alramMessage.email+' />\
 				</div>\
 				</div>';
 
 			var alram = $('#alram');
-			console.log(event.data)
-			console.log(alramMessage.title)
 			alram.append(html);
 			alram.css('display', 'inline');
+
+			var alramCount = $('#alramCount');
+			alramCount.empty();
+			if(alramMessage.alramCount !== 0){
+				$("#far fa-bell").attr('id','far fa-bell bell')
+				$("#sidebar-bell").addClass('bell')
+				document.getElementById('alramCount').style.display='block'
+				document.getElementById('alramCount').innerText=alramMessage.alramCount;
+				
+				}
 			};
 		ws.onclose = function(event){
 			console.log("Server Close")
@@ -68,4 +79,24 @@
 			console.log("Server Error");
 			}
 		}
+</script>
+
+<!-- Firebase 연동 -->
+<script src="https://www.gstatic.com/firebasejs/7.2/firebase.js"></script>
+<script>
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	var firebaseConfig = {
+	  apiKey: "AIzaSyCdHidf9NRo0bO3u_PkkvuDEITZSv6zD6U",
+	  authDomain: "project-pie-1.firebaseapp.com",
+	  databaseURL: "https://project-pie-1-default-rtdb.firebaseio.com/",
+	  projectId: "project-pie-1",
+	  storageBucket: "project-pie-1.appspot.com",
+	  messagingSenderId: "915296979109",
+	  appId: "1:915296979109:web:728d97cbf2fa188342654c",
+	  measurementId: "G-KJHDHQ0QJC"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
 </script>	

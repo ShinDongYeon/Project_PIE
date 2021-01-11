@@ -14,11 +14,12 @@ $(document).ready(function(){
 			},
 		success : function(data){
 			console.log($("#projectNum").val())
+			console.log("알람갯수"+data.length)
 			createAlram(data);
+			createCount(data)
 		}
 	});
 })
-
 function createAlram(data){
 	$.each(data,function(index,alram){
 		console.log(alram)
@@ -38,7 +39,7 @@ function createAlram(data){
 			<div class="alram-list-cancel">\
 			<i class="fas fa-times"></i>\
 			<input type="hidden" id="alramseq" name="alramseq" value='+alram.alramseq+' />\
-			<input type="hidden" id="memberEmail" name="memberEmail" value='+alram.memberEmail+' />\
+			<input type="hidden" id="memberEmail" name="memberEmail" value='+alram.email+' />\
 			</div>\
 			</div>';
 	});
@@ -46,7 +47,6 @@ function createAlram(data){
 	
 	$(document).on('click','.alram-list-cancel',function(){
 			let alramseq = $(this).children().next().val()
-			console.log(alramseq);
 			alramseq = Number(alramseq);
 			console.log("no"+alramseq+"--"+typeof alramseq);
 			$.ajax({  
@@ -61,6 +61,18 @@ function createAlram(data){
 			console.log($(this).parent().remove())
 		})
 	
+}
+function createCount(data){
+	var alramCount = $('#alramCount');
+	alramCount.empty();
+	console.log("카운트:"+data.length)
+	if(data.length !== 0){
+		$(".right-sidebar-alarm").attr('id','far fa-bell bell')
+		$("#sidebar-bell").addClass('bell')
+		document.getElementById('alramCount').style.display='block'
+		document.getElementById('alramCount').innerText=data.length;
+		
+	}
 }
 </script>
 <body>

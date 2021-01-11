@@ -1,7 +1,7 @@
 /*
-파일명: sortKanban.js
+파일명: kanban-board.js
 설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 모달창 jqery&js
-작성일: 2020-12-28 ~ 2021-01-07
+작성일: 2020-12-28 ~ 2021-01-11
 작성자: 문지연,변재홍
 */
 
@@ -22,7 +22,7 @@ $(function() {
 		});
 
 	let projectNum = pjNumByController;
-	console.log("프로젝트 seq : " + projectNum);
+	console.log("project seq : " + projectNum);
 
 	//프로젝트 제목 가져오는 ajax 
 	$.ajax(
@@ -108,7 +108,7 @@ $(function() {
 	const proTitleEdit = $("#projectTitleEdit");
 
 	/*Project Title*/
-	proTitle.dblclick(function(e) {
+	proTitle.click(function(e) {
 		e.preventDefault();
 		proTitleEdit.children("#projectTitleInput").attr("placeholder", $(this).html());
 		proTitle.hide();
@@ -286,6 +286,7 @@ $(function() {
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
 	function loadKanban(projectNum) {
+		$("#listWrap").empty();
 		$.ajax(
 			{
 				type: "post",
@@ -363,6 +364,27 @@ $(function() {
 		$(this).children("#addListTitleInput").val("");
 		addListForm.hide();
 		addListTitle.show();
+		
+		/*칸반리스트 알람*/
+		$.ajax({
+					type:"POST",
+					url:"alramLastSeq.pie",
+					success:function(data){
+					console.log("알람갯수"+data)
+					var alram = {
+			  		email:$("#email").val(),
+			  		nick:$("#nick").val(),
+					title:"칸반리스트",
+					state:"등록",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:$("#projectNum").val(),
+					deleteNum:"1",
+					alramseq:(data+1),
+					}
+					socket.send(JSON.stringify(alram))
+					socketkanban.send("KANBAN")
+						}
+					})
 
 		//sortable 
 		$(".cardWrap").sortable({
@@ -433,6 +455,17 @@ $(function() {
 
 					}
 				});
+				
+				/*캘린더 삭제*/
+					$.ajax({
+					type :"POST",
+					url :"/calendarDeleteKanban.pie",
+					data :{
+						card_seq:$(this).parent().attr("data-card-seq")
+					},
+					success: function(data) {
+						}
+					});
 			}
 		});
 	});
@@ -598,6 +631,27 @@ $(function() {
 		$(this).children(".addCardTitle").val("");
 		$(this).hide();
 		cardLabel.show();
+		
+		/*칸반카드 알람*/
+		$.ajax({
+					type:"POST",
+					url:"alramLastSeq.pie",
+					success:function(data){
+					console.log("알람갯수"+data)
+					var alram = {
+			  		email:$("#email").val(),
+			  		nick:$("#nick").val(),
+					title:"kanban card",
+					state:"insert",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:$("#projectNum").val(),
+					deleteNum:"1",
+					alramseq:(data+1),
+					}
+					socket.send(JSON.stringify(alram))
+					socketkanban.send("웹소켓")
+						}
+					})
 	});
 
 	$(document).on("click", ".addCard-btn", function(e) {
@@ -672,4 +726,30 @@ $(function() {
 	$(".cardWrap").sortable({
 		placeholder: "card-placeholder"
 	});
+	
+	/*Web Socket*/
+	var socketkanban = null; //전역변수 선언
+	$(document).ready(function(){
+		connectWS();
+		});
+	function connectWS(){
+		let ws = new WebSocket("ws://localhost:8090/websocket/kanban/websocket");
+		socketkanban = ws;
+		ws.open = function(msg){
+			console.log("칸반:"+msg);
+		}
+			ws.onmessage = function(event){	
+			console.log("칸반:"+event.data)
+			loadKanban(projectNum)
+			};
+		ws.onclose = function(){
+			console.log("Sever Close");
+		}
+		ws.onerror = function(){
+			console.log("Server Error");
+		}
+	};
+	connectWS();
+
+
 });
