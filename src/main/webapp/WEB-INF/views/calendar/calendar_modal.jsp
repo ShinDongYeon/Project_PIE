@@ -140,8 +140,11 @@
 <!-- 			<button id="editCancel" class="calendar-main-withdrawal-btn"
 			onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">X</button> -->
 			<span id='editCancel' class="calendar-main-withdrawal-btn"onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">&times;</span>
+
 		</div>
-		
+		<div class="calendar-main-withdrawal-wrapper-delete">
+		<i class='far fa-trash-alt deleteCalendar' id='deleteCalendar' style='display:block;'></i>
+		</div>
 		<!-- calendarEdit btn -->
 		<div class="calendar-btn-wrapper">
 			<button class="calendar-btn" id="editCalendar">수정</button>

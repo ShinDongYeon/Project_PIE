@@ -6,6 +6,7 @@ var allDay;
 var color;
 var content;
 var events=[];
+
 let today = new Date();
 let hours = today.getHours();
 let minutes = today.getMinutes();
@@ -32,8 +33,10 @@ let minutes = today.getMinutes();
 				}
 		})
 	 }
-	function deleteCalendar(info){			
-		   	$.ajax({  
+	function deleteCalendar(info){		
+			if(info.event.extendedProps.card_seq == 0){
+				console.log("그냥캘린더")
+				$.ajax({  
 				type : "POST",
 				url  : "calendarDelete.pie",
 				data : {
@@ -41,7 +44,19 @@ let minutes = today.getMinutes();
 					},
 				success : function(data){					
 				}   
-		});	
+		});
+			}else{
+				console.log("칸반연동캘린더")
+				$.ajax({  
+				type : "POST",
+				url  : "calendarDelete.pie",
+				data : {
+						id:info.event.id
+					},
+				success : function(data){					
+				}   
+			});
+		}
 		}
 	var eventsFeed = function(info, successCallback, failureCallback){
 		$.ajax({  
@@ -51,22 +66,20 @@ let minutes = today.getMinutes();
 				project_seq:$("#projectNum").val()
 				},
 			dataType:'json',
-			success : function(data){				
-			var fixedDate = data.map(function(array){
-				 if (array.allDay === true && array.start !== array.end) {
-			            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-				          }
+			success : function(data){
+				var fixedDate = data.map(function(array){
+				if (array.allDay === true && array.start !== array.end) {
+			    array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+				        }
 		        array.end = moment(array.end).format('YYYY-MM-DD'+" "+'HH:mm')
+					console.log(array.start)
 		          return array;
 				})
 			successCallback(fixedDate);
-			
 			}
-		 });		
-}
-
+			})
+			}
 		
-
 		function editButton(){
 			$('#titleView').attr("readonly",true);
 			 $('#startDateView').attr("readonly",true);
@@ -149,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						content:$('#content').val(),
 						allDay:allDay,
 						color:$('#eventColor').val(),
-						project_seq:$("#projectNum").val()
+						project_seq:$("#projectNum").val(),
+						card_seq:0
 						},
 					success : function(data){	
 						calendar.refetchEvents();
@@ -201,8 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
              },
              eventSources:[{
         events:eventsFeed
+				
              }],
-    eventClick: function(info){    		
+    eventClick: function(info){  
+				console.log("캘린더정보:"+info.event.extendedProps.card_seq)	  		
 				document.getElementById('calendarEdit_modal_contents').style.display='block'
 				document.getElementById('calendar_modal_background').style.display = 'block';
 					start = info.event.start;

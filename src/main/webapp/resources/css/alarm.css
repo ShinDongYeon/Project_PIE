@@ -1,5 +1,5 @@
 @charset "UTF-8";
-	#alramCount {
+.alramCount {
 background-color:red;
 width:20px;
 height:20px;
@@ -14,12 +14,12 @@ position:relative;
 right:-4px;
 top:-14px;
 }
- .fa-bell:before{
+.bell:before{
 position:relative;
 right:-20px;
 top:0px;
  }
  #sidebar-bell{
  padding:0px;
- }
+ } 
  

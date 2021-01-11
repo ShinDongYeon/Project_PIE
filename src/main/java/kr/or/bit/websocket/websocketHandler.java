@@ -73,6 +73,8 @@ public class websocketHandler extends TextWebSocketHandler{
 			alram.setProject_seq(project_seq);
 			alramservice.insertAlram(alram);//알람 DB insert
 			List<alram> alramList = alramservice.alramList(email,project_seq);
+			System.out.println("리스트:"+alramList);
+			alram.setEmail(email);
 			int alramCount = alramList.size();
 			int alramLsatSeq = alramservice.alramLastSeq();
 			alram.setAlramseq(alramLsatSeq);
