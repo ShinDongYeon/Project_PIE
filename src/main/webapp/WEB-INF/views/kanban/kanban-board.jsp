@@ -37,7 +37,7 @@
 		<div id="listWrap">
 
 
-			<!--Add another List-->
+		<!--Add another List-->
 		</div>
 		<div id="addListWrap">
 			<div id="addListLabel">+ Add another List</div>
@@ -63,9 +63,35 @@
 				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
+			
+			<!-- Card Member List -->
 			<div class="memList">
-			<div id="memTitle" style="display: none;">Card Members</div>
+				<div id="memTitle" style="display: none;">Card Members</div>
 			</div>
+			
+			<!-- Side Buttons -->
+			<div class="side">
+				<div class="cardMembersBtn">
+					<i class="fas fa-user-check"></i> Add Members
+				</div>
+				<div class="setDueDateBtn">
+					<i class="far fa-calendar-check"></i> Due Date
+				</div>
+			</div>
+			
+			<!-- Card Details -->
+			<div id="cardDetailsWrap">
+				<h2 class="cardDetails">
+					<i class="far fa-clipboard"></i> Details
+				</h2>
+				<div class="cardContents" style="display:none;"></div>
+				<form class="cardDetailsForm">
+					<textarea class="addCardDetails" cols="30" rows="10" placeholder="card Details"></textarea>
+					<button class="addDetails-btn">Save</button>
+					<span class="closeDetails" id="closeDetails"></span>
+				</form>
+			</div>
+			
 			<!-- checkList Wrap -->
 			<div class="main">
 				<div id="checkListWrap">
@@ -84,17 +110,6 @@
 					</form>
 				</div>
 			</div>
-
-			<!-- Side Buttons -->
-			<div class="side">
-				<div class="cardMembersBtn">
-					<i class="fas fa-user-check"></i> Add Members
-				</div>
-				<div class="setDueDateBtn">
-					<i class="far fa-calendar-check"></i> Due Date
-				</div>
-			</div>
-
 		</div>
 	</div>
 	

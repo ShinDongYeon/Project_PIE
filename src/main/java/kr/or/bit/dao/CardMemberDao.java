@@ -16,4 +16,6 @@ public interface CardMemberDao {
 	public List<user> showMemberByCard(Map<String, Object> selectedMemInfo);
 	
 	public void deleteCardMem(cardMember cm);
+	
+	public void deleteAllCardMem(int card_seq);
 }

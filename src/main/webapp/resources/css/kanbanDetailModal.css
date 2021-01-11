@@ -34,10 +34,11 @@
 	width:75%; 
 	display:inline-block;
 }
+
+/* Side */
 .side{
 	display:inline-block;
 	position:fixed;
-	margin-top:50px;
 	margin-left:10px;
 }
 
@@ -119,8 +120,7 @@ cursor: pointer;
     width:100%;
 }
 
-/*MEMBERS*/
-
+/* Selected Members */
 .members {
 	margin-left:10px;
 }
@@ -136,6 +136,77 @@ cursor: pointer;
 	border-radius: 100%;
 	font-size: 1.5rem;
 	padding-top: 3px;
+}
+
+/* Card Details */
+.cardContents {
+	font-size:30px;
+    padding-left:10px;
+    margin-bottom:10px;
+    width:70%;
+    font-weight: 200;
+	color: #454545;
+}
+
+#cardDetailsWrap {
+	width:75%; 
+	display:inline-block;
+}
+
+.cardDetails {
+	text-align: left;
+	padding: 0;
+	font-size: 25px;
+	font-weight: 200;
+	color: #454545;
+	margin-bottom: 10px;
+}
+
+.cardDetails .fa-clipboard {
+	font-size: 25px;
+	margin-right: 5px;
+	color: #f2dd68;
+}
+
+.addCardDetails {
+	box-sizing: content-box;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 10px;
+    width: 80%;
+    font-size: 15px;
+    resize: none;
+    height: 50px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    overflow:hidden;
+    margin-right:10px;
+}
+
+.addDetails-btn {
+    font-family: 'Lato', sans-serif;
+    padding: 3px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.closeDetails {
+    display: flex;
+    height: 28px;
+    width: 28px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    float: right;
 }
 
 /*Check List in Modal*/
@@ -164,7 +235,7 @@ cursor: pointer;
 .checkListTitle .fa-check {
 	font-size: 25px;
 	margin-right: 5px;
-	color: rgb(255, 255, 96);
+	color: #f2dd68;
 }
 
 /*CheckList Progress Bar*/

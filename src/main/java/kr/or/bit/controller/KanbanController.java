@@ -201,7 +201,7 @@ public class KanbanController {
 		return jsonview;
 	}
 
-	// delete_list_card_checkList
+	// delete_list_card_checkList_cardMember
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
 	public View deleteKanbanList(@RequestBody list li,
@@ -212,7 +212,7 @@ public class KanbanController {
 		return jsonview;
 	}
 
-	// delete_card_checkList
+	// delete_card_checkList_cardMember
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
 	public View deleteKanbanCard(@RequestBody card ca, @RequestParam("projectNum") int projectNum, Model model) {
@@ -230,5 +230,15 @@ public class KanbanController {
 		model.addAttribute("data", "success");
 		return jsonview;
 	}
-
+	
+	//update Card Content
+	@ResponseBody
+	@RequestMapping(value = "updateCardContent.pie", method = RequestMethod.POST)
+	public View updateCardContent(@RequestBody card ca, Model model) {
+		System.out.println("updateController");
+		kanbanservice.updateCardContentService(ca);
+		System.out.println("Update Card Content");
+		model.addAttribute("data", ca);
+		return jsonview;
+	}
 }

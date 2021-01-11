@@ -1,5 +1,5 @@
 /*
-파일명: checkList.js
+파일명: kanbanDetailModal.js
 설명: 칸반 카드 상세페이지 내 구현될 체크리스트, 담당자 등록 jqery&js
 작성일: 2021-01-04 ~ 2021-01-12
 작성자: 문지연
@@ -173,7 +173,35 @@ $(document).ready(function() {
 			$('.cardTitleMo').show();
 		}
 	});
-
+	
+	/*Card Details*/
+	$('.cardDetailsForm').submit(function(e){
+		e.preventDefault();
+		let cardOb = new Object();
+		let contents = $(this).children('.addCardDetails').val();
+		let cardSeq = $(this).parents().children().children('.modal_card_seq').attr('value');
+		cardOb.card_content=contents;
+		cardOb.card_seq=cardSeq;
+		console.log("cardContent:::"+contents);
+		
+		let card = JSON.stringify(cardOb);
+		if (contents.length > 0) {
+			$.ajax({
+				type: "post",
+				url: "updateCardContent.pie",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				data: card,
+				success: function(data) {
+					console.log(data);
+				}
+			});
+			$('.cardContents').html(contents);
+			$('.cardDetailsForm').hide();
+			$('.cardContents').show();
+		}
+	})
 
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {

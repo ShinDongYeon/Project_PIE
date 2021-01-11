@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.bit.dao.CardDao;
+import kr.or.bit.dao.CardMemberDao;
 import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.ListDao;
 import kr.or.bit.dto.card;
@@ -104,6 +105,7 @@ public class KanbanService {
 		CardDao carddao  = sqlsession.getMapper(CardDao.class);
 		ListDao listdao  = sqlsession.getMapper(ListDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
 		
 		ArrayList<card> cardList = li.getCardList();
 		int list_seq = li.getList_seq();
@@ -112,6 +114,7 @@ public class KanbanService {
 			for(int i = 0; i < cardList.size(); i++) {
 				int cardSeq = cardList.get(i).getCard_seq();
 				System.out.println(cardSeq);
+				cmdao.deleteAllCardMem(cardSeq);
 				chkdao.deleteChkListByCardSeq(cardSeq);//delete chkList
 				carddao.deleteKanbanCard(cardSeq); //delete Card
 			}
@@ -128,11 +131,12 @@ public class KanbanService {
 	public void deleteKanbanCardService(card ca) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
-
+		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
 		int card_seq = ca.getCard_seq();
 
 		try {
 			chkdao.deleteChkListByCardSeq(card_seq);
+			cmdao.deleteAllCardMem(card_seq);
 			carddao.deleteKanbanCard(card_seq);
 		} catch (Exception e) {
 			System.out.println("delteCardAndList Error" + e.getMessage());
@@ -144,5 +148,11 @@ public class KanbanService {
 	public void editKanbanCardTitleService(card ca) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		carddao.editKanbanCardTitle(ca);
+	}
+	
+	//Update Card Content 
+	public void updateCardContentService(card ca) {
+		CardDao carddao = sqlsession.getMapper(CardDao.class);
+		carddao.updateCardContent(ca);
 	}
 }
