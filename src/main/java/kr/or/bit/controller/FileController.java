@@ -1,14 +1,8 @@
 package kr.or.bit.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
 
@@ -52,15 +45,30 @@ public class FileController {
 			return "fail";
 		}
   }
+	//파일 토탈 갯수 리턴 컨트로러 
+	@ResponseBody
+	@RequestMapping(value = "getFileTotalNumber.pie", method = RequestMethod.POST)
+	public View getFileTotalNumber(@RequestParam("projectNum") int projectNum,
+						 		   Model model) throws IOException {
+		System.out.println(projectNum);
+		int totalNumber = fileservice.getFileTotalNumberService(projectNum);
+		System.out.println(totalNumber);
+		model.addAttribute("totalNumber", totalNumber);
 	
+		return jsonview;
+  }
 	
 	//파일 리턴 컨트롤러  
 	@ResponseBody
 	@RequestMapping(value = "showFile.pie", method = RequestMethod.POST)
 	public View showFile(@RequestParam("projectNum") int projectNum,
+						 @RequestParam("page") int page,
 						 Model model) throws IOException {
-				
-		ArrayList<file> files = fileservice.getFileService(projectNum);
+		int start = 0;
+		System.out.println(page);
+		start = (page*5)-5;
+		
+		ArrayList<file> files = fileservice.getFileService(projectNum, start);
 		model.addAttribute("files", files);
 	
 		return jsonview;

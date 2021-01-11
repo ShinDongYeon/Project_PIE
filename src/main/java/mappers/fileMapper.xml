@@ -7,15 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <insert id="fileUploadToDB" parameterType="fileDto">
 	INSERT INTO FILE(FILE_SEQ, PROJECT_SEQ, FILE_ORIGINAL_NAME, FILE_UPLOADED_NAME, EXTENSION, UPLOAD_DATE, NICKNAME) 
-			  VALUES(file_seq,#{project_seq},#{file_original_name},#{file_uploaded_name},#{extension},#{upload_date}, #{nickName}) 
+			  VALUES(file_seq,#{project_seq},#{file_original_name},#{file_uploaded_name},#{extension},#{upload_date},#{nickName}) 
 </insert>
 
-<select id = "getFile" resultType = "fileDto">
-	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1} ORDER BY FILE_SEQ DESC
+<select id="getFile" resultType = "fileDto">
+	SELECT * FROM FILE WHERE PROJECT_SEQ = #{param1} ORDER BY FILE_SEQ DESC LIMIT 5 OFFSET #{param2}
 </select>
 
-<select id = "getFileWithOGName" resultType = "fileDto">
+<select id="getFileWithOGName" resultType = "fileDto">
 	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') ORDER BY FILE_SEQ DESC LIMIT 10
 </select>
+
+<select id="getFileTotalNumber" resultType = "int">
+	SELECT count(*) FROM FILE WHERE PROJECT_SEQ = #{param1}
+</select>
+
 
 </mapper>

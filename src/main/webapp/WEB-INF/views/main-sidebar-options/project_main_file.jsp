@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <script src="/resources/js/file.js"></script>
 </head>
 <body>
@@ -56,6 +55,15 @@
 			</div>
 		</div>
 		<div id = "fileZone">
+		</div>
+		<div class = "page-btn-zone">
+		 	<!-- <div class = "left-btn"><i class="fas fa-angle-left"></i></div>
+			<div class = "btn">1</div>
+			<div class = "btn">2</div>
+			<div class = "btn">3</div>
+			<div class = "btn">4</div>
+			<div class = "btn">5</div>
+			<div class = "right-btn"><i class="fas fa-angle-right"></i></div> -->
 		</div>
 
 		

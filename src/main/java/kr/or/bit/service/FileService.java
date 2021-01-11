@@ -80,9 +80,8 @@ public class FileService{
 				 
 				file f = new file();
 				
-				f.setFile_original_name(fileOGName);
-				f.setFile_uploaded_name(upload_file_name);
-				
+				f.setFile_original_name(fileOGName.trim());
+				f.setFile_uploaded_name(upload_file_name.trim());
 				f.setProject_seq(projectNum);
 				f.setExtension(ext);
 				f.setUpload_date(makeDate());
@@ -115,10 +114,10 @@ public class FileService{
 	}
 	
 	//파일 리턴하는 서비스
-	public ArrayList<file> getFileService(int projectNum){
+	public ArrayList<file> getFileService(int projectNum, int start){
 
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
-		ArrayList<file> files = filedao.getFile(projectNum);
+		ArrayList<file> files = filedao.getFile(projectNum, start);
 		return files;
 		
 	}
@@ -131,6 +130,13 @@ public class FileService{
 		return files;
 		
 	}
+	//파일 리턴하는 서비스 (이름으로 검색)
+	public int getFileTotalNumberService(int projectNum){
 
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		int totalNumber = filedao.getFileTotalNumber(projectNum);
+		return totalNumber;
+		
+	}
 
 }
