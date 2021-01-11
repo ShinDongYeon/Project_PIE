@@ -15,10 +15,19 @@ $(document).ready(function() {
 		return chkTag;
 	}
 	
-	function makeCardMem(nickName) {
-		let cardMem = "<i class='fas fa-user'> "+nickName+"</i> "
+	function makeCardMem(email,nickName) {
+		let cardMem = "<i class='fas fa-user selectedMemPro' id='selectedMemPro' title='"+nickName+
+		"("+email+")"+"'></i> "
 		return cardMem;
 	}
+	
+	//get selectedMemInfo with tooltip
+	$('#selectedMemPro').tooltip({
+		show: {
+			effect: "slideDown",
+			delay: 150
+		}
+	});
 
 	//show progress bar by checked boxes
 	function progressBar() {
@@ -39,7 +48,7 @@ $(document).ready(function() {
 	}
 	//get Modal Id
 	const details = document.getElementById("detailsModal");
-
+	
 	//Open clicked Modal
 	$(document).on("click", ".cardContent", function(e) {
 		e.preventDefault();
@@ -53,7 +62,6 @@ $(document).ready(function() {
 		
 		
 		//get cardMember 
-		
 		$.ajax({
 			type:"get",
 			url:"showMemberByCard.pie?cardSeq="+cardSeq,
@@ -61,11 +69,13 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				$('.members').show();
 				$.each(data, function(index, item) {
-					let cardMem = makeCardMem(item.nickName);
+					let cardMem = makeCardMem(item.email,item.nickName);
 					console.log(cardMem);
 					$("#checkListWrap").prepend(cardMem);
+				if(data.length>0){
+					$('#memTitle').text($(this).context).show();
+				}
 				});
 			}
 		});
@@ -104,6 +114,7 @@ $(document).ready(function() {
 		details.style.display = "none";
 		$(".todo-wrap").remove();
 		$('.fa-user').remove();
+		$('#memTitle').hide();
 	});
 
 	window.onclick = function(e) {
@@ -111,6 +122,7 @@ $(document).ready(function() {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
 			$('.fa-user').remove();
+			$('#memTitle').hide();
 		}
 	}
 
@@ -374,7 +386,7 @@ $(document).ready(function() {
 			async: false,
 			success: function(data) {
 				console.log(data);
-				let memberLi = "Member List";
+				let memberLi = "Project Member List";
 				$.each(data, function(index, item) {
 					memberLi += "<div id='membersWrap-"+index+"' class='membersWrap'>"+
 					"<div class='memberWrap'>"+
@@ -429,7 +441,8 @@ $(document).ready(function() {
 			async: false,
 			data: cardMem,
 			success: function(data) {
-			console.log(data);
+			//show title
+			$('#memTitle').show();
 			//delete selectd MemInfo from View
 			selectedWrap.animate({
 					left: "-30%",
@@ -437,7 +450,11 @@ $(document).ready(function() {
 					opacity: 0
 				}, 200);
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
-				}
+			//show card Member
+			let cardMem = makeCardMem(data.email,data.nickName);
+			$("#checkListWrap").prepend(cardMem);
+			
+			}
 			});
 		
 		
@@ -445,6 +462,13 @@ $(document).ready(function() {
 		
 		
 		});
+
+	//close Mem Modal
+	$(document).on("click", ".closeMemModal", function(e) {
+		e.preventDefault();
+		memModal.style.display = "none";
+		$('.projectMemList').empty();	
+	});
 	
 	window.onclick = function(e) {
 		if (e.target == memModal) {

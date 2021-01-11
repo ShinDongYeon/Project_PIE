@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/resources/css/calendar.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/resources/js/kanbanCalendar.js"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>
@@ -63,7 +64,7 @@
 				<input type="submit" style="display: none;">
 			</form>
 			
-			<div class="members" style="display: none;">Members</div>
+			<div id="memTitle" style="display: none;">Card Members</div>
 			<!-- checkList Wrap -->
 			<div class="main">
 				<div id="checkListWrap">
@@ -99,6 +100,8 @@
 	<!-- invite Card Members Modal -->
 		<div id="inviteModal">
 			<div class="invite-detail" data-project-card="" data-invite-card="">
+			<!-- MemModal close btn -->
+			<span class="closeMemModal" id="closeMemModal">&times;</span>
 				<div class="projectMemList"></div>
 			</div>
 		</div>
