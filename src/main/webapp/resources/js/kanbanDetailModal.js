@@ -71,7 +71,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$.each(data, function(index, item) {
 					let cardMem = makeCardMem(item.email,item.nickName);
-					$(".main").prepend(cardMem);
+					$(".memList").append(cardMem);
 				if(data.length>0){
 					$('#memTitle').text($(this).context).show();
 				}
@@ -451,7 +451,7 @@ $(document).ready(function() {
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
 			//show card Member
 			let cardMem = makeCardMem(email,nickName);
-			$(".main").prepend(cardMem);
+			$(".memList").append(cardMem);
 			
 			}
 			});
@@ -478,7 +478,6 @@ $(document).ready(function() {
 	
 	//sweet alert 
 	$(document).on("click", ".selectedMemPro", function(e) {
-		console.log("this:::::"+$(this).parents().children().children('.modal_card_seq').attr('value'));
 		swal.fire({
 			title: 'Warning',
 			text: 'Are u sure to delete this Member from the card?',
@@ -519,8 +518,8 @@ $(document).ready(function() {
 						setTimeout(function() { 
 							$(deletedMem).remove(); 
 						}, 200);
-						console.log("length:::"+data);
-						if(!$('.main').hasClass('.selectedMem')){
+						console.log("lenght:::"+$('.selectedMemPro').length);
+						if($('.selectedMemPro').length===1){
 						$('#memTitle').hide();
 					}
 					}

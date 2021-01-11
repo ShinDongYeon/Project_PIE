@@ -63,8 +63,9 @@
 				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
-			
+			<div class="memList">
 			<div id="memTitle" style="display: none;">Card Members</div>
+			</div>
 			<!-- checkList Wrap -->
 			<div class="main">
 				<div id="checkListWrap">
