@@ -363,6 +363,16 @@ $(function() {
 		$(this).children("#addListTitleInput").val("");
 		addListForm.hide();
 		addListTitle.show();
+		
+		var alram = {
+			  		email:$("#email").val(),
+			  		nick:$("#nick").val(),
+					title:"칸반리스트",
+					state:"등록",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:$("#projectNum").val(),
+					}
+					socket.send(JSON.stringify(alram))
 
 		//sortable 
 		$(".cardWrap").sortable({
@@ -433,6 +443,17 @@ $(function() {
 
 					}
 				});
+				
+				/*캘린더 삭제*/
+					$.ajax({
+					type :"POST",
+					url :"/calendarDeleteKanban.pie",
+					data :{
+						card_seq:$(this).parent().attr("data-card-seq")
+					},
+					success: function(data) {
+						}
+					});
 			}
 		});
 	});
@@ -598,6 +619,16 @@ $(function() {
 		$(this).children(".addCardTitle").val("");
 		$(this).hide();
 		cardLabel.show();
+		
+		var alram = {
+			  		email:$("#email").val(),
+			  		nick:$("#nick").val(),
+					title:"kanban card",
+					state:"insert",
+					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+					project_seq:$("#projectNum").val(),
+					}
+					socket.send(JSON.stringify(alram))
 	});
 
 	$(document).on("click", ".addCard-btn", function(e) {
@@ -685,8 +716,6 @@ $(function() {
 			ws.onmessage = function(event){
 			let alramMessage = JSON.parse(event.data)
 			loadKanban(projectNum);
-
-
 			};
 		ws.onclose = function(){
 			console.log("Sever Close");
