@@ -16,7 +16,6 @@ $(document).ready(function() {
 			send();
 			event.preventDefault();
 		}
-
 	});
 	//전송 버튼 CSS 조절
 	$('#message').keyup( (event) => {

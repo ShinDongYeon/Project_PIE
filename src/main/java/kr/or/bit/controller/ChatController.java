@@ -76,6 +76,8 @@ public class ChatController {
 			}
 			user_arraylist.add(loginuser);
 			
+			chatservice.chatUserEmailListByEmailByOrder(user_array);
+			
 			roomList = chatservice.getRoomListByProjectSeq(projectNum);
 			//해당 프로젝트에 존재하는 모든 채팅방 중에 만들려고 하는 채팅방과 동일한 채팅방이 있는지 여부를 파악함
 			for(int i=0; i < roomList.size(); i++) {
@@ -84,7 +86,7 @@ public class ChatController {
 				chattingRoomList = chatservice.getChattingRoomList(chattingRoomListMap);
 				
 				//동일한 채팅방이 있으면
-				if(user_arraylist.containsAll(chattingRoomList)) {
+				if(chattingRoomList.containsAll(user_arraylist)) {
 					
 					Map<String, Object> unhideRoomMap = new HashMap<>();
 					unhideRoomMap.put("loginuser", loginuser);
