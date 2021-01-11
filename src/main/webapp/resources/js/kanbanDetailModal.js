@@ -379,7 +379,7 @@ $(document).ready(function() {
 		//get project Member List
 		$.ajax({
 			type: "get",
-			url: "getProjectMemList?sessionEmail="+$('#session_email').val(),
+			url: "getProjectMemList?sessionEmail="+$('#session_email').val()+"&cardSeq="+cardSeq,
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,

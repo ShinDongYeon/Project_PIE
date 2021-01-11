@@ -40,16 +40,17 @@ public class CardMemberController {
 	// Get Project Member List By ProjectNum
 	@ResponseBody
 	@RequestMapping(value = "getProjectMemList", method = RequestMethod.GET)
-	public List<user> projectMemList(@RequestParam("sessionEmail") String sessionEmail, HttpServletRequest request) {
+	public List<user> projectMemList(@RequestParam("sessionEmail") String sessionEmail, 
+									 @RequestParam("cardSeq") int cardSeq, HttpServletRequest request) {
 		// get Project Session
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int) httpsession.getAttribute("projectNum");
-
+		
 		List<user> memberList = null;
 		Map<String, Object> projectMemListMap = new HashMap<String, Object>();
 		System.out.println("card project Members Controller");
 		try {
-			projectMemListMap.put("sessionEmail", sessionEmail);
+			projectMemListMap.put("cardSeq", cardSeq);
 			projectMemListMap.put("projectNum", projectNum);
 			memberList = cardMemService.projectMemListService(projectMemListMap);
 			System.out.println("memberList:::" + memberList);
