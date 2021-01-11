@@ -16,9 +16,13 @@
 <script src="/resources/js/kanban-board.js"></script>
 <script src="/resources/js/kanbanDetailModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="/resources/css/calendar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <title>KANBAN-BOARD</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/calendar/calendar_kanban_modal.jsp"></jsp:include>
 	<div id="kanbanPage-wrapper">
 		<!-- A title of a project -->
 		<div id="projectTitleWrap">
