@@ -1,7 +1,14 @@
 package kr.or.bit.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
 
@@ -65,7 +74,18 @@ public class FileController {
 		model.addAttribute("files", files);
 		return jsonview;
   }
-}	
 	
-	
-	
+	//파일 다운로드 컨트롤러 
+	//다운받을 파일 이름 받고 DownloadView로 이동
+	@RequestMapping(value = "fileDownload.pie", method = RequestMethod.GET)
+	public ModelAndView download(@RequestParam("project_seq")int project_seq,
+								 @RequestParam("file_uploaded_name")String file_uploaded_name,
+								 ModelAndView mv) {
+		String fullPath = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+		File file = new File(fullPath);
+		
+		mv.setViewName("downloadView");
+		mv.addObject("downloadFile", file);
+		return mv;
+	}
+}

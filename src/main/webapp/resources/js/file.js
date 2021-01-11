@@ -24,8 +24,7 @@ $.ajax({
 //파일 만들기 		
 function makeFileOnPage(nickName, upload_date, file_original_name, file_seq, file_uploaded_name, project_seq){
 	
-let file = "<a download href='http://localhost:8090/resources/files/file_directory_project_seq_"+project_seq+"/"+ file_uploaded_name +"' style = 'text-decoration : none';>"+
-
+let file = "<a href= 'fileDownload.pie?project_seq="+project_seq+"&file_uploaded_name="+file_uploaded_name+"' style = 'text-decoration : none'>"+
 			"<div class='file-list-wrapper'>"+
 				"<input id = 'file_seq' type = 'hidden' value = '"+file_seq+"'>"+
 				"<input id = 'file_uploaded_name' type = 'hidden' value = '"+file_uploaded_name+"'>"+
