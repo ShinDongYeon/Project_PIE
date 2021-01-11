@@ -22,7 +22,7 @@ $(function() {
 		});
 
 	let projectNum = pjNumByController;
-	console.log("프로젝트 seq : " + projectNum);
+	console.log("project seq : " + projectNum);
 
 	//프로젝트 제목 가져오는 ajax 
 	$.ajax(

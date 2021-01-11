@@ -1,7 +1,7 @@
 /*
 파일명: checkList.js
-설명: 칸반 카드 상세페이지 내 구현될 체크리스트 jqery&js
-작성일: 2021-01-04 ~ 2021-01-07 
+설명: 칸반 카드 상세페이지 내 구현될 체크리스트, 담당자 등록 jqery&js
+작성일: 2021-01-04 ~ 2021-01-12
 작성자: 문지연
 */
 
@@ -13,6 +13,11 @@ $(document).ready(function() {
 			'" class="todo"><i class="fa fa-check"></i>' + check_name + '</label>' +
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
 		return chkTag;
+	}
+	
+	function makeCardMem(nickName) {
+		let cardMem = "<i class='fas fa-user'> "+nickName+"</i> "
+		return cardMem;
 	}
 
 	//show progress bar by checked boxes
@@ -45,7 +50,26 @@ $(document).ready(function() {
 		console.log("cardSeq:" + cardSeq);
 		//get card Title
 		$('.cardTitleMo').text($(this).context.innerText);
-
+		
+		
+		//get cardMember 
+		
+		$.ajax({
+			type:"get",
+			url:"showMemberByCard.pie?cardSeq="+cardSeq,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				$('.members').show();
+				$.each(data, function(index, item) {
+					let cardMem = makeCardMem(item.nickName);
+					console.log(cardMem);
+					$("#checkListWrap").prepend(cardMem);
+				});
+			}
+		});
+		
 		//get saved checkList
 		$.ajax({
 			type: "post",
@@ -79,12 +103,14 @@ $(document).ready(function() {
 		e.preventDefault();
 		details.style.display = "none";
 		$(".todo-wrap").remove();
+		$('.fa-user').remove();
 	});
 
 	window.onclick = function(e) {
 		if (e.target == details) {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
+			$('.fa-user').remove();
 		}
 	}
 
@@ -327,16 +353,104 @@ $(document).ready(function() {
 	
 	/*Open Card Members Modal*/
 	const memModal = document.getElementById("inviteModal");
+	
 
 	//Open clicked Modal
 	$(document).on("click", ".cardMembersBtn", function(e) {
 		e.preventDefault();
 		memModal.style.display = "block";
+		
+		//get CardSeq
+		cardSeq=$(this).parents().children().children(".modal_card_seq").val();
+		console.log("cardSeq:::"+cardSeq);
+		$(".invite-detail").attr("data-invite-card",cardSeq);
+		
+		//get project Member List
+		$.ajax({
+			type: "get",
+			url: "getProjectMemList?sessionEmail="+$('#session_email').val(),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				console.log(data);
+				let memberLi = "Member List";
+				$.each(data, function(index, item) {
+					memberLi += "<div id='membersWrap-"+index+"' class='membersWrap'>"+
+					"<div class='memberWrap'>"+
+						"<div class='member-SubWrap'>"+
+							"<div class='memProfile'>"+
+								"<i class='fas fa-user'></i>"+					
+							"</div>"+
+							"<div class='memDetailWrap'>"+
+								"<div id='memNickName-"+index+"' class='memNickName'>"+
+									item.nickName+
+								"</div>"+
+								"<div id='memEmail-"+index+"' class='memEmail'>"+
+									item.email+
+								"</div>"+
+							"</div>"+
+						"</div>"+
+						"<div id='memSelectBtn-"+index+"' class='memSelectBtn'>"+
+							"<i class='fas fa-plus'></i>"+
+						"</div>"+
+					"</div>"+
+				"</div>";
+		});
+		$('.projectMemList').append(memberLi);	
+			}
+		
+		});
+		
+		//click Member to add 
+		$('.fa-plus').click(function(){
+			let div = $(this).closest('div');
+			let div_index = div.attr("id").lastIndexOf("-")+1;
+			let div_substr = div.attr("id").substring(div_index);
+			let selectedWrap = div.parent().parent();
+		//get clicked member Email
+		let nickName = $('#memNickName-'+div_substr).html();
+		let email = $('#memEmail-'+div_substr).html();
+	
+		console.log(email);
+		console.log(nickName);
+		
+		let cardMemOb = new Object();
+		cardMemOb.card_seq = cardSeq;
+		cardMemOb.email = email;
+
+		let cardMem = JSON.stringify(cardMemOb);
+
+		$.ajax({
+			type: "post",
+			url: "insertCardMem.pie",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			data: cardMem,
+			success: function(data) {
+			console.log(data);
+			//delete selectd MemInfo from View
+			selectedWrap.animate({
+					left: "-30%",
+					height: 0,
+					opacity: 0
+				}, 200);
+				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
+				}
+			});
+		
+		
+		});
+		
+		
 		});
 	
 	window.onclick = function(e) {
 		if (e.target == memModal) {
 			memModal.style.display = "none";
+			$('.projectMemList').empty();	
 		}
 	}
+	
 });

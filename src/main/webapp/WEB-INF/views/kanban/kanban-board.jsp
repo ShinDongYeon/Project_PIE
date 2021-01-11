@@ -10,6 +10,7 @@
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/css/cardMember.css">
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
 <link rel="stylesheet" href="/resources/css/kanbanDetailModal.css">
 <script src="/resources/js/kanban-board.js"></script>
@@ -53,11 +54,12 @@
 			<!-- Card Title -->
 			<div class="cardTitleMo"></div>
 			<form id="cardTitleForm" class="cardTitleForm">
-				<input type="text" id="cardTitleInput" placeholder=""> <input
-					type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
+				<input type="text" id="cardTitleInput" placeholder=""> 
+				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
 			
+			<div class="members" style="display: none;">Members</div>
 			<!-- checkList Wrap -->
 			<div class="main">
 				<div id="checkListWrap">
@@ -92,8 +94,8 @@
 	
 	<!-- invite Card Members Modal -->
 		<div id="inviteModal">
-			<div class="invite-detail">
-				hihi
+			<div class="invite-detail" data-project-card="" data-invite-card="">
+				<div class="projectMemList"></div>
 			</div>
 		</div>
 
