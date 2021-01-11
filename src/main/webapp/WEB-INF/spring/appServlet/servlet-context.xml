@@ -15,6 +15,7 @@
  	<beans:bean id="websocketHandler" class="kr.or.bit.websocket.websocketHandler" />
 	<beans:bean id="chatsocketHandler" class="kr.or.bit.websocket.chatsocketHandler" />
 	<beans:bean id="kanbanWebsocketHandler" class="kr.or.bit.websocket.kanbanWebsocketHandler" />
+	<beans:bean id="logonsocketHandler" class="kr.or.bit.websocket.logonsocketHandler" />
 	
 	<websocket:handlers>
 		<websocket:mapping handler="websocketHandler" path="/websocket/echo" />
@@ -39,6 +40,14 @@
 	      </websocket:handshake-interceptors>
 	      <websocket:sockjs/>
 	 </websocket:handlers>
+	 
+	<websocket:handlers>
+		<websocket:mapping handler="logonsocketHandler" path="/websocket/logon" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="kr.or.bit.websocket.logonHandShakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
+	</websocket:handlers>
 
 	<!-- resources 폴더 매핑 -->
 	<mvc:resources mapping="/js/**" location="/resources/js/" />

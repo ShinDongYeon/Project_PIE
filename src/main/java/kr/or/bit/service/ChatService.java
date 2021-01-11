@@ -69,6 +69,11 @@ public class ChatService {
 		return dao.getRoomListBySeq(room_seq);
 	}
 	
+	public List<user> selectedUser(Map<String, Object> selectUserMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.selectedUser(selectUserMap);
+	}
+	
 	public List<user> searchUser(Map<String, Object> searchUserMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.searchUser(searchUserMap);
@@ -112,6 +117,21 @@ public class ChatService {
 	public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.getChattingRoomUserListByRoomSeq(chatting_room_seq);
+	}
+	
+	public void logonUser(String loginuser) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.logonUser(loginuser);
+	}
+	
+	public void logoutUser(String loginuser) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.logoutUser(loginuser);
+	}
+	
+	public List<user> logonUserCheck(String[] session_data) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.logonUserCheck(session_data);
 	}
 	
 }

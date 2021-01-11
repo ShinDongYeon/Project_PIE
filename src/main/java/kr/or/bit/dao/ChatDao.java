@@ -30,6 +30,8 @@ public interface ChatDao {
 	 
 	 public room getRoomListBySeq(int room_seq);
 	 
+	 public List<user> selectedUser(Map<String, Object> selectUserMap);
+	 
 	 public List<user> searchUser(Map<String, Object> searchUserMap);
 	 
 	 public List<user> searchAnotherUser(Map<String, Object> map);
@@ -49,4 +51,10 @@ public interface ChatDao {
 	 public List<String> getChattingRoomList(Map<String, Object> chattingRoomListMap);
 	 
 	 public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq);
+	 
+	 public void logonUser(String loginuser);
+	 
+	 public void logoutUser(String loginuser);
+	 
+	 public List<user> logonUserCheck(String[] session_data);
 }

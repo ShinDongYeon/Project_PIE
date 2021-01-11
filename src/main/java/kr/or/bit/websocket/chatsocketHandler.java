@@ -30,7 +30,6 @@ public class chatsocketHandler extends TextWebSocketHandler{
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 			
-			
 			// 입장한 채팅방 이름 꺼내와 변수에 저장 
 			String chatname = getCurrentChatRoom(session);
 			System.out.println("입장한 채팅방 = " + chatname);
@@ -54,11 +53,8 @@ public class chatsocketHandler extends TextWebSocketHandler{
 				TextMessage msg = new TextMessage(inform);
 				for(Map.Entry m : usermap.get(chatname).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 					WebSocketSession sess = (WebSocketSession) m.getValue();
-					sess.sendMessage(msg);
+					//sess.sendMessage(msg);
 				}
-			
-			
-			
 			
 		}
 
@@ -96,7 +92,7 @@ public class chatsocketHandler extends TextWebSocketHandler{
 				
 				for(Map.Entry m : usermap.get(chatname).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 					WebSocketSession sess = (WebSocketSession) m.getValue();
-					sess.sendMessage(msg);
+					//sess.sendMessage(msg);
 				}
 				// session종료시키기
 				

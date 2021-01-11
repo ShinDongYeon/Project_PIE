@@ -6,6 +6,8 @@
 	<div id="far fa-comment-dots" class="right-sidebar-chat">
 		<div id="crtChat-modal-background"></div>
 		<input type="hidden" value="${sessionScope.loginuser}" id="session_email">
+		<input type="hidden" value="${sessionScope.nick}" id="nickname">
+		<input type="hidden" value="${sessionScope.projectNum}" id="projectNum">
 		<!-- chat create button -->
 		<div class="chat-createBtn-wrapper">
 			<button id="crtChatBtn" class="chat-createBtn">+ 채팅방 생성하기</button>

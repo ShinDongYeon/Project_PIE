@@ -71,12 +71,8 @@ public class ChatController {
 		Map<String, Object> insertMap = new HashMap<String, Object>();
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 		try {
-			for(String str : user_array) {
-				user_arraylist.add(str);
-			}
-			user_arraylist.add(loginuser);
 			
-			chatservice.chatUserEmailListByEmailByOrder(user_array);
+			user_arraylist = chatservice.chatUserEmailListByEmailByOrder(user_array);
 			
 			roomList = chatservice.getRoomListByProjectSeq(projectNum);
 			//해당 프로젝트에 존재하는 모든 채팅방 중에 만들려고 하는 채팅방과 동일한 채팅방이 있는지 여부를 파악함
@@ -86,7 +82,7 @@ public class ChatController {
 				chattingRoomList = chatservice.getChattingRoomList(chattingRoomListMap);
 				
 				//동일한 채팅방이 있으면
-				if(chattingRoomList.containsAll(user_arraylist)) {
+				if(Arrays.equals(chattingRoomList.toArray(), user_arraylist.toArray())) {
 					
 					Map<String, Object> unhideRoomMap = new HashMap<>();
 					unhideRoomMap.put("loginuser", loginuser);
@@ -173,6 +169,29 @@ public class ChatController {
 			e.printStackTrace();
 		}
 		return selectMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/chat/members/select", method = RequestMethod.POST)
+	public List<user> selectedUser(String[] select_user_array, HttpServletRequest request){
+		
+		System.out.println("user_array: " + select_user_array);
+		HttpSession httpsession = request.getSession();
+		int projectNum = (int)httpsession.getAttribute("projectNum");
+		String loginuser = (String)httpsession.getAttribute("loginuser");
+		
+		Map<String, Object> selectUserMap = new HashMap<String, Object>();
+		selectUserMap.put("select_user_array", select_user_array);
+		selectUserMap.put("projectNum", projectNum);
+		selectUserMap.put("loginuser", loginuser);
+		
+		List<user> memberList = null;
+		try {
+			memberList = chatservice.selectedUser(selectUserMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return memberList;
 	}
 	
 	//채팅방 생성창에 파이원 비동기 검색구현
@@ -341,6 +360,7 @@ public class ChatController {
 	public Map<String, Object> searchRoom(HttpServletRequest request, String searchKeyword){
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int)httpsession.getAttribute("projectNum");
+		String loginuser = (String)httpsession.getAttribute("loginuser");
 		
 		Map<String, Object> searchRoomMap = new HashMap<String, Object>();
 		List<room> room_list = null;
@@ -350,6 +370,7 @@ public class ChatController {
 			
 			searchRoomMap.put("searchKeyword", searchKeyword);
 			searchRoomMap.put("projectNum", projectNum);
+			searchRoomMap.put("loginuser", loginuser);
 			room_list = chatservice.searchRoom(searchRoomMap);
 			
 			ArrayList<String> nicknames = new ArrayList<String>();
@@ -414,5 +435,17 @@ public class ChatController {
 			e.printStackTrace();
 		}
 		return room_list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/chat/members/socket", method = RequestMethod.POST)
+	public List<user> logonUserCheck(String[] session_data){
+		List<user> user_list = null;
+		try {
+			user_list = chatservice.logonUserCheck(session_data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user_list;
 	}
 }
