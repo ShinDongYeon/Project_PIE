@@ -18,7 +18,7 @@
 				</div>			
 			</div>
 		</div>
-				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
+				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get" accept-charset ="UTF-8">
 				       <div class="upload-btn-wrapper">
            			   <input type="file" id="input_file" name="files" multiple style="display:none"/>
      				   </div>
@@ -31,30 +31,19 @@
 		<!-- file search -->
 		<div class="file-search-wrapper">
 			<div class="file-search-item-wrapper">
-				<div class="file-search-item-letter">기간별 검색</div>
+				<div class="file-search-item-letter1">파일명 검색</div>
 				<form action="#">
-					<select name="#" id="#" class="custom-file-select">
-						<option value="#">전체</option>
-						<option value="#">1일</option>
-						<option value="#">1주일</option>
-						<option value="#">1달</option>
-						<option value="#">1년</option>
-					</select>
-				</form>
-			</div>
-			<div class="file-search-item-wrapper">
-				<div class="file-search-item-letter">파일명 검색</div>
-				<form action="#">
-					<select name="#" id="#" class="custom-file-select">
+			<!-- 		<select name="#" id="#" class="custom-file-select">
 						<option value="#">전체</option>
 						<option value="#">?</option>
 						<option value="#">??</option>
 						<option value="#">???</option>
-					</select>
+					</select> -->
+					<input id = "file-search-input" class="custom-file-search" type = "text" placeholder = "파일명">
 				</form>
 			</div>
 			<div class="file-search-item-wrapper">
-				<div class="file-search-item-letter">확장자명 검색</div>
+				<div class="file-search-item-letter2">확장자명 검색</div>
 				<form action="#">
 					<select name="#" id="#" class="custom-file-select">
 						<option value="#">전체</option>
@@ -64,6 +53,17 @@
 					</select>
 				</form>
 			</div>
+		</div>
+		<div id = "fileZone">
+		</div>
+		<div class = "page-btn-zone">
+		 	<!-- <div class = "left-btn"><i class="fas fa-angle-left"></i></div>
+			<div class = "btn">1</div>
+			<div class = "btn">2</div>
+			<div class = "btn">3</div>
+			<div class = "btn">4</div>
+			<div class = "btn">5</div>
+			<div class = "right-btn"><i class="fas fa-angle-right"></i></div> -->
 		</div>
 
 		

@@ -41,8 +41,9 @@
 	 </websocket:handlers>
 
 	<!-- resources 폴더 매핑 -->
-	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/js/**" location="/resources/js/" />
+	<!-- <mvc:resources mapping="/css/**" location="/resources/css/" /> -->
 
 	<!-- 자동으로 빈 생성 -->
 	<context:annotation-config />

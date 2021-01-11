@@ -147,7 +147,6 @@ public class ProjectController {
 		}
 		
 		
-		//<a href ="http://localhost:8090/joinToPie.pie?projectNum=${projectNum}&email=${email}">파이에 합류하기!</a>
 		
 		
 	}				
