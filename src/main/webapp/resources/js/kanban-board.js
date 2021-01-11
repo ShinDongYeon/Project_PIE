@@ -433,6 +433,17 @@ $(function() {
 
 					}
 				});
+				
+				/*캘린더 삭제*/
+					$.ajax({
+					type :"POST",
+					url :"/calendarDeleteKanban.pie",
+					data :{
+						card_seq:$(this).parent().attr("data-card-seq")
+					},
+					success: function(data) {
+						}
+					});
 			}
 		});
 	});
