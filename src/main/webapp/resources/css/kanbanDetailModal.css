@@ -119,6 +119,25 @@ cursor: pointer;
     width:100%;
 }
 
+/*MEMBERS*/
+
+.members {
+	margin-left:10px;
+}
+
+.selectedMemPro {
+	margin-left:5px;
+	width: 34px;
+	height: 34px;
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 100%;
+	font-size: 1.5rem;
+	padding-top: 3px;
+}
+
 /*Check List in Modal*/
 #checkListWrap {
 	/*transition*/
@@ -150,6 +169,13 @@ cursor: pointer;
 
 /*CheckList Progress Bar*/
 .ready{font-size: 5px;}
+
+.ui-progressbar .ui-progressbar-value {
+	border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin: 0;
+    height: 100%;
+}
 
 .ui-progressbar-value {
 	background:#f5df4d;

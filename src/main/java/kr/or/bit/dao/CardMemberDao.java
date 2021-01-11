@@ -1,6 +1,5 @@
 package kr.or.bit.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,7 @@ public interface CardMemberDao {
 	
 	public void insertCardMem(HashMap<String, Object> cardMemInfo);
 	
-	/* public ArrayList<cardMember> showMemberByCard(int cardSeq); */
-	
 	public List<user> showMemberByCard(Map<String, Object> selectedMemInfo);
+	
+	public void deleteCardMem(cardMember cm);
 }
