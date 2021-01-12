@@ -36,6 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCardContent" parameterType="cardDto">
 		UPDATE KANBANCARD SET CARD_CONTENT = #{card_content} WHERE CARD_SEQ= #{card_seq}
 	</update>
+	
+	<select id="getCardContent" resultType="String" parameterType="int">
+		SELECT CARD_CONTENT FROM KANBANCARD WHERE CARD_SEQ = #{param1}
+	</select>
 </mapper>
 
 

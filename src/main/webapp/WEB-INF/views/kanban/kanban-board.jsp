@@ -83,14 +83,16 @@
 			<div id="cardDetailsWrap">
 				<h2 class="cardDetails">
 					<i class="far fa-clipboard"></i> Details
+					<i class="far fa-edit" style="display:none;"></i>
 				</h2>
 				<div class="cardContents" style="display:none;"></div>
-				<form class="cardDetailsForm">
-					<textarea class="addCardDetails" cols="30" rows="10" placeholder="card Details"></textarea>
+			</div>
+				<form class="cardDetailsForm" style="display:neone;">
+					<textarea class="addCardDetails" cols="30" rows="10" placeholder="enter card Details"></textarea>
 					<button class="addDetails-btn">Save</button>
 					<span class="closeDetails" id="closeDetails"></span>
 				</form>
-			</div>
+			
 			
 			<!-- checkList Wrap -->
 			<div class="main">
@@ -102,7 +104,7 @@
 						<div class="progressbar"></div>
 						<div class="progressbar-label"></div>
 					</div>
-					<div class="ready"></div>
+					
 					<form id="checkListForm">
 						<div id="add-todo">
 							<i class="fa fa-plus"></i> Add an item

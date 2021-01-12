@@ -79,6 +79,31 @@ $(document).ready(function() {
 			}
 		});
 		
+		//get card Content 
+		$.ajax({
+			type: "post",
+			url: "getCardContent.pie?cardSeq="+cardSeq,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data){
+				if(data.data.trim()==""){
+					console.log("empty");
+					$('.cardDetailsForm').show();
+					$('.fa-edit').hide();
+					$('.cardContents').hide();
+				}else{
+					console.log(data);
+					$('.cardContents').show();
+					$('.cardContents').text(data.data);
+					$('.fa-edit').show();
+					$('.cardDetailsForm').hide();
+				}
+				
+			}
+			
+		})
+		
 		//get saved checkList
 		$.ajax({
 			type: "post",
@@ -106,13 +131,25 @@ $(document).ready(function() {
 		//show progress Bar
 		progressBar();
 	});
-
+	
+	
+	//edit card Content
+	$('.fa-edit').click(function(e){
+		let cardText = $('.fa-edit').parents().children().children('.cardContents').html();
+		e.preventDefault();
+		$('.fa-edit').hide();
+		$('.cardContents').hide();
+		$('.cardDetailsForm').show();
+		$('.addCardDetails').focus();
+		
+	});
 	//close Modal
 	$(document).on("click", ".closeModal", function(e) {
 		e.preventDefault();
 		details.style.display = "none";
 		$(".todo-wrap").remove();
 		$('.fa-user').remove();
+		$('.addCardDetails').val("");
 		$('#memTitle').hide();
 	});
 
@@ -121,6 +158,7 @@ $(document).ready(function() {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
 			$('.fa-user').remove();
+			$('.addCardDetails').val("");
 			$('#memTitle').hide();
 		}
 	}
@@ -182,10 +220,9 @@ $(document).ready(function() {
 		let cardSeq = $(this).parents().children().children('.modal_card_seq').attr('value');
 		cardOb.card_content=contents;
 		cardOb.card_seq=cardSeq;
-		console.log("cardContent:::"+contents);
 		
 		let card = JSON.stringify(cardOb);
-		if (contents.length > 0) {
+		
 			$.ajax({
 				type: "post",
 				url: "updateCardContent.pie",
@@ -194,13 +231,23 @@ $(document).ready(function() {
 				async: false,
 				data: card,
 				success: function(data) {
-					console.log(data);
+					console.log("data::"+data);
+					console.log("card_content::::"+data.data.card_content.trim());
+					if (data.data!="") {
+						console.log("not null");
+						$('.cardContents').html(contents);
+						$('.cardDetailsForm').hide();
+						$('.fa-edit').show();
+						$('.cardContents').show();
+					}else if(data.data==""){
+						console.log("null card content");
+						$('.fa-edit').hide();
+						$('.cardContents').hide();
+						$('.cardDetailsForm').show();
+					}
 				}
 			});
-			$('.cardContents').html(contents);
-			$('.cardDetailsForm').hide();
-			$('.cardContents').show();
-		}
+		
 	})
 
 	/*CheckList in Modal*/
@@ -394,7 +441,7 @@ $(document).ready(function() {
 	const memModal = document.getElementById("inviteModal");
 	
 
-	//Open clicked Modal
+	//Open add Members Modal
 	$(document).on("click", ".cardMembersBtn", function(e) {
 		e.preventDefault();
 		memModal.style.display = "block";

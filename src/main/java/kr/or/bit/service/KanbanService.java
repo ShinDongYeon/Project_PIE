@@ -102,29 +102,28 @@ public class KanbanService {
 	// Delete Kanban List, Card and CheckList
 	@Transactional
 	public void deleteKanbanListService(list li) {
-		CardDao carddao  = sqlsession.getMapper(CardDao.class);
-		ListDao listdao  = sqlsession.getMapper(ListDao.class);
+		CardDao carddao = sqlsession.getMapper(CardDao.class);
+		ListDao listdao = sqlsession.getMapper(ListDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
-		
+
 		ArrayList<card> cardList = li.getCardList();
 		int list_seq = li.getList_seq();
-		
+
 		try {
-			for(int i = 0; i < cardList.size(); i++) {
+			for (int i = 0; i < cardList.size(); i++) {
 				int cardSeq = cardList.get(i).getCard_seq();
 				System.out.println(cardSeq);
 				cmdao.deleteAllCardMem(cardSeq);
-				chkdao.deleteChkListByCardSeq(cardSeq);//delete chkList
-				carddao.deleteKanbanCard(cardSeq); //delete Card
+				chkdao.deleteChkListByCardSeq(cardSeq);// delete chkList
+				carddao.deleteKanbanCard(cardSeq); // delete Card
 			}
-			listdao.deleteKanbanList(list_seq);	//delete List
+			listdao.deleteKanbanList(list_seq); // delete List
 		} catch (Exception e) {
-			System.out.println("delete List error:"+e.getMessage());
-			throw e; //시점에 트랜잭션 감지하고 있다가 롤백 처리 
+			System.out.println("delete List error:" + e.getMessage());
+			throw e; // 시점에 트랜잭션 감지하고 있다가 롤백 처리
 		}
 	}
-	 
 
 	// Delete Card_CheckList
 	@Transactional
@@ -149,10 +148,17 @@ public class KanbanService {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		carddao.editKanbanCardTitle(ca);
 	}
-	
-	//Update Card Content 
+
+	// Update Card Content
 	public void updateCardContentService(card ca) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		carddao.updateCardContent(ca);
+	}
+
+	// get Card ContentService
+	public String getCardContentService(int cardSeq) {
+		CardDao carddao = sqlsession.getMapper(CardDao.class);
+		String card_content = carddao.getCardContent(cardSeq);
+		return card_content;
 	}
 }
