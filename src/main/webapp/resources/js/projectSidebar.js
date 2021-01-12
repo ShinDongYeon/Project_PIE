@@ -5,12 +5,17 @@ $(document).ready(function(){
 	let wrapper = document.getElementById('right-sidebar-contents-wrapper');	
 	
 		$('#sidebar-kanban').click(function(){
-		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();
+			$("#kanbanPage-wrapper").show();
+			$("#calendar").hide();
+
+		/*wrapper.className = 'right-sidebar-contents-wrapper-hidden';
+		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();*/
 		});
 	$('#sidebar-calendar').click(function(){
-		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
-		location.href= "fullcalendar.htm";
+		$("#kanbanPage-wrapper").hide();
+
+		/*wrapper.className = 'right-sidebar-contents-wrapper-hidden';
+		location.href= "fullcalendar.htm";*/
 	});
 	/*kanban & calendar 아이콘 클릭 시 다른 창 display: none */
 	

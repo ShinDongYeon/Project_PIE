@@ -25,40 +25,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/resources/js/calendar.js"></script>
 <!--  -->
 
-<style>
-/* 	body{
-		font-size: initial;
-		line-height: initial;
-	} */
-  #calendar {
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 1%;
-	background-color: rgba( 255, 255, 255, 0.8 );	 
-   	border-radius: 5px;
-   	box-shadow: 0px 0px 20px rgba( 255, 255, 255, 0.8 );
-  }
-  .fc-right {
-  	position: relative;
-  	top: -2px;
-  }
-   .fc-today{
-   background:rgba( 255, 255, 255, 0.5 )! important;
-}
-.fc-unthemed .fc-today {
-  background:rgba( 255, 255, 255, 0.5 )! important;
-}
-.fc-unthemed td.fc-today {
-  background:rgba( 255, 255, 255, 0.5 )! important;
-}
-</style>
 </head>
 <body>
 

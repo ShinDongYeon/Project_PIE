@@ -389,6 +389,7 @@ $(function() {
 							data: alram,
 							success: function(data) {
 							socket.send("등록")
+							socketkanban.sned("등록")
 								},
 						})
 					}
@@ -664,6 +665,7 @@ $.ajax({
 							data: alram,
 							success: function(data) {
 							socket.send("등록")
+							socketkanban.sned("등록")
 								},
 						})
 					}
