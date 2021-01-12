@@ -437,4 +437,14 @@ public class ChatController {
 		return room_list;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/chat/redirect", method = RequestMethod.POST)
+	public void redirectMessage(@RequestParam("select") int select){
+		try {
+			chatservice.redirectMessage(select);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
