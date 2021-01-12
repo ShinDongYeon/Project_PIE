@@ -11,6 +11,7 @@
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/projectSidebar.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
+	<script src="/resources/js/logonWebSocket.js"></script>
 </head>
 <body>
 	<!-- projectNum(Sequence) -->

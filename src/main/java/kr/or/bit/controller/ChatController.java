@@ -437,15 +437,4 @@ public class ChatController {
 		return room_list;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/chat/members/socket", method = RequestMethod.POST)
-	public List<user> logonUserCheck(String[] session_data){
-		List<user> user_list = null;
-		try {
-			user_list = chatservice.logonUserCheck(session_data);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return user_list;
-	}
 }

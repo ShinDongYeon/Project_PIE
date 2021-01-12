@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- public List<user> chatUserList(); -->
 	<select id="chatUserList" resultType="userDto" parameterType="hashMap">
-		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, P.PROJECT_SEQ 
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, U.ENABLED, P.PROJECT_SEQ 
 		FROM USER U JOIN PROJECT_MEMBER P
 		ON U.EMAIL = P.EMAIL
 		WHERE U.EMAIL NOT IN (#{sessionEmail})
@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- public List<user> searchUser(String searchKeyword); -->
 	<select id="searchUser" resultType="userDto">
-		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, P.PROJECT_SEQ
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, U.ENABLED, P.PROJECT_SEQ
 		FROM USER U JOIN PROJECT_MEMBER P
 		ON U.EMAIL = P.EMAIL
 		WHERE NICKNAME LIKE CONCAT('%',#{nickName},'%')
@@ -92,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="searchAnotherUser" parameterType="hashMap" resultType="userDto">
-		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, P.PROJECT_SEQ 
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, U.ENABLED, P.PROJECT_SEQ 
 		FROM USER U JOIN PROJECT_MEMBER P
 		ON U.EMAIL = P.EMAIL
 		WHERE U.EMAIL NOT IN (
@@ -188,25 +188,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
 		WHERE C.CHATTING_ROOM_SEQ = #{chatting_room_seq}
 	</select>
-	
-	<!-- public void logonUser(List<String> sessionList); -->
-	<update id="logonUser" parameterType="java.util.ArrayList">
-		UPDATE USER
-		SET ENABLED = 1
-		WHERE EMAIL IN(#{loginuser})
-	</update>
-	
-	<!-- public void logoutUser(List<String> sessionList); -->
-	<update id="logoutUser">
-		UPDATE USER
-		SET ENABLED = 0
-		WHERE EMAIL = #{loginuser}
-	</update>
-	
-	<!-- public List<user> logonUserCheck(String[] session_data); -->
-	<select id="logonUserCheck" parameterType="java.util.ArrayList" resultType="userDto">
-		SELECT EMAIL FROM USER
-		WHERE ENABLED = 1;
-	</select>
-	
 </mapper>

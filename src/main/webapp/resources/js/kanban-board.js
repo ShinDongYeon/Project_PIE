@@ -275,7 +275,6 @@ $(function() {
 
 	//card add button
 	function makeCardAddBtn() {
-
 		let cardAddBtn = "<div class='cardAddWrap'><div class='addCardLabel'>+ Add another Card</div><form class='addCard' style='display: none;'>" +
 			"<textarea class='addCardTitle' cols='30' rows='10' placeholder='Card Title'></textarea><button class='addCard-btn'>Add Card" +
 			"</button><span class='close' id='closeCard'>&times;</span></form></div>";
@@ -390,6 +389,7 @@ $(function() {
 							success: function(data) {
 							socket.send("등록")
 							socketkanban.sned("등록")
+
 								},
 						})
 					}
@@ -666,6 +666,7 @@ $.ajax({
 							success: function(data) {
 							socket.send("등록")
 							socketkanban.sned("등록")
+
 								},
 						})
 					}
