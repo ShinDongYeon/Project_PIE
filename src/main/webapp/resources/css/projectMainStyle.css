@@ -361,12 +361,19 @@
 .file-search-item-wrapper{
 	text-align: center;
 }
-.file-search-item-letter{
+.file-search-item-letter1{
+ 	color: #fff;
+	font-size: 0.8rem;
+	font-weight: 300;
+}
+.file-search-item-letter2{
 	color: #fff;
 	font-size: 0.8rem;
 	font-weight: 300;
 }
-
+.download_link{
+	text-decoration :none;
+}
 /*******************************/
 /*file-search-select customized*/
 .custom-file-select{
@@ -391,6 +398,21 @@
   --select-border: #777;
   --select-focus: blue;
   --select-arrow: var(--select-border);
+}
+.custom-file-search{
+	width: 190px;
+	border: none;
+	border-radius: 5px;
+	height : 27px;
+	margin: 3px;
+	background-color: #999999;
+	
+}
+.custom-file-search::placeholder {
+	color: #fff;
+	padding: 3px 8px;
+	font-size: 0.8rem;
+  	font-weight: 200;
 }
 
 /* file-search-select customized end */
@@ -634,7 +656,6 @@
 }
 
 
-
 /************************/
 /* project main wrapper */
 .project-main-wrapper {
@@ -647,6 +668,34 @@
 	height: 100vh;
 	padding-top: 65px;
 }
-
-
+.page-btn-zone{
+	position: fixed;
+	width: 298px;
+	text-align: center;
+	letter-spacing: 5px;
+	font-family: inherit;
+	font-size: 0.9rem;
+	justify-content : center;
+	align-items : center 
+}
+.btn{
+	color : #f2dd68;
+	display: inline-block;
+	cursor: pointer;
+}
+.current-page-btn{
+	color : grey;
+	display: inline-block;
+	cursor: pointer;
+}
+.left-btn{
+	color : #f2dd68;
+	display: inline-block;
+	cursor: pointer;
+}
+.right-btn{
+	color : #f2dd68;
+	display: inline-block;
+	cursor: pointer;
+}
 

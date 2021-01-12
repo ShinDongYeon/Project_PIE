@@ -24,7 +24,7 @@ import kr.or.bit.service.KanbanService;
 /*
 파일명: KanbanController.java
 설명: 칸반 보드에서 리스트와 카드 추가,수정,삭제 및 정렬 작업 후 db에 저장
-작성일: 2020-12-28 ~ 2021-01-07
+작성일: 2020-12-28 ~ 2021-01-
 작성자: 문지연,변재홍
 */
 @Controller
@@ -53,7 +53,7 @@ public class KanbanController {
 		for (int i = 0; i < kanban.size(); i++) {
 
 			System.out.println(
-					kanban.get(i).getList_order_num() + "번째 카드 리스트" + "////리스트 고유 번호" + kanban.get(i).getList_seq()); 
+					kanban.get(i).getList_order_num() + "번째 카드 리스트" + "////리스트 고유 번호" + kanban.get(i).getList_seq());
 
 			HashMap<String, Object> listAndProjectNum = new HashMap<String, Object>();// db update시 파라미터 담을 해쉬맵
 
@@ -201,18 +201,17 @@ public class KanbanController {
 		return jsonview;
 	}
 
-	// delete_list_card_checkList
+	// delete_list_card_checkList_cardMember
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
-	public View deleteKanbanList(@RequestBody list li,
-								 @RequestParam("projectNum") int projectNum, Model model) {
+	public View deleteKanbanList(@RequestBody list li, @RequestParam("projectNum") int projectNum, Model model) {
 		kanbanservice.deleteKanbanListService(li);
 		System.out.println("delete List");
 		model.addAttribute("data", "success");
 		return jsonview;
 	}
 
-	// delete_card_checkList
+	// delete_card_checkList_cardMember
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
 	public View deleteKanbanCard(@RequestBody card ca, @RequestParam("projectNum") int projectNum, Model model) {
@@ -231,4 +230,29 @@ public class KanbanController {
 		return jsonview;
 	}
 
+	// update Card Content
+	@ResponseBody
+	@RequestMapping(value = "updateCardContent.pie", method = RequestMethod.POST)
+	public View updateCardContent(@RequestBody card ca, Model model) {
+		System.out.println("updateController");
+		kanbanservice.updateCardContentService(ca);
+		System.out.println("Update Card Content");
+		model.addAttribute("data", ca);
+		return jsonview;
+	}
+
+	//get Card Content
+	@ResponseBody
+	@RequestMapping(value = "getCardContent.pie", method = RequestMethod.POST)
+	public View getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
+		System.out.println("card content controller");
+		String card_content = kanbanservice.getCardContentService(cardSeq);
+		if(card_content==null) {
+			model.addAttribute("data", "");
+			return jsonview;
+		}
+		model.addAttribute("data", card_content);
+		System.out.println("cardContent::::"+card_content);
+		return jsonview;
+	}
 }

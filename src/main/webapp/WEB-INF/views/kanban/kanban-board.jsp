@@ -37,7 +37,7 @@
 		<div id="listWrap">
 
 
-			<!--Add another List-->
+		<!--Add another List-->
 		</div>
 		<div id="addListWrap">
 			<div id="addListLabel">+ Add another List</div>
@@ -63,9 +63,37 @@
 				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
+			
+			<!-- Card Member List -->
 			<div class="memList">
-			<div id="memTitle" style="display: none;">Card Members</div>
+				<div id="memTitle" style="display: none;">Card Members</div>
 			</div>
+			
+			<!-- Side Buttons -->
+			<div class="side">
+				<div class="cardMembersBtn">
+					<i class="fas fa-user-check"></i> Add Members
+				</div>
+				<div class="setDueDateBtn">
+					<i class="far fa-calendar-check"></i> Due Date
+				</div>
+			</div>
+			
+			<!-- Card Details -->
+			<div id="cardDetailsWrap">
+				<h2 class="cardDetails">
+					<i class="far fa-clipboard"></i> Details
+					<i class="far fa-edit" style="display:none;"></i>
+				</h2>
+				<div class="cardContents" style="display:none;"></div>
+			</div>
+				<form class="cardDetailsForm" style="display:neone;">
+					<textarea class="addCardDetails" cols="30" rows="10" placeholder="enter card Details"></textarea>
+					<button class="addDetails-btn">Save</button>
+					<span class="closeDetails" id="closeDetails"></span>
+				</form>
+			
+			
 			<!-- checkList Wrap -->
 			<div class="main">
 				<div id="checkListWrap">
@@ -76,7 +104,7 @@
 						<div class="progressbar"></div>
 						<div class="progressbar-label"></div>
 					</div>
-					<div class="ready"></div>
+					
 					<form id="checkListForm">
 						<div id="add-todo">
 							<i class="fa fa-plus"></i> Add an item
@@ -84,17 +112,6 @@
 					</form>
 				</div>
 			</div>
-
-			<!-- Side Buttons -->
-			<div class="side">
-				<div class="cardMembersBtn">
-					<i class="fas fa-user-check"></i> Add Members
-				</div>
-				<div class="setDueDateBtn">
-					<i class="far fa-calendar-check"></i> Due Date
-				</div>
-			</div>
-
 		</div>
 	</div>
 	

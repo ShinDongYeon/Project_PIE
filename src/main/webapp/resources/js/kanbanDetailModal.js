@@ -1,5 +1,5 @@
 /*
-파일명: checkList.js
+파일명: kanbanDetailModal.js
 설명: 칸반 카드 상세페이지 내 구현될 체크리스트, 담당자 등록 jqery&js
 작성일: 2021-01-04 ~ 2021-01-12
 작성자: 문지연
@@ -79,6 +79,31 @@ $(document).ready(function() {
 			}
 		});
 		
+		//get card Content 
+		$.ajax({
+			type: "post",
+			url: "getCardContent.pie?cardSeq="+cardSeq,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data){
+				if(data.data.trim()==""){
+					console.log("empty");
+					$('.cardDetailsForm').show();
+					$('.fa-edit').hide();
+					$('.cardContents').hide();
+				}else{
+					console.log(data);
+					$('.cardContents').show();
+					$('.cardContents').text(data.data);
+					$('.fa-edit').show();
+					$('.cardDetailsForm').hide();
+				}
+				
+			}
+			
+		})
+		
 		//get saved checkList
 		$.ajax({
 			type: "post",
@@ -106,13 +131,25 @@ $(document).ready(function() {
 		//show progress Bar
 		progressBar();
 	});
-
+	
+	
+	//edit card Content
+	$('.fa-edit').click(function(e){
+		let cardText = $('.fa-edit').parents().children().children('.cardContents').html();
+		e.preventDefault();
+		$('.fa-edit').hide();
+		$('.cardContents').hide();
+		$('.cardDetailsForm').show();
+		$('.addCardDetails').focus();
+		
+	});
 	//close Modal
 	$(document).on("click", ".closeModal", function(e) {
 		e.preventDefault();
 		details.style.display = "none";
 		$(".todo-wrap").remove();
 		$('.fa-user').remove();
+		$('.addCardDetails').val("");
 		$('#memTitle').hide();
 	});
 
@@ -121,6 +158,7 @@ $(document).ready(function() {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
 			$('.fa-user').remove();
+			$('.addCardDetails').val("");
 			$('#memTitle').hide();
 		}
 	}
@@ -173,7 +211,44 @@ $(document).ready(function() {
 			$('.cardTitleMo').show();
 		}
 	});
-
+	
+	/*Card Details*/
+	$('.cardDetailsForm').submit(function(e){
+		e.preventDefault();
+		let cardOb = new Object();
+		let contents = $(this).children('.addCardDetails').val();
+		let cardSeq = $(this).parents().children().children('.modal_card_seq').attr('value');
+		cardOb.card_content=contents;
+		cardOb.card_seq=cardSeq;
+		
+		let card = JSON.stringify(cardOb);
+		
+			$.ajax({
+				type: "post",
+				url: "updateCardContent.pie",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				data: card,
+				success: function(data) {
+					console.log("data::"+data);
+					console.log("card_content::::"+data.data.card_content.trim());
+					if (data.data!="") {
+						console.log("not null");
+						$('.cardContents').html(contents);
+						$('.cardDetailsForm').hide();
+						$('.fa-edit').show();
+						$('.cardContents').show();
+					}else if(data.data==""){
+						console.log("null card content");
+						$('.fa-edit').hide();
+						$('.cardContents').hide();
+						$('.cardDetailsForm').show();
+					}
+				}
+			});
+		
+	})
 
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
@@ -366,7 +441,7 @@ $(document).ready(function() {
 	const memModal = document.getElementById("inviteModal");
 	
 
-	//Open clicked Modal
+	//Open add Members Modal
 	$(document).on("click", ".cardMembersBtn", function(e) {
 		e.preventDefault();
 		memModal.style.display = "block";

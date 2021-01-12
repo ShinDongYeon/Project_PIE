@@ -29,7 +29,7 @@
     width: 350px;
     height: auto;
     border-radius: 15px;
-    margin-top: 150px;
+    margin-top: 110px;
     margin-left: 60%;
 }
 
@@ -47,6 +47,13 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+/* project Member Lists */
+.memList {
+	width:75%; 
+	display:inline-block;
 }
 
 #memTitle {
@@ -117,3 +124,4 @@
 	color: #f2dd68;
 	cursor: pointer;
 }
+

@@ -23,4 +23,7 @@ public interface CardDao {
 	
 	public void editKanbanCardTitle(card ca);
 	
+	public void updateCardContent(card ca);
+	
+	public String getCardContent(int cardSeq);
 }

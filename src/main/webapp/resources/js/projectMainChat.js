@@ -9,6 +9,7 @@
 기능구현: 도재구
 */
 $(document).ready(function(){
+	
 	var modal = document.getElementById('crtChat-modal')
 	var crtChatBtn = document.getElementById('crtChatBtn');
 	var crtChatCancelBtn = document.getElementById('crtChat-btn-cancel');
@@ -38,6 +39,7 @@ $(document).ready(function(){
 		if($('#Selected-List').is(':empty')){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
+		connectWS_logon();
 	}
 	
 	//ESC 키 입력 시
@@ -89,9 +91,16 @@ $(document).ready(function(){
 					}
 			);
 		}
-		
-		
-
+		let today = new Date();
+		var alram = {
+			email:$("#session_email").val(),
+			nick:$("#nickname").val(),
+			title:"채팅방",
+			state:"생성",
+			alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
+			project_seq:$("#projectNum").val(),
+		}
+		socket.send(JSON.stringify(alram))
 		
 	}
 	
@@ -191,6 +200,45 @@ $(document).ready(function(){
 	
 	
 });
+
+
+
+function connectWS_logon(){
+	var logon_ws = new WebSocket("ws://localhost:8090/websocket/logon/websocket");
+	
+	logon_ws.onopen = (event) => {
+		console.log("logon_WS open");
+	};
+	logon_ws.onmessage = (event) => {
+		console.log("logon_WS onmessage");
+		let data = event.data;
+		console.log("data");
+		console.log(data);
+		
+		$.ajax(
+			{
+				type 		: "POST",
+				url  		: "chat/members/socket",
+				success 	: function(data){
+					console.log(data);
+					$.each(data,function(index,user){
+						console.log(data.length);
+						console.log(data.email);
+					});
+				},
+				error		: function(request,status,error){
+					alert(error);
+				}
+			}
+		);
+	};
+	logon_ws.onclose = (event) => {
+		console.log("Server Close");
+	};
+	logon_ws.onerror = (event) => {
+		console.log("Server Error");
+	};
+}
 
 /*
 파일명: projectMainChat.js
@@ -507,6 +555,7 @@ function userList(data){
 		opr += "<div id='crtChat-select-users-wrapper-"+index+"' class='crtChat-select-users-wrapper'>"+
 					"<div class='crtChat-select-user-wrapper'>"+
 						"<div class='crtChat-select-user-subWrapper'>"+
+							"<div id='crtChat-select-user-on-"+index+"' class='crtChat-select-user-on' name='0'></div>"+
 							"<div class='crtChat-select-user-pic'>"+
 								"<i class='fas fa-user'></i>"+					
 							"</div>"+
@@ -545,48 +594,103 @@ function selectUser(me){
 	let nick_name = $('#crtChat-select-user-name-'+div_substr).html();
 	let email = $('#crtChat-select-user-email-'+div_substr).html();
 	
-	console.log("email");
-	console.log(email);
+	$('#crtChat-select-users-wrapper-'+div_substr).remove();
+	$('.crtChat-btn-created-not').attr('class','crtChat-btn-created');
 	
 	let div_length = $('#Chatting-UserList').find('div').length;
 	console.log(div_length);
-	let user_array = [];
-	for(let i=1; i <= div_length / 8; i++){
-		let j = i * 8 - 2;
+	let select_user_array = [];
+	for(let i=1; i <= div_length / 9; i++){
+		let j = i * 9 - 2;
 		let div = $('#Chatting-UserList').find('div:eq('+j+')').text();
 		if(email != div){
-			user_array.push(div);
+			select_user_array.push(div);
 		}
 	}
 	
-	console.log('user_array');
-	console.log(user_array);
-	
-	//버튼을 누른 대상 USER를 선택리스트에 옮기기
-	let opr = "";
-	opr +=	"<div id='crtChat-selected-user-wrapper-"+div_substr+"' class='crtChat-selected-user-wrapper'>"+
-				"<div class='crtChat-selected-user-pic'>"+
-					"<i class='fas fa-user'></i>"+	
-				"</div>"+
-				"<div class='crtChat-selected-user-letter-wrapper'>"+
-					"<div id='crtChat-selected-user-letter-name-"+div_substr+"' class='crtChat-selected-user-letter-name'>"+
-						nick_name+
-					"</div>"+
-					"<div id='crtChat-selected-user-letter-email-"+div_substr+"' class='crtChat-selected-user-letter-email' hidden>"+
-						email+
-					"</div>"+
-					"<div id='crtChat-selected-user-letter-x-"+div_substr+"' class='crtChat-selected-user-letter-x'>"+
-						"<i onclick='selectedClose(this)' class='fas fa-times'></i>"+
-					"</div>"+
-				"</div>"+
-			"</div>";
+	if($('#Chatting-UserList').html() != ''){
+		$.ajax(
+			{
+				type 		: "POST",
+				url  		: "chat/members/select",
+				data 		: {
+					'select_user_array' : select_user_array
+				},
+				traditional : true,
+				error		: function(request,status,error){
+					alert(error);
+				},
+				success 	: function(data){
+					$('#Selected-List').empty();
+					//버튼을 누른 대상 USER를 선택리스트에 옮기기
+					let opr = "";
+					$.each(data,function(index,user){
+						opr +=	"<div id='crtChat-selected-user-wrapper-"+index+"' class='crtChat-selected-user-wrapper'>"+
+									"<div class='crtChat-selected-user-pic'>"+
+										"<i class='fas fa-user'></i>"+	
+									"</div>"+
+									"<div class='crtChat-selected-user-letter-wrapper'>"+
+										"<div id='crtChat-selected-user-letter-name-"+index+"' class='crtChat-selected-user-letter-name'>"+
+											user.nickName+
+										"</div>"+
+										"<div id='crtChat-selected-user-letter-email-"+index+"' class='crtChat-selected-user-letter-email' hidden>"+
+											user.email+
+										"</div>"+
+										"<div id='crtChat-selected-user-letter-x-"+index+"' class='crtChat-selected-user-letter-x'>"+
+											"<i onclick='selectedClose(this)' class='fas fa-times'></i>"+
+										"</div>"+
+									"</div>"+
+								"</div>";
+					});
+					$('#Selected-List').append(opr);
 					
-	$('#Selected-List').append(opr);
-	/*$('#Selected-List').css("display","block");
-	$('#Selectedlist-Subject').css("display","block");*/
-	//+버튼을 눌렀을시 Chatting-UserList에서 해당 유저 비우기
-	$('#crtChat-select-users-wrapper-'+div_substr).remove();
-	$('.crtChat-btn-created-not').attr('class','crtChat-btn-created');
+					/*$('#Selected-List').css("display","block");
+					$('#Selectedlist-Subject').css("display","block");*/
+					//+버튼을 눌렀을시 Chatting-UserList에서 해당 유저 비우기
+					
+				}
+			}
+		);
+		
+	}else{
+		$.ajax(
+			{
+				type : "GET",
+				url  : "chat/members?sessionEmail="+$('#session_email').val(),
+				success : function(data){
+					$('#Selected-List').empty();
+					//버튼을 누른 대상 USER를 선택리스트에 옮기기
+					let opr = "";
+					$.each(data,function(index,user){
+						opr +=	"<div id='crtChat-selected-user-wrapper-"+index+"' class='crtChat-selected-user-wrapper'>"+
+									"<div class='crtChat-selected-user-pic'>"+
+										"<i class='fas fa-user'></i>"+	
+									"</div>"+
+									"<div class='crtChat-selected-user-letter-wrapper'>"+
+										"<div id='crtChat-selected-user-letter-name-"+index+"' class='crtChat-selected-user-letter-name'>"+
+											user.nickName+
+										"</div>"+
+										"<div id='crtChat-selected-user-letter-email-"+index+"' class='crtChat-selected-user-letter-email' hidden>"+
+											user.email+
+										"</div>"+
+										"<div id='crtChat-selected-user-letter-x-"+index+"' class='crtChat-selected-user-letter-x'>"+
+											"<i onclick='selectedClose(this)' class='fas fa-times'></i>"+
+										"</div>"+
+									"</div>"+
+								"</div>";
+					});
+					$('#Selected-List').append(opr);
+					
+					/*$('#Selected-List').css("display","block");
+					$('#Selectedlist-Subject').css("display","block");*/
+					//+버튼을 눌렀을시 Chatting-UserList에서 해당 유저 비우기
+					
+					$('#crtChat-select-users-wrapper-'+div_substr).remove();
+					$('.crtChat-btn-created-not').attr('class','crtChat-btn-created');
+				}
+			}
+		);
+	}
 
 	
 }

@@ -8,8 +8,8 @@
 <title>회원가입</title>
 <jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 <jsp:include page="/resources/static/static.jsp"></jsp:include>
-<link rel="stylesheet" href="/resources/css/registerStyle.css">
 <script src="<c:url value="/resources/js/joinCheck.js"/>"></script>
+<link rel="stylesheet" href="/resources/css/registerStyle.css?ver=1">
 </head>
 <body>
 	<!-- Top -->
@@ -40,16 +40,17 @@
 							placeholder="pie@pie.com">
 					</div>
 
-					<!-- email duplicated check button -->
+					<!-- email duplicated check button 
 						<input type="button" name="emailCheck" value="이메일 중복 검사"
 							class="register-btn" id="emailCheck">
-							<div class="register-email-check" id="emailDiv"></div>
-
+					-->
+					<div class="register-email-check" id="emailDiv"></div>
+					
 					<!-- 이름 입력 -->
 					<div class="register-name-wrapper">
 						<div class="register-name-letter">이름</div>
 						<input type="text" class="register-name" name="nickName"
-							id="nickName">
+							id="nickName" placeholder = "한글,영문 3~20 글자">
 						<div class="register-email-check" id="nickNameDiv"></div>
 					</div>
 
@@ -57,7 +58,7 @@
 					<div class="register-password-wrapper">
 						<div class="register-password-letter">비밀번호</div>
 						<input type="password" class="register-password" id="pwd"
-							name="pwd" placeholder="">
+							name="pwd" placeholder="영문,숫자,특수문자 조합 8~16 글자">
 						<div class="register-password-check" id="pwdDiv"></div>
 					</div>
 
@@ -65,13 +66,13 @@
 					<div class="register-password-wrapper">
 						<div class="register-password-letter">비밀번호 재입력</div>
 						<input type="password" class="register-password" id="pwdCheck"
-							name="pwdCheck" placeholder="">
+							name="pwdCheck" placeholder="영문,숫자,특수문자 조합 8~16글자">
 						<div class="register-password-check" id="pwdCheckDiv"></div>
 					</div>
 
 					<!-- Register button -->
 					<div class="register-btn-wrapper">
-						<input type="submit" value="완료" class="register-btn">
+						<input type="submit" value="회원가입" class="register-btn">
 					</div>
 				</form>
 			</div>

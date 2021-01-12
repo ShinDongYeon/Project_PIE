@@ -15,7 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		RIGHT JOIN PROJECT_MEMBER P ON U.EMAIL=P.EMAIL
 		WHERE P.PROJECT_SEQ = #{projectNum}
 		AND U.EMAIL NOT IN 
-		(SELECT K.EMAIL FROM KANBANCARD_MEMBER K WHERE CARD_SEQ=#{cardSeq});
+		(SELECT K.EMAIL FROM KANBANCARD_MEMBER K WHERE CARD_SEQ=#{cardSeq})
+		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
 
 	<insert id="insertCardMem" parameterType="HashMap">
@@ -38,7 +39,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteCardMem" parameterType="cardMemberDto">
 		DELETE FROM KANBANCARD_MEMBER WHERE CARD_SEQ=#{card_seq} AND EMAIL=#{email}
 	</delete>
-
+	
+	<delete id="deleteAllCardMem" parameterType="int">
+		DELETE FROM KANBANCARD_MEMBER WHERE CARD_SEQ=#{card_seq}
+	</delete>
 
 
 </mapper>

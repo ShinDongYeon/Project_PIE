@@ -87,7 +87,9 @@ function disconnect(){
 
 function onOpen(evt){
 	
-	//최초 메시지 0번을 생성함
+	let today = new Date();
+	let date = today.format('yyyy년 MM월 dd일');
+	
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/0').set({
 		chatting_room_seq : $('#select').val(),
 		message_seq : 0
@@ -95,64 +97,84 @@ function onOpen(evt){
 	
 	//DB에서 이전 데이터를 불러옴
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages').once('value',function(data){
-		console.log('1번:',data.val());
+		console.log('1번:',data.val().length);
 		let myemail = $('#session_email').val();
 		let msgbox = '';
+		if(data.val().length == 1){
+			msgbox += 	"<div class='chat-body-date'>"+
+							"<div class='chat-body-date-line'>"+
+								"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+							"</div>"+
+							"<div class='chat-body-date-letter'>"+
+								date+
+							"</div>"+
+							"<div class='chat-body-date-line'>"+
+								"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+							"</div>"+
+						"</div>";
+		}
 		for(let i=1; i < data.val().length; i++){
+			let str = data.val()[i].message_date;
+			let strArr = str.split('-');
+			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
+			let DB_date_format = DB_date.format('yyyy년 MM월 dd일');
 			if(data.val()[i].message_date != data.val()[i-1].message_date){
 				msgbox += 	"<div class='chat-body-date'>"+
 								"<div class='chat-body-date-line'>"+
 									"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
 								"</div>"+
 								"<div class='chat-body-date-letter'>"+
-									data.val()[i].message_date+
+									DB_date_format+
 								"</div>"+
 								"<div class='chat-body-date-line'>"+
 									"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
 								"</div>"+
 							"</div>";
 			}
-			if (data.val()[i].email == myemail) {
-				msgbox += 	"<div class='chat-receiver-wrapper'>"+
-								"<div class='chat-receiver-pic'>"+
-									"<i class='fas fa-user'></i>"+
-								"</div>"+
-								"<div>"+
-									"<div class='chat-receiver-name'>"+
-										data.val()[i].nickName+
+			if((today - DB_date)/1000/60/60/24 < 1){
+
+				if (data.val()[i].email == myemail) {
+					msgbox += 	"<div class='chat-receiver-wrapper'>"+
+									"<div class='chat-receiver-pic'>"+
+										"<i class='fas fa-user'></i>"+
 									"</div>"+
-									"<div class='chat-receiver-message-wrapper'>"+
-										"<div id='chatMessageArea' class='chat-receiver-message'>"+
-											data.val()[i].message_content+
+									"<div>"+
+										"<div class='chat-receiver-name'>"+
+											data.val()[i].nickName+
 										"</div>"+
-										"<div class='chat-receiver-time'>"+
-											data.val()[i].message_time+
-										"</div>"+
-									"</div>"+
-								"</div>"+
-							"</div>";
-							
-			}else {
-				msgbox += 	"<div class='chat-sender-wrapper'>"+
-								"<div class='chat-sender-pic'>"+
-									"<i class='fas fa-user'></i>"+
-								"</div>"+
-								"<div>"+
-									"<div class='chat-sender-name'>"+
-										data.val()[i].nickName+
-									"</div>"+
-									"<div class='chat-sender-message-wrapper'>"+
-										"<div id='chatMessageArea' class='chat-sender-message'>"+
-											data.val()[i].message_content+
-										"</div>"+
-										"<div class='chat-sender-time'>"+
-											data.val()[i].message_time+
+										"<div class='chat-receiver-message-wrapper'>"+
+											"<div id='chatMessageArea' class='chat-receiver-message'>"+
+												data.val()[i].message_content+
+											"</div>"+
+											"<div class='chat-receiver-time'>"+
+												data.val()[i].message_time+
+											"</div>"+
 										"</div>"+
 									"</div>"+
-								"</div>"+
-							"</div>";
+								"</div>";
 								
-			}//if (msginfo == myemail) end
+				}else {
+					msgbox += 	"<div class='chat-sender-wrapper'>"+
+									"<div class='chat-sender-pic'>"+
+										"<i class='fas fa-user'></i>"+
+									"</div>"+
+									"<div>"+
+										"<div class='chat-sender-name'>"+
+											data.val()[i].nickName+
+										"</div>"+
+										"<div class='chat-sender-message-wrapper'>"+
+											"<div id='chatMessageArea' class='chat-sender-message'>"+
+												data.val()[i].message_content+
+											"</div>"+
+											"<div class='chat-sender-time'>"+
+												data.val()[i].message_time+
+											"</div>"+
+										"</div>"+
+									"</div>"+
+								"</div>";
+									
+				}//if (msginfo == myemail) end
+			}//if((today - DB_date)/1000/60/60/24) < 2) end
 		}//for(let i=0; i < data.val().length; i++) end
 		if(data.val().length != 1){
 			msgbox += 	"<div class='chat-body-unread'>"+
@@ -173,33 +195,6 @@ function onOpen(evt){
 		var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
 		$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
 	});//firebase end
-	
-
-	
-	
-	
-	//SELECT * FROM Users WHERE UID = 1; 
-	/*
-	firebase.database().ref().child('chatting_room_seq').child('1').once('value',function(data){
-	console.log('1번:',data.val());
-	})
-	/*
-	//SELECT * FROM Users WHERE name= 'Backho Kang'; 
-	firebase.database().ref('users').orderByChild('name').equalTo('Backho Kang').once('value',function(data){
-	console.log('2번:',data.val());
-	})
-
-	//SELECT * FROM Users LIMIT 3 ; 
-	rootRef.child('users').limitToFirst(3).once('value', function(data){
-	    console.log('3번 :' , data.val());
-	});
-
-	//SELECT * FROM Users WHERE email LIKE 'S%' ; 
-	rootRef.child('users').orderByChild('email').startAt('S').endAt('S\uf8ff').once('value', function(data){
-	    console.log('4번 :' , data.val());
-	});
-	*/
-	
 }
 
 function onMessage(evt){
@@ -247,7 +242,7 @@ function appendMessage(msg) {
 				let today = new Date();
 				let time_index = today.toLocaleTimeString().lastIndexOf(':');
 				let time = today.toLocaleTimeString().substr(0,time_index);
-				let date = today.toLocaleDateString();
+				let date = today.format('yyyy-MM-dd');
 				
 				if (msginfo == myemail) {
 					msgbox = 	"<div class='chat-receiver-wrapper'>"+
