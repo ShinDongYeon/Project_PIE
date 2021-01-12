@@ -422,7 +422,7 @@ public class ChatController {
 		model.addAttribute("user_room_list", user_room_list);
 		model.addAttribute("loginuser", session.getAttribute("loginuser"));
 		
-		return "chat";
+		return "chat/chat";
 	}
 	
 	@ResponseBody
