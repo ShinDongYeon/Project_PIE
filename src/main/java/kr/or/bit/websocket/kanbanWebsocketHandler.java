@@ -35,11 +35,9 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		// 1대1
 		Map<String, WebSocketSession>	userSessionsMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
-		private KanbanService kanbanservice;
 		@Autowired
-		public void setKanbanService(KanbanService kanbanservice) {
-			this.kanbanservice = kanbanservice;
-		}
+		private KanbanService kanbanservice;
+		
 		//서버에 접속 성공했을때
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) {
@@ -53,6 +51,7 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 				for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(new TextMessage("kanban"));
+					
 			}
 		}
 		
