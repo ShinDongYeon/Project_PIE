@@ -119,19 +119,4 @@ public class ChatService {
 		return dao.getChattingRoomUserListByRoomSeq(chatting_room_seq);
 	}
 	
-	public void logonUser(String loginuser) {
-		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.logonUser(loginuser);
-	}
-	
-	public void logoutUser(String loginuser) {
-		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.logoutUser(loginuser);
-	}
-	
-	public List<user> logonUserCheck(String[] session_data) {
-		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		return dao.logonUserCheck(session_data);
-	}
-	
 }

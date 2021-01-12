@@ -52,9 +52,4 @@ public interface ChatDao {
 	 
 	 public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq);
 	 
-	 public void logonUser(String loginuser);
-	 
-	 public void logoutUser(String loginuser);
-	 
-	 public List<user> logonUserCheck(String[] session_data);
 }

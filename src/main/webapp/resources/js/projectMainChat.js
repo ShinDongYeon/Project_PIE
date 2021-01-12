@@ -8,6 +8,7 @@
 디자인: 전선규
 기능구현: 도재구
 */
+
 $(document).ready(function(){
 	
 	var modal = document.getElementById('crtChat-modal')
@@ -29,17 +30,20 @@ $(document).ready(function(){
 			{
 				type : "GET",
 				url  : "chat/members?sessionEmail="+$('#session_email').val(),
+				async: false,
 				success : function(data){
 					userList(data);
 				}
 			}
 		);
-		
 		//인원을 선택하지 않았을 경우 '채팅방 생성하기' 버튼 비활성화
 		if($('#Selected-List').is(':empty')){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
-		connectWS_logon();
+		
+		//웹소켓 - ON/OFF 상태 알림등 구현
+		logonSocket.send('');
+		
 	}
 	
 	//ESC 키 입력 시
@@ -101,7 +105,6 @@ $(document).ready(function(){
 			project_seq:$("#projectNum").val(),
 		}
 		socket.send(JSON.stringify(alram))
-		
 	}
 	
 	
@@ -201,43 +204,27 @@ $(document).ready(function(){
 	
 });
 
-
-
-function connectWS_logon(){
-	var logon_ws = new WebSocket("ws://localhost:8090/websocket/logon/websocket");
-	
-	logon_ws.onopen = (event) => {
-		console.log("logon_WS open");
-	};
-	logon_ws.onmessage = (event) => {
-		console.log("logon_WS onmessage");
-		let data = event.data;
-		console.log("data");
-		console.log(data);
-		
-		$.ajax(
-			{
-				type 		: "POST",
-				url  		: "chat/members/socket",
-				success 	: function(data){
-					console.log(data);
-					$.each(data,function(index,user){
-						console.log(data.length);
-						console.log(data.email);
-					});
-				},
-				error		: function(request,status,error){
-					alert(error);
-				}
-			}
-		);
-	};
-	logon_ws.onclose = (event) => {
-		console.log("Server Close");
-	};
-	logon_ws.onerror = (event) => {
-		console.log("Server Error");
-	};
+/*
+파일명: projectMainChat.js
+설명: 채팅생성창에서 회원 ON/OFF 상태 확인
+작성일: 2021-01-12
+작성자: 도재구
+*/
+function logonUser(data){
+	//유저리스트의 데이터
+	let div_length = $('#Chatting-UserList').find('div').length;
+	for(let j=1; j <= div_length / 9; j++){
+		let k = j * 9 - 2;
+		let div = $('#Chatting-UserList').find('div:eq('+k+')').text();
+		let index = j-1;
+		$('#crtChat-select-user-on-'+index).css('visibility','hidden');
+		//방금 서버에서 가져온 데이터
+		for(let i=0; i < data.length; i++){
+			if(data[i] == div){
+				$('#crtChat-select-user-on-'+index).css('visibility','visible');
+			}	
+		}
+	}
 }
 
 /*
@@ -380,6 +367,7 @@ function deleteChatRoom(me){
 							},
 							success 	: function(data){
 								console.log(data);
+								
 							},
 							error		: function(request,status,error){
 								alert(error);
@@ -555,7 +543,7 @@ function userList(data){
 		opr += "<div id='crtChat-select-users-wrapper-"+index+"' class='crtChat-select-users-wrapper'>"+
 					"<div class='crtChat-select-user-wrapper'>"+
 						"<div class='crtChat-select-user-subWrapper'>"+
-							"<div id='crtChat-select-user-on-"+index+"' class='crtChat-select-user-on' name='0'></div>"+
+							"<div id='crtChat-select-user-on-"+index+"' class='crtChat-select-user-on'></div>"+
 							"<div class='crtChat-select-user-pic'>"+
 								"<i class='fas fa-user'></i>"+					
 							"</div>"+
