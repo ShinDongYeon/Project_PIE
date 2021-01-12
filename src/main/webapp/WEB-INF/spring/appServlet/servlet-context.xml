@@ -20,7 +20,7 @@
 	<websocket:handlers>
 		<websocket:mapping handler="websocketHandler" path="/websocket/echo" />
 		<websocket:handshake-interceptors>
-	         <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+	         <beans:bean class="kr.or.bit.websocket.alarmHandShakeInterceptor"/>
 	      </websocket:handshake-interceptors>
 	      <websocket:sockjs/>
 	 </websocket:handlers>
