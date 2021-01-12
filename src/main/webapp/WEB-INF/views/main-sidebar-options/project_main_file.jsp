@@ -26,7 +26,7 @@
               		<div class = "new-file-wrapper">
               			
               		</div>
-              	<input type="button" class="file-upload-btn" onclick="uploadFile(); return false;" value="업로드">
+              	<input type="button" class="file-upload-btn" value="업로드">
 		
 		<!-- file search -->
 		<div class="file-search-wrapper">
