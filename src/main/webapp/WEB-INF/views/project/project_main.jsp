@@ -38,7 +38,7 @@
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_file.jsp"></jsp:include>
 			
 			<!-- chat -->
-			<jsp:include page="/WEB-INF/views/project_main_chat.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_chat.jsp"></jsp:include>
 			
 			<!-- users -->
 			<div id="fas fa-users" class="right-sidebar-users">

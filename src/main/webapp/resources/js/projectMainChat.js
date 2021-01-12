@@ -261,6 +261,7 @@ function chattingRoomList(data){
 		}
 		
 		opr += 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div class='chat-list-alarm'>1</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+

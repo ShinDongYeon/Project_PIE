@@ -9,27 +9,22 @@ $(document).ready(function(){
 	connectWS_logon();
 });
 
-
 function connectWS_logon(){
 	var logon_ws = new WebSocket("ws://localhost:8090/websocket/logon/websocket");
 	logonSocket = logon_ws;
 	
 	logon_ws.onopen = (event) => {
 		console.log("logon_WS open");
-		
 	};
 	logon_ws.onmessage = (event) => {
 		console.log("logon_WS onmessage");
 		let data = event.data;
-		console.log("data");
-		console.log(JSON.parse(data));
 		logonUser(JSON.parse(data));
-		
 	};
 	logon_ws.onclose = (event) => {
-		console.log("Server Close");
+		console.log("logon_WS Close");
 	};
 	logon_ws.onerror = (event) => {
-		console.log("Server Error");
+		console.log("logon_WS Error");
 	};
 }
