@@ -6,20 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import kr.or.bit.service.ChatService;
 
 public class logonsocketHandler extends TextWebSocketHandler{
 	
+	//로그인한 전체 회원 관리
+	List<String> sessionList = new ArrayList<>();
+	// 1대1
 	Map<String, WebSocketSession> userSessionsMap = new HashMap<>();
 	ObjectMapper objectMapper = new ObjectMapper();
 	
@@ -31,21 +30,22 @@ public class logonsocketHandler extends TextWebSocketHandler{
 		if(!userSessionsMap.containsKey(loginuser)) {
 			//새로운 회원이면 Map에 넣는다
 			userSessionsMap.put(loginuser, session);
+			sessionList.add(loginuser);
 		}
-		String json = objectMapper.writeValueAsString(userSessionsMap.keySet());
+		String json = objectMapper.writeValueAsString(sessionList);
 		for(Map.Entry m : userSessionsMap.entrySet()) {
 			WebSocketSession sess = (WebSocketSession) m.getValue(); 
 			sess.sendMessage(new TextMessage(json));
 		}
 		
 		System.out.println("loginuser: " + loginuser);
-		System.out.println("sessionList: " + userSessionsMap);
+		System.out.println("sessionList: " + sessionList);
 		
 	}
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-		String json = objectMapper.writeValueAsString(userSessionsMap.keySet());
+		String json = objectMapper.writeValueAsString(sessionList);
 		for(Map.Entry m : userSessionsMap.entrySet()) {
 			WebSocketSession sess = (WebSocketSession) m.getValue(); 
 			sess.sendMessage(new TextMessage(json));
@@ -55,8 +55,9 @@ public class logonsocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws IOException  {
 		String loginuser = getLoginUser(session);
+		sessionList.remove(loginuser);
 		userSessionsMap.remove(loginuser);
-		String json = objectMapper.writeValueAsString(userSessionsMap.keySet());
+		String json = objectMapper.writeValueAsString(sessionList);
 		for(Map.Entry m : userSessionsMap.entrySet()) {
 			WebSocketSession sess = (WebSocketSession) m.getValue(); 
 			sess.sendMessage(new TextMessage(json));
