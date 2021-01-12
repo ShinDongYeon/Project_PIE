@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<script src="/resources/js/user_profile.js"></script>
 <body>
 
 	<div id="userEdit_modal_contents" class="userEdit-contents-wrapper">
@@ -13,20 +14,31 @@
 		<!-- userEdit profile -->
 		<div class="userEdit-profile-wrapper">
 			<div class="userEdit-profile-pic-wrapper">
-				<i class="fas fa-user userEdit-profile-pic"></i>
+			
+			<!-- 이미지 업로드 폼 -->
+			<form name="uploadForm" id="uploadForm" method = "post" enctype="multipart/form-data">
+			<label for="img-input">
+				<img id = "img_zone" src =""/>
+			</label>
+				<!-- <label for="img-input"><i class="fas fa-user userEdit-profile-pic"></i></label> -->
+				<input name = "profile" type = "file" style = "display:none;" id = "img-input">
+				<button type = "button" id = "profile-btn">전송</button>
+			</form>
+			
 			</div>
+			<input type = "hidden" id = 'input_email' value = "${sessionScope.loginuser}">
 			<div class="userEdit-profile-infos">
 				<div class="userEdit-email">
 					이메일(아이디)			
 				</div>
 				<div class="userEdit-userEmail">
-					ehddusdf2@gmail.com					
+					${sessionScope.loginuser}	
 				</div>
 				<div class="userEdit-name">
 					이름					
 				</div>
 				<div class="userEdit-username">
-					홍길동					
+					${sessionScope.nick}			
 				</div>
 			</div>
 		</div>

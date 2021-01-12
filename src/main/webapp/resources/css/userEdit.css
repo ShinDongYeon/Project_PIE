@@ -58,6 +58,11 @@
     border-radius: 100%;
     padding: 20px 25px;
 }
+#img_zone{
+	/* margin-top : 10px; */
+	width: 120px;
+	height: 120px;
+}
 .userEdit-profile-pic:after{
     position: absolute;
     top: 0;
@@ -68,7 +73,7 @@
     border-radius: 100%;
     height: 100%;
     width: 100%;
-    -webkit-box-sizing: border-box;
+  /*   -webkit-box-sizing: border-box; */
 }
 .userEdit-profile-pic:hover{
 	cursor: pointer;

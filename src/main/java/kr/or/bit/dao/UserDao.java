@@ -10,4 +10,6 @@ public interface UserDao {
 	
 	public void modifyPassword(user u);
 	
+	public String getProfile(String email);
+	
 }
