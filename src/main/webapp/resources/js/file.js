@@ -97,7 +97,7 @@ function deleteFile(fIndex) {
 
 //페이지 로드되면 
 $(document).ready(function() {
-
+	
 	//파일 로드하는 함수
 	function loadFiles(projectNum, page) {
 		$("#fileZone").empty();
@@ -117,15 +117,26 @@ $(document).ready(function() {
 			}
 		});
 	}
-
-	//파일 검색시 파일 로드하는 ajax 
+	
+	//셀렉트박스로 검색 
+	$("#select-box").on('change', function(){
+	searchFile();
+	});
+		
+	//파일명으로 검색 
 	$(document).on("keyup", "#file-search-input", function(e) {
-
+	searchFile();
+	});
+	
+	//파일 검색 함수 
+	function searchFile(){
 		let fileOb = new Object();
 		fileOb.file_original_name = $("#file-search-input").val();
+		fileOb.extension = $("#select-box").val()
 		let fileName = JSON.stringify(fileOb);
-
-		if ($("#file-search-input").val() === "") {
+		
+		//셀렉트 박스가 전체로 돼있고 파일명 검색 input이 null일 때 
+		if ($("#file-search-input").val() === "" && $("#select-box").val() === "all") {
 			$("#fileZone").empty();
 			loadFiles($("#projectNum").val(), currentPage);
 			getFileTotalNumber($("#projectNum").val());
@@ -147,16 +158,13 @@ $(document).ready(function() {
 							item.file_uploaded_name, item.project_seq);
 						$("#fileZone").append(file);
 					});
-					//검색어가 없으면 기본 파일로드 함수 실행 		
-					if (data === null) {
-					}
 				},
 				error: function(data) {
 					console.log(data);
 				}
 			});
 		}
-	});
+		}
 
 	// 파일 등록
 	function uploadFile() {

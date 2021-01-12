@@ -78,9 +78,24 @@ public class FileController {
 	@RequestMapping(value = "fileSerchWithName.pie", method = RequestMethod.POST)
 	public View fileSerchWithName(@RequestBody file fileName, Model model) throws IOException {
 		System.out.println(fileName.getFile_original_name());
-		ArrayList<file> files = fileservice.getFileWithOGNameService(fileName.getFile_original_name());
-		model.addAttribute("files", files);
-		return jsonview;
+		System.out.println(fileName.getExtension());
+		
+		
+		if(!fileName.getExtension().equals("all") && !fileName.getFile_original_name().equals("")) {
+			ArrayList<file> files = fileservice.getFileWithOGNameAndExtensionService(fileName.getFile_original_name(), fileName.getExtension());
+			model.addAttribute("files", files);
+			return jsonview;
+			
+		}else if(fileName.getFile_original_name().equals("")){
+			ArrayList<file> files = fileservice.getFileWithExtensionService(fileName.getExtension());
+			model.addAttribute("files", files);
+			return jsonview;
+			
+		}else {
+			ArrayList<file> files = fileservice.getFileWithOGNameService(fileName.getFile_original_name());
+			model.addAttribute("files", files);
+			return jsonview;
+		}
   }
 	
 	//파일 다운로드 컨트롤러 

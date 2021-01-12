@@ -18,6 +18,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') ORDER BY FILE_SEQ DESC LIMIT 30
 </select>
 
+<select id="getFileWithOGNameAndExtension" resultType = "fileDto">
+	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') AND EXTENSION = #{param2} ORDER BY FILE_SEQ DESC LIMIT 30
+</select>
+
+<select id="getFileWithExtension" resultType = "fileDto">
+	SELECT * FROM FILE WHERE EXTENSION = #{param1} ORDER BY FILE_SEQ DESC LIMIT 30
+</select>
+
 <select id="getFileTotalNumber" resultType = "int">
 	SELECT count(*) FROM FILE WHERE PROJECT_SEQ = #{param1}
 </select>

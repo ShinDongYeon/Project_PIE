@@ -566,7 +566,7 @@ $(function() {
 							swal.fire("Done!", "It's succesfully deleted!", "success");
 							//1.delete card on the view
 							cardView.remove();
-
+							socketkanban.send("삭제");
 							//2. resort card_id
 							cardIndexing();
 
