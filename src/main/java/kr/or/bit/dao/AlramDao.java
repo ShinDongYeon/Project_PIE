@@ -13,7 +13,7 @@ public interface AlramDao {
 	
 	public int getAlramLastSeq();
 	
-	public void deleteAlram(int alrmaseq);
+	public void deleteAlram(int alrmaseq,String email);
 	
 	public List<String> projectMemberList(int project_seq);
 
