@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getFileWithOGName" resultType = "fileDto">
-	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') ORDER BY FILE_SEQ DESC LIMIT 10
+	SELECT * FROM FILE WHERE FILE_ORIGINAL_NAME LIKE CONCAT('%',#{param1},'%') ORDER BY FILE_SEQ DESC LIMIT 30
 </select>
 
 <select id="getFileTotalNumber" resultType = "int">

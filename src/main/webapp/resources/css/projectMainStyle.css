@@ -687,28 +687,35 @@
 	position: fixed;
 	width: 298px;
 	text-align: center;
-	letter-spacing: 5px;
 	font-family: inherit;
 	font-size: 0.9rem;
 	justify-content : center;
 	align-items : center 
 }
 .btn{
+	margin-left : 2px;
+	margin-right : 2px;
 	color : #f2dd68;
 	display: inline-block;
 	cursor: pointer;
 }
 .current-page-btn{
+	margin-left : 2px;
+	margin-right : 2px;
 	color : grey;
 	display: inline-block;
 	cursor: pointer;
 }
 .left-btn{
+	margin-left : 2px;
+	margin-right : 2px;
 	color : #f2dd68;
 	display: inline-block;
 	cursor: pointer;
 }
 .right-btn{
+	margin-left : 2px;
+	margin-right : 2px;
 	color : #f2dd68;
 	display: inline-block;
 	cursor: pointer;
