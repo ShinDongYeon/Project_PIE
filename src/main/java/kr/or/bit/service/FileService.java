@@ -124,12 +124,25 @@ public class FileService{
 	
 	//파일 리턴하는 서비스 (이름으로 검색)
 	public ArrayList<file> getFileWithOGNameService(String file_og_name){
-
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
 		ArrayList<file> files = filedao.getFileWithOGName(file_og_name);
 		return files;
 		
 	}
+	//파일 리턴하는 서비스 (이름, 확장자)
+	public ArrayList<file> getFileWithOGNameAndExtensionService(String file_og_name, String extension){
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		ArrayList<file> files = filedao.getFileWithOGNameAndExtension(file_og_name, extension);
+		return files;
+	}
+	//파일 리턴하는 서비스 (이름, 확장자)
+	public ArrayList<file> getFileWithExtensionService(String extension){
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		ArrayList<file> files = filedao.getFileWithExtension(extension);
+		return files;
+	}
+	
+	
 	//파일 총 개수를 리턴해주는 서비스 
 	public int getFileTotalNumberService(int projectNum){
 
