@@ -22,78 +22,9 @@
 	crossorigin="anonymous"></script>
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+
+<script src="/resources/js/alarm.js"></script>
 <!-- ------------------------------------------------------------------ -->
-
-<script>
-
-										
-	var socket = null; //전역변수 선언
-	$(document).ready(function(){
-		connectWS();
-		});
-	function connectWS(){
-		var ws = new WebSocket("ws://localhost:8090/websocket/echo/websocket");
-		socket = ws;
-		ws.open = function(message){
-			console.log(message)
-			}
-		ws.onmessage = function(event){
-			let alramMessage = JSON.parse(event.data)
-			console.log(alramMessage)
-			if(alramMessage.title == null){
-				console.log("알람카운트:"+alramMessage.alramCount)
-				var alramCount = $('#alramCount');
-				alramCount.empty();
-				document.getElementById('alramCount').innerText=alramMessage.alramCount;
-				 if(alramMessage.alramCount == 0){
-					$("#sidebar-bell").removeClass('bell')
-					$(".right-sidebar-alarm").attr('id','far fa-bell')
-					document.getElementById('alramCount').style.display='none'
-						}
-			}else{
-			if(alramMessage.email !== $("#email")){
-			let html = '<div class="alram-list-wrapper">\
-				<div class="alram-list-img">\
-				<img src="/resources/img/pie_logo.png">\
-				</div>\
-				<div class="alram-list-letter-wrapper">\
-				<div class="alram-list-letter-title">\
-				'+alramMessage.nickName+'님이 '+alramMessage.title+'를 '+alramMessage.state+' 하였습니다.\
-				</div>\
-				<div class="alram-list-letter-contents">\
-				<span>'+alramMessage.alramTime+'</span>&nbsp;&nbsp;&nbsp;&nbsp;\
-				</div>\
-				</div>\
-				<div class="alram-list-cancel" id="alramDelete">\
-				<i class="fas fa-times"></i>\
-				<input type="hidden" id="alramseq" name="alramseq" value='+alramMessage.alramseq+' />\
-				<input type="hidden" id="memberEmail" name="memberEmail" value='+alramMessage.email+' />\
-				</div>\
-				</div>';
-			}
-			var alram = $('#alram');
-			alram.append(html);
-			alram.css('display', 'inline');
-
-			var alramCount = $('#alramCount');
-			alramCount.empty();
-			if(alramMessage.alramCount !== 0){
-				$(".right-sidebar-alarm").attr('id','far fa-bell bell')
-				$("#sidebar-bell").addClass('bell')
-				document.getElementById('alramCount').style.display='block'
-				document.getElementById('alramCount').innerText=alramMessage.alramCount;		
-				}
-			}
-			
-			};
-		ws.onclose = function(event){
-			console.log("Server Close")
-			};
-		ws.onerror = function(event){
-			console.log("Server Error");
-			}
-		}
-</script>
 
 <!-- Firebase 연동 -->
 <script src="https://www.gstatic.com/firebasejs/7.2/firebase.js"></script>

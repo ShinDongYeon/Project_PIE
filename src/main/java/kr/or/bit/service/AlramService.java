@@ -25,7 +25,7 @@ public class AlramService {
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
 		System.out.println("알람리스트:"+alram);
 		alramdao.insertAlram(alram);
-	
+
 	}
 	public List<alram> alramList(String email,int project_seq) throws Exception {
 	AlramDao alramdao = sqlsession.getMapper(AlramDao.class);

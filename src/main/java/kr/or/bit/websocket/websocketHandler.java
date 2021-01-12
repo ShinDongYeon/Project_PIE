@@ -42,58 +42,16 @@ public class websocketHandler extends TextWebSocketHandler{
 			sessionList.add(session);
 			String senderEmail = getLoginUser(session);
 			userSessionsMap.put(senderEmail, session);
-			System.out.println("연결됨:"+senderEmail);
+			System.out.println("연결됨:"+userSessionsMap);
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			System.out.println("받음:"+message);
-			String senderId = getLoginUser(session);
-			///////////////////////////////////////////////////////
-			JSONObject jsonObj = JsonToObjectParser(message.getPayload());
-			System.out.println(jsonObj);
-			String deleteNum = (String) jsonObj.get("deleteNum");
-			String email = (String) jsonObj.get("email");
-			String project_num = (String)jsonObj.get("project_seq");
-			int project_seq = Integer.parseInt(project_num);
-			alram alram = new alram();
-			////////////////////////////////////////////////////////
-			 if(deleteNum.equals("0")) {
-				 List<alram> alramList = alramservice.alramList(email,project_seq);
-				 int alramCount = alramList.size()-1;
-				 alram.setAlramCount(alramCount);
-				 String json = objectMapper.writeValueAsString(alram);
-				 for(WebSocketSession sess: sessionList) {
-			 sess.sendMessage(new TextMessage(json)); 
-			 } 
-			 }else {
-				String nickName = (String) jsonObj.get("nick");
-				String title = (String) jsonObj.get("title");
-				String state = (String) jsonObj.get("state");
-				String alramTime = (String) jsonObj.get("alramTime");
-				String page = jsonObj.get("alramseq").toString();
-				int alramseq = Integer.parseInt(page);
-				System.out.println("알람seq:"+alramseq);
-			List<String> memberEmail = alramservice.projectMemberList(project_seq);
-			memberEmail.remove(senderId);
-			alram.setNickName(nickName);
-			alram.setState(state);
-			alram.setTitle(title);
-			alram.setAlramTime(alramTime);	
-			alram.setMemberEmail(memberEmail);
-			alram.setProject_seq(project_seq);
-			alram.setAlramseq(alramseq);
-			alramservice.insertAlram(alram);//알람 DB insert
-			List<alram> alramList = alramservice.alramList(email,project_seq);
-			alram.setEmail(email);
-			int alramCount = alramList.size();
-			int alramLsatSeq = alramservice.alramLastSeq();
-			alram.setAlramCount(alramCount);
-			String json = objectMapper.writeValueAsString(alram);
-			for(WebSocketSession sess: sessionList) {		
-					sess.sendMessage(new TextMessage(json));
-					}
-			 }
+			for(WebSocketSession sess: sessionList) {
+				sess.sendMessage(new TextMessage("Alarm"));
 		}
+			 }
+
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 			sessionList.remove(session);

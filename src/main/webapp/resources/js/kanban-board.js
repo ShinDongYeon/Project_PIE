@@ -366,25 +366,33 @@ $(function() {
 		addListTitle.show();
 		
 		/*칸반리스트 알람*/
-		$.ajax({
-					type:"POST",
-					url:"alramLastSeq.pie",
-					success:function(data){
-					console.log("알람갯수"+data)
-					var alram = {
-			  		email:$("#email").val(),
-			  		nick:$("#nick").val(),
-					title:"칸반리스트",
-					state:"등록",
-					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
-					project_seq:$("#projectNum").val(),
-					deleteNum:"1",
-					alramseq:(data+1),
+				$.ajax({
+					type: "POST",
+					url: "alramLastSeq.pie",
+					success: function(data) {
+				let alramOb = new Object();
+				alramOb.email=$("#email").val()
+				alramOb.nickName=$("#nick").val()
+				alramOb.title="칸반리스트"
+				alramOb.state="등록"
+				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq=Number($("#projectNum").val())
+				alramOb.alramseq = (data+1)
+				let alram = JSON.stringify(alramOb);
+					console.log("알람갯수" + data)
+						$.ajax({
+							type: "POST",
+							url: "alramInsert.pie",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							async: false,
+							data: alram,
+							success: function(data) {
+							socket.send("등록")
+								},
+						})
 					}
-					socket.send(JSON.stringify(alram))
-					socketkanban.send("KANBAN")
-						}
-					})
+				})
 
 		//sortable 
 		$(".cardWrap").sortable({
@@ -633,25 +641,33 @@ $(function() {
 		cardLabel.show();
 		
 		/*칸반카드 알람*/
-		$.ajax({
-					type:"POST",
-					url:"alramLastSeq.pie",
-					success:function(data){
-					console.log("알람갯수"+data)
-					var alram = {
-			  		email:$("#email").val(),
-			  		nick:$("#nick").val(),
-					title:"kanban card",
-					state:"insert",
-					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
-					project_seq:$("#projectNum").val(),
-					deleteNum:"1",
-					alramseq:(data+1),
+$.ajax({
+					type: "POST",
+					url: "alramLastSeq.pie",
+					success: function(data) {
+				let alramOb = new Object();
+				alramOb.email=$("#email").val()
+				alramOb.nickName=$("#nick").val()
+				alramOb.title="칸반카드"
+				alramOb.state="등록"
+				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq=Number($("#projectNum").val())
+				alramOb.alramseq = (data+1)
+				let alram = JSON.stringify(alramOb);
+					console.log("알람갯수" + data)
+						$.ajax({
+							type: "POST",
+							url: "alramInsert.pie",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							async: false,
+							data: alram,
+							success: function(data) {
+							socket.send("등록")
+								},
+						})
 					}
-					socket.send(JSON.stringify(alram))
-					socketkanban.send("웹소켓")
-						}
-					})
+				})
 	});
 
 	$(document).on("click", ".addCard-btn", function(e) {
