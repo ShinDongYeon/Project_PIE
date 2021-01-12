@@ -234,10 +234,14 @@ public class KanbanController {
 	@ResponseBody
 	@RequestMapping(value = "updateCardContent.pie", method = RequestMethod.POST)
 	public View updateCardContent(@RequestBody card ca, Model model) {
-		System.out.println("updateController");
 		kanbanservice.updateCardContentService(ca);
-		System.out.println("Update Card Content");
+		if(ca.getCard_content()=="") {
+			System.out.println(ca);
+			model.addAttribute("data", " ");
+			return jsonview;
+		}
 		model.addAttribute("data", ca);
+		System.out.println("update card::::"+ca);
 		return jsonview;
 	}
 
@@ -245,14 +249,9 @@ public class KanbanController {
 	@ResponseBody
 	@RequestMapping(value = "getCardContent.pie", method = RequestMethod.POST)
 	public View getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
-		System.out.println("card content controller");
+		System.out.println("get card content controller");
 		String card_content = kanbanservice.getCardContentService(cardSeq);
-		if(card_content==null) {
-			model.addAttribute("data", "");
-			return jsonview;
-		}
 		model.addAttribute("data", card_content);
-		System.out.println("cardContent::::"+card_content);
 		return jsonview;
 	}
 }

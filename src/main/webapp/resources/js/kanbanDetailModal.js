@@ -222,7 +222,7 @@ $(document).ready(function() {
 		cardOb.card_seq=cardSeq;
 		
 		let card = JSON.stringify(cardOb);
-		
+		if (contents.length > 0) {
 			$.ajax({
 				type: "post",
 				url: "updateCardContent.pie",
@@ -231,24 +231,31 @@ $(document).ready(function() {
 				async: false,
 				data: card,
 				success: function(data) {
-					console.log("data::"+data);
-					console.log("card_content::::"+data.data.card_content.trim());
-					if (data.data!="") {
-						console.log("not null");
-						$('.cardContents').html(contents);
-						$('.cardDetailsForm').hide();
-						$('.fa-edit').show();
-						$('.cardContents').show();
-					}else if(data.data==""){
-						console.log("null card content");
-						$('.fa-edit').hide();
-						$('.cardContents').hide();
-						$('.cardDetailsForm').show();
-					}
+					console.log(data);
 				}
 			});
+			$('.cardContents').html(contents);
+			$('.cardDetailsForm').hide();
+			$('.cardContents').show();
+			$('.fa-edit').show();
+		}
 		
-	})
+		if(contents.length==0){
+			$.ajax({
+				type: "post",
+				url: "updateCardContent.pie",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				data: card,
+				success: function(data) {
+					console.log(data);
+				}
+			});
+			$('.cardDetailsForm').show();
+			$('.cardContents').hide();
+		}
+	});
 
 	/*CheckList in Modal*/
 	$('#add-todo').click(function() {
