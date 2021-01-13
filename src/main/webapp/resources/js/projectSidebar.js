@@ -5,10 +5,14 @@ $(document).ready(function(){
 	let wrapper = document.getElementById('right-sidebar-contents-wrapper');	
 	
 		$('#sidebar-kanban').click(function(){
+			//$("#kanbanPage-wrapper").show();
+			//$("#calendar").hide();
+
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();
 		});
 	$('#sidebar-calendar').click(function(){
+		//$("#kanbanPage-wrapper").hide();
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 		location.href= "fullcalendar.htm";
 	});

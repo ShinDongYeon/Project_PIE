@@ -103,7 +103,9 @@ public class FileController {
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
 
-		String fullPath = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+		String fullPath = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+
+		/*String fullPath = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;*/
 
 		File file = new File(fullPath);
 		
