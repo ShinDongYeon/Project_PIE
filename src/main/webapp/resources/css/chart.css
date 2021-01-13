@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.whole-chart-wrapper{
+	margin : 25px;
+}
+
+.chart-1-wrapper{
+	display :flex;
+	float : left;
+}
+
+.chart-2-wrapper{
+	display :flex;
+	float : left;
+}
