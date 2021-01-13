@@ -11,20 +11,20 @@ let hours = today.getHours();
 let minutes = today.getMinutes();
 $(document).ready(function() {
 	function editButton(){
-			$('#titleView').attr("readonly",true);
-			 $('#startDateView').attr("readonly",true);
-			 $('#endDateView').attr("readonly",true);
-			 $('#contentView').attr("readonly",true);
-			 $('#allDayView').attr("disabled",true);
-			 $('#eventColorView').attr("disabled",true);
-			 $('#editCalendar').css("display","");
-			 $('#okeditCalendar').css("display","none");
-			 $('#okeditCalendarDiv').css("display","none");
-			 $('#deleteCalendar').css("display","");
-			    $("#startDateView, #endDateView").flatpickr({clickOpens:false});
-		     	$('#endDateView').val("")
-               	$('#titleView').val("")
-               	$('#contentView').val("")
+			$('#titleView').attr("readonly", true);
+			$('#startDateView').attr("readonly", true);
+			$('#endDateView').attr("readonly", true);
+			$('#contentView').attr("readonly", true);
+			$('#allDayView').attr("disabled", true);
+			$('#eventColorView').attr("disabled", true);
+			$('#editCalendar').css("display", "");
+			$('#okeditCalendar').css("display", "none");
+			$('#editCancelCalendar').css("display", "none");
+			$('#deleteCalendar').css("display", "");
+			$("#startDateView, #endDateView").flatpickr({ clickOpens: false });
+			$('#endDateView').val("")
+			$('#titleView').val("")
+			$('#contentView').val("")
 			}
 		function insertButton(){
            	$('#endDate').val("")
@@ -33,10 +33,9 @@ $(document).ready(function() {
            	$('#eventColor').val("#D25565")	
 			}
 $('.setDueDateBtn').click(function(){
-	document.getElementById('calendarInsert_modal_contents').style.display='block'
+	document.getElementById('detailsInsertModalKanban').style.display='block'
        	document.getElementById('calendar_modal_background').style.display = 'block';
           //$('#startDate').val(info.dateStr + " "+hours+":00")
-     
           $("#insertCancelKanBan").unbind('click');
           $('#insertCancelKanBan').click(function(){
         	  insertButton()			
@@ -68,29 +67,48 @@ $('.setDueDateBtn').click(function(){
 						insertButton()		
 					}
 			  })
-				  	var alram = {
-			  	
-			  		email:$("#email").val(),
-			  		nick:$("#nick").val(),
-					title:"캘린더",
-					state:"등록",
-					alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
-					project_seq:$("#projectNum").val(),
+				 	$.ajax({
+					type: "POST",
+					url: "alramLastSeq.pie",
+					success: function(data) {
+				let alramOb = new Object();
+				alramOb.email=$("#email").val()
+				alramOb.nickName=$("#nick").val()
+				alramOb.title="캘린더"
+				alramOb.state="등록"
+				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq=Number($("#projectNum").val())
+				alramOb.alramseq = (data+1)
+				let alram = JSON.stringify(alramOb);
+						$.ajax({
+							type: "POST",
+							url: "alramInsert.pie",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							async: false,
+							data: alram,
+							success: function(data) {
+							socket.send("등록")
+								},
+							
+						})
+
 					}
-					socket.send(JSON.stringify(alram))	
+				})
 			})
 			});
 
 
  $("#startDate, #endDate").flatpickr({enableTime: true,time_24hr: true, dateFormat: "Y-m-d H:i"});
- window.onclick = function(event) {
-	if(event.target == document.getElementById('calendar_modal_background')) {
-		editButton();
-		insertButton();
-		document.getElementById('calendar_modal_background').style.display = 'none';
-		document.getElementById('calendarEdit_modal_contents').style.display= 'none';
-		document.getElementById('calendarInsert_modal_contents').style.display = 'none';
+window.onclick = function(event) {
+		if (event.target === document.getElementById('calendar_modal_background')) {
+			editButton();
+			insertButton();
+			document.getElementById('calendar_modal_background').style.display = 'none';
+			document.getElementById('calendarEdit_modal_contents').style.display = 'none';
+			document.getElementById('detailsInsertModal').style.display = 'none';
+			
+		}
 	}
-}    
 
 });

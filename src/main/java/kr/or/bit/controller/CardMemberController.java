@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
+import kr.or.bit.dto.card;
 import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.user;
 import kr.or.bit.service.CardMemberService;
@@ -40,12 +41,12 @@ public class CardMemberController {
 	// Get Project Member List By ProjectNum
 	@ResponseBody
 	@RequestMapping(value = "getProjectMemList", method = RequestMethod.GET)
-	public List<user> projectMemList(@RequestParam("sessionEmail") String sessionEmail, 
-									 @RequestParam("cardSeq") int cardSeq, HttpServletRequest request) {
+	public List<user> projectMemList(@RequestParam("sessionEmail") String sessionEmail,
+			@RequestParam("cardSeq") int cardSeq, HttpServletRequest request) {
 		// get Project Session
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int) httpsession.getAttribute("projectNum");
-		
+
 		List<user> memberList = null;
 		Map<String, Object> projectMemListMap = new HashMap<String, Object>();
 		System.out.println("card project Members Controller");
@@ -58,6 +59,30 @@ public class CardMemberController {
 			e.printStackTrace();
 		}
 		return memberList;
+	}
+	
+	//getCardMemBySession
+	@ResponseBody
+	@RequestMapping(value = "getCardMemBySession", method = RequestMethod.GET)
+	public List<user> getCardMemBySession(@RequestParam("sessionEmail") String sessionEmail,
+			HttpServletRequest request) {
+		// get Project Session
+		HttpSession httpsession = request.getSession();
+		int projectNum = (int) httpsession.getAttribute("projectNum");
+		System.out.println("");
+
+		List<user> mycardList = null;
+		Map<String, Object> cardMemMap = new HashMap<String, Object>();
+		System.out.println("cardMemMap Controller");
+		try {
+			cardMemMap.put("sessionEmail", sessionEmail);
+			cardMemMap.put("projectNum", projectNum);
+			mycardList = cardMemService.getCardMemBySessionService(cardMemMap);
+			System.out.println("memberList:::" + mycardList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mycardList;
 	}
 
 	// Insert Card Member
@@ -74,8 +99,8 @@ public class CardMemberController {
 		model.addAttribute("data", false);
 		return jsonview;
 	}
-	
-	//get selected Member by Card
+
+	// get selected Member by Card
 	@ResponseBody
 	@RequestMapping(value = "showMemberByCard", method = RequestMethod.GET)
 	public List<user> showMemberByCard(@RequestParam("cardSeq") int cardSeq) {
@@ -92,15 +117,15 @@ public class CardMemberController {
 		}
 		return cardMemList;
 	}
-	
-	//DELETE SELECTED CARD MEMBER
-		@ResponseBody
-		@RequestMapping(value = "deleteCardMem.pie", method = RequestMethod.POST)
-		public View deleteCardMem(@RequestBody cardMember cm, Model model) {
-			cardMemService.deleteCardMemService(cm);
-			model.addAttribute("data", cm);
-			System.out.println("deleted Mem:::"+cm);
-			return jsonview;
-		}
-	
+
+	// DELETE SELECTED CARD MEMBER
+	@ResponseBody
+	@RequestMapping(value = "deleteCardMem.pie", method = RequestMethod.POST)
+	public View deleteCardMem(@RequestBody cardMember cm, Model model) {
+		cardMemService.deleteCardMemService(cm);
+		model.addAttribute("data", cm);
+		System.out.println("deleted Mem:::" + cm);
+		return jsonview;
+	}
+
 }
