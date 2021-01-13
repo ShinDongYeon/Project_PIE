@@ -306,8 +306,6 @@ public class ChatController {
 				nickname = "";
 			}
 			
-			System.out.println("nicknames: " + nicknames);
-			
 			map.put("chat_room_list", chat_room_list);
 			map.put("nicknames", nicknames);
 			

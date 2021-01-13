@@ -57,7 +57,7 @@
 		</websocket:handshake-interceptors>
 		<websocket:sockjs/>
 	</websocket:handlers>
-
+	
 	<!-- resources 폴더 매핑 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />

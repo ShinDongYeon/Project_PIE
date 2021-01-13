@@ -10,9 +10,10 @@
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/projectSidebar.js"></script>
+	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
-	<script src="/resources/js/chattingConnect.js"></script>
+	
 	
 </head>
 <body>
@@ -20,7 +21,7 @@
 	<input type = "hidden" id = "projectNum" value = "${sessionScope.projectNum}">
 	<input type = "hidden" id = "nick" value = "${sessionScope.nick}">
 	<input type = "hidden" id = "email" value = "${sessionScope.loginuser}">
-
+	
 	<!-- Top -->
 	<jsp:include page="/WEB-INF/views/common/project_main_top.jsp"></jsp:include>
 	

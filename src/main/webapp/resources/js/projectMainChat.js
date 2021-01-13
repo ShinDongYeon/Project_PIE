@@ -47,13 +47,17 @@ $(document).ready(function(){
 	}
 	
 	//ESC 키 입력 시
-	window.onkeydown = function(event){
+	window.onkeydown = (event) => {
 		if(modal.style.display == 'block' && crtChatBackground.style.display == 'block'){
 			if (event.keyCode == 27 || event.which == 27) {
 				modal.style.display = 'none';
 				crtChatBackground.style.display = 'none';
 			}
 		}
+	}
+	window.onmouseout = (event) => {
+		connectSocket.send('');
+		event.preventDefault();
 	}
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
@@ -82,6 +86,7 @@ $(document).ready(function(){
 						type 		: "POST",
 						url  		: "chat/members",
 						traditional : true,
+						async: false,
 						data 		: {
 							'user_array' : user_array
 						},
@@ -119,6 +124,7 @@ $(document).ready(function(){
 				{
 					type 		: "GET",
 					url  		: "chat/room/list",
+					async: false,
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
@@ -138,6 +144,7 @@ $(document).ready(function(){
 				type : "post",
 				url  : "chat/room",
 				data : { 'searchKeyword' : $('#chat-search-box').val()},
+				async: false,
 				success : function(data){
 					console.log(data);
 					chattingRoomList(data);
@@ -187,6 +194,7 @@ $(document).ready(function(){
 						'nickName' : $('#crtChat-search-box').val(),
 						'user_array' : user_array
 					},
+					async: false,
 					traditional : true,
 					success 	: function(data){
 						console.log(data);
@@ -227,26 +235,7 @@ function logonUser(data){
 	}
 }
 
-function chattingAlarm(msg){
-	$.ajax(
-		{
-			type 		: "GET",
-			url  		: "chat/room/list",
-			async		: false,
-			success 	: function(data){
-				console.log(data);
-				chattingRoomList(data);
-			},
-			error		: function(request,status,error){
-				alert(error);
-			}
-		}
-	);
-	$('#chat-list-alarm-'+msg).css('display','block');
-	let alarm_num = $('#chat-list-alarm-'+msg).html();
-	$('#chat-list-alarm-'+msg).html(Number(alarm_num)+1);
 
-}
 
 
 /*
@@ -259,7 +248,6 @@ function popupOpen(roomno,roomname){
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
 	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
-	$('#chat-list-alarm-'+roomno).css('display','none');
 	
 	$.ajax(
 		{
@@ -268,8 +256,23 @@ function popupOpen(roomno,roomname){
 			data		: {
 				'select' : roomno
 			},
+			async		: false,
 			success 	: function(data){
 				
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+		}
+	);
+	$.ajax(
+		{
+			type 		: "GET",
+			url  		: "chat/room/list",
+			async		: false,
+			success 	: function(data){
+				console.log(data);
+				chattingRoomList(data);
 			},
 			error		: function(request,status,error){
 				alert(error);
@@ -480,6 +483,11 @@ function updateChatRoomName(me){
 		}
 	});
 	
+	window.onmouseout = (event) => {
+		event.stopPropagation();
+	}
+	
+	
 	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
 
@@ -584,6 +592,10 @@ function updateNameOk(me){
 	let opr = "<i onclick='updateChatRoomName(this)' class='fas fa-pencil-alt'></i>";
 	$('#chat-list-update-'+div_substr).append(opr);
 	
+	window.onmouseout = (event) => {
+		connectSocket.send('');
+		event.preventDefault();
+	}
 }
 
 

@@ -202,7 +202,7 @@ function onMessage(evt){
 	if(data.indexOf('|') != -1){
 		appendMessage(data);
 	}else{
-		connectSocket.send(data);
+		connectSocket.send($('#select').val());
 	}
 	
 }
@@ -288,25 +288,6 @@ function appendMessage(msg) {
 							});
 							
 							websocket.send($('#select').val());
-							/*
-							//팀원의 숨겨진 모든 채팅방 다 오픈하기 
-							$.ajax(
-								{
-									type 		: "POST",
-									url  		: "redirect",
-									data 		: {
-										'select' : $('#select').val(),
-									},
-									async		: false,
-									success 	: function(data){
-										
-									},
-									error		: function(request,status,error){
-										alert(error);
-									}
-								}
-							);
-							*/
 							
 				}else if(msginfo == "알림"){
 					console.log("알림에 걸림");

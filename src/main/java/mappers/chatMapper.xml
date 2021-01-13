@@ -171,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- public List<room> searchRoom(String searchKeyword); -->
 	<select id="searchRoom" resultType="roomDto" parameterType="hashMap">
-		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ 
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM
 		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
 		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
 		WHERE L.CHATTING_ROOM_NAME LIKE CONCAT('%',#{searchKeyword},'%')
