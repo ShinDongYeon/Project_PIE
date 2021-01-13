@@ -20,7 +20,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-1 -->
 	<div class = "chart-1-wrapper">
 		<div class = 'chart-letter-wrapper'>
-			<span>hi</span>
+			<span>파이 규모</span>
 		</div>
 		<canvas id="chart-1"></canvas>
 	</div>
@@ -28,7 +28,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-2 -->
 	<div class = "chart-2-wrapper">
 		<div class = 'chart-letter-wrapper'>
-			<span>hi</span>
+			<span>전체 진행도</span>
 		</div>
 		<canvas id="chart-2"></canvas>
 	</div>
@@ -36,7 +36,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-3 -->
 	<div class = "chart-3-wrapper">
 		<div class = 'chart-letter-wrapper'>
-			<span>hi</span>
+			<span>개인 진행도</span>
 		</div>
 		<canvas id="chart-3"></canvas>
 	</div>
@@ -44,7 +44,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-4 -->
 	<div class = "chart-4-wrapper">
 		<div class = 'chart-letter-wrapper'>
-			<span>hi</span>
+			<span>리스트 진행도</span>
 		</div>
 		<canvas id="chart-4"></canvas>
 	</div>

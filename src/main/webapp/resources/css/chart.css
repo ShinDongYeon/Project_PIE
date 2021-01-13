@@ -33,10 +33,11 @@
 }
 .chart-letter-wrapper{
 	position : relative;
-	left : 270px;
+	left : 225px;
 	bottom : 50px;
 }
 
 .chart-letter-wrapper > span{
 	color : white;
+	position : fixed;
 }

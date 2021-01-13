@@ -107,7 +107,7 @@ $(document).ready(function() {
 		data: {
 			labels: ['재구','재홍','동연','지연'],
 			datasets: [{
-				label: '리스트 진행도',
+				label: '리스트',
 				data: [9,6,7,7],
 				backgroundColor: [
 					'rgba(255, 99, 132)',
