@@ -47,9 +47,9 @@
 		</div>
 		
 		<!-- userEdit password -->
-		<div class="userEdit-pwd-outer-wrapper">
+<!-- 		<div class="userEdit-pwd-outer-wrapper">
 			<form action="">
-				<!-- 비밀번호 입력 -->
+				비밀번호 입력
 				<div class="userEdit-pwd-inner-wrapper">
 					<div class="userEdit-pwd-letter">
 						비밀번호
@@ -60,7 +60,7 @@
 					</div>
 				</div>
 				
-				<!-- 비밀번호 재입력 -->
+				비밀번호 재입력
 				<div class="userEdit-pwd-wrapper">
 					<div class="userEdit-pwd-letter">
 						비밀번호 재입력
@@ -71,12 +71,12 @@
 					</div>
 				</div>
 			</form>
-		</div>
+		</div> -->
 		
 		<!-- userEdit 탈퇴 버튼 -->
-		<div class="userEdit-main-withdrawal-wrapper">
+<!-- 		<div class="userEdit-main-withdrawal-wrapper">
 			<button id="userEdit_main_withdrawal_btn" class="userEdit-main-withdrawal-btn">회원탈퇴</button>
-		</div>
+		</div> -->
 		
 		<!-- userEdit btn -->
 		<div class="userEdit-btn-wrapper">

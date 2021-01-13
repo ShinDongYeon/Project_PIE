@@ -27,9 +27,9 @@
 	<!-- userEdit modal -->
 	<jsp:include page="/WEB-INF/views/user/userEdit.jsp"></jsp:include>
 	<!-- userEdit_pwdCheck modal -->
-	<jsp:include page="/WEB-INF/views/userEdit_pwdCheck.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/not-used-yet/userEdit_pwdCheck.jsp"></jsp:include>
 	<!-- userEdit_withdrawal_complete modal -->
-	<jsp:include page="/WEB-INF/views/userEdit_withdrawal.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/not-used-yet/userEdit_withdrawal.jsp"></jsp:include>
 	
 	<!-- 파이 생성하기 모달 -->
 	<jsp:include page="/WEB-INF/views/project/createNewPIE.jsp"></jsp:include>

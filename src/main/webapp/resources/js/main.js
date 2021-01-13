@@ -17,15 +17,16 @@ $(document).ready(function() {
 		projectNum = Number($(this).attr("data-project-seq"));
 		fromWho = $(this).attr("data-leader-email");
 		fromProjectName = $(this).attr("data-project-name");
-		console.log("this");
-		console.log(projectNum);
-		console.log(fromWho);
-		console.log(fromProjectName);
 	});
 
 	$('#user_edit').click(function() {
 		modal_background.style.display = 'block';
 		modal_userEdit.style.display = 'block';
+	});
+	
+	$(document).on("click", ".userEdit-btn", function(e) {
+		modal_userEdit.style.display = 'none';
+		modal_background.style.display = 'none';
 	});
 
 	$('#userEdit_main_withdrawal_btn').click(function() {

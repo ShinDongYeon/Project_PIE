@@ -155,7 +155,7 @@ $(document).ready(function() {
 					$.each(data.files, function(index, item) {
 						let file = makeFileOnPage(item.nickName, item.upload_date,
 							item.file_original_name, item.file_seq,
-							item.file_uploaded_name, item.project_seq);
+							item.file_uploaded_name, item.project_seq, item.extension);
 						$("#fileZone").append(file);
 					});
 				},
