@@ -25,10 +25,10 @@ public class FileService{
 
 	
 	//재구
-	//private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files";
+	private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files";
 	
 	//재홍
-	private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files"; 
+	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files"; 
 	
 	//동연
 	//private final String UPLOAD_PATH = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
@@ -157,12 +157,7 @@ public class FileService{
 		ArrayList<file> files = filedao.getFileWithOGNameAndExtension(file_og_name, extension);
 		return files;
 	}
-<<<<<<< HEAD
 	//파일 리턴하는 서비스 (확장자)
-=======
-	
-	//파일 리턴하는 서비스 (이름, 확장자)
->>>>>>> 21c8e5bc01ba7157104c346d136271dc379890cb
 	public ArrayList<file> getFileWithExtensionService(String extension){
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
 		ArrayList<file> files = filedao.getFileWithExtension(extension);

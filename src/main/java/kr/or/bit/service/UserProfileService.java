@@ -17,12 +17,8 @@ public class UserProfileService{
 	private SqlSession sqlsession;
 	
 	//파일 저장 절대 경로 
-<<<<<<< HEAD
+	//재구
 	private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
-=======
-	//재홍
-	private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
->>>>>>> 21c8e5bc01ba7157104c346d136271dc379890cb
 	
 	//파일 업로드 서비스 
 	public void profileUploadService(MultipartFile file, String email) {
