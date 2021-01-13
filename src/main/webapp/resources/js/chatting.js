@@ -281,7 +281,26 @@ function appendMessage(msg) {
 									nickName : $('#nickname').val(),
 									profile : null,
 								});
-							})
+							});
+							
+							//팀원의 숨겨진 모든 채팅방 다 오픈하기 
+							$.ajax(
+								{
+									type 		: "POST",
+									url  		: "redirect",
+									data 		: {
+										'select' : $('#select').val(),
+									},
+									async		: false,
+									success 	: function(data){
+										
+									},
+									error		: function(request,status,error){
+										alert(error);
+									}
+								}
+							);
+							
 							
 				}else if(msginfo == "알림"){
 					console.log("알림에 걸림");
@@ -300,7 +319,6 @@ function appendMessage(msg) {
 				}else {
 					$.each(data,function(index,elem){
 						if(msginfo == elem.email){
-							//현재 시간 구하기
 							msgbox = 	"<div class='chat-sender-wrapper'>"+
 											"<div class='chat-sender-pic'>"+
 												"<i class='fas fa-user'></i>"+

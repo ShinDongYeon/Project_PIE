@@ -422,7 +422,7 @@ public class ChatController {
 		model.addAttribute("user_room_list", user_room_list);
 		model.addAttribute("loginuser", session.getAttribute("loginuser"));
 		
-		return "chat";
+		return "chat/chat";
 	}
 	
 	@ResponseBody
@@ -435,6 +435,16 @@ public class ChatController {
 			e.printStackTrace();
 		}
 		return room_list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/chat/redirect", method = RequestMethod.POST)
+	public void redirectMessage(@RequestParam("select") int select){
+		try {
+			chatservice.redirectMessage(select);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -261,6 +261,7 @@ function chattingRoomList(data){
 		}
 		
 		opr += 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div class='chat-list-alarm'>1</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -306,6 +307,7 @@ function completeChattingRoom(data){
 		}
 
 		opr += "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div class='chat-list-alarm'>1</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -337,6 +339,7 @@ function completeChattingRoom(data){
 function deleteChatRoom(me){
 	"use strict";
 	swal.fire({
+			title: 'Warning',
 			text: '채팅방을 목록에서 숨기시겠습니까?',
 			icon: 'warning',
 			showCancelButton: true,
@@ -376,6 +379,7 @@ function deleteChatRoom(me){
 				);//ajax end
 				
 				swal.fire({
+					title: 'Confirm',
 					text: '동일인원과의 채팅기록은 저장됩니다',
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
@@ -451,6 +455,7 @@ function updateNameOk(me){
 	if(chat_room_input.val() != ''){
 		if (chat_room_input.val().length > 15) {
 			swal.fire({
+				title: 'Check Please',
 				text: '15자 이하로 입력해주세요',
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
@@ -461,6 +466,7 @@ function updateNameOk(me){
 		}
 		
 		swal.fire({
+			title: 'Modify',
 			text: '채팅방 이름을 수정하시겠습니까?',
 			icon: 'warning',
 			showCancelButton: true,
@@ -492,6 +498,7 @@ function updateNameOk(me){
 				chat_room_title.append(opr);
 				
 				swal.fire({
+					title: 'Success',
 					text: '수정이 완료되었습니다',
 					icon: 'success',
 					confirmButtonColor: '#3085d6',

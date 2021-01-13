@@ -25,8 +25,9 @@ public class FileService{
 	private SqlSession sqlsession;
 	
 	//파일 저장 절대 경로 
+
 	private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
-	
+
 	//파일 업로드 서비스 
 	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
 		
@@ -42,6 +43,8 @@ public class FileService{
 			System.out.println("디렉토리 없음");
 			fileOb.mkdir();
 		}
+		
+		////////디비에서 파일 이름 있는지 조회 !!!!!!!!
 		
 		for(int i = 1; i <= (files.size()-1); i ++) {
 			System.out.println("list size : "+files.size());
@@ -124,12 +127,25 @@ public class FileService{
 	
 	//파일 리턴하는 서비스 (이름으로 검색)
 	public ArrayList<file> getFileWithOGNameService(String file_og_name){
-
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
 		ArrayList<file> files = filedao.getFileWithOGName(file_og_name);
 		return files;
 		
 	}
+	//파일 리턴하는 서비스 (이름, 확장자)
+	public ArrayList<file> getFileWithOGNameAndExtensionService(String file_og_name, String extension){
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		ArrayList<file> files = filedao.getFileWithOGNameAndExtension(file_og_name, extension);
+		return files;
+	}
+	//파일 리턴하는 서비스 (이름, 확장자)
+	public ArrayList<file> getFileWithExtensionService(String extension){
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		ArrayList<file> files = filedao.getFileWithExtension(extension);
+		return files;
+	}
+	
+	
 	//파일 총 개수를 리턴해주는 서비스 
 	public int getFileTotalNumberService(int projectNum){
 

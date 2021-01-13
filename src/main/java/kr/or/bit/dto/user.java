@@ -10,5 +10,5 @@ public class user {
 	private String nickName;
 	private String pwd;
 	private int card_seq;
-	
+	private String profile;
 }

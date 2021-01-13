@@ -15,8 +15,8 @@
 	<link rel="stylesheet" href="/resources/css/userEditWithdrawal.css">
 	<jsp:include page="/resources/static/static.jsp"></jsp:include>
 	<script src="/resources/js/main.js"></script>
+	<script src="/resources/js/main-profile.js"></script>
 	<script src="/resources/js/googleLogout.js" ></script>
-
 </head>
 <body>
 	<!-- Top -->
@@ -25,7 +25,7 @@
 	<!-- userEdit modal background -->
 	<div id="userEdit_modal_background"></div>
 	<!-- userEdit modal -->
-	<jsp:include page="/WEB-INF/views/userEdit.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/user/userEdit.jsp"></jsp:include>
 	<!-- userEdit_pwdCheck modal -->
 	<jsp:include page="/WEB-INF/views/userEdit_pwdCheck.jsp"></jsp:include>
 	<!-- userEdit_withdrawal_complete modal -->
@@ -45,7 +45,8 @@
 		
 			<!-- profile pic -->
 			<div class="main-profile-pic-wrapper">
-				<i class="fas fa-user main-profile-pic"></i>
+				<!-- <i class="fas fa-user main-profile-pic"></i> -->
+				<img id = "main-profile-img" src="">
 			</div>
 			
 			<!-- info-wrapper -->

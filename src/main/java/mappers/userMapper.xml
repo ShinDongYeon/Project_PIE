@@ -16,6 +16,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="modifyPassword" parameterType="userDto">
 		UPDATE user SET pwd = #{pwd} WHERE email = #{email}
 	</update>
+	
+	<select id="getProfile" parameterType="String" resultType="String">
+		SELECT PROFILE FROM USER WHERE EMAIL = #{param1}
+	</select>
+	
+	<update id="profileUploadToDB">
+		UPDATE USER SET profile = #{param2} WHERE email = #{param1}
+	</update>
+	
+	
 </mapper>
 
 	
