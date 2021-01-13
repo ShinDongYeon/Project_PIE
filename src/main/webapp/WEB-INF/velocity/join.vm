@@ -21,7 +21,7 @@
 
 			<!-- completed message2 -->
 			<div style = "background-color: #31353d; font-size: 0.8rem; font-weight: 100; margin-bottom: 30px;">
-				<a href ="http://192.168.0.114:8090/checkEmail.pie?check=${ranCheck}">회원가입</a>
+				<a href ="http://localhost:8090/checkEmail.pie?check=${ranCheck}">회원가입</a>
 			</div>
 		</div>
 	</div>
