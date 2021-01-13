@@ -17,6 +17,7 @@ public class UserProfileService{
 	private SqlSession sqlsession;
 	
 	//파일 저장 절대 경로 
+	//재홍
 	private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
 	
 	//파일 업로드 서비스 

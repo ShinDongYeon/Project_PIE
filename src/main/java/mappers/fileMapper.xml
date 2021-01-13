@@ -30,5 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT count(*) FROM FILE WHERE PROJECT_SEQ = #{param1}
 </select>
 
+<select id="isExistFile" resultType = "fileDto" parameterType="fileDto">
+	SELECT * FROM FILE WHERE PROJECT_SEQ = #{project_seq} AND FILE_UPLOADED_NAME = #{file_uploaded_name}
+</select>
+
+<select id="getDupleName" resultType = "String" parameterType="fileDto">
+	SELECT FILE_UPLOADED_NAME FROM FILE WHERE PROJECT_SEQ = #{project_seq} AND FILE_ORIGINAL_NAME = #{file_original_name} ORDER BY LENGTH(FILE_UPLOADED_NAME) DESC LIMIT 1;
+</select>
+
 
 </mapper>

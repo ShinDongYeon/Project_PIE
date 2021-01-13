@@ -18,4 +18,7 @@ public interface FileDao {
 	
 	public Integer getFileTotalNumber(int projectNum);
 	
+	public file isExistFile(file fi);
+	
+	public String getDupleName(file fi);
 }
