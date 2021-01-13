@@ -12,23 +12,11 @@ for 동연 :
 
 for 지연 : 
 
-1.root servlet : 
-2.service : 
+1.root servlet : Project_PIE/src/main/webapp/resources/files
+2.service : C:\Users\jiyeo\Desktop\Project_PIE\src\main\webapp\resources\files
 
 for 재구 : 
 
 1.root servlet : 
 2.service : 
 
-<<<<<<< HEAD
-1.
-<<<<<<< HEAD
-지연
-2.C:\Users\jiyeo\Desktop\Project_PIE\src\main\webapp\resources\files
-3.
-=======
-2.
-3.C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files
-=======
->>>>>>> d6fb25a978cb83d36a71d32b145a1f97cdfc8b94
->>>>>>> cdb6088f38d4cf3e1430b8b5d70f331fc8d42994

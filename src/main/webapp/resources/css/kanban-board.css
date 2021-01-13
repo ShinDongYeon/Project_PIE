@@ -285,6 +285,17 @@ cursor: pointer;
     background-color: #f8df8c;
 }
 
+
+/* Card Member by session on card content */
+.cardMemProfile {
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	/* display: block; */
+	position: absolute;
+	margin-left: 10px;
+	
+}
 /*Add a List*/
 #addListWrap {
     display: inline-block;

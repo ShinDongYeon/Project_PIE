@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="showMemberByCard" resultType="userDto"
 		parameterType="int">
-		SELECT U.EMAIL, U.NICKNAME
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE
 		FROM USER U JOIN KANBANCARD_MEMBER K
 		ON
 		U.EMAIL = K.EMAIL

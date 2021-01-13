@@ -128,15 +128,10 @@ cursor: pointer;
 
 .selectedMemPro {
 	margin-left:5px;
-	width: 34px;
-	height: 34px;
-	background-color: #31353d;
-	color: #f2dd68;
+	width: 35px;
+	height: 35px;
 	cursor: pointer;
-	text-align: center;
 	border-radius: 100%;
-	font-size: 1.5rem;
-	padding-top: 3px;
 }
 
 /* Card Details */
@@ -145,15 +140,6 @@ cursor: pointer;
 	width:75%; 
 	display:inline-block;
 }
-
-/* #cardDetailsWrap:hover {
-	background-color: #c0c0c0;
-	border:none;
-	border-radius:5px;
-	margin: 7px 0 7px 0;
-	cursor: pointer;
-	padding-left: 5px;
-} */
 
 .cardDetails {
 	text-align: left;
