@@ -35,7 +35,6 @@ function editCalendar(info) {
 }
 function deleteCalendar(info) {
 	if (info.event.extendedProps.card_seq == 0) {
-		console.log("그냥캘린더")
 		$.ajax({
 			type: "POST",
 			url: "calendarDelete.pie",
@@ -46,7 +45,6 @@ function deleteCalendar(info) {
 			}
 		});
 	} else {
-		console.log("칸반연동캘린더")
 		$.ajax({
 			type: "POST",
 			url: "calendarDelete.pie",
@@ -88,7 +86,7 @@ function editButton() {
 	$('#eventColorView').attr("disabled", true);
 	$('#editCalendar').css("display", "");
 	$('#okeditCalendar').css("display", "none");
-	$('#okeditCalendarDiv').css("display", "none");
+	$('#editCancelCalendar').css("display", "none");
 	$('#deleteCalendar').css("display", "");
 	$("#startDateView, #endDateView").flatpickr({ clickOpens: false });
 	$('#endDateView').val("")
@@ -126,18 +124,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		businessHours: true, // display business hours
 		editable: true,
 		eventLimit: true,
+		displayEventTime: true,
+  		displayEventEnd: true,
 		forceEventDuration: true,
 		minTime: '00:00:00',
 		maxTime: '24:00:00',
 		timeFormat: 'HH:mm',
+		slotLabelFormat: 'HH:mm',
 		dayMaxEvents: true,
 		locales: 'ko',
 		dateClick: function(info) {
-			console.log($("#projectNum").val())
-			document.getElementById('calendarInsert_modal_contents').style.display = 'block'
+			document.getElementById('detailsInsertModal').style.display = 'block'
 			document.getElementById('calendar_modal_background').style.display = 'block';
 			$('#startDate').val(info.dateStr + " " + hours + ":00")
-			console.log(info)
 			$("#insertCancel").unbind('click');
 			$('#insertCancel').click(function() {
 				insertButton()
@@ -182,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				alramOb.project_seq=Number($("#projectNum").val())
 				alramOb.alramseq = (data+1)
 				let alram = JSON.stringify(alramOb);
-					console.log("알람갯수" + data)
 						$.ajax({
 							type: "POST",
 							url: "alramInsert.pie",
@@ -191,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							async: false,
 							data: alram,
 							success: function(data) {
-							console.log("알람등록")
 							socket.send("등록")
 								},
 							
@@ -237,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}],
 		eventClick: function(info) {
-			console.log("캘린더정보:" + info.event.extendedProps.card_seq)
 			document.getElementById('calendarEdit_modal_contents').style.display = 'block'
 			document.getElementById('calendar_modal_background').style.display = 'block';
 			start = info.event.start;
@@ -276,9 +272,13 @@ document.addEventListener('DOMContentLoaded', function() {
 						}
 					});
 			})
+			$("#editCancel").unbind('click');
+			$('#editCancel').click(function() {
+				editButton()
+				document.getElementById('calendar_modal_background').style.display = 'none';
+			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
-				console.log(info.event.id)
 				swal("수정이 가능합니다");
 				$('#seqView').val(info.event.id)
 				$('#titleView').removeAttr("readonly");
@@ -288,25 +288,23 @@ document.addEventListener('DOMContentLoaded', function() {
 				$('#allDayView').removeAttr("disabled");
 				$('#eventColorView').removeAttr("disabled");
 				$('#editCalendar').css("display", "none");
-				$('#okeditCalendarDiv').css("display", "");
 				$('#okeditCalendar').css("display", "");
+				$('#editCancelCalendar').css("display", "");
 				$('#deleteCalendar').css("display", "none");
 				$("#startDateView, #endDateView").flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" }, 'disableMobile', false);
 			})
-			$('#editCancel').click(function() {
+			$('#editCancelCalendar').click(function() {
 				document.getElementById('calendar_modal_background').style.display = 'none';
-
 				editButton()
 			})
 			$("#okeditCalendar").unbind('click');
 			$('#okeditCalendar').click(function() {
 				document.getElementById('calendar_modal_background').style.display = 'none';
-				if ($("input:checkbox[name=allDayView]").is(":checked") == true) {
+				if ($("input:checkbox[id=allDayView]").is(":checked") == true) {
 					allDay = true
 				} else {
 					allDay = false
 				}
-				console.log($('#seqView').val())
 				$.ajax({
 					type: "POST",
 					url: "calendarUpdate.pie",
@@ -320,22 +318,38 @@ document.addEventListener('DOMContentLoaded', function() {
 						color: $('#eventColorView').val()
 					},
 					success: function(data) {
-						console.log(data)
 						calendar.refetchEvents();
 						editButton()
 
 					}
 				})
 
-				var alram = {
-					email: $("#email").val(),
-					nick: $("#nick").val(),
-					title: "캘린더",
-					state: "수정",
-					alramTime: moment(today).format('YYYY-MM-DD' + " " + 'HH:mm'),
-					project_seq: Number($("#projectNum").val()),
-				}
-				socket.send(JSON.stringify(alram))
+					$.ajax({
+					type: "POST",
+					url: "alramLastSeq.pie",
+					success: function(data) {
+				let alramOb = new Object();
+				alramOb.email=$("#email").val()
+				alramOb.nickName=$("#nick").val()
+				alramOb.title="캘린더"
+				alramOb.state="수정"
+				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq=Number($("#projectNum").val())
+				alramOb.alramseq = (data+1)
+				let alram = JSON.stringify(alramOb);
+						$.ajax({
+							type: "POST",
+							url: "alramInsert.pie",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							async: false,
+							data: alram,
+							success: function(data) {
+							socket.send("등록")
+								},
+						})
+					}
+				})
 
 			})
 
@@ -346,15 +360,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 $(document).ready(function() {
-	console.log("오늘날짜:" + today)
 	$("#startDate, #endDate").flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" });
 	window.onclick = function(event) {
-		if (event.target == document.getElementById('calendar_modal_background')) {
+		if (event.target === document.getElementById('calendar_modal_background')) {
 			editButton();
 			insertButton();
 			document.getElementById('calendar_modal_background').style.display = 'none';
 			document.getElementById('calendarEdit_modal_contents').style.display = 'none';
-			document.getElementById('calendarInsert_modal_contents').style.display = 'none';
+			document.getElementById('detailsInsertModal').style.display = 'none';
+			
 		}
 	}
 

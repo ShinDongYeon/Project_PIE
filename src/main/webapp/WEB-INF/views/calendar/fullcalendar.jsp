@@ -30,10 +30,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/resources/js/calendar.js"></script>
+
 <!--  -->
 
 </head>
-<body>
+<body class="calendarbody">
 
 <div id="calendar"> </div>
 <jsp:include page="/WEB-INF/views/calendar/calendar_modal.jsp"></jsp:include>
