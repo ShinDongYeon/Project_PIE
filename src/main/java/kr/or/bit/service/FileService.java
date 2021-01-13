@@ -43,6 +43,8 @@ public class FileService{
 			fileOb.mkdir();
 		}
 		
+		////////디비에서 파일 이름 있는지 조회 !!!!!!!!
+		
 		for(int i = 1; i <= (files.size()-1); i ++) {
 			System.out.println("list size : "+files.size());
 			String fileOGName = files.get(i).getOriginalFilename();

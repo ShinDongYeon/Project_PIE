@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="/resources/css/userEditWithdrawal.css">
 	<jsp:include page="/resources/static/static.jsp"></jsp:include>
 	<script src="/resources/js/main.js"></script>
+	<script src="/resources/js/main-profile.js"></script>
 	<script src="/resources/js/googleLogout.js" ></script>
 </head>
 <body>
@@ -44,7 +45,8 @@
 		
 			<!-- profile pic -->
 			<div class="main-profile-pic-wrapper">
-				<i class="fas fa-user main-profile-pic"></i>
+				<!-- <i class="fas fa-user main-profile-pic"></i> -->
+				<img id = "main-profile-img" src="">
 			</div>
 			
 			<!-- info-wrapper -->

@@ -15,14 +15,17 @@
 		<div class="userEdit-profile-wrapper">
 			<div class="userEdit-profile-pic-wrapper">
 			
+			<label for="img-input">
+				<i id="edit-btn" class="fas fa-edit"></i>
+			</label>
+			
 			<!-- 이미지 업로드 폼 -->
 			<form name="uploadForm" id="uploadForm" method = "post" enctype="multipart/form-data">
-			<label for="img-input">
 				<img id = "img_zone" src =""/>
-			</label>
 				<!-- <label for="img-input"><i class="fas fa-user userEdit-profile-pic"></i></label> -->
 				<input name = "profile" type = "file" style = "display:none;" id = "img-input">
-				<button type = "button" id = "profile-btn">전송</button>
+				<!-- <button type = "button" id = "profile-btn">전송</button> -->
+				
 			</form>
 			
 			</div>

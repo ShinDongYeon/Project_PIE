@@ -28,8 +28,10 @@ public class UserProfileImageController {
 	@RequestMapping(value = "getProfile.pie", method = RequestMethod.POST)
 	public View uploadFile(@RequestBody user u, Model model) throws IOException {
 		String profile = ups.getProfileService(u.getEmail());
+		user us = new user();
+		us.setProfile(profile);
 		System.out.println(profile);
-		model.addAttribute("profile", profile);
+		model.addAttribute("profile", us);
 		return jsonview;
   }
 	
@@ -39,8 +41,6 @@ public class UserProfileImageController {
 	public String uploadFile(@RequestParam("profile") MultipartFile file, 
 							 @RequestParam("email") String email) throws IOException {
 		ups.profileUploadService(file, email);
-		System.out.println(file);
-		System.out.println(email);
 		return null;
   }
 }

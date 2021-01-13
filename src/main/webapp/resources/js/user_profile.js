@@ -17,7 +17,9 @@ $(document).ready(function() {
 				data: user,
 				async: false,
 				success: function(data) {
-					profile = data.profile;
+					
+					//프로필 이미지 
+					profile = data.profile.profile;
 				}
 			});
 			return profile;
@@ -29,7 +31,7 @@ $(document).ready(function() {
 		if(profile===null){
 			$("#img_zone").attr("src", "/resources/img/icon/none.png");
 		}else{
-			$("#img_zone").attr("src", "/resources/img/icon/"+profile);
+			$("#img_zone").attr("src", "/resources/profile/"+$("#input_email").val()+"_"+profile);
 		}
 		//이미지 미리보기 
 		function readURL(img) {
@@ -39,7 +41,7 @@ $(document).ready(function() {
 	
 			//확장자명
 			imgEtc = img.name.split(".");
-			if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpge"){
+			if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
 				
 			}else{
 				//초기화
@@ -51,6 +53,8 @@ $(document).ready(function() {
 			//파일이 다 읽어지면 
 		  	reader.onload = function (e) {
 		    	$('#img_zone').attr('src', e.target.result);  
+				$('#main-profile-img').attr('src', e.target.result);  
+ 				uploadProfile();
 		  	}
 		}
 		//사용자가 이미지를 올렸을 때 
@@ -58,10 +62,12 @@ $(document).ready(function() {
 		   readURL(this.files[0]);
 		});
 		
+		/*
 		//프로필 이미지 변경 버튼 
 		$("#profile-btn").on('click', function(e){
 		  uploadProfile();
 		});
+		*/
 	
 	//파일 업로드 
 	function uploadProfile() {

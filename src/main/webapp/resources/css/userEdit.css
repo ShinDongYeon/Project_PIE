@@ -46,7 +46,7 @@
 .userEdit-profile-pic-wrapper{
 	display: block;
 	width: 200px;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-bottom: 10px;
 	text-align: center;
 }
@@ -57,11 +57,6 @@
     border: 5px solid #f2dd68;
     border-radius: 100%;
     padding: 20px 25px;
-}
-#img_zone{
-	/* margin-top : 10px; */
-	width: 120px;
-	height: 120px;
 }
 .userEdit-profile-pic:after{
     position: absolute;
@@ -284,4 +279,16 @@ width: 100%;
 	color: #f2dd68;
 	background-color: #31353d;
 	cursor: pointer;
+}
+#img_zone{
+	/* margin-top : 10px; */
+	border-radius: 70%;
+	overflow: hidden;
+	width: 120px;
+	height: 120px;
+}
+#edit-btn{
+	position : relative;
+	left: 70px; 
+	top: 125px;
 }
