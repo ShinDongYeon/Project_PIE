@@ -9,6 +9,6 @@ public class user {
 	private String email;
 	private String nickName;
 	private String pwd;
+	private int card_seq;
 	private String profile;
-	
 }

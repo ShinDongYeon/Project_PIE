@@ -25,8 +25,9 @@ public class FileService{
 	private SqlSession sqlsession;
 	
 	//파일 저장 절대 경로 
-	private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
-	
+
+	private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
+
 	//파일 업로드 서비스 
 	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
 		

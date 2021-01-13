@@ -254,4 +254,5 @@ public class KanbanController {
 		model.addAttribute("data", card_content);
 		return jsonview;
 	}
+
 }

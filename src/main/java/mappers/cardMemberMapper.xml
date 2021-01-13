@@ -18,6 +18,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(SELECT K.EMAIL FROM KANBANCARD_MEMBER K WHERE CARD_SEQ=#{cardSeq})
 		ORDER BY U.NICKNAME, U.EMAIL
 	</select>
+	
+	<select id="getCardMemBySession" resultType="userDto"
+		parameterType="hashMap">
+		SELECT U.EMAIL, U.NICKNAME, U.PROFILE, K.CARD_SEQ
+		FROM USER U 
+		RIGHT JOIN PROJECT_MEMBER P ON U.EMAIL=P.EMAIL
+        LEFT JOIN KANBANCARD_MEMBER K ON P.EMAIL=#{sessionEmail}
+		WHERE P.PROJECT_SEQ = #{projectNum}
+        AND K.CARD_SEQ IS NOT NULL
+        AND K.EMAIL=#{sessionEmail}
+	</select>
 
 	<insert id="insertCardMem" parameterType="HashMap">
 		INSERT INTO
@@ -43,7 +54,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAllCardMem" parameterType="int">
 		DELETE FROM KANBANCARD_MEMBER WHERE CARD_SEQ=#{card_seq}
 	</delete>
-
 
 </mapper>
 

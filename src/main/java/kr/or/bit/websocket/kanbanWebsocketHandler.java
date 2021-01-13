@@ -53,6 +53,7 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 					sess.sendMessage(new TextMessage("kanban"));
 					
 			}
+				
 		}
 		
 		

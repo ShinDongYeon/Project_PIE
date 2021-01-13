@@ -102,7 +102,9 @@ public class FileController {
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
-		String fullPath = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+
+		String fullPath = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+
 		File file = new File(fullPath);
 		
 		mv.setViewName("downloadView");
