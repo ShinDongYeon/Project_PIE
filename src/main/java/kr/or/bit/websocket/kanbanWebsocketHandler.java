@@ -54,6 +54,7 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 				for(WebSocketSession sess: sessionList) {
 					sess.sendMessage(new TextMessage("kanban"));
 			}
+				
 		}
 		
 		
