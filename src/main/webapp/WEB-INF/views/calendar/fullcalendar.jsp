@@ -35,8 +35,14 @@
 
 </head>
 <body class="calendarbody">
-
+<div class="panel panel-default">
+	<div class="input-group">
+     <label class="checkbox-inline"><input class='filter' name="calendar" type="radio" checked>전체보기</label>
+     <label class="checkbox-inline"><input class='filter' name="calendar" id="kanbanCalendar" type="radio">내꺼만보기</label>
+     </div>
+</div>
 <div id="calendar"> </div>
 <jsp:include page="/WEB-INF/views/calendar/calendar_modal.jsp"></jsp:include>
+
 </body>
 </html>

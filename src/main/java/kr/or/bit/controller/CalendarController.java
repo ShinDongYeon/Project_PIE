@@ -68,7 +68,21 @@ public class CalendarController {
 		}
 		return calendarList;
 	}
+	@ResponseBody
+	@RequestMapping(value = "calendarListKanban.pie", method = RequestMethod.GET)
+	public List<calendar> calendarListKanban(String email) {
+		List<calendar> calendarListKanban = null;
+		try {
+			calendarListKanban = calendarservice.calendarListKanban(email);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("에러:" + e.getMessage());
+
+		}
+		System.out.println("리스트리스트:"+calendarListKanban);
+		return calendarListKanban;
+	}
 	@ResponseBody
 	@RequestMapping(value = "calendarEdit.pie", method = RequestMethod.POST)
 	public void calendarEdit(String start, String end, String id) {

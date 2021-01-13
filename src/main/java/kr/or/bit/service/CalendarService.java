@@ -29,7 +29,10 @@ public class CalendarService {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		return calendardao.getCalendarList(project_seq);
 	}
-
+	public List<calendar> calendarListKanban(String email) throws Exception {
+		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
+		return calendardao.getCalendarListKanban(email);
+	}
 	public void calendarEdit(String start, String end, String id) {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		calendardao.editCalendar(start,end,id);

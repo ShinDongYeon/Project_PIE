@@ -15,7 +15,12 @@ VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{p
 <select id="getCalendarList" resultType="CalendarDto">
 SELECT * FROM calendar WHERE project_seq = #{param1}
 </select>
-
+<select id="getCalendarListKanban" resultType="CalendarDto">
+	SELECT calendar.*
+	FROM calendar, kanbancard_member
+	WHERE calendar.card_seq = kanbancard_member.card_seq
+	AND kanbancard_member.email = #{param1}
+	</select>
 <update id="editCalendar">
 UPDATE calendar
 SET start=#{param1},end=#{param2}

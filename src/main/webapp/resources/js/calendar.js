@@ -56,15 +56,37 @@ function deleteCalendar(info) {
 		});
 	}
 }
+
 var eventsFeed = function(info, successCallback, failureCallback) {
-	$.ajax({
-		type: "GET",
-		url: "calendarList.pie",
-		data: {
-			project_seq: $("#projectNum").val()
-		},
-		dataType: 'json',
+	if($("input:radio[id=kanbanCalendar]").is(":checked") == true) {
+		$.ajax({
+		type:"GET",
+		url:"calendarListKanban.pie",
+		contentType: "application/json; charset=UTF-8",
+		dataType: "json",
+		async: false,
+		data:{email:$("#email").val()},
 		success: function(data) {
+			console.log("칸반캘린더:"+data)
+				var fixedDate = data.map(function(array) {
+				if (array.allDay === true && array.start !== array.end) {
+					array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+				}
+				array.end = moment(array.end).format('YYYY-MM-DD' + " " + 'HH:mm')
+				return array;
+			})
+			successCallback(fixedDate);
+			}
+				})
+			}else{
+			$.ajax({
+			type: "GET",
+			url: "calendarList.pie",
+			data: {
+			project_seq: $("#projectNum").val()
+			},
+			dataType: 'json',
+			success: function(data) {
 			var fixedDate = data.map(function(array) {
 				if (array.allDay === true && array.start !== array.end) {
 					array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
@@ -76,6 +98,7 @@ var eventsFeed = function(info, successCallback, failureCallback) {
 		}
 	})
 }
+};
 
 function editButton() {
 	$('#titleView').attr("readonly", true);
@@ -355,12 +378,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 	});
-
+	$('.filter').on('change', function () {
+	calendar.refetchEvents();
+});
 	calendar.render();
 });
 
 $(document).ready(function() {
-	$("#startDate, #endDate").flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" });
+	$("#startDate, #endDate").
+	flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" });
 	window.onclick = function(event) {
 		if (event.target === document.getElementById('calendar_modal_background')) {
 			editButton();
@@ -372,4 +398,7 @@ $(document).ready(function() {
 		}
 	}
 
+
 });
+
+
