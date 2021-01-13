@@ -16,7 +16,7 @@ $(document).ready(function() {
 	}
 	
 	function makeCardMem(email,nickName) {
-		let cardMem = "<i class='fas fa-user selectedMemPro' id='selectedMemPro' title='"+nickName+
+		let cardMem = "<i class='fas fa-user selectfedMemPro' id='selectedMemPro' title='"+nickName+
 		"("+email+")' value="+email+"></i> "
 		return cardMem;
 	}
@@ -94,7 +94,7 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data){
-				if(data.data.trim()==""){
+				if($.trim(data.data)==""){
 					console.log("empty");
 					$('.cardDetailsForm').show();
 					$('.fa-edit').hide();

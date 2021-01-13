@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.CardMemberDao;
-import kr.or.bit.dto.card;
 import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.user;
 
