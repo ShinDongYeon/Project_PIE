@@ -12,8 +12,6 @@
 	<script src="/resources/js/projectSidebar.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
-	<script src="/resources/js/chattingConnect.js"></script>
-	
 </head>
 <body>
 	<!-- projectNum(Sequence) -->
@@ -47,9 +45,10 @@
 				사용자창
 			</div>
 		</div>
+		
 		<!-- main body -->
-		<div class="project-main-body-wrapper" id="calendarMain" style="display: block">
-			<jsp:include page="/WEB-INF/views/calendar/fullcalendar.jsp"></jsp:include>		
+		<div class="project-chart-body-wrapper" style="display: block">
+			<jsp:include page="/WEB-INF/views/chart/chart.jsp"></jsp:include>		
 		</div>
 
 		

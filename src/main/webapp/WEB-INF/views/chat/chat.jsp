@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/resources/css/chatEmojiStyle.css">
 	<script src="/resources/js/chatting.js"></script>
 	<script src="/resources/js/chattingEmoji.js"></script>
+	<script src="/resources/js/chattingConnect.js"></script>
 </head>
 <body>
 <input type="hidden" value="${select}" id="select">

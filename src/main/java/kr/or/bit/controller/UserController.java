@@ -79,7 +79,6 @@ public class UserController {
 	// 이메일 확인 비동기
 	@RequestMapping(value = "searchEmail.pie", method = RequestMethod.POST)
 	public View memberSearch(user u, Model model) {
-		System.out.println(u.getEmail());
 		user isExist = userservice.searchEmail(u.getEmail());
 		model.addAttribute("user", isExist);
 		return jsonview;
@@ -107,14 +106,11 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "certifyCheck.pie", method = RequestMethod.POST)
 	public String certifyCheck(@RequestParam("certifyNum") int certifyNum) {
-		System.out.println(certifyNum);
 		if (certifyNum == ran) {
 			// 인증번호 맞음
-			System.out.println("인증번호확인완료");
 			return "success";
 		} else {
 			// 인증번호 틀림
-			System.out.println("인증번호확인실패");
 			return "fail";
 		}
 	}
@@ -122,16 +118,10 @@ public class UserController {
 	// 비밀번호 변경
 	@RequestMapping(value = "modifyPassword.pie", method = RequestMethod.POST)
 	public String modifyPassword(@RequestParam("email") String email ,user u, HttpSession session) {
-		System.out.println("모디 파이");
-		System.out.println(email);
-		
 		u.setEmail(email);
-		
-		System.out.println("모디파이 " + u.getEmail());
 		u.setPwd(this.bCryptPasswordEncoder.encode(u.getPwd()));//비밀번호 암호화 
 		userservice.modifyPassword(u);
 		boolean check = true;
-		System.out.println("비밀번호 변경 완료");
 		session.setAttribute("check", check);
 		return "redirect:index.htm";
 	}

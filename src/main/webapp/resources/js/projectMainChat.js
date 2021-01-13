@@ -47,13 +47,17 @@ $(document).ready(function(){
 	}
 	
 	//ESC 키 입력 시
-	window.onkeydown = function(event){
+	window.onkeydown = (event) => {
 		if(modal.style.display == 'block' && crtChatBackground.style.display == 'block'){
 			if (event.keyCode == 27 || event.which == 27) {
 				modal.style.display = 'none';
 				crtChatBackground.style.display = 'none';
 			}
 		}
+	}
+	window.onmouseout = (event) => {
+		connectSocket.send('');
+		event.preventDefault();
 	}
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
@@ -82,6 +86,7 @@ $(document).ready(function(){
 						type 		: "POST",
 						url  		: "chat/members",
 						traditional : true,
+						async: false,
 						data 		: {
 							'user_array' : user_array
 						},
@@ -119,6 +124,7 @@ $(document).ready(function(){
 				{
 					type 		: "GET",
 					url  		: "chat/room/list",
+					async: false,
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
@@ -138,6 +144,7 @@ $(document).ready(function(){
 				type : "post",
 				url  : "chat/room",
 				data : { 'searchKeyword' : $('#chat-search-box').val()},
+				async: false,
 				success : function(data){
 					console.log(data);
 					chattingRoomList(data);
@@ -187,6 +194,7 @@ $(document).ready(function(){
 						'nickName' : $('#crtChat-search-box').val(),
 						'user_array' : user_array
 					},
+					async: false,
 					traditional : true,
 					success 	: function(data){
 						console.log(data);
@@ -206,7 +214,7 @@ $(document).ready(function(){
 
 /*
 파일명: projectMainChat.js
-설명: 채팅생성창에서 회원 ON/OFF 상태 확인
+설명: 채팅생성창에서 회원 ON/OFF 상태 실시간 확인
 작성일: 2021-01-12
 작성자: 도재구
 */
@@ -227,6 +235,9 @@ function logonUser(data){
 	}
 }
 
+
+
+
 /*
 파일명: projectMainChat.js
 설명: 대화할 채팅방 오픈
@@ -237,6 +248,37 @@ function popupOpen(roomno,roomname){
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
 	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
+	
+	$.ajax(
+		{
+			type 		: "POST",
+			url  		: "chat/checkalarm",
+			data		: {
+				'select' : roomno
+			},
+			async		: false,
+			success 	: function(data){
+				
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+		}
+	);
+	$.ajax(
+		{
+			type 		: "GET",
+			url  		: "chat/room/list",
+			async		: false,
+			success 	: function(data){
+				console.log(data);
+				chattingRoomList(data);
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+		}
+	);
 	
 }
 
@@ -251,6 +293,7 @@ function chattingRoomList(data){
 	$('#chat-list').empty();
 	let opr = "";
 	$.each(data.chat_room_list,function(index,elem){
+		
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
@@ -260,8 +303,10 @@ function chattingRoomList(data){
 			chat_title_substr = chat_title;
 		}
 		
-		opr += 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
-					"<div class='chat-list-alarm'>1</div>"+
+		//connectSocket.send(elem.chatting_room_seq);
+		
+		opr = 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -280,8 +325,12 @@ function chattingRoomList(data){
 						"<i onclick='deleteChatRoom(this)' class='fas fa-times'></i>"+
 					"</div>"+
 				"</div>";
+		$('#chat-list').append(opr);
+		if(elem.chatting_alarm != 0){
+			$('#chat-list-alarm-'+elem.chatting_room_seq).css('display','block');
+			$('#chat-list-alarm-'+elem.chatting_room_seq).html(elem.chatting_alarm);
+		}
 	});
-	$('#chat-list').append(opr);
 	
 
 }
@@ -306,8 +355,8 @@ function completeChattingRoom(data){
 			chat_title_substr = chat_title;
 		}
 
-		opr += "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
-					"<div class='chat-list-alarm'>1</div>"+
+		opr = "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -326,8 +375,13 @@ function completeChattingRoom(data){
 						"<i onclick='deleteChatRoom(this)' class='fas fa-times'></i>"+
 					"</div>"+
 				"</div>";
+		$('#chat-list').append(opr);
+		if(elem.chatting_alarm != 0){
+			$('#chat-list-alarm-'+elem.chatting_room_seq).css('display','block');
+			$('#chat-list-alarm-'+elem.chatting_room_seq).html(elem.chatting_alarm);
+		}
 	});
-	$('#chat-list').append(opr);
+	
 }
 
 /*
@@ -428,6 +482,11 @@ function updateChatRoomName(me){
 			updateNameOk($('#fas-fa-check-'+div_substr));
 		}
 	});
+	
+	window.onmouseout = (event) => {
+		event.stopPropagation();
+	}
+	
 	
 	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
@@ -533,6 +592,10 @@ function updateNameOk(me){
 	let opr = "<i onclick='updateChatRoomName(this)' class='fas fa-pencil-alt'></i>";
 	$('#chat-list-update-'+div_substr).append(opr);
 	
+	window.onmouseout = (event) => {
+		connectSocket.send('');
+		event.preventDefault();
+	}
 }
 
 

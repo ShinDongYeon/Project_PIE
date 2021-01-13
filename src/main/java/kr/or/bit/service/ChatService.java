@@ -1,6 +1,5 @@
 package kr.or.bit.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,9 +93,21 @@ public class ChatService {
 		dao.unhideRoom(unhideRoomMap);
 	}
 	
-	public void redirectMessage(int select) {
+	//chatsocketHandler
+	public void unhideAllRoom(int select) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		dao.redirectMessage(select);
+		dao.unhideAllRoom(select);
+	}
+	
+	//chatsocketHandler
+	public void pushAlarm(Map<String, Object> pushAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.pushAlarm(pushAlarmMap);
+	}
+	
+	public void checkalarm(Map<String, Object> checkAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.checkalarm(checkAlarmMap);
 	}
 	
 	public void updateRoom(Map<String, Object> updateMap) {
