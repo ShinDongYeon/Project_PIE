@@ -43,11 +43,9 @@ $(document).ready(function() {
 		var ws = new WebSocket("ws://localhost:8090/websocket/echo/websocket");
 		socket = ws;
 		ws.open = function(message) {
-			console.log(message)
+			console.log("알람:"+message)
 		}
 		ws.onmessage = function(event) {
-			//let alramMessage = JSON.parse(event.data)
-			console.log("이야이야오")
 			alarm()
 		};
 		ws.onclose = function(event) {

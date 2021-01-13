@@ -4,13 +4,17 @@ $(document).ready(function(){
 	let tmpBtnClassName = 'fas fa-star';
 	let wrapper = document.getElementById('right-sidebar-contents-wrapper');	
 	
-		$('#sidebar-kanban').click(function(){
+	$('#sidebar-kanban').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 		location.href= "goToMain.pie?projectNum="+$("#projectNum").val();
 		});
 	$('#sidebar-calendar').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 		location.href= "fullcalendar.htm";
+	});
+	$('#sidebar-chart').click(function(){
+		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
+		location.href= "chart.pie?projectNum="+$("#projectNum").val();
 	});
 	/*kanban & calendar 아이콘 클릭 시 다른 창 display: none */
 	

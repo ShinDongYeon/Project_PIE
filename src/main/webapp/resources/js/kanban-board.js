@@ -11,15 +11,15 @@ $(function() {
 	let pjNumByController = null;
 
 	$.ajax({
-			type: "post",
-			contentType: "application/json; charset=UTF-8",
-			dataType: "json",
-			url: "getProjectNum.pie",
-			async: false,
-			success: function(data) {
-				pjNumByController = data.projectNum;
-			}
-		});
+		type: "post",
+		contentType: "application/json; charset=UTF-8",
+		dataType: "json",
+		url: "getProjectNum.pie",
+		async: false,
+		success: function(data) {
+			pjNumByController = data.projectNum;
+		}
+	});
 
 	let projectNum = pjNumByController;
 	console.log("project seq : " + projectNum);
@@ -39,7 +39,7 @@ $(function() {
 		}
 	)
 
-	let lastNum = getLastNumFromController(projectNum); 
+	let lastNum = getLastNumFromController(projectNum);
 	console.log("페이지 로드시 리스트 개수 : " + lastNum);
 
 	loadKanban(projectNum);
@@ -245,18 +245,19 @@ $(function() {
 
 		//칸반 객체를 컨트롤러에게 보내는 ajax 
 		$.ajax({
-				type: "post",
-				url: "updateKanban.pie?projectNum=" + projectNum,
-				contentType: "application/json; charset=UTF-8",
-				dataType: "json",
-				async: false,
-				data: kanbanJson,
-				success: function(data) {
-					console.log(data.success);
-					console.log(wholeList);
-				}
+			type: "post",
+			url: "updateKanban.pie?projectNum=" + projectNum,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			data: kanbanJson,
+			success: function(data) {
+				console.log(data.success);
+				console.log(wholeList);
 			}
-		)}
+		}
+		)
+	}
 
 	//리스트 태그를 만들고 리턴해주는 함수 
 	function makeList(list_order_num, data_list_seq, list_name) {
@@ -269,7 +270,8 @@ $(function() {
 	//카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name) {
 		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'>" + card_name +
-			"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + "</div>";
+			"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + 
+			"</div>";
 		return cardTag;
 	}
 
@@ -281,11 +283,18 @@ $(function() {
 
 		return cardAddBtn;
 	}
-
+	
+	//makemempro
+	function makeMemPro(email,nickName){
+		let memTag = "<i class='fas fa-user cardMemProfile' id='cardMemProfile' title='"+nickName+
+		"("+email+")' value="+email+"></i> "
+		return memTag;
+	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
 	function loadKanban(projectNum) {
 		$("#listWrap").empty();
+
 		$.ajax(
 			{
 				type: "post",
@@ -310,6 +319,25 @@ $(function() {
 				}
 			}
 		)
+
+	/*Load Card Member By Session EMail*/
+	function getCardMemBySession() {
+	$.ajax({
+			type: "get",
+			url: "getCardMemBySession?sessionEmail="+$('#session_email').val(),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				console.log(data);
+				$.each(data, function(index, item) {
+							let cardPro = makeMemPro(item.email,item.nickName)
+							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
+						});
+				}
+		});
+	}
+	getCardMemBySession();
 	}
 
 	console.log("요소의 마지막 번호 : " + lastNum);
@@ -363,36 +391,37 @@ $(function() {
 		$(this).children("#addListTitleInput").val("");
 		addListForm.hide();
 		addListTitle.show();
-		
+
 		/*칸반리스트 알람*/
+		$.ajax({
+			type: "POST",
+			url: "alramLastSeq.pie",
+			success: function(data) {
+				let alramOb = new Object();
+				alramOb.email = $("#email").val()
+				alramOb.nickName = $("#nick").val()
+				alramOb.title = "칸반리스트"
+				alramOb.state = "등록"
+				alramOb.alramTime = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq = Number($("#projectNum").val())
+				alramOb.alramseq = (data + 1)
+				let alram = JSON.stringify(alramOb);
+				console.log("알람갯수" + data)
 				$.ajax({
 					type: "POST",
-					url: "alramLastSeq.pie",
+					url: "alramInsert.pie",
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: alram,
 					success: function(data) {
-				let alramOb = new Object();
-				alramOb.email=$("#email").val()
-				alramOb.nickName=$("#nick").val()
-				alramOb.title="칸반리스트"
-				alramOb.state="등록"
-				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
-				alramOb.project_seq=Number($("#projectNum").val())
-				alramOb.alramseq = (data+1)
-				let alram = JSON.stringify(alramOb);
-					console.log("알람갯수" + data)
-						$.ajax({
-							type: "POST",
-							url: "alramInsert.pie",
-							contentType: "application/json; charset=UTF-8",
-							dataType: "json",
-							async: false,
-							data: alram,
-							success: function(data) {
-							socket.send("등록")
-							socketkanban.send("등록")
-								},
-						})
-					}
+						socket.send("등록")
+						socketkanban.send("등록")
+
+					},
 				})
+			}
+		})
 
 		//sortable 
 		$(".cardWrap").sortable({
@@ -432,8 +461,8 @@ $(function() {
 				console.log(list);
 
 				let listView = $(this).parent().parent();
-				
-				
+
+
 				$.ajax({
 					url: "deleteKanbanList.pie?projectNum=" + projectNum,
 					contentType: "application/json; charset=UTF-8",
@@ -463,17 +492,17 @@ $(function() {
 
 					}
 				});
-				
+
 				/*캘린더 삭제*/
-					$.ajax({
-					type :"POST",
-					url :"/calendarDeleteKanban.pie",
-					data :{
-						card_seq:$(this).parent().attr("data-card-seq")
+				$.ajax({
+					type: "POST",
+					url: "/calendarDeleteKanban.pie",
+					data: {
+						card_seq: $(this).parent().attr("data-card-seq")
 					},
 					success: function(data) {
-						}
-					});
+					}
+				});
 			}
 		});
 	});
@@ -550,7 +579,7 @@ $(function() {
 
 					cardOb.card_seq = $(this).parent().attr("data-card-seq");
 					cardOb.card_order_num = $(this).parent().attr("id");
-					
+
 					let card = JSON.stringify(cardOb);//컨트롤러로 보낼 카드
 
 					let cardView = $(this).parent();
@@ -566,7 +595,7 @@ $(function() {
 							swal.fire("Done!", "It's succesfully deleted!", "success");
 							//1.delete card on the view
 							cardView.remove();
-							socketkanban.send("삭제");
+
 							//2. resort card_id
 							cardIndexing();
 
@@ -639,36 +668,37 @@ $(function() {
 		$(this).children(".addCardTitle").val("");
 		$(this).hide();
 		cardLabel.show();
-		
+
 		/*칸반카드 알람*/
-$.ajax({
-					type: "POST",
-					url: "alramLastSeq.pie",
-					success: function(data) {
+		$.ajax({
+			type: "POST",
+			url: "alramLastSeq.pie",
+			success: function(data) {
 				let alramOb = new Object();
-				alramOb.email=$("#email").val()
-				alramOb.nickName=$("#nick").val()
-				alramOb.title="칸반카드"
-				alramOb.state="등록"
-				alramOb.alramTime=moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
-				alramOb.project_seq=Number($("#projectNum").val())
-				alramOb.alramseq = (data+1)
+				alramOb.email = $("#email").val()
+				alramOb.nickName = $("#nick").val()
+				alramOb.title = "칸반카드"
+				alramOb.state = "등록"
+				alramOb.alramTime = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				alramOb.project_seq = Number($("#projectNum").val())
+				alramOb.alramseq = (data + 1)
 				let alram = JSON.stringify(alramOb);
-					console.log("알람갯수" + data)
-						$.ajax({
-							type: "POST",
-							url: "alramInsert.pie",
-							contentType: "application/json; charset=UTF-8",
-							dataType: "json",
-							async: false,
-							data: alram,
-							success: function(data) {
-							socket.send("등록")
-							socketkanban.send("등록")
-								},
-						})
-					}
+				console.log("알람갯수" + data)
+				$.ajax({
+					type: "POST",
+					url: "alramInsert.pie",
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: alram,
+					success: function(data) {
+						socket.send("등록")
+						socketkanban.send("등록")
+
+					},
 				})
+			}
+		})
 	});
 
 	$(document).on("click", ".addCard-btn", function(e) {
@@ -739,34 +769,33 @@ $.ajax({
 		placeholder: "list-placeholder",
 		handle: ".listTitleWrap"
 	});
-	
+
 	$(".cardWrap").sortable({
 		placeholder: "card-placeholder"
 	});
-	
+
 	/*Web Socket*/
 	var socketkanban = null; //전역변수 선언
-	$(document).ready(function(){
+	$(document).ready(function() {
 		connectWS();
-		});
-	function connectWS(){
+	});
+	function connectWS() {
 		let ws = new WebSocket("ws://localhost:8090/websocket/kanban/websocket");
 		socketkanban = ws;
-		ws.open = function(msg){
-			console.log("칸반:"+msg);
+		ws.open = function(msg) {
+			console.log("칸반:" + msg);
 		}
-			ws.onmessage = function(event){	
-			console.log("칸반:"+event.data)
+		ws.onmessage = function(event) {
+			console.log("칸반:" + event.data)
 			loadKanban(projectNum)
-			};
-		ws.onclose = function(){
+		};
+		ws.onclose = function() {
 			console.log("Sever Close");
 		}
-		ws.onerror = function(){
+		ws.onerror = function() {
 			console.log("Server Error");
 		}
 	};
 	connectWS();
-
 
 });

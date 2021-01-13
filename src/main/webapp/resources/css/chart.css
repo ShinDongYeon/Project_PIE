@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.whole-chart-wrapper{
+	margin : 70px 70px 70px 170px;
+}
+
+.chart-1-wrapper{
+	margin : 50px;
+	display :flex;
+	float : left;
+	width : 500px;
+}
+
+.chart-2-wrapper{
+	margin : 50px;
+	display :flex;
+	float : left;
+	width : 500px;
+}
+
+.chart-3-wrapper{
+	margin : 50px;
+	display :flex;
+	float : left;
+	width : 500px;
+}
+
+.chart-4-wrapper{
+	margin : 50px;
+	display :flex;
+	float : left;
+	width : 500px;
+}
+.chart-letter-wrapper{
+	position : relative;
+	left : 225px;
+	bottom : 50px;
+}
+
+.chart-letter-wrapper > span{
+	color : white;
+	position : fixed;
+}

@@ -1,6 +1,5 @@
 package kr.or.bit.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.CardMemberDao;
 import kr.or.bit.dto.cardMember;
-import kr.or.bit.dto.checkList;
 import kr.or.bit.dto.user;
 
 /*
@@ -31,6 +29,12 @@ public class CardMemberService {
 	public List<user> projectMemListService(Map<String, Object> projectMemListMap) {
 		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
 		return cardmemdao.projectMemList(projectMemListMap);
+	}
+	
+	//getCardMemBySession
+	public List<user> getCardMemBySessionService(Map<String, Object> cardMemMap) {
+		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
+		return cardmemdao.getCardMemBySession(cardMemMap);
 	}
 
 	// Insert cardMember
@@ -52,4 +56,5 @@ public class CardMemberService {
 		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
 		cardmemdao.deleteCardMem(cm);
 	}
+
 }

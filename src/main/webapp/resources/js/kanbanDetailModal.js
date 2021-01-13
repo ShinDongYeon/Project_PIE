@@ -16,9 +16,16 @@ $(document).ready(function() {
 	}
 	
 	function makeCardMem(email,nickName) {
-		let cardMem = "<i class='fas fa-user selectedMemPro' id='selectedMemPro' title='"+nickName+
+		let cardMem = "<i class='fas fa-user selectfedMemPro' id='selectedMemPro' title='"+nickName+
 		"("+email+")' value="+email+"></i> "
 		return cardMem;
+	}
+	
+	//card member profile
+	function makeMemPro(email,nickName){
+		let memTag = "<i class='fas fa-user cardMemProfile' id='cardMemProfile' title='"+nickName+
+		"("+email+")' value="+email+"></i> "
+		return memTag;
 	}
 	
 	//get selectedMemInfo with tooltip
@@ -87,7 +94,7 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data){
-				if(data.data.trim()==""){
+				if($.trim(data.data)==""){
 					console.log("empty");
 					$('.cardDetailsForm').show();
 					$('.fa-edit').hide();
@@ -148,7 +155,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		details.style.display = "none";
 		$(".todo-wrap").remove();
-		$('.fa-user').remove();
+		$('.selectedMemPro').remove();
 		$('.addCardDetails').val("");
 		$('#memTitle').hide();
 	});
@@ -157,7 +164,7 @@ $(document).ready(function() {
 		if (e.target == details) {
 			details.style.display = "none";
 			$(".todo-wrap").remove();
-			$('.fa-user').remove();
+			$('.selectedMemPro').remove();
 			$('.addCardDetails').val("");
 			$('#memTitle').hide();
 		}
@@ -343,21 +350,30 @@ $(document).ready(function() {
 		let chkBox = $(this).parent().prev();
 		let chk = chkBox.is(':checked');
 		let checkSeq = chkBox.attr('data-check-seq');
+		let cardSeq = $(this).parents().children().children('.modal_card_seq').attr('value');
+		
+		let total=Number($(this).parents().children('.todo-wrap').length);
+		
+		let thisCard = $("[data-card-seq="+cardSeq+"]");
+		console.log(thisCard);
+		
 		if (chk) {
 			console.log("unchecked");
 			chkBox.prop('checked', false);
 			chkBox.attr('ischecked', '0');
+			//let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
+			//thisCard.append("<i class='far fa-check-square'>"+checked+"/"+total+"</i>");
 			progressBar();
 		} else {
 			console.log("checked");
 			chkBox.prop('checked', true);
 			chkBox.attr('ischecked', '1');
+			//let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
+			//thisCard.append("<i class='far fa-check-square'>"+checked+"/"+total+"</i>");
 			progressBar();
 		}
 
 
-		console.log(chkBox.attr('ischecked'));
-		console.log(checkSeq);
 		let chkOb = new Object();
 		chkOb.ischecked = chkBox.attr('ischecked');
 		chkOb.check_seq = checkSeq;
@@ -533,8 +549,11 @@ $(document).ready(function() {
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
 			//show card Member
 			let cardMem = makeCardMem(email,nickName);
+			let cardPro = makeMemPro(email,nickName);
 			$(".memList").append(cardMem);
-			
+			if($('#session_email').val()==data.data.email){
+				$("[data-card-seq="+cardSeq+"]").append(cardPro);
+			}
 			}
 			});
 		
@@ -582,7 +601,7 @@ $(document).ready(function() {
 				
 				let cardMem = JSON.stringify(cardMemOb);
 				let deletedMem = $(this);
-				
+				let cardMemPro = $("[data-card-seq="+cardSeq+"]").children('.cardMemProfile');
 				$.ajax({
 					url:"deleteCardMem.pie",
 					contentType: "application/json; charset=UTF-8",
@@ -598,11 +617,17 @@ $(document).ready(function() {
 							opacity: 0
 						}, 200);
 						setTimeout(function() { 
-							$(deletedMem).remove(); 
+							$(deletedMem).remove();  
 						}, 200);
 						console.log("lenght:::"+$('.selectedMemPro').length);
 						if($('.selectedMemPro').length===1){
 						$('#memTitle').hide();
+						
+						if($('#session_email').val()==data.data.email){
+							setTimeout(function() { 
+							$(cardPro).remove();  
+						}, 200);
+						}
 					}
 					}
 				});
