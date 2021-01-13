@@ -26,7 +26,6 @@ public class FileController {
 	@Autowired
 	private FileService fileservice;
 	
-	
 	//파일 저장 컨트롤러
 	@ResponseBody
 	@RequestMapping(value = "file.pie", method = RequestMethod.POST)
@@ -79,7 +78,6 @@ public class FileController {
 	public View fileSerchWithName(@RequestBody file fileName, Model model) throws IOException {
 		System.out.println(fileName.getFile_original_name());
 		System.out.println(fileName.getExtension());
-		
 		
 		if(!fileName.getExtension().equals("all") && !fileName.getFile_original_name().equals("")) {
 			ArrayList<file> files = fileservice.getFileWithOGNameAndExtensionService(fileName.getFile_original_name(), fileName.getExtension());
