@@ -559,23 +559,22 @@
 	display: flex;
 	width: 298px;
 	height: 60px;
-	padding: 10px;
+	padding: 10px 5px;
 	border-bottom: 1.5px solid #000;
 }
 .chat-list-alarm{
-	background-color:red;
-	width:20px;
-	height:20px;
-	border-radius:75px;
-	text-align:center;
-	margin:0 auto;
-	font-size:12px;
-	color:white;
-	vertical-align:middle;
-	line-height:18px;
-	position:relative;
-	right:-4px;
-	top:-14px;
+	display: none;
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 12px;
+	color: white;
+	vertical-align: middle;
+	line-height: 18px;
+	position: absolute;
 }
 .chat-list-wrapper:hover{
 	background-color: #1d2026;
@@ -600,6 +599,7 @@
 	font-size: 1.8rem;
 	margin-right: 10px;
 	padding-bottom: 5px;
+	padding-left: 5px;
 }
 .chat-list-letter-wrapper{
 	width: 200px;

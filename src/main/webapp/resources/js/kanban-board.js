@@ -270,7 +270,8 @@ $(function() {
 	//카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name) {
 		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'>" + card_name +
-			"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + "</div>";
+			"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + 
+			"</div>";
 		return cardTag;
 	}
 
@@ -282,11 +283,18 @@ $(function() {
 
 		return cardAddBtn;
 	}
-
+	
+	//makemempro
+	function makeMemPro(email,nickName){
+		let memTag = "<i class='fas fa-user cardMemProfile' id='cardMemProfile' title='"+nickName+
+		"("+email+")' value="+email+"></i> "
+		return memTag;
+	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
 	function loadKanban(projectNum) {
 		$("#listWrap").empty();
+
 		$.ajax(
 			{
 				type: "post",
@@ -311,6 +319,25 @@ $(function() {
 				}
 			}
 		)
+
+	/*Load Card Member By Session EMail*/
+	function getCardMemBySession() {
+	$.ajax({
+			type: "get",
+			url: "getCardMemBySession?sessionEmail="+$('#session_email').val(),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				console.log(data);
+				$.each(data, function(index, item) {
+							let cardPro = makeMemPro(item.email,item.nickName)
+							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
+						});
+				}
+		});
+	}
+	getCardMemBySession();
 	}
 
 	console.log("요소의 마지막 번호 : " + lastNum);
@@ -568,7 +595,7 @@ $(function() {
 							swal.fire("Done!", "It's succesfully deleted!", "success");
 							//1.delete card on the view
 							cardView.remove();
-							socketkanban.send("삭제")
+
 							//2. resort card_id
 							cardIndexing();
 
@@ -770,6 +797,5 @@ $(function() {
 		}
 	};
 	connectWS();
-
 
 });

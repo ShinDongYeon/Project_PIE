@@ -296,3 +296,11 @@ body{
 @media only screen and (max-width: 600px) {
 	.main-list-project-wrapper{width: 420px}
 }
+
+#main-profile-img{
+	/* margin-top : 10px; */
+	border-radius: 70%;
+	overflow: hidden;
+	width: 120px;
+	height: 120px;
+}

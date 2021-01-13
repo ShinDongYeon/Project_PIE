@@ -136,12 +136,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND EMAIL = #{loginuser}
 	</update>
 	
-	<!-- public void deleteRoomList(int chatting_room_seq); -->
-	<!-- 
-	<delete id="deleteRoomList">
-		DELETE FROM CHATTINGROOMLIST WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
-	</delete>
-	 -->
+	<!-- public void redirectMessage(int select); -->
+	<update id="redirectMessage">
+		UPDATE CHATTINGROOMLIST
+		SET ENABLED = 1
+		WHERE CHATTING_ROOM_SEQ = #{select}
+	</update>
 	
 	<!-- public void updateRoom(int chatting_room_seq, String chatting_room_name); -->
 	<update id="updateRoom" parameterType="hashMap">

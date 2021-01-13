@@ -13,5 +13,6 @@ public class card {
 	private int card_seq;//카드 고유번호 
 	private ArrayList<checkList> chkList;
 	private ArrayList<cardMember> cmList;
+	private int project_seq;
 	
 }

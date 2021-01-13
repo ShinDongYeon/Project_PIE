@@ -94,6 +94,11 @@ public class ChatService {
 		dao.unhideRoom(unhideRoomMap);
 	}
 	
+	public void redirectMessage(int select) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.redirectMessage(select);
+	}
+	
 	public void updateRoom(Map<String, Object> updateMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		dao.updateRoom(updateMap);

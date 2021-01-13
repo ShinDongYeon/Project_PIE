@@ -26,7 +26,6 @@ public class FileController {
 	@Autowired
 	private FileService fileservice;
 	
-	
 	//파일 저장 컨트롤러
 	@ResponseBody
 	@RequestMapping(value = "file.pie", method = RequestMethod.POST)
@@ -78,9 +77,23 @@ public class FileController {
 	@RequestMapping(value = "fileSerchWithName.pie", method = RequestMethod.POST)
 	public View fileSerchWithName(@RequestBody file fileName, Model model) throws IOException {
 		System.out.println(fileName.getFile_original_name());
-		ArrayList<file> files = fileservice.getFileWithOGNameService(fileName.getFile_original_name());
-		model.addAttribute("files", files);
-		return jsonview;
+		System.out.println(fileName.getExtension());
+		
+		if(!fileName.getExtension().equals("all") && !fileName.getFile_original_name().equals("")) {
+			ArrayList<file> files = fileservice.getFileWithOGNameAndExtensionService(fileName.getFile_original_name(), fileName.getExtension());
+			model.addAttribute("files", files);
+			return jsonview;
+			
+		}else if(fileName.getFile_original_name().equals("")){
+			ArrayList<file> files = fileservice.getFileWithExtensionService(fileName.getExtension());
+			model.addAttribute("files", files);
+			return jsonview;
+			
+		}else {
+			ArrayList<file> files = fileservice.getFileWithOGNameService(fileName.getFile_original_name());
+			model.addAttribute("files", files);
+			return jsonview;
+		}
   }
 	
 	//파일 다운로드 컨트롤러 
@@ -89,7 +102,11 @@ public class FileController {
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
+
 		String fullPath = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+
+		/*String fullPath = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;*/
+
 		File file = new File(fullPath);
 		
 		mv.setViewName("downloadView");

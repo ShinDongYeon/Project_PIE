@@ -12,7 +12,10 @@ public interface FileDao {
 	
 	public ArrayList<file> getFileWithOGName(String file_og_name);
 	
-	public Integer getFileTotalNumber(int projectNum);
+	public ArrayList<file> getFileWithOGNameAndExtension(String file_og_name, String extension);
 	
+	public ArrayList<file> getFileWithExtension(String extension);
+	
+	public Integer getFileTotalNumber(int projectNum);
 	
 }
