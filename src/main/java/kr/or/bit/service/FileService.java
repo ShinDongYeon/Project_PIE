@@ -135,7 +135,7 @@ public class FileService{
 		ArrayList<file> files = filedao.getFileWithOGNameAndExtension(file_og_name, extension);
 		return files;
 	}
-	//파일 리턴하는 서비스 (이름, 확장자)
+	//파일 리턴하는 서비스 (확장자)
 	public ArrayList<file> getFileWithExtensionService(String extension){
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
 		ArrayList<file> files = filedao.getFileWithExtension(extension);

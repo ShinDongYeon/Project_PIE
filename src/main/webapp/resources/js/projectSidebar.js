@@ -41,6 +41,7 @@ $(document).ready(function(){
 				{
 					type 		: "GET",
 					url  		: "chat/room/list",
+					async		: false,
 					success 	: function(data){
 						console.log(data);
 						chattingRoomList(data);
@@ -50,6 +51,7 @@ $(document).ready(function(){
 					}
 				}
 			);
+			
 		}
 		
 		//채팅방 - 검색 입력 내용 초기화

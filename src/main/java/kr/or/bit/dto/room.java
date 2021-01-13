@@ -9,4 +9,6 @@ public class room {
 	private String chatting_room_name;
 	private int project_seq;
 	
+	private int chatting_alarm;
+	
 }

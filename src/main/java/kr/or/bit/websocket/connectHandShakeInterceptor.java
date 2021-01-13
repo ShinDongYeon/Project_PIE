@@ -10,13 +10,8 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
-/*
-파일명: logonHandShakeInterceptor.java
-설명: 채팅방 생성창에 로그온 되어 있는지 여부 확인
-작성일: 2021-01-12
-작성자: 도재구
-*/
-public class logonHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
+
+public class connectHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
 	  
     @Override
     public boolean beforeHandshake(ServerHttpRequest request,
@@ -25,11 +20,7 @@ public class logonHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     	
     	ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
     	HttpServletRequest req= ssreq.getServletRequest();
-        System.out.println("loginuser: " + req.getSession().getAttribute("loginuser"));
-       
-        // 파라미터로 입력된 attributes에 put을 하면 
-        // WebSocketSession에 자동으로 저장되어 Chat class에서 활용 가능
-        attributes.put("loginuser", req.getSession().getAttribute("loginuser"));
+    	attributes.put("loginuser", req.getSession().getAttribute("loginuser"));
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
   

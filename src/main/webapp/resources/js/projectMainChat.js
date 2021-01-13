@@ -206,7 +206,7 @@ $(document).ready(function(){
 
 /*
 파일명: projectMainChat.js
-설명: 채팅생성창에서 회원 ON/OFF 상태 확인
+설명: 채팅생성창에서 회원 ON/OFF 상태 실시간 확인
 작성일: 2021-01-12
 작성자: 도재구
 */
@@ -227,6 +227,28 @@ function logonUser(data){
 	}
 }
 
+function chattingAlarm(msg){
+	$.ajax(
+		{
+			type 		: "GET",
+			url  		: "chat/room/list",
+			async		: false,
+			success 	: function(data){
+				console.log(data);
+				chattingRoomList(data);
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+		}
+	);
+	$('#chat-list-alarm-'+msg).css('display','block');
+	let alarm_num = $('#chat-list-alarm-'+msg).html();
+	$('#chat-list-alarm-'+msg).html(Number(alarm_num)+1);
+
+}
+
+
 /*
 파일명: projectMainChat.js
 설명: 대화할 채팅방 오픈
@@ -237,6 +259,23 @@ function popupOpen(roomno,roomname){
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
 	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
+	$('#chat-list-alarm-'+roomno).css('display','none');
+	
+	$.ajax(
+		{
+			type 		: "POST",
+			url  		: "chat/checkalarm",
+			data		: {
+				'select' : roomno
+			},
+			success 	: function(data){
+				
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+		}
+	);
 	
 }
 
@@ -251,6 +290,7 @@ function chattingRoomList(data){
 	$('#chat-list').empty();
 	let opr = "";
 	$.each(data.chat_room_list,function(index,elem){
+		
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
@@ -260,8 +300,10 @@ function chattingRoomList(data){
 			chat_title_substr = chat_title;
 		}
 		
-		opr += 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
-					"<div class='chat-list-alarm'>1</div>"+
+		//connectSocket.send(elem.chatting_room_seq);
+		
+		opr = 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -280,8 +322,12 @@ function chattingRoomList(data){
 						"<i onclick='deleteChatRoom(this)' class='fas fa-times'></i>"+
 					"</div>"+
 				"</div>";
+		$('#chat-list').append(opr);
+		if(elem.chatting_alarm != 0){
+			$('#chat-list-alarm-'+elem.chatting_room_seq).css('display','block');
+			$('#chat-list-alarm-'+elem.chatting_room_seq).html(elem.chatting_alarm);
+		}
 	});
-	$('#chat-list').append(opr);
 	
 
 }
@@ -306,8 +352,8 @@ function completeChattingRoom(data){
 			chat_title_substr = chat_title;
 		}
 
-		opr += "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
-					"<div class='chat-list-alarm'>1</div>"+
+		opr = "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
+					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
 					"<div class='chat-list-img'>"+
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
@@ -326,8 +372,13 @@ function completeChattingRoom(data){
 						"<i onclick='deleteChatRoom(this)' class='fas fa-times'></i>"+
 					"</div>"+
 				"</div>";
+		$('#chat-list').append(opr);
+		if(elem.chatting_alarm != 0){
+			$('#chat-list-alarm-'+elem.chatting_room_seq).css('display','block');
+			$('#chat-list-alarm-'+elem.chatting_room_seq).html(elem.chatting_alarm);
+		}
 	});
-	$('#chat-list').append(opr);
+	
 }
 
 /*

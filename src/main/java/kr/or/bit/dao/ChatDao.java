@@ -40,7 +40,11 @@ public interface ChatDao {
 	 
 	 public void unhideRoom(Map<String, Object> unhideRoomMap);
 	 
-	 public void redirectMessage(int select);
+	 public void unhideAllRoom(int select);
+	 
+	 public void pushAlarm(Map<String, Object> pushAlarmMap);
+	 
+	 public void checkalarm(Map<String, Object> checkAlarmMap);
 	 
 	 public void deleteRoomList(int chatting_room_seq);
 	 

@@ -199,7 +199,12 @@ function onOpen(evt){
 
 function onMessage(evt){
 	var data = evt.data;
-	appendMessage(data);
+	if(data.indexOf('|') != -1){
+		appendMessage(data);
+	}else{
+		connectSocket.send(data);
+	}
+	
 }
 
 function onClose(evt){
@@ -214,7 +219,6 @@ function send(){
 	if(msg.trim() != ''){
 		websocket.send(email + "|" + msg + "|" + nickname);
 	}
-	
 }
 
 function appendMessage(msg) {
@@ -228,7 +232,7 @@ function appendMessage(msg) {
 			},
 			success 	: function(data){
 				console.log(data);
-
+				
 				let myemail = $('#session_email').val();
 				let mynickname = $('#nickname').val();
 				var strarray = msg.split('|');
@@ -283,6 +287,8 @@ function appendMessage(msg) {
 								});
 							});
 							
+							websocket.send($('#select').val());
+							/*
 							//팀원의 숨겨진 모든 채팅방 다 오픈하기 
 							$.ajax(
 								{
@@ -300,7 +306,7 @@ function appendMessage(msg) {
 									}
 								}
 							);
-							
+							*/
 							
 				}else if(msginfo == "알림"){
 					console.log("알림에 걸림");

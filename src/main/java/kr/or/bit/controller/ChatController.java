@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -438,10 +439,16 @@ public class ChatController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/chat/redirect", method = RequestMethod.POST)
-	public void redirectMessage(@RequestParam("select") int select){
+	@RequestMapping(value="/chat/checkalarm", method = RequestMethod.POST)
+	public void checkalarm(int select, HttpServletRequest request){
+		HttpSession httpsession = request.getSession();
+		String loginuser = (String)httpsession.getAttribute("loginuser");
+		Map<String, Object> checkAlarmMap = new HashMap<String, Object>();
+		
 		try {
-			chatservice.redirectMessage(select);
+			checkAlarmMap.put("select", select);
+			checkAlarmMap.put("loginuser", loginuser);
+			chatservice.checkalarm(checkAlarmMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
