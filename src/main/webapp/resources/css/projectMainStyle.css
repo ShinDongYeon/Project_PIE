@@ -751,6 +751,7 @@
 	width: 100%;
 	height: 100%;
 	padding-top: 65px;
+	overflow-y : scroll;
 }
 .page-btn-zone{
 	position: fixed;
@@ -789,4 +790,5 @@
 	display: inline-block;
 	cursor: pointer;
 }
+
 

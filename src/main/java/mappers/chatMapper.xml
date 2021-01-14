@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	<!-- public List<room> getRoomList(Map<String, Object> getRoomListMap); -->
 	<select id="getRoomList" resultType="roomDto" parameterType="hashMap">
-		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ 
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM
 		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
 		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
 		WHERE PROJECT_SEQ = #{projectNum}
@@ -136,11 +136,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND EMAIL = #{loginuser}
 	</update>
 	
-	<!-- public void redirectMessage(int select); -->
-	<update id="redirectMessage">
+	<!-- chatsocketHandler -->
+	<!-- public void unhideAllRoom(int select); -->
+	<update id="unhideAllRoom" parameterType="hashMap">
 		UPDATE CHATTINGROOMLIST
 		SET ENABLED = 1
+		WHERE CHATTING_ROOM_SEQ = #{chatting_room_seq}
+	</update>
+	
+	<!-- chatsocketHandler -->
+	<!-- public void pushAlarm(Map<String, Object> pushAlarmMap); -->
+	<update id="pushAlarm" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CHATTING_ALARM = CHATTING_ALARM + 1
 		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL NOT IN (#{loginuser})
+	</update>
+	
+	<!-- public void checkalarm(Map<String, Object> checkAlarmMap); -->
+	<update id="checkalarm" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CHATTING_ALARM = 0
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL = #{loginuser}
 	</update>
 	
 	<!-- public void updateRoom(int chatting_room_seq, String chatting_room_name); -->
@@ -153,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- public List<room> searchRoom(String searchKeyword); -->
 	<select id="searchRoom" resultType="roomDto" parameterType="hashMap">
-		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ 
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM
 		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
 		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
 		WHERE L.CHATTING_ROOM_NAME LIKE CONCAT('%',#{searchKeyword},'%')
