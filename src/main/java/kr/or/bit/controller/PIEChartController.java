@@ -2,8 +2,6 @@ package kr.or.bit.controller;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.card;
+import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.list;
+import kr.or.bit.dto.list_progress;
+import kr.or.bit.dto.member_progress;
+import kr.or.bit.dto.project_member;
 import kr.or.bit.service.KanbanService;
 import kr.or.bit.service.PIEChartService;
 import kr.or.bit.util.KanbanSortHandler;
@@ -111,18 +113,83 @@ public class PIEChartController {
 	/*전체 진행도 끝*/
 	
 	/*리스트 진행도 시작*/
-	// 해당 프로젝트의 해당되는 칸반 객체를 뷰에게 전달
+	//리스트 진행도 가져오기
 	@RequestMapping(value = "getListProgress.pie", method = RequestMethod.POST)
 	public View getListProgress(@RequestParam("projectNum") int projectNum, Model model) {
-
 		ArrayList<card> cardlist = kanbanservice.loadWholeCard(projectNum);
 		ArrayList<list> listList = kanbanservice.loadWholeList(projectNum);
 		ArrayList<list> sortedList = KanbanSortHandler.kanbanSort(cardlist,listList);
+		ArrayList<Object> ListProgress = new ArrayList<>();
+		
+		for(int i = 0; i <sortedList.size(); i++) {
+			ArrayList<card> tempCardList = sortedList.get(i).getCardList();
 			
-		// 여기까지 오면 카드까지 정렬됨
-		model.addAttribute("listList", sortedList);
+			int total_check_list_count = 0;
+			int total_checked_list_count = 0;
+			
+			for(int j = 0; j < tempCardList.size(); j++) {
+				int total_checkList_count_by_card_seq = chartservice.getTotalCheckListByCardSeqService(tempCardList.get(j).getCard_seq());
+				int total_checkList_checked_count_by_card_seq = chartservice.getTotalCheckedCheckListByCardSeqService(tempCardList.get(j).getCard_seq());
+				total_check_list_count += total_checkList_count_by_card_seq;
+				total_checked_list_count += total_checkList_checked_count_by_card_seq;
+			}
+			
+			DecimalFormat form = new DecimalFormat("#.##");
+			String done = form.format(((double)total_checked_list_count/(double)total_check_list_count)*100);
+			list_progress lp = new list_progress();
+			lp.setList_name(sortedList.get(i).getList_name());
+			lp.setDone(done);
+			ListProgress.add(lp);
+		}
+		model.addAttribute("list_progress", ListProgress);
 		return jsonview;
 	}
 	/*리스트 진행도 끝*/
+	
+	
+	/*멤버 진행도 가져오기*/
+	//멤버 진행도 가져오기 
+	@ResponseBody
+	@RequestMapping(value = "getMemberProgress.pie", method = RequestMethod.POST)
+	public View getMemberProgress(@RequestParam("projectNum") int projectNum, Model model){
+					ArrayList<project_member> members = chartservice.getMemberService(projectNum);
+					ArrayList<member_progress> mpList = new ArrayList<member_progress>();
+					
+					for(int i = 0; i < members.size(); i++) {
+						member_progress mp = new member_progress();
+						String email = chartservice.getNickNameByEmailService(members.get(i).getEmail());
+						
+						
+						int total_count = 0;
+						int done_count = 0;
+						
+						System.out.println(members.get(i).getEmail());
+						ArrayList<cardMember> cdm = chartservice.getCardSeqByMemberEmailService(members.get(i).getEmail());
+						for(int j = 0; j < cdm.size(); j++) {
+							total_count	+= chartservice.getTotalCheckListByCardSeqService(cdm.get(j).getCard_seq());
+							done_count += chartservice.getTotalCheckedCheckListByCardSeqService(cdm.get(j).getCard_seq());
+						}
+						DecimalFormat form = new DecimalFormat("#.##");
+						String done = form.format(((double)done_count/(double)total_count)*100);
+						mp.setEmail(email);
+						mp.setDone(done);
+						mpList.add(mp);
+					}
+					model.addAttribute("mp", mpList);
+					
+				return jsonview; 
+		}
+	/*멤버 진행도 끝*/
 }
+
+
+
+
+
+
+
+
+
+
+
 

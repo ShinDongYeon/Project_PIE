@@ -29,4 +29,11 @@ public interface CheckListDao {
 	
 	public List<checkList> getCheckListByCard(Map<String, Object> chkListMap);
 	
+	public int getTotalCheckListByCardSeq(int card_seq);
+	
+	public int getTotalCheckedCheckListByCardSeq(int card_seq);
+	
+	public int getTotalUncheckedCheckListByCardSeq(int card_seq);
+	
+	
 }
