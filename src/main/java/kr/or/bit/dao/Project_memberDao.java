@@ -7,6 +7,9 @@ public interface Project_memberDao {
 	public project_member isExistFromProject(int projectNum, String email);
 	
 	public void joinToPieAsTeam(int projectNum, String email);
+	
+	public int getMemberCount(int projectNum);
 }
+
 
  

@@ -19,32 +19,32 @@ crossorigin="anonymous"></script>
 
 	<!-- chart-1 -->
 	<div class = "chart-1-wrapper">
-		<div class = 'chart-letter-wrapper'>
-			<span>파이 규모</span>
+		<div class = 'chart-letter-wrapper-1'>
+		파이 규모
 		</div>
 		<canvas id="chart-1"></canvas>
 	</div>
 	
 	<!-- chart-2 -->
 	<div class = "chart-2-wrapper">
-		<div class = 'chart-letter-wrapper'>
-			<span>전체 진행도</span>
+		<div class = 'chart-letter-wrapper-2'>
+		전체 진행도
 		</div>
 		<canvas id="chart-2"></canvas>
 	</div>
 	
 	<!-- chart-3 -->
 	<div class = "chart-3-wrapper">
-		<div class = 'chart-letter-wrapper'>
-			<span>개인 진행도</span>
+		<div class = 'chart-letter-wrapper-3'>
+		개인 진행도
 		</div>
 		<canvas id="chart-3"></canvas>
 	</div>
 	
 	<!-- chart-4 -->
 	<div class = "chart-4-wrapper">
-		<div class = 'chart-letter-wrapper'>
-			<span>리스트 진행도</span>
+		<div class = 'chart-letter-wrapper-4'>
+	    리스트 진행도
 		</div>
 		<canvas id="chart-4"></canvas>
 	</div>

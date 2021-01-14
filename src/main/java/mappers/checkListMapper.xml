@@ -35,6 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE CHECKLIST SET ISCHECKED = #{ischecked} WHERE CHECK_SEQ=#{check_seq}
 	</update>
 	
+	<select id="getlCheckListCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
 </mapper>
 	
 

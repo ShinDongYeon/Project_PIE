@@ -19,4 +19,7 @@ public interface CheckListDao {
 	
 	public void editCheckedStatus(checkList chk);
 	
+	public int getlCheckListCount(int projectNum);
+	
+	
 }
