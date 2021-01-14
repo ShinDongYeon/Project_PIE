@@ -2,6 +2,8 @@ package kr.or.bit.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,5 +93,22 @@ public class CheckListController {
 		System.out.println("edit checked status");
 		model.addAttribute("data", chk);
 		return jsonview;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getCheckListByCard", method = RequestMethod.POST)
+	public List<checkList> getCheckListByCard(@RequestParam("projectNum") int projectNum, Model model) {
+
+		List<checkList> chkList = null;
+		Map<String, Object> chkListMap = new HashMap<String, Object>();
+		System.out.println("chkListMap Controller");
+		try {
+			chkListMap.put("projectNum", projectNum);
+			chkList = checklistservice.getCheckListByCardService(chkListMap);
+			System.out.println("chkList:::" + chkList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return chkList;
 	}
 }

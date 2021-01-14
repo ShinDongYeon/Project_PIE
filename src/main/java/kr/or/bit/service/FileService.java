@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.bit.dao.FileDao;
 import kr.or.bit.dto.file;
-import kr.or.bit.util.UploadPath;
 
 @Service
 public class FileService{
@@ -24,7 +23,7 @@ public class FileService{
 
 	//파일 업로드 서비스 
 	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
-		String UPLOAD_PATH = UploadPath.upload_path_files();
+		String UPLOAD_PATH = UploadPath.upload_path();
 		//파일 저장 경로 (프로젝트번호 기준)
 		String specific_path = "/file_directory_project_seq_"+projectNum;
 		

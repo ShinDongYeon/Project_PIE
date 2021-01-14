@@ -5,7 +5,7 @@
 	display: none;
 	position: absolute;
 	z-index: 102;
-	left: -50%;
+	left: -41%;
 	top: 3%;
 }
 #crtChat-modal-background{
@@ -22,16 +22,16 @@
 
 .crtChat-wrapper{
 	width: 400px;
-	height: 600px;
+	height: 523px;
 	background-color: #22242a;
-	margin-top:-25%;
-	margin-left:50%;
+	/*margin-top:-25%;
+	margin-left:50%;*/
 }
 
 /*top*/
 .crtChat-top-wrapper{
 	display: flex;
-	height: 12%;
+	/*height: 12%;*/
 	border-bottom: 2px solid black;	
 	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
 	color: #fff;
@@ -83,7 +83,7 @@
 
 /*middle*/
 .crtChat-middle-wrapper{
-	height: 58%;
+	height: 52%;
 	color: #fff;
 	border-bottom: 2px solid black;
 	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
