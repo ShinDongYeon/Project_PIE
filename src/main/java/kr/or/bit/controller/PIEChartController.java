@@ -1,5 +1,12 @@
 package kr.or.bit.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
+import kr.or.bit.dto.card;
+import kr.or.bit.dto.list;
+import kr.or.bit.service.KanbanService;
 import kr.or.bit.service.PIEChartService;
+import kr.or.bit.util.KanbanSortHandler;
 
 @Controller
 public class PIEChartController {
 	
 	@Autowired
 	private PIEChartService chartservice;
+	
+	@Autowired
+	private KanbanService kanbanservice;
 	
 	@Autowired
 	private View jsonview;
@@ -71,5 +85,44 @@ public class PIEChartController {
 				return jsonview; 
 		}
 	/*파이규모 끝*/
+	
+	
+	/*전체 진행도 시작*/
+	//전체 진행도 가져오기 및 계산하기
+	@ResponseBody
+	@RequestMapping(value = "getTotalProgress.pie", method = RequestMethod.POST)
+	public View getTotalProgress(@RequestParam("projectNum") int projectNum, Model model){
+				int checklist_total_count = chartservice.getCheckListCountService(projectNum);
+				int checklist_checked_count = chartservice.getCheckListCheckedCountService(projectNum);
+				int checklist_unchecked_count = chartservice.getCheckListUnCheckedCountService(projectNum);
+				
+				//소수점 두자리까지 포맷
+				DecimalFormat form = new DecimalFormat("#.##");
+				
+				String done = form.format(((double)checklist_checked_count/(double)checklist_total_count)*100);
+				String inProgress = form.format(((double)checklist_unchecked_count/(double)checklist_total_count)*100);
+
+				Map<String, Object> progress = new HashMap<>();
+				progress.put("done", done);
+				progress.put("inProgress", inProgress);
+				model.addAttribute("progress",progress);
+				return jsonview; 
+		}
+	/*전체 진행도 끝*/
+	
+	/*리스트 진행도 시작*/
+	// 해당 프로젝트의 해당되는 칸반 객체를 뷰에게 전달
+	@RequestMapping(value = "getListProgress.pie", method = RequestMethod.POST)
+	public View getListProgress(@RequestParam("projectNum") int projectNum, Model model) {
+
+		ArrayList<card> cardlist = kanbanservice.loadWholeCard(projectNum);
+		ArrayList<list> listList = kanbanservice.loadWholeList(projectNum);
+		ArrayList<list> sortedList = KanbanSortHandler.kanbanSort(cardlist,listList);
+			
+		// 여기까지 오면 카드까지 정렬됨
+		model.addAttribute("listList", sortedList);
+		return jsonview;
+	}
+	/*리스트 진행도 끝*/
 }
 

@@ -13,7 +13,7 @@ crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/resources/css/chart.css">
 </head>
 <body>
-<%-- ${sessionScope.projectNum} --%>
+
 <!-- whole wrapper -->
 <div class = "whole-chart-wrapper">
 
@@ -28,7 +28,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-2 -->
 	<div class = "chart-2-wrapper">
 		<div class = 'chart-letter-wrapper-2'>
-		전체 진행도
+		전체 진행률
 		</div>
 		<canvas id="chart-2"></canvas>
 	</div>
@@ -44,7 +44,7 @@ crossorigin="anonymous"></script>
 	<!-- chart-4 -->
 	<div class = "chart-4-wrapper">
 		<div class = 'chart-letter-wrapper-4'>
-	    리스트 진행도
+	    리스트 진행률
 		</div>
 		<canvas id="chart-4"></canvas>
 	</div>

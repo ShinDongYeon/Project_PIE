@@ -39,6 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
 	</select>
 	
+	<select id="getCheckListCheckedCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE ISCHECKED = 1 AND CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
+	<select id="getCheckListUnCheckedCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE ISCHECKED = 0 AND CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
 </mapper>
 	
 

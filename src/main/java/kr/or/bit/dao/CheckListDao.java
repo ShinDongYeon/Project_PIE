@@ -21,5 +21,10 @@ public interface CheckListDao {
 	
 	public int getlCheckListCount(int projectNum);
 	
+	public int getCheckListCheckedCount(int projectNum);
+	
+	public int getCheckListUnCheckedCount(int projectNum);
+	
+	
 	
 }
