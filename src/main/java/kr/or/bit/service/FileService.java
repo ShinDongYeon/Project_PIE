@@ -25,7 +25,7 @@ public class FileService{
 
 	
 	//재구
-	private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files";
+	//private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files";
 	
 	//재홍
 	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files"; 
