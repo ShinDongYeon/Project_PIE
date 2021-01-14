@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		businessHours: true, // display business hours
 		editable: true,
 		eventLimit: true,
-		displayEventTime: true,
+		displayEventTime: false,
   		displayEventEnd: true,
 		forceEventDuration: true,
 		minTime: '00:00:00',
