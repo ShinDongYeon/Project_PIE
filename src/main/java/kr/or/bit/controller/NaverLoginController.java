@@ -63,7 +63,6 @@ public class NaverLoginController {
         //로그인 사용자 정보를 읽어온다.
         apiResult = naverLoginBO.getUserProfile(oauthToken);
         model.addAttribute("result", apiResult);
-        System.out.println("result"+apiResult);
         
         //String형식인 apiResult를 json형태로 바꿈
         JSONParser parser = new JSONParser();
@@ -87,13 +86,11 @@ public class NaverLoginController {
         user isExist = userservice.searchEmail(email);
         if(isExist != null) {
         	//아이디가 이미 존재하면 바로 메인 페이지로 이동
-        	System.out.println("아이디 존재");
         	session.setAttribute("nick", isExist.getNickName());
         	session.setAttribute("loginuser", email);
         	return "main/main";
         }else {
         	//없으면 디비에 insert 후에 이동 
-        	System.out.println("아이디 없음");
         	user u = new user();
         	u.setEmail(email);
         	u.setNickName(nickname);

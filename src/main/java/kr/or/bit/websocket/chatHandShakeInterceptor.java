@@ -20,11 +20,6 @@ public class chatHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     	
     	ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
     	HttpServletRequest req= ssreq.getServletRequest();
-        System.out.println("Before Handshake");
-        System.out.println("select: " + req.getParameter("select"));
-        System.out.println("roomname: " + req.getParameter("roomname"));
-        System.out.println("nickname: " + req.getSession().getAttribute("nick"));
-        System.out.println("loginuser: " + req.getSession().getAttribute("loginuser"));
        
         // 파라미터로 입력된 attributes에 put을 하면 
         // WebSocketSession에 자동으로 저장되어 Chat class에서 활용 가능
@@ -39,7 +34,6 @@ public class chatHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     public void afterHandshake(ServerHttpRequest request,
             ServerHttpResponse response, WebSocketHandler wsHandler,
             Exception ex) {
-        System.out.println("After Handshake");
   
         super.afterHandshake(request, response, wsHandler, ex);
     }

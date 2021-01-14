@@ -40,7 +40,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getCardContent" resultType="cardDto" parameterType="HashMap">
 		SELECT CARD_CONTENT, CARD_NAME FROM KANBANCARD WHERE CARD_SEQ = #{cardSeq}
 	</select>
+	
+	<select id="getlCardCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
 </mapper>
+
 
 
 	

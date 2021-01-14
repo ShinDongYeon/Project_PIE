@@ -37,6 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBANLIST WHERE LIST_SEQ = #{param1}
 	</delete>
 	
+	<select id="getlListCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM KANBANLIST WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
 </mapper>
 	
 

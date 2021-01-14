@@ -17,6 +17,7 @@ public class chatsocketHandler extends TextWebSocketHandler{
 		@Autowired
 		private ChatService chatservice;
 		
+		private Map<String, HashMap<String,WebSocketSession>> selectmap = SessionMaps.getUserMap();
 		private Map<String, HashMap<String,WebSocketSession>> usermap = SessionMaps.getUserMap();
 		private Map<String, WebSocketSession> alarmusers = SessionMaps.getAlarmusers();
 		
@@ -25,61 +26,60 @@ public class chatsocketHandler extends TextWebSocketHandler{
 			
 			// 입장한 채팅방 이름 꺼내와 변수에 저장 
 			String select = getCurrentChatRoom(session);
-			System.out.println("입장한 채팅방 = " + select);
-			System.out.println("sessionid : " + session.getId());
+			String loginuser = getLoginUser(session);
 		
 			//채팅방이 기존에 존재했던 방인지에 대한 유무 검증
-			if (SessionMaps.getUserMap().containsKey(select)) { //기존에 존재해 Map에 저장되어 있었다면,
-				usermap.get(select).put(session.getId(),session); // 클라이언트 session값 저장
-				System.out.println("채팅방 존재했음");
+			if (usermap.containsKey(select)) { //기존에 존재해 Map에 저장되어 있었다면,
+				selectmap.get(select).put(session.getId(),session); // 클라이언트 session값 저장
+				usermap.get(loginuser).put(session.getId(),session); // 클라이언트 session값 저장
 				
 			} else {
-				System.out.println("새로 생성된 채팅방"); // 채팅방이 새로 생성되었다면 
 				Map<String,WebSocketSession> list = new HashMap<String , WebSocketSession>(); 
 				list.put(session.getId(),session); // 클라이언트의 sessionId와 session 객체를 Map에 저장한 후
-				usermap.put(select, (HashMap<String, WebSocketSession>) list); // usermap에 Put함으로써 새로운 채팅방 생성
+				selectmap.put(select, (HashMap<String, WebSocketSession>) list); // usermap에 Put함으로써 새로운 채팅방 생성
+				
+				Map<String,WebSocketSession> list2 = new HashMap<String , WebSocketSession>(); 
+				list2.put(session.getId(),session); // 클라이언트의 sessionId와 session 객체를 Map에 저장한 후
+				usermap.put(loginuser, (HashMap<String, WebSocketSession>) list2); // usermap에 Put함으로써 새로운 채팅방 생성
 			}
 			
 			String userid = getNickName(session);
 			String inform= "알림|" +userid+ "님이 입장하였습니다.";
-			System.out.println(inform);
 			TextMessage msg = new TextMessage(inform);
-			for(Map.Entry m : usermap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
+			/*//OOO님이 입장하셨습니다.
+			for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 				WebSocketSession sess = (WebSocketSession) m.getValue();
 				//sess.sendMessage(msg);
 			}
-			
+			*/
 		}
 
 		@Override
 		public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-			
+			//'|' 이 문자가 있으면 => 실제 채팅메시지를 보낼때
 			if(message.getPayload().toString().indexOf("|") != -1) {
 				String select = getCurrentChatRoom(session);
-				String email = getLoginUser(session);
-				System.out.println("메시지가 입력된 채팅방 :" + select);
-				System.out.println("message : "+message);
-				System.out.println("message : "+message.getPayload());
-				for(Map.Entry m : usermap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
+				String loginuser = getLoginUser(session);
+				
+				for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					sess.sendMessage(message);
 				}
-				
-				for(WebSocketSession sess : alarmusers.values()) { // 로그인 한 유저들에게 새로운 대화가 오간 채팅방 정보를 전달
-					sess.sendMessage(new TextMessage(select));
-					System.out.println("메시지를 보내요");
-				}
-				
+			
+			//'|' 이 문자가 없으면(loginuser이메일을 메시지로 받음) 
+			//	=> connect socket을 태웠을때
 			}else {
 				Map<String, Object> pushAlarmMap = new HashMap<String, Object>();
 				String select = getCurrentChatRoom(session);
 				String loginuser = getLoginUser(session);
+				
 				chatservice.unhideAllRoom(Integer.parseInt(select));
 				pushAlarmMap.put("select", Integer.parseInt(select));
 				pushAlarmMap.put("loginuser", loginuser);
 				chatservice.pushAlarm(pushAlarmMap);
+
 				// 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
-				for(Map.Entry m : usermap.get(select).entrySet()) { 
+				for(Map.Entry m : selectmap.get(select).entrySet()) {
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					sess.sendMessage(message);
 				}
@@ -94,13 +94,21 @@ public class chatsocketHandler extends TextWebSocketHandler{
 				// 입장한 채팅방 이름 꺼내와 변수에 저장 
 				String select = getCurrentChatRoom(session);
 				String userid = getNickName(session);
+				String loginuser = getLoginUser(session);
+				
+				//CHATTINGROOMLIST clicked 컬럼 0 -> 1
+				Map<String, Object> roomCloseMap = new HashMap<String, Object>();
+				roomCloseMap.put("select", select);
+				roomCloseMap.put("loginuser", loginuser);
+				chatservice.roomClosed(roomCloseMap);
+				
 				String inform= "알림|" +userid+ "님이 퇴장하였습니다.";
 				TextMessage msg = new TextMessage(inform);
-				usermap.get(select).remove(session.getId());  // 채팅방에서 클라이언트라 접속을 끊으면, 참여중인 목록에서 session을 삭제한 후
-				session.close();
-				System.out.println(getNickName(session) +"나갔어요");
+				selectmap.get(select).remove(session.getId());  // 채팅방에서 클라이언트라 접속을 끊으면, 참여중인 목록에서 session을 삭제한 후
+				usermap.get(loginuser).remove(session.getId());  // 채팅방에서 클라이언트라 접속을 끊으면, 참여중인 목록에서 session을 삭제한 후
 				
-				for(Map.Entry m : usermap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
+				//OOO님이 퇴장하였습니다 메시지
+				for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					//sess.sendMessage(msg);
 				}

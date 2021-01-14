@@ -156,7 +156,7 @@
 						</div>
 						<i class="fas fa-at"></i>
 						<i class="fas fa-font"></i>
-						<i class="fas fa-download"></i>
+						<i class="fas fa-upload"></i>
 					</div>
 					
 					<!-- chat send button -->

@@ -25,6 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE USER SET profile = #{param2} WHERE email = #{param1}
 	</update>
 	
+	<select id="getNickNameByEmail" parameterType="String" resultType="String">
+		SELECT NICKNAME FROM USER WHERE EMAIL = #{param1}
+	</select>
+	
 	
 </mapper>
 

@@ -447,6 +447,8 @@ public class ChatController {
 			checkAlarmMap.put("select", select);
 			checkAlarmMap.put("loginuser", loginuser);
 			chatservice.checkalarm(checkAlarmMap);
+			chatservice.roomClicked(checkAlarmMap);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

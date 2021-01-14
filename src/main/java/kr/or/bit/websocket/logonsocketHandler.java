@@ -18,13 +18,11 @@ public class logonsocketHandler extends TextWebSocketHandler{
 	
 	//로그인한 전체 회원 관리
 	List<String> sessionList = new ArrayList<>();
-	// 1대1
 	Map<String, WebSocketSession> userSessionsMap = new HashMap<>();
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("afterConnectionEstablished: "+session);
 		String loginuser = getLoginUser(session);
 		//기존에 존재한 회원인지에 대한 유무 검증,
 		if(!userSessionsMap.containsKey(loginuser)) {
@@ -37,10 +35,6 @@ public class logonsocketHandler extends TextWebSocketHandler{
 			WebSocketSession sess = (WebSocketSession) m.getValue(); 
 			sess.sendMessage(new TextMessage(json));
 		}
-		
-		System.out.println("loginuser: " + loginuser);
-		System.out.println("sessionList: " + sessionList);
-		
 	}
 
 	@Override

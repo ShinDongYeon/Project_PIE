@@ -105,9 +105,26 @@ public class ChatService {
 		dao.pushAlarm(pushAlarmMap);
 	}
 	
+	//chatsocketHandler
+	public void roomClosed(Map<String, Object> roomCloseMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.roomClosed(roomCloseMap);
+	}
+	
+	//chatsocketHandler
+	public void resetAlarm(Map<String, Object> resetAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.resetAlarm(resetAlarmMap);
+	}
+	
 	public void checkalarm(Map<String, Object> checkAlarmMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		dao.checkalarm(checkAlarmMap);
+	}
+	
+	public void roomClicked(Map<String, Object> checkAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		dao.roomClicked(checkAlarmMap);
 	}
 	
 	public void updateRoom(Map<String, Object> updateMap) {

@@ -1,5 +1,6 @@
 package kr.or.bit.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,8 @@ public List<user> projectMemList(Map<String, Object> projectMemListMap);
 	public void deleteAllCardMem(int card_seq);
 
 	public List<user> getCardMemBySession(Map<String, Object> cardMemMap);
+	
+	public ArrayList<cardMember> getCardSeqByMemberEmail(String email);
 }
+
+

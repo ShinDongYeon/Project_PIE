@@ -201,10 +201,9 @@ function onMessage(evt){
 	var data = evt.data;
 	if(data.indexOf('|') != -1){
 		appendMessage(data);
-	}else{
+	}else if(data == $('#session_email').val()){
 		connectSocket.send($('#select').val());
 	}
-	
 }
 
 function onClose(evt){
@@ -287,7 +286,7 @@ function appendMessage(msg) {
 								});
 							});
 							
-							websocket.send($('#select').val());
+							websocket.send($('#session_email').val());
 							
 				}else if(msginfo == "알림"){
 					console.log("알림에 걸림");
@@ -327,7 +326,7 @@ function appendMessage(msg) {
 										
 						}//if
 					});//each
-
+					
 				}
 				$("#chatMessageArea").append(msgbox);
 				var chatAreaHeight = $("#chatArea").height();
