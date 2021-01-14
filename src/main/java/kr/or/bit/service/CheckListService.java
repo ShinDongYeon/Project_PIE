@@ -2,11 +2,14 @@ package kr.or.bit.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.bit.dao.CardMemberDao;
 import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dto.checkList;
 
@@ -64,5 +67,11 @@ public class CheckListService {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		chkdao.editCheckedStatus(chk);
 	}
+	
+	// getCheckListByCardService
+		public List<checkList> getCheckListByCardService(Map<String, Object> chkListMap) {
+			CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+			return chkdao.getCheckListByCard(chkListMap);
+		}
 
 }

@@ -291,8 +291,8 @@ cursor: pointer;
 	width: 25px;
 	height: 25px;
 	border-radius: 100%;
-	/* display: block; */
-	position: absolute;
+	position: relative;
+	margin-bottom: -5px; 
 	margin-left: 10px;
 	
 }

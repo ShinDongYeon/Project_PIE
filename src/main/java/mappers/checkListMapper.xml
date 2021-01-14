@@ -35,6 +35,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE CHECKLIST SET ISCHECKED = #{ischecked} WHERE CHECK_SEQ=#{check_seq}
 	</update>
 	
+	<select id="getCheckListByCard" resultType="checkListDto"
+		parameterType="hashMap">
+		SELECT COUNT(*) AS 'TOTAL',
+			   COUNT(IF(ISCHECKED=1,ISCHECKED,NULL)) AS 'ISCHECKED',
+			   C.CARD_SEQ
+			   FROM CHECKLIST C
+			   JOIN KANBANCARD K ON C.CARD_SEQ=K.CARD_SEQ
+			   WHERE K.PROJECT_SEQ=#{projectNum}
+			   GROUP BY C.CARD_SEQ
+	</select>
+	
 </mapper>
 	
 
