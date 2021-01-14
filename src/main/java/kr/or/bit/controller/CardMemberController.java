@@ -69,7 +69,6 @@ public class CardMemberController {
 		// get Project Session
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int) httpsession.getAttribute("projectNum");
-		System.out.println("");
 
 		List<user> mycardList = null;
 		Map<String, Object> cardMemMap = new HashMap<String, Object>();

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,8 +100,10 @@ public class CheckListController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getCheckListByCard", method = RequestMethod.POST)
-	public List<checkList> getCheckListByCard(@RequestParam("projectNum") int projectNum, Model model) {
-
+	public List<checkList> getCheckListByCard(@RequestParam("sessionEmail") String sessionEmail,
+											HttpServletRequest request) {
+		HttpSession httpsession = request.getSession();
+		int projectNum = (int) httpsession.getAttribute("projectNum");
 		List<checkList> chkList = null;
 		Map<String, Object> chkListMap = new HashMap<String, Object>();
 		System.out.println("chkListMap Controller");

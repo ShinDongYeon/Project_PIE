@@ -25,5 +25,5 @@ public interface CardDao {
 	
 	public void updateCardContent(card ca);
 	
-	public String getCardContent(int cardSeq);
+	public List<card> getCardContent(Map<String,Object> cardInfo);
 }

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -248,11 +249,17 @@ public class KanbanController {
 	//get Card Content
 	@ResponseBody
 	@RequestMapping(value = "getCardContent.pie", method = RequestMethod.POST)
-	public View getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
+	public List<card> getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
 		System.out.println("get card content controller");
-		String card_content = kanbanservice.getCardContentService(cardSeq);
-		model.addAttribute("data", card_content);
-		return jsonview;
+		List<card> card = null;
+		Map<String,Object> cardInfo = new HashMap<String,Object>();
+		try {
+			cardInfo.put("cardSeq", cardSeq);
+			card = kanbanservice.getCardContentService(cardInfo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return card;
 	}
 
 }

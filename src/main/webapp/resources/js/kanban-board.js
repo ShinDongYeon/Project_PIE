@@ -266,7 +266,7 @@ $(function() {
 	//카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name) {
 		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'>" + card_name +
-			"<i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + 
+			"<i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" + 
 			"</div>";
 		return cardTag;
 	}
@@ -288,9 +288,9 @@ $(function() {
 		return memTag;
 	}
 	
-	//checkList
+	//loadCheckList
 	function loadChkList(ischecked,total){
-		let chkTag = "<div><i class='far fa-check-square'> "+ischecked+"/"+total+"</i></div>";
+		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> "+ischecked+"/"+total+"</i></div>";
 		return chkTag;
 	}
 
@@ -342,22 +342,15 @@ $(function() {
 	}
 	getCardMemBySession();
 	
-	
+	//load CheckList on Card Contents
 	function getCheckListByCard() {
 		$.ajax({
 			type: "post",
-			url: "getCheckListByCard?projectNum="+projectNum,
+			url: "getCheckListByCard?sessionEmail="+$('#session_email').val(),
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				console.log("projectNum"+projectNum);
-				console.log(data);
-				
-				/*$.each(data, function(index, item) {
-							let cardPro = makeMemPro(item.email,item.nickName,item.profile)
-							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
-						});*/
 				$.each(data,function(index,item){
 					let chk = loadChkList(item.ischecked,item.total)
 					$("[data-card-seq="+item.card_seq+"]").append(chk);
@@ -367,6 +360,7 @@ $(function() {
 	}
 	
 	getCheckListByCard();
+
 	}
 
 	console.log("요소의 마지막 번호 : " + lastNum);
