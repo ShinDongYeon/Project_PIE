@@ -292,7 +292,7 @@ function popupOpen(roomno,roomname){
 	*/
 	
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
-	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
+	let popOption = "width=370, height=600, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
 	
 	$.ajax(
