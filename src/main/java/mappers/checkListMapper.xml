@@ -45,8 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getCheckListUnCheckedCount" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM CHECKLIST WHERE ISCHECKED = 0 AND CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
-		
 	</select>
+	
 	<select id="getCheckListByCard" resultType="checkListDto"
 		parameterType="hashMap">
 		SELECT COUNT(*) AS 'TOTAL',
@@ -56,6 +56,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   JOIN KANBANCARD K ON C.CARD_SEQ=K.CARD_SEQ
 			   WHERE K.PROJECT_SEQ=#{projectNum}
 			   GROUP BY C.CARD_SEQ
+	</select>
+	
+	<select id="getTotalCheckListByCardSeq" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = #{param1}
+	</select>
+	
+	<select id="getTotalCheckedCheckListByCardSeq" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = #{param1} AND ISCHECKED = 1
 	</select>
 	
 </mapper>

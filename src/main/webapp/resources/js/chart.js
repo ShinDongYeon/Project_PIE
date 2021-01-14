@@ -2,11 +2,48 @@ $(document).ready(function() {
 	
 	let project_seq = Number($("#projectNum").val());
 	
+	function getRandomArbitrary(min, max) {
+ 		return Math.random() * (max - min) + min;
+	}
+	let	memberNames = new Array();
+	let memberDones = new Array();
+	let memberColors = new Array();
+	getMemberProgress(project_seq);
+	
+	//랜덤 컬러로 만드는 함수
+	function rancolor(){
+		let randomColor = new Array();
+		for(let i = 0; i < 6; i++){
+		randomColor.push('rgba('+getRandomArbitrary(0, 255)+','+
+							  getRandomArbitrary(0, 255)+','+
+							  getRandomArbitrary(0, 255)+')');
+		}
+		return randomColor;
+	}
+	
+	//랜덤 컬러로 만드는 함수
+	function rancolor2(){
+		let randomColor = new Array();
+		for(let i = 0; i < 2; i++){
+		randomColor.push('rgba('+getRandomArbitrary(0, 255)+','+
+							  getRandomArbitrary(0, 255)+','+
+							  getRandomArbitrary(0, 255)+')');
+		}
+		return randomColor;
+	}
+	
+	/* 2번 차트*/
 	let done = 0;
 	let inProgress = 0;
 	getTotalProgress(project_seq);
+	/* 2번 차트*/
 	
+	/* 4번 차트*/
+	let names = new Array();
+	let dones = new Array();
+	let colors = new Array();
 	getListProgress(project_seq);
+	/* 4번 차트*/
 	
 	let chart1 = document.getElementById('chart-1');
 	let cht1 = new Chart(chart1, {
@@ -20,13 +57,7 @@ $(document).ready(function() {
 					   getCheckListCount(project_seq), 
 					   getMemberCount(project_seq), 
 					   getCalendarCount(project_seq)],
-				backgroundColor: [
-					'rgba(255, 99, 132)',
-					'rgba(54, 162, 235)',
-					'rgba(255, 206, 86)',
-					'rgba(75, 192, 192)',
-					'rgba(54, 162, 235)'
-				],
+				backgroundColor: rancolor(),
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
@@ -56,10 +87,7 @@ $(document).ready(function() {
 			datasets: [{
 				data: [done,inProgress],
 				barPercentage: 1,
-				backgroundColor: [
-					'#f2dd68',
-					'rgba(0, 0, 0)',
-				],
+				backgroundColor: rancolor2,
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
@@ -85,16 +113,11 @@ $(document).ready(function() {
 	let cht3 = new Chart(chart3, {
 		type: 'polarArea',
 		data: {
-			labels: ['재구','재홍','동연','지연'],
+			labels: memberNames,
 			datasets: [{
 				label: '파이원 진행도',
-				data: [9,6,7,7],
-				backgroundColor: [
-					'rgba(255, 99, 132)',
-					'rgba(54, 162, 235)',
-					'rgba(255, 206, 86)',
-					'rgba(75, 192, 192)'
-				],
+				data: memberDones,
+				backgroundColor: memberColors,
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
@@ -120,16 +143,11 @@ $(document).ready(function() {
 	let cht4 = new Chart(chart4, {
 		type: 'bar',
 		data: {
-			labels: ['리스트1','리스트2','리스트3','리스트4'],
+			labels: names,
 			datasets: [{
 				label: '진행률',
-				data: [9,6,7,7],
-				backgroundColor: [
-					'rgba(255, 99, 132)',
-					'rgba(54, 162, 235)',
-					'rgba(255, 206, 86)',
-					'rgba(75, 192, 192)'
-				],
+				data: dones,
+				backgroundColor: colors,
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
@@ -269,11 +287,30 @@ $(document).ready(function() {
 	
 	
 	/*개인 진행도 시작*/
+	function getMemberProgress(projectNum) {
+			
+			$.ajax({
+				type: "post",
+				url: "getMemberProgress.pie?projectNum="+projectNum,
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					$.each(data.mp, function(index, item){
+						memberNames.push(item.email);
+						memberDones.push(Number(item.done));
+						memberColors.push('rgba('+getRandomArbitrary(0, 255)+','+
+											getRandomArbitrary(0, 255)+','+
+											getRandomArbitrary(0, 255)+')');
+					});
+				}
+			});
+	}
 	/*개인 진행도 끝*/
 	
-	
+
 	/*리스트 진행도 시작*/
-		function getListProgress(projectNum) {
+	function getListProgress(projectNum) {
 			
 			$.ajax({
 				type: "post",
@@ -282,7 +319,13 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				success: function(data) {
-					console.log(data);
+					$.each(data.list_progress, function(index, item){
+						names.push(item.list_name);
+						dones.push(item.done);
+						colors.push('rgba('+getRandomArbitrary(0, 255)+','+
+											getRandomArbitrary(0, 255)+','+
+											getRandomArbitrary(0, 255)+')');
+					});
 				}
 			});
 	}

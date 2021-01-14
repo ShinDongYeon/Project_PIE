@@ -1,14 +1,20 @@
 package kr.or.bit.service;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.CalendarDao;
 import kr.or.bit.dao.CardDao;
+import kr.or.bit.dao.CardMemberDao;
 import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.ListDao;
 import kr.or.bit.dao.Project_memberDao;
+import kr.or.bit.dao.UserDao;
+import kr.or.bit.dto.cardMember;
+import kr.or.bit.dto.project_member;
 
 @Service
 public class PIEChartService {
@@ -57,6 +63,36 @@ public class PIEChartService {
 		CalendarDao cdao = sqlsession.getMapper(CalendarDao.class);
 		int calendar_count = cdao.getCalendarCount(projectNum);
 		return calendar_count;
+	}
+	//카드 시퀀스로 체크리스트 개수 검색
+	public int getTotalCheckListByCardSeqService(int card_seq) {
+		CheckListDao checklistdao = sqlsession.getMapper(CheckListDao.class);
+		int checklist_count = checklistdao.getTotalCheckListByCardSeq(card_seq);
+		return checklist_count;
+	}
+	//카드 시퀀스로 체크된 체크리스트 개수 검색
+	public int getTotalCheckedCheckListByCardSeqService(int card_seq) {
+		CheckListDao checklistdao = sqlsession.getMapper(CheckListDao.class);
+		int checklist_count = checklistdao.getTotalCheckedCheckListByCardSeq(card_seq);
+		return checklist_count;
+	}
+	//멤버 리스트 가져오기
+	public ArrayList<project_member> getMemberService(int projectNum){
+		Project_memberDao pmdao = sqlsession.getMapper(Project_memberDao.class);
+		ArrayList<project_member> members = pmdao.getMember(projectNum);
+		return members;
+	}
+	//멤버 이메일로 카드 시퀀스들 가져오기 
+	public ArrayList<cardMember> getCardSeqByMemberEmailService(String email){
+		CardMemberDao cdmdao = sqlsession.getMapper(CardMemberDao.class);
+		ArrayList<cardMember> cdmem = cdmdao.getCardSeqByMemberEmail(email);
+		return cdmem;
+	}
+	//멤버 이메일로 닉네임 가져오기 
+	public String getNickNameByEmailService(String email){
+		UserDao userdao = sqlsession.getMapper(UserDao.class);
+		String nickName = userdao.getNickNameByEmail(email);
+		return nickName;
 	}
 	
 }
