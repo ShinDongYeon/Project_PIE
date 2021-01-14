@@ -129,7 +129,6 @@ $(function() {
 		e.preventDefault();
 		console.log("projectTitle")
 		console.log(proTitleEdit.children("#projectTitleInput").val());
-		let originTitle = $("#projectTitle");
 		let editedTitle = proTitleEdit.children("#projectTitleInput").val();
 		let projectSeq = projectNum;
 
@@ -240,9 +239,6 @@ $(function() {
 		let wholeList = listUp();//모든 리스트와 카드 정보를 리턴하는 함수
 		let kanbanJson = JSON.stringify(wholeList);//자바 컨트롤러가 받을 수 있는 형태로 바꿈 
 
-		console.log("wholeList");
-		console.log(wholeList);
-
 		//칸반 객체를 컨트롤러에게 보내는 ajax 
 		$.ajax({
 			type: "post",
@@ -290,6 +286,12 @@ $(function() {
 							"("+email+")' value="+email+
 						' src="/resources/profile/'+email+'_'+profile+'">';
 		return memTag;
+	}
+	
+	//checkList
+	function loadChkList(ischecked,total){
+		let chkTag = "<div><i class='far fa-check-square'> "+ischecked+"/"+total+"</i></div>";
+		return chkTag;
 	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
@@ -339,6 +341,32 @@ $(function() {
 		});
 	}
 	getCardMemBySession();
+	
+	
+	function getCheckListByCard() {
+		$.ajax({
+			type: "post",
+			url: "getCheckListByCard?projectNum="+projectNum,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				console.log("projectNum"+projectNum);
+				console.log(data);
+				
+				/*$.each(data, function(index, item) {
+							let cardPro = makeMemPro(item.email,item.nickName,item.profile)
+							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
+						});*/
+				$.each(data,function(index,item){
+					let chk = loadChkList(item.ischecked,item.total)
+					$("[data-card-seq="+item.card_seq+"]").append(chk);
+				})
+				}
+		});
+	}
+	
+	getCheckListByCard();
 	}
 
 	console.log("요소의 마지막 번호 : " + lastNum);
@@ -786,6 +814,7 @@ $(function() {
 		ws.open = function(msg) {
 			console.log("칸반:" + msg);
 		}
+		
 		ws.onmessage = function(event) {
 			console.log("칸반:" + event.data)
 			loadKanban(projectNum)

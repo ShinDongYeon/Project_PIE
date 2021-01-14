@@ -8,4 +8,5 @@ public class checkList {
 	private String check_name;
 	private int ischecked;
 	private int card_seq;
+	private int total;
 }
