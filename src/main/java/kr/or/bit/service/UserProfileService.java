@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.bit.dao.UserDao;
+import kr.or.bit.util.UploadPath;
 
 @Service
 public class UserProfileService{
@@ -16,22 +17,11 @@ public class UserProfileService{
 	@Autowired
 	private SqlSession sqlsession;
 
-	//재홍
-	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
-	//동연
-	//private final String UPLOAD_PATH = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\profile";
-
-	//재구
-	//private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
-
-	
-	//지연
-	private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
 
 	//파일 업로드 서비스 
 	public void profileUploadService(MultipartFile file, String email) {
 		String fileOGName = file.getOriginalFilename();
-		String UPLOAD_PATH = UploadPath.upload_path();
+		String UPLOAD_PATH = UploadPath.upload_path_profile();
 		String fullName = UPLOAD_PATH+"/"+email+"_"+fileOGName;
 
 			byte[] data;

@@ -1,6 +1,5 @@
 package kr.or.bit.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,4 +63,5 @@ public interface ChatDao {
 	 
 	 public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq);
 	 
+	 public List<roomlist> chatFileUpload(Map<String, Object> map);
 }

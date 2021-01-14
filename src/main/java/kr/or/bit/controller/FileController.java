@@ -18,7 +18,7 @@ import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
-import kr.or.bit.service.UploadPath;
+import kr.or.bit.util.UploadPath;
 
 @Controller
 public class FileController {
@@ -106,7 +106,7 @@ public class FileController {
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
 		
-		String fullPath = UploadPath.upload_path();
+		String fullPath = UploadPath.upload_path_files();
 		fullPath += "file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);

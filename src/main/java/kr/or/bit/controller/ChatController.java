@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -40,9 +39,7 @@ public class ChatController {
 				
 		List<user> memberList = null;
 		Map<String, Object> chatUserListMap = new HashMap<String, Object>();
-		System.out.println("ChatMembers Controller");
 		try {
-			
 			chatUserListMap.put("sessionEmail", sessionEmail);
 			chatUserListMap.put("projectNum", projectNum);
 			memberList = chatservice.chatUserList(chatUserListMap);
@@ -94,7 +91,6 @@ public class ChatController {
 					getRoomListMap.put("loginuser", loginuser);
 					//채팅방 리스트 페이지에 바인딩
 					roomList = chatservice.getRoomList(getRoomListMap);
-					System.out.println("check");
 					ArrayList<String> nicknames = new ArrayList<String>();
 					
 					String nickname = "";
@@ -117,7 +113,6 @@ public class ChatController {
 				}
 			}//동일한 채팅방이 없으면 아래 코드 실행하여 채팅방 생성
 			
-			System.out.println("check2");
 			// 선택된 파이원의 이메일 정보로 회원정보를 가져옴
 			userList = chatservice.chatUserListByEmail(user_array);
 			
@@ -176,7 +171,6 @@ public class ChatController {
 	@RequestMapping(value="/chat/members/select", method = RequestMethod.POST)
 	public List<user> selectedUser(String[] select_user_array, HttpServletRequest request){
 		
-		System.out.println("user_array: " + select_user_array);
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int)httpsession.getAttribute("projectNum");
 		String loginuser = (String)httpsession.getAttribute("loginuser");
@@ -205,7 +199,6 @@ public class ChatController {
 		HttpSession httpsession = request.getSession();
 		int projectNum = (int)httpsession.getAttribute("projectNum");
 		
-		System.out.println("searchKeyword: " + nickName);
 		List<user> user_list = null;
 		Map<String, Object> searchUserMap = new HashMap<String, Object>();
 		try {
@@ -413,7 +406,6 @@ public class ChatController {
 		if(nickname.length() > 19){
 			nickname = nickname.substring(0,19) + "...";
 		}
-		System.out.println("nickname: "+ session.getAttribute("nick"));
 		
 		model.addAttribute("select", select);
 		model.addAttribute("roomname", roomname);

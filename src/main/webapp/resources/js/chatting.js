@@ -66,7 +66,111 @@ $(document).ready(function() {
 		window.close();
 	})
 	*/
+	
+	//사용자가 이미지를 올렸을 때 
+	$("#file-input").on('change', function(e){
+		console.log("check");
+		console.log(this.files[0]);
+		readURL(this.files[0]);
+	});
 });
+/*
+function getFile(email) {
+			
+	let file = null
+	
+	let userOb = new Object();
+	userOb.email = email;
+	let user = JSON.stringify(userOb);
+	
+	$.ajax({
+		type: "post",
+		url: "getProfile.pie",
+		contentType: "application/json; charset=UTF-8",
+		dataType: "json",
+		data: user,
+		async: false,
+		success: function(data) {
+			
+			//프로필 이미지 
+			file = data.profile.profile;
+		}
+	});
+	return profile;
+}
+*/
+
+
+//이미지 미리보기 
+function readURL(file) {
+  	let reader = new FileReader();
+	//파일을 읽어서
+  	reader.readAsDataURL(file);
+
+	//확장자명
+	let imgEtc = file.name.split(".");
+	if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
+		
+	}else{
+		//초기화
+		alert("png, jpg, jpge only");
+		file = null;
+		return;
+	}
+	
+	//파일이 다 읽어지면 
+  	reader.onload = (e) => {
+    	$('#img_zone').attr('src', e.target.result);
+		console.log(e);  
+		uploadFile(file);
+  	}
+}
+
+//파일 업로드 
+function uploadFile(file) {
+	
+	let form = $('#chat_uploadForm')[0];
+	console.log(form);
+	console.log($("#file-input").val());
+	//파일 안 올리고 업로드 시 
+	if($("#file-input").val()===''){
+		console.log("파일없음");
+		return;
+	}
+	
+    let formData = new FormData(form);
+	console.log(formData);
+	formData.append('file', file);
+
+	$.ajax({
+		url: 'file?email='+$("#session_email").val(),
+		data: formData,
+		type: 'POST',
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+		async: false,
+		cache: false,
+		error		: function(request,status,error){
+			alert(error);
+		},
+		success: function(data) {
+			console.log(data);
+		}
+	});
+	
+	/*
+	$.ajax(
+		{
+			type 		: "GET",
+			url  		: "users?select="+$('#select').val(),
+			error		: function(request,status,error){
+				alert(error);
+			},
+			success 	: function(data){
+	*/
+}
+
 
 var websocket;
 
@@ -77,8 +181,6 @@ function connect(){
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
-	console.log($('#select').val());
-	console.log($('#roomname').val());
 }
 
 function disconnect(){
@@ -97,7 +199,6 @@ function onOpen(evt){
 	
 	//DB에서 이전 데이터를 불러옴
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages').once('value',function(data){
-		console.log('1번:',data.val().length);
 		let myemail = $('#session_email').val();
 		let msgbox = '';
 		if(data.val().length == 1){
@@ -230,14 +331,12 @@ function appendMessage(msg) {
 				alert(error);
 			},
 			success 	: function(data){
-				console.log(data);
 				
 				let myemail = $('#session_email').val();
 				let mynickname = $('#nickname').val();
 				var strarray = msg.split('|');
 			
 				var msginfo = strarray[0];
-				console.log(">"+msginfo+"<")
 				var message = strarray[1];
 				var msgbox ='';
 				
@@ -289,7 +388,6 @@ function appendMessage(msg) {
 							websocket.send($('#session_email').val());
 							
 				}else if(msginfo == "알림"){
-					console.log("알림에 걸림");
 					msgbox += 	"<div class='chat-body-date'>"+
 									"<div class='chat-body-date-line'>"+
 										"―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
@@ -337,7 +435,7 @@ function appendMessage(msg) {
 	);
 	
 }
-
+	//날짜 포맷 형식을 지정해준 함수
 	Date.prototype.format = function (f) {
 	    if (!this.valueOf()) return " ";
 	

@@ -257,6 +257,13 @@ body{
 	margin-left: 3px;
 	margin-right: 5px;
 }
+.chat-msgWrite-icons-wrapper > label > i{
+	color: #fff;
+	font-size: 2.5vh;
+	margin-left: 3px;
+	margin-right: 5px;
+}
+
 .chat-msgWrite-btn > button{
 	width: 8vh;
 	background-color: #f2dd68;
@@ -271,6 +278,16 @@ body{
 	margin: 0 5px 5px 0;
 	cursor: pointer;
 	-webkit-appearance: none;
+}
+.chat-msgWrite-file{
+	width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+    background-color: #fff;
+    color: #29aae1;
+    text-align: center;
+    border-radius: 100%;
+    margin-right: 10px;
 }
 .chat-msgWrite-btn > button:hover{
 	background-color: #31353d;
