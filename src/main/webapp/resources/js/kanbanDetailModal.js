@@ -1,7 +1,7 @@
 /*
 파일명: kanbanDetailModal.js
 설명: 칸반 카드 상세페이지 내 구현될 체크리스트, 담당자 등록 jqery&js
-작성일: 2021-01-04 ~ 2021-01-12
+작성일: 2021-01-04 ~ 2021-01-
 작성자: 문지연
 */
 
@@ -36,9 +36,11 @@ $(document).ready(function() {
 		return cardPro;
 	}
 	
+	function loadChkList(ischecked,total){
+		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> "+ischecked+"/"+total+"</i></div>";
+		return chkTag;
+	}
 	
-	///resources/profile/'+email+'_'+profile+'
-	//get selectedMemInfo with tooltip
 	$('#selectedMemPro').tooltip({
 		show: {
 			effect: "slideDown",
@@ -74,9 +76,7 @@ $(document).ready(function() {
 		$('.modal_card_seq').attr("value", $(this).data().cardSeq);
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
 		console.log("cardSeq:" + cardSeq);
-		//get card Title
-		$('.cardTitleMo').text($(this).context.innerText);
-
+	
 		//get cardMember 
 		
 		$.ajax({
@@ -87,7 +87,6 @@ $(document).ready(function() {
 			async: false,
 			success: function(data) {
 				$.each(data, function(index, item) {
-					
 					if(item.profile==null){
 						let memIcon = cardMemIcon(item.email,item.nickName);
 						$('.memList').append(memIcon);
@@ -104,7 +103,7 @@ $(document).ready(function() {
 		});
 
 		
-		//get card Content 
+		//get card Name&Content 
 		$.ajax({
 			type: "post",
 			url: "getCardContent.pie?cardSeq="+cardSeq,
@@ -112,13 +111,14 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data){
-				if($.trim(data.data)==""){
+				$('.cardTitleMo').text(data[0].card_name);
+				if($.trim(data[0].card_content)==""){
 					$('.cardDetailsForm').show();
 					$('.fa-edit').hide();
 					$('.cardContents').hide();
 				}else{
 					$('.cardContents').show();
-					$('.cardContents').text(data.data);
+					$('.cardContents').text(data[0].card_content);
 					$('.fa-edit').show();
 					$('.cardDetailsForm').hide();
 				}
@@ -325,6 +325,8 @@ $(document).ready(function() {
 				$(this).parent().parent().removeClass('editing');
 				$(this).parent().after('<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span>');
 				$(this).remove();
+				
+				let total=Number($('#checkListWrap').children().children('.todo-wrap').length);
 
 				let checkOb = new Object;
 				checkOb.check_seq = newId;
@@ -332,6 +334,8 @@ $(document).ready(function() {
 				checkOb.card_seq = cardSeq;
 
 				let check = JSON.stringify(checkOb);
+				
+				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus').children('.fa-check-square');
 
 				$.ajax({
 					type: "post",
@@ -342,6 +346,13 @@ $(document).ready(function() {
 					data: check,
 					success: function(data) {
 						progressBar();
+						if(total===1){
+							let chk = loadChkList(0,1);
+							$("[data-card-seq="+cardSeq+"]").append(chk);
+						}else {
+							let checked = $('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length;
+							thisCard.text(" "+checked+"/"+total);
+						}
 					}
 				});
 			} else {
@@ -352,6 +363,7 @@ $(document).ready(function() {
 					$('.editing').remove()
 				}, 400);
 			}
+			
 		})
 	});
 
@@ -364,22 +376,20 @@ $(document).ready(function() {
 		
 		let total=Number($(this).parents().children('.todo-wrap').length);
 		
-		let thisCard = $("[data-card-seq="+cardSeq+"]");
+		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus').children('.fa-check-square');
 		console.log(thisCard);
 		
 		if (chk) {
-			console.log("unchecked");
 			chkBox.prop('checked', false);
 			chkBox.attr('ischecked', '0');
-			//let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
-			//thisCard.append("<i class='far fa-check-square'>"+checked+"/"+total+"</i>");
+			let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
+			thisCard.text(" "+checked+"/"+total);
 			progressBar();
 		} else {
-			console.log("checked");
 			chkBox.prop('checked', true);
 			chkBox.attr('ischecked', '1');
-			//let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
-			//thisCard.append("<i class='far fa-check-square'>"+checked+"/"+total+"</i>");
+			let checked=$(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length;
+			thisCard.text(" "+checked+"/"+total);
 			progressBar();
 		}
 
@@ -419,15 +429,13 @@ $(document).ready(function() {
 		let deletedItem = $(this).parent();
 		
 		//change progress bar
-		let total = $(this).parents().children('.todo-wrap').length-1;
+		let total = $('#checkListWrap').children().children('.todo-wrap').length-1;
 		let checked = 0;
-		console.log("total:" + total);
 		if(ischecked===1){
 			checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length-1;
 		}else{
 			checked = $(this).parents().children('.todo-wrap').find('input[ischecked="1"]').length
 		}
-		console.log("checked:" + checked);
 		let percentage = parseInt(((checked/ total) * 100), 10);
 
 		$('.progressbar').progressbar({
@@ -438,6 +446,10 @@ $(document).ready(function() {
 		}else{
 			$('.progressbar-label').text(percentage + "%");
 		}
+		
+		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus');
+		let chkNum = Number($('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length);
+		
 		$.ajax({
 			url: "deleteChkList.pie?cardSeq=" + cardSeq,
 			contentType: "application/json; charset=UTF-8",
@@ -446,14 +458,24 @@ $(document).ready(function() {
 			dataType: "json",
 			data: check,
 			success: function(data) {
-				console.log(data);
-				deletedItem.animate({
+				if(total===0){
+					thisCard.remove();
+				}else if(ischecked===1){
+					thisCard.children('.fa-check-square').text(" "+(chkNum-1)+"/"+total);
+						if(chkNum<0){
+						thisCard.children('.fa-check-square').text(" 0"+"/"+total);
+						}
+				}else {
+					thisCard.children('.fa-check-square').text(" "+chkNum+"/"+total);
+				}
+				
+					deletedItem.animate({
 					left: "-30%",
 					height: 0,
 					opacity: 0
 				}, 200);
 				setTimeout(function() { $(deletedItem).remove(); }, 1000);
-			}
+				}
 
 		});
 	});
@@ -541,7 +563,7 @@ $(document).ready(function() {
 		cardMemOb.email = email;
 
 		let cardMem = JSON.stringify(cardMemOb);
-		
+		let thisCard = $("[data-card-seq="+cardSeq+"]");
 		$.ajax({
 			type: "post",
 			url: "insertCardMem.pie",
@@ -564,8 +586,18 @@ $(document).ready(function() {
 			$(".memList").append(cardMem);
 			
 			if($('#session_email').val()==email){
-				$("[data-card-seq="+cardSeq+"]").append(cardMem);
-				$("[data-card-seq="+cardSeq+"]").children('.selectedMemPro').attr('class','cardMemProfile');
+				if(thisCard.children().hasClass('checkStatus')){
+					//thisCard.prepend(cardMem);
+					console.log(thisCard.children());
+					console.log("hasClass")
+					thisCard.children('.temp').show();
+					thisCard.children('.temp').append(cardMem);
+					//cardMem.prependTo(thisCard.children('.checkStatus'));
+					thisCard.children().children('.selectedMemPro').attr('class','cardMemProfile');
+				}else{
+					thisCard.append(cardMem);
+					thisCard.children('.selectedMemPro').attr('class','cardMemProfile');
+				}
 				}
 			}
 			});

@@ -2,6 +2,8 @@ package kr.or.bit.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,9 +158,8 @@ public class KanbanService {
 	}
 
 	// get Card ContentService
-	public String getCardContentService(int cardSeq) {
+	public List<card> getCardContentService(Map<String,Object> cardInfo) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
-		String card_content = carddao.getCardContent(cardSeq);
-		return card_content;
+		return carddao.getCardContent(cardInfo);
 	}
 }

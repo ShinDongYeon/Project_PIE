@@ -3,6 +3,7 @@ package kr.or.bit.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -181,10 +182,16 @@ public class KanbanController {
 	//get Card Content
 	@ResponseBody
 	@RequestMapping(value = "getCardContent.pie", method = RequestMethod.POST)
-	public View getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
-		String card_content = kanbanservice.getCardContentService(cardSeq);
-		model.addAttribute("data", card_content);
-		return jsonview;
+	public List<card> getCardContent(@RequestParam("cardSeq") int cardSeq, Model model) {
+		List<card> card = null;
+		Map<String,Object> cardInfo = new HashMap<String,Object>();
+		try {
+			cardInfo.put("cardSeq", cardSeq);
+			card = kanbanservice.getCardContentService(cardInfo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return card;
 	}
 
 }
