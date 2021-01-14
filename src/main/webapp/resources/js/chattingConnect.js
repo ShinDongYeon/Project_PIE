@@ -52,11 +52,16 @@ function chattingAlarm(data){
 									"<i class='fas fa-th-large'></i>"+
 								"</div>"+
 								"<div class='chat-list-letter-wrapper'>"+
-									"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
-										"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
-											chat_title_substr+
-										"</a>"+
-									"</div>"+
+									"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
+									if(elem.clicked == 0){
+										opr+=	"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
+													chat_title_substr+
+												"</a>";
+									}else{
+										opr+=	chat_title_substr;
+									}
+										
+					opr+=		"</div>"+
 									"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 								"</div>"+
 								"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+

@@ -89,6 +89,30 @@
 	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
 	overflow: auto;
 }
+.crtChat-middle-select-all{
+	text-align: center;
+	margin-top: 115px;
+}
+.crtChat-middle-select-none{
+	text-align: center;
+	margin-top: 80px;
+}
+.crtChat-middle-select-button{
+	width: 160px;
+    height: 40px;
+    background-color: #f2dd68;
+    border: none;
+    border-radius: 6px;
+    color: #31353d;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 5px;
+    margin: 10px 120px;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
 .crtChat-select-letter{
 	background-color: #24272d;
 	font-size: 0.68rem;
@@ -118,6 +142,11 @@
     text-align: center;
     border-radius: 100%;
     margin-right: 10px;
+}
+.crtChat-select-user-img{
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
 }
 .crtChat-select-user-on{
 	visibility: hidden;

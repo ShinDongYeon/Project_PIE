@@ -44,7 +44,13 @@ public interface ChatDao {
 	 
 	 public void pushAlarm(Map<String, Object> pushAlarmMap);
 	 
+	 public void roomClosed(Map<String, Object> roomCloseMap);
+	 
+	 public void resetAlarm(Map<String, Object> resetAlarmMap);
+	 
 	 public void checkalarm(Map<String, Object> checkAlarmMap);
+	 
+	 public void roomClicked(Map<String, Object> checkAlarmMap);
 	 
 	 public void deleteRoomList(int chatting_room_seq);
 	 
