@@ -21,6 +21,12 @@ public interface CheckListDao {
 	
 	public void editCheckedStatus(checkList chk);
 	
+	public int getlCheckListCount(int projectNum);
+	
+	public int getCheckListCheckedCount(int projectNum);
+	
+	public int getCheckListUnCheckedCount(int projectNum);
+	
 	public List<checkList> getCheckListByCard(Map<String, Object> chkListMap);
 	
 }
