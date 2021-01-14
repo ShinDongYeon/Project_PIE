@@ -21,5 +21,7 @@ public interface ListDao {
 	
 	public void deleteKanbanList(int listSeq);
 	
+	public int getlListCount(int projectNum);
+	
 	
 }

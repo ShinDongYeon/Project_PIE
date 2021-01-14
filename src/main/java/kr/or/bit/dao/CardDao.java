@@ -26,4 +26,7 @@ public interface CardDao {
 	public void updateCardContent(card ca);
 	
 	public String getCardContent(int cardSeq);
+	
+	public int getlCardCount(int projectNum);
+	
 }

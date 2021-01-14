@@ -21,4 +21,8 @@ public interface CalendarDao {
 	public void deleteCalendarKanban(int card_seq);
 	
 	public void updateCalendar(String start, String end, String title, String content, boolean allDay, String color,String id);
+	
+	public int getCalendarCount(int projectNum);
+	
+	
 }

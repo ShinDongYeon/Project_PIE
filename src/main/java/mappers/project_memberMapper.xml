@@ -17,7 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id = "joinToPieAsTeam">
 		INSERT INTO PROJECT_MEMBER(PROJECT_SEQ, EMAIL) VALUES(#{param1}, #{param2}) 
 	</insert>
-
+	
+	<select id = "getMemberCount" resultType = "int" parameterType = "int">
+		SELECT COUNT(*) FROM PROJECT_MEMBER WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
+	<select id = "getMember" resultType = "project_memberDto" parameterType = "int">
+		SELECT * FROM PROJECT_MEMBER WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
 </mapper>
 	
 

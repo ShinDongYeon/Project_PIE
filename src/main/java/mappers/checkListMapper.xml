@@ -35,6 +35,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE CHECKLIST SET ISCHECKED = #{ischecked} WHERE CHECK_SEQ=#{check_seq}
 	</update>
 	
+	<select id="getlCheckListCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
+	<select id="getCheckListCheckedCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE ISCHECKED = 1 AND CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
+	<select id="getCheckListUnCheckedCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE ISCHECKED = 0 AND CARD_SEQ = ANY (SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1})
+	</select>
+	
+	<select id="getCheckListByCard" resultType="checkListDto"
+		parameterType="hashMap">
+		SELECT COUNT(*) AS 'TOTAL',
+			   COUNT(IF(ISCHECKED=1,ISCHECKED,NULL)) AS 'ISCHECKED',
+			   C.CARD_SEQ
+			   FROM CHECKLIST C
+			   JOIN KANBANCARD K ON C.CARD_SEQ=K.CARD_SEQ
+			   WHERE K.PROJECT_SEQ=#{projectNum}
+			   GROUP BY C.CARD_SEQ
+	</select>
+	
+	<select id="getTotalCheckListByCardSeq" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = #{param1}
+	</select>
+	
+	<select id="getTotalCheckedCheckListByCardSeq" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM CHECKLIST WHERE CARD_SEQ = #{param1} AND ISCHECKED = 1
+	</select>
+	
 </mapper>
 	
 
