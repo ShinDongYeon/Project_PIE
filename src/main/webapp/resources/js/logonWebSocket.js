@@ -19,6 +19,7 @@ function connectWS_logon(){
 	logon_ws.onmessage = (event) => {
 		let data = event.data;
 		logonUser(JSON.parse(data));
+		
 	};
 	logon_ws.onclose = (event) => {
 		

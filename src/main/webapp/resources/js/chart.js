@@ -3,15 +3,16 @@ $(document).ready(function() {
 	let cht1 = new Chart(chart1, {
 		type: 'bar',
 		data: {
-			labels: ['리스트', '카드', '체크리스트', '멤버'],
+			labels: ['리스트', '카드', '체크리스트', '멤버', '캘린더 일정'],
 			datasets: [{
 				label: '총 수',
-				data: [12, 19, 3, 5],
+				data: [12, 19, 3, 5, 1],
 				backgroundColor: [
 					'rgba(255, 99, 132)',
 					'rgba(54, 162, 235)',
 					'rgba(255, 206, 86)',
-					'rgba(75, 192, 192)'
+					'rgba(75, 192, 192)',
+					'rgba(54, 162, 235)'
 				],
 				borderColor: '#f2dd68',
 				borderWidth: 1

@@ -15,12 +15,6 @@ public class UserProfileService{
 	
 	@Autowired
 	private SqlSession sqlsession;
-	
-
-	//재홍
-	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
-	
-	//파일 저장 절대 경로 
 
 	//재홍
 	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
@@ -33,9 +27,11 @@ public class UserProfileService{
 	
 	//지연
 	private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
+
 	//파일 업로드 서비스 
 	public void profileUploadService(MultipartFile file, String email) {
 		String fileOGName = file.getOriginalFilename();
+		String UPLOAD_PATH = UploadPath.upload_path();
 		String fullName = UPLOAD_PATH+"/"+email+"_"+fileOGName;
 
 			byte[] data;

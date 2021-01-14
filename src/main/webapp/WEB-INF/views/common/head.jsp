@@ -23,15 +23,7 @@
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 
-<<<<<<< HEAD
-<!-- Firebase CDN -->
-=======
-
-<!-- ------------------------------------------------------------------ -->
-
-
 <!-- Firebase 연동 -->
->>>>>>> 21c8e5bc01ba7157104c346d136271dc379890cb
 <script src="https://www.gstatic.com/firebasejs/7.2/firebase.js"></script>
 <script src="/resources/js/firebase.js"></script>
 <!-- ------------------------------------------------------------------ -->

@@ -3,6 +3,7 @@ package kr.or.bit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
+import kr.or.bit.service.UploadPath;
 
 @Controller
 public class FileController {
@@ -102,19 +105,9 @@ public class FileController {
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
-
-		//재구
-		//String fullPath = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
 		
-		//재홍
-		//String fullPath = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
-
-		//동연
-		String fullPath = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
-		
-		//지연
-		//String fullPath = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
-
+		String fullPath = UploadPath.upload_path();
+		fullPath += "file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
