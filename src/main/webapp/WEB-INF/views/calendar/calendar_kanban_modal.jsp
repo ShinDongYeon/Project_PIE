@@ -77,7 +77,8 @@
 				</div>
 				</div>
 			</div>
-				<button class="addDetailsInsert-btn" id="insertCalendarKanBan">등록</button>
+				<button class="addDetailsInsert-btn" id="insertCalendarKanBan"
+				onclick="document.getElementById('detailsInsertModalKanban').style.display='none'">등록</button>
 		</div>
 	</div>
 

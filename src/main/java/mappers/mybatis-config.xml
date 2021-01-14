@@ -17,6 +17,7 @@
 		<typeAlias type="kr.or.bit.dto.alram" alias="alramDto"/>
 		<typeAlias type="kr.or.bit.dto.file" alias="fileDto"/>
 		<typeAlias type="kr.or.bit.dto.cardMember" alias="cardMemberDto"/>
+		<typeAlias type="kr.or.bit.dto.users" alias="usersDto"/>
 	</typeAliases>
 </configuration>
 

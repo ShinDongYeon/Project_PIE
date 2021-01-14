@@ -23,10 +23,6 @@ $(document).ready(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
 	});
-	/*$('#sidebar-bell').click(function(){
-		btnClassName = $(this)[0].className;
-		sidebarToggle();
-	});*/
 	$(document).on("click","#sidebar-bell",function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();

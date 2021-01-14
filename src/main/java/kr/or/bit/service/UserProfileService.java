@@ -21,6 +21,12 @@ public class UserProfileService{
 	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
 	
 	//파일 저장 절대 경로 
+
+	//재홍
+	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/profile"; 
+	//동연
+	private final String UPLOAD_PATH = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\profile";
+
 	//재구
 	//private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
 

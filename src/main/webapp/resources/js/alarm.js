@@ -63,7 +63,6 @@ $(document).ready(function() {
 function createAlram(data) {
 	let html = "";
 	$.each(data, function(index, alram) {
-		console.log("만들어라알람")
 		let alramTime = moment(alram.alramTime).format('YYYY-MM-DD' + " " + 'HH:mm')
 		html += '<div class="alram-list-wrapper">\
 			<div class="alram-list-img">\

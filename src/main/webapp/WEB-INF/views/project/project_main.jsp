@@ -44,9 +44,7 @@
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_chat.jsp"></jsp:include>
 			
 			<!-- users -->
-			<div id="fas fa-users" class="right-sidebar-users">
-				사용자창
-			</div>
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_users.jsp"></jsp:include>
 		</div>
 		<!-- main body -->
 		<div class="project-main-body-wrapper" id="kanban" style="display: block">
