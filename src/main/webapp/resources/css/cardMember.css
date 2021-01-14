@@ -88,13 +88,10 @@
 	display: flex;
 }
 
-.memProfile{
+.memPic{
 	width: 40px;
     height: 40px;
     font-size: 1.6rem;
-    background-color: #fff;
-    color: #29aae1;
-    text-align: center;
     border-radius: 100%;
     margin-right: 15px;
 }

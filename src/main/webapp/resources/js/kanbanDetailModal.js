@@ -15,19 +15,29 @@ $(document).ready(function() {
 		return chkTag;
 	}
 	
-	function makeCardMem(email,nickName) {
-		let cardMem = "<i class='fas fa-user selectfedMemPro' id='selectedMemPro' title='"+nickName+
-		"("+email+")' value="+email+"></i> "
-		return cardMem;
+	function cardMemIcon(email,nickName) {
+		let memIcon = "<img class='selectedMemPro' id='selectedMemPro' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="/resources/img/icon/none.png">';
+		return memIcon;
 	}
 	
-	//card member profile
-	function makeMemPro(email,nickName){
-		let memTag = "<i class='fas fa-user cardMemProfile' id='cardMemProfile' title='"+nickName+
-		"("+email+")' value="+email+"></i> "
-		return memTag;
+	function cardMemPro(email,nickName,profile){
+		let memPro = "<img class='selectedMemPro' id='selectedMemPro' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="resources/profile/'+email+'_'+profile+'">';
+		return memPro;
 	}
 	
+	function cardProfile(email,nickName,profile){
+		let cardPro = "<img class='selectedMemPro' id='selectedMemPro' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="'+profile+'">';
+		return cardPro;
+	}
+	
+	
+	///resources/profile/'+email+'_'+profile+'
 	//get selectedMemInfo with tooltip
 	$('#selectedMemPro').tooltip({
 		show: {
@@ -66,9 +76,9 @@ $(document).ready(function() {
 		console.log("cardSeq:" + cardSeq);
 		//get card Title
 		$('.cardTitleMo').text($(this).context.innerText);
-		
-		
+
 		//get cardMember 
+		
 		$.ajax({
 			type:"get",
 			url:"showMemberByCard.pie?cardSeq="+cardSeq,
@@ -77,14 +87,22 @@ $(document).ready(function() {
 			async: false,
 			success: function(data) {
 				$.each(data, function(index, item) {
-					let cardMem = makeCardMem(item.email,item.nickName);
-					$(".memList").append(cardMem);
-				if(data.length>0){
+					
+					if(item.profile==null){
+						let memIcon = cardMemIcon(item.email,item.nickName);
+						$('.memList').append(memIcon);
+					}else {
+						let memPro = cardMemPro(item.email,item.nickName,item.profile);
+						$('.memList').append(memPro);
+					}
+					
+					if(data.length>0){
 					$('#memTitle').text($(this).context).show();
-				}
+					}
 				});
 			}
 		});
+
 		
 		//get card Content 
 		$.ajax({
@@ -95,12 +113,10 @@ $(document).ready(function() {
 			async: false,
 			success: function(data){
 				if($.trim(data.data)==""){
-					console.log("empty");
 					$('.cardDetailsForm').show();
 					$('.fa-edit').hide();
 					$('.cardContents').hide();
 				}else{
-					console.log(data);
 					$('.cardContents').show();
 					$('.cardContents').text(data.data);
 					$('.fa-edit').show();
@@ -268,7 +284,6 @@ $(document).ready(function() {
 	$('#add-todo').click(function() {
 		let lastSibling = Number($('#checkListForm > .todo-wrap:last-of-type > input').attr('data-check-seq'));
 		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
-		console.log("cardModalSeq:" + cardSeq);
 
 		$.ajax({
 			type: "post",
@@ -277,13 +292,12 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				console.log(data);
 				lastSibling = data.data;
 			}
 		});
 
 		let newId = Number(lastSibling) + 1;
-		console.log("lastSibling:" + lastSibling);
+
 		$(this).before('<span class="editing todo-wrap"><input type="checkbox" data-check-seq="' +
 			newId + '"/><label for="' + newId +
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
@@ -327,7 +341,6 @@ $(document).ready(function() {
 					async: false,
 					data: check,
 					success: function(data) {
-						console.log(data);
 						progressBar();
 					}
 				});
@@ -339,9 +352,6 @@ $(document).ready(function() {
 					$('.editing').remove()
 				}, 400);
 			}
-			console.log("new Id:" + newId);
-			console.log("title:" + checkTitle);
-			console.log("cardSeq:" + cardSeq);
 		})
 	});
 
@@ -482,16 +492,20 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				console.log(data);
 				let memberLi = "Project Member List";
 				$.each(data, function(index, item) {
 					memberLi += "<div id='membersWrap-"+index+"' class='membersWrap'>"+
 					"<div class='memberWrap'>"+
-						"<div class='member-SubWrap'>"+
-							"<div class='memProfile'>"+
-								"<i class='fas fa-user'></i>"+					
-							"</div>"+
-							"<div class='memDetailWrap'>"+
+						"<div class='member-SubWrap'>";
+					if(item.profile==null){
+						memberLi += "<div class='memProfile'><img class='memPic' value="+item.email+
+									" src='/resources/img/icon/none.png'></div>";
+					}else {
+						memberLi += "<div class='memProfile'><img class='memPic' value="+item.email+
+									' src="resources/profile/'+item.email+'_'+item.profile+'"></div>'
+					}
+								
+					memberLi+="<div class='memDetailWrap'>"+
 								"<div id='memNickName-"+index+"' class='memNickName'>"+
 									item.nickName+
 								"</div>"+
@@ -520,16 +534,14 @@ $(document).ready(function() {
 		//get clicked member Email
 		let nickName = $('#memNickName-'+div_substr).html();
 		let email = $('#memEmail-'+div_substr).html();
-	
-		console.log(email);
-		console.log(nickName);
-		
+		let profile = $('#memNickName-'+div_substr).parent().prev().children('.memPic').attr('src');		
+			
 		let cardMemOb = new Object();
 		cardMemOb.card_seq = cardSeq;
 		cardMemOb.email = email;
 
 		let cardMem = JSON.stringify(cardMemOb);
-
+		
 		$.ajax({
 			type: "post",
 			url: "insertCardMem.pie",
@@ -548,18 +560,18 @@ $(document).ready(function() {
 				}, 200);
 				setTimeout(function() { $(selectedWrap).remove(); }, 1000);
 			//show card Member
-			let cardMem = makeCardMem(email,nickName);
-			let cardPro = makeMemPro(email,nickName);
+			let cardMem = cardProfile(email,nickName,profile);
 			$(".memList").append(cardMem);
-			if($('#session_email').val()==data.data.email){
-				$("[data-card-seq="+cardSeq+"]").append(cardPro);
-			}
+			
+			if($('#session_email').val()==email){
+				$("[data-card-seq="+cardSeq+"]").append(cardMem);
+				$("[data-card-seq="+cardSeq+"]").children('.selectedMemPro').attr('class','cardMemProfile');
+				}
 			}
 			});
 		
 		
 		});
-		
 		
 		});
 
@@ -596,12 +608,9 @@ $(document).ready(function() {
 				cardMemOb.email=email;
 				cardMemOb.card_seq = cardSeq;
 				
-				console.log("email:::"+email);
-				console.log("cardSeq:::"+cardSeq);
-				
 				let cardMem = JSON.stringify(cardMemOb);
 				let deletedMem = $(this);
-				let cardMemPro = $("[data-card-seq="+cardSeq+"]").children('.cardMemProfile');
+				let myProfile = $("[data-card-seq="+cardSeq+"]").children('.cardMemProfile');
 				$.ajax({
 					url:"deleteCardMem.pie",
 					contentType: "application/json; charset=UTF-8",
@@ -610,7 +619,6 @@ $(document).ready(function() {
 					dataType: "json",
 					data: cardMem,
 					success: function(data) {
-						console.log(data);
 						deletedMem.animate({
 							bottom: "-30%",
 							height: 0,
@@ -619,15 +627,13 @@ $(document).ready(function() {
 						setTimeout(function() { 
 							$(deletedMem).remove();  
 						}, 200);
-						console.log("lenght:::"+$('.selectedMemPro').length);
 						if($('.selectedMemPro').length===1){
 						$('#memTitle').hide();
-						
-						if($('#session_email').val()==data.data.email){
-							setTimeout(function() { 
-							$(cardPro).remove();  
-						}, 200);
 						}
+						if($('#session_email').val()===email){
+							setTimeout(function() { 
+							myProfile.remove();  
+						}, 200);
 					}
 					}
 				});

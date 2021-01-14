@@ -285,9 +285,10 @@ $(function() {
 	}
 	
 	//makemempro
-	function makeMemPro(email,nickName){
-		let memTag = "<i class='fas fa-user cardMemProfile' id='cardMemProfile' title='"+nickName+
-		"("+email+")' value="+email+"></i> "
+	function makeMemPro(email,nickName,profile){
+		let memTag = "<img class='cardMemProfile' id='cardMemProfile' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="/resources/profile/'+email+'_'+profile+'">';
 		return memTag;
 	}
 
@@ -331,7 +332,7 @@ $(function() {
 			success: function(data) {
 				console.log(data);
 				$.each(data, function(index, item) {
-							let cardPro = makeMemPro(item.email,item.nickName)
+							let cardPro = makeMemPro(item.email,item.nickName,item.profile)
 							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
 						});
 				}
