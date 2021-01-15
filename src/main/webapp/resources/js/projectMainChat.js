@@ -63,8 +63,8 @@ $(document).ready(function(){
 		}
 	}
 	window.onmouseup = (event) => {
+		event.stopPropagation();
 		connectSocket.send('');
-		event.preventDefault();
 	}
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
@@ -172,6 +172,7 @@ $(document).ready(function(){
 					type : "GET",
 					url  : "chat/members/search?sessionEmail="+$('#session_email').val(),
 					data : { 'nickName' : $('#crtChat-search-box').val()},
+					async: false,
 					success : function(data){
 						userList(data);
 						if(data.length == 0){
@@ -323,8 +324,8 @@ function chattingRoomList(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 12){
-			chat_title_substr = chat_title.substr(0,12) + "...";
+		if(chat_title.length > 10){
+			chat_title_substr = chat_title.substr(0,10) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
@@ -380,12 +381,12 @@ function completeChattingRoom(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 12){
-			chat_title_substr = chat_title.substr(0,12) + "...";
+		if(chat_title.length > 10){
+			chat_title_substr = chat_title.substr(0,10) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
-
+		
 		opr = "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
 					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
 					"<div class='chat-list-img'>"+
@@ -458,6 +459,7 @@ function deleteChatRoom(me){
 							data 		: {
 								'chatting_room_seq' : div_substr
 							},
+							async: false,
 							success 	: function(data){
 								console.log(data);
 								
@@ -490,6 +492,7 @@ function deleteChatRoom(me){
 */
 function updateChatRoomName(me){
 	"use strict";
+	
 	//index 값 추출
 	let div = $(me).closest('div');
 	let div_attr = div.attr("id");
@@ -501,7 +504,7 @@ function updateChatRoomName(me){
 	let chat_room_update = $('#chat-list-update-'+div_substr);
 	
 	//새로운 요소로 대체
-	let input_tag = "<input id='chat-list-letter-title-input-"+div_substr+"' value='"+chat_room_title.text()+"' onfocus='this.select()' type='text' size=12>";
+	let input_tag = "<input id='chat-list-letter-title-input-"+div_substr+"' value='"+chat_room_title.text()+"' onfocus='this.select()' type='text' size=13>";
 	let check_button = "<i id='fas-fa-check-"+div_substr+"' onclick='updateNameOk(this)' class='fas fa-check'></i>";
 	
 	chat_room_title.empty();
@@ -519,10 +522,9 @@ function updateChatRoomName(me){
 		}
 	});
 	
-	window.onmouseout = (event) => {
+	window.onmouseup = (event) => {
 		event.stopPropagation();
 	}
-	
 	
 	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
@@ -548,10 +550,10 @@ function updateNameOk(me){
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
-		if (chat_room_input.val().length > 12) {
+		if (chat_room_input.val().length > 13) {
 			swal.fire({
 				title: 'Check Please',
-				text: '12자 이하로 입력해주세요',
+				text: '13자 이하로 입력해주세요',
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: '확인',
@@ -579,6 +581,7 @@ function updateNameOk(me){
 						success 	: function(data){
 							console.log(data);
 						},
+						async: false,
 						error		: function(request,status,error){
 							alert(error);
 						}
@@ -628,10 +631,6 @@ function updateNameOk(me){
 	let opr = "<i onclick='updateChatRoomName(this)' class='fas fa-pencil-alt'></i>";
 	$('#chat-list-update-'+div_substr).append(opr);
 	
-	window.onmouseout = (event) => {
-		connectSocket.send('');
-		event.preventDefault();
-	}
 }
 
 
@@ -715,6 +714,7 @@ function selectUser(me){
 					'select_user_array' : select_user_array
 				},
 				traditional : true,
+				async: false,
 				error		: function(request,status,error){
 					alert(error);
 				},
@@ -887,6 +887,7 @@ function selectedClose(me){
 				type : "GET",
 				url  : "chat/members/search?sessionEmail="+$('#session_email').val(),
 				data : { 'nickName' : $('#crtChat-search-box').val()},
+				async: false,
 				success : function(data){
 					userList(data);
 				},

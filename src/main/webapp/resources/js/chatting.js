@@ -108,22 +108,36 @@ function readURL(file) {
   	reader.readAsDataURL(file);
 
 	//확장자명
-	let imgEtc = file.name.split(".");
-	if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
-		
-	}else{
-		//초기화
-		alert("png, jpg, jpge only");
-		file = null;
-		return;
-	}
+	let index = file.name.lastIndexOf(".");
+	let imgEtc = file.name.substring(index+1);
 	
 	//파일이 다 읽어지면 
   	reader.onload = (e) => {
-    	$('#img_zone').attr('src', e.target.result);
+		$('#img_zone').css('display','block');
+		
+		if(imgEtc === "png" || imgEtc === "jpg" || imgEtc === "jpeg"){
+			$('#img_zone').attr('src', e.target.result);
+		}else if(imgEtc === "ppt" || imgEtc === "pptx"){
+			$('#img_zone').attr('src', '/resources/img/icon/ppt.png');
+		}else if(imgEtc === "xlsx"){
+			$('#img_zone').attr('src', '/resources/img/icon/excel.png');
+		}else if(imgEtc === "hwp"){
+			$('#img_zone').attr('src', '/resources/img/icon/hwp.png');
+		}else if(imgEtc === "doc" || imgEtc === "docx"){
+			$('#img_zone').attr('src', '/resources/img/icon/doc.png');
+		}else if(imgEtc === "pdf"){
+			$('#img_zone').attr('src', '/resources/img/icon/pdf.png');
+		}else if(imgEtc === "txt"){
+			$('#img_zone').attr('src', '/resources/img/icon/txt.png');
+		}else if(imgEtc === "zip"){
+			$('#img_zone').attr('src', '/resources/img/icon/zip.png');
+		}else{
+			$('#img_zone').attr('src', '/resources/img/icon/file.png');
+		}
 		console.log(e);  
-		uploadFile(file);
+		//uploadFile(file);
   	}
+	
 }
 
 //파일 업로드 

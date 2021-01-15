@@ -283,8 +283,10 @@ body{
 	-webkit-appearance: none;
 }
 .chat-msgWrite-file{
-	width: 160px;
-    height: 80px;
+	display: none;
+	width: 70px;
+    height: 70px;
+    border-radius: 5px;
     font-size: 1.6rem;
     background-color: #fff;
     color: #29aae1;
