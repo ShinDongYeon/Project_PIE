@@ -209,12 +209,13 @@ $(document).ready(function() {
 		e.preventDefault();
 		let editedCardTitle = $(this).parents().children().children("#cardTitleInput").val();
 		let modal_card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
-
+		
 		let cardOb = new Object();
 		cardOb.card_seq = modal_card_seq;
 		cardOb.card_name = editedCardTitle;
 
 		let card = JSON.stringify(cardOb);
+		let thisCard = $("[data-card-seq=" + modal_card_seq + "]");
 		if (editedCardTitle.length > 0) {
 			$.ajax({
 				type: "post",
@@ -225,10 +226,16 @@ $(document).ready(function() {
 				data: card,
 				success: function(data) {
 					console.log(data);
+					thisCard.text(data.data.card_name);
 				}
 			});
 			$('.cardTitleMo').html(editedCardTitle);
-			$("[data-card-seq=" + modal_card_seq + "]").html(editedCardTitle);
+			//$("[data-card-seq=" + modal_card_seq + "]").text(editedCardTitle);
+			//let test=$("[data-card-seq=" + modal_card_seq + "]")[0].firstChild.val(editedCardTitle);
+			//let test=thisCard[0].firstChild.data;
+			//let text=thisCard.text();
+			//thisCard.text(text.replace(test,editedCardTitle));
+			console.log($("[data-card-seq=" + modal_card_seq + "]"));
 			$(this).parents().children().children("#cardTitleInput").val("");
 			$('.cardTitleForm').hide();
 			$('.cardTitleMo').show();
@@ -303,7 +310,7 @@ $(document).ready(function() {
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');
 		$('#input-todo' + newId + '').parent().parent().animate({
-			height: "40px"
+			height: "80px"
 		}, 200)
 		$('#input-todo' + newId + '').focus();
 

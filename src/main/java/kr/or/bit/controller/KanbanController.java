@@ -162,7 +162,7 @@ public class KanbanController {
 	@RequestMapping(value = "editKanbanCardTitle.pie", method = RequestMethod.POST)
 	public View editKanbanCardTitle(@RequestBody card ca, Model model) {
 		kanbanservice.editKanbanCardTitleService(ca);
-		model.addAttribute("data", "success");
+		model.addAttribute("data", ca);
 		return jsonview;
 	}
 
