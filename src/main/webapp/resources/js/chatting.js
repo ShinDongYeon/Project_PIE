@@ -143,10 +143,45 @@ function readURL(file) {
 		}else{
 			$('#img_zone').attr('src', '/resources/img/icon/file.png');
 		}
+		$('#message').attr('readonly',true);
+		$('#message').removeAttr('placeholder');
+		$('#chat-msgWrite-btn').attr('class','chat-msgWrite-btn')
+		
+		//파일이 업로드 되는 동안 이모티콘 올리지 않도록
+		//chattingEmoji.js 파일에서 function switchAnimation(target) 에서 쓰임
+		$('.emoji-content').removeClass('disappear');
+		$('.emoji-content').addClass('disappear2');
+		
+		window.onkeydown = (event) => {
+			if (event.keyCode == 8 || event.which == 8) {
+				$('#img_zone').css('display','none');
+				$('#message').attr('readonly',false);
+				$('#message').attr('placeholder','메시지를 입력하세요');
+				$('#img_zone').attr('src', '/resources/img/icon/none.png');
+				$('.emoji-content').removeClass('disappear2');
+				$('.emoji-content').addClass('disappear');
+				
+			}
+		}
+		
+		//전송 버튼을 눌렀을 때
+		$('#sendBtn').click( (event) => {
+			//버튼이 활성화 되어 있는 상태이면 메시지를 보낸다
+			if($('#chat-msgWrite-btn').attr('class') == 'chat-msgWrite-btn'){
+				send();
+				$('#message').focus(); 
+				$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+				event.preventDefault();
+				
+			//버튼이 활성화 되어 있지 않으면 입력상태 ON
+			}else{
+				$('#message').focus();
+			}
+		});
+		
 		console.log(e);  
 		//uploadFile(file);
   	}
-	
 }
 
 //파일 업로드 
