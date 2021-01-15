@@ -19,7 +19,8 @@ SELECT * FROM calendar WHERE project_seq = #{param1}
 	SELECT calendar.*
 	FROM calendar, kanbancard_member
 	WHERE calendar.card_seq = kanbancard_member.card_seq
-	AND kanbancard_member.email = #{param1}
+	AND kanbancard_member.email = #{param1} 
+	AND calendar.PROJECT_SEQ = #{param2}
 	</select>
 <update id="editCalendar">
 UPDATE calendar

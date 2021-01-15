@@ -65,7 +65,8 @@ var eventsFeed = function(info, successCallback, failureCallback) {
 		contentType: "application/json; charset=UTF-8",
 		dataType: "json",
 		async: false,
-		data:{email:$("#email").val()},
+		data:{email:$("#email").val(),
+			  project_seq: $("#projectNum").val()},
 		success: function(data) {
 			console.log("칸반캘린더:"+data)
 				var fixedDate = data.map(function(array) {

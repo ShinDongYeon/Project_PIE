@@ -45,7 +45,7 @@ $(document).ready(function() {
 				
 			}else{
 				//초기화
-				alert("png, jpg, jpge only");
+				Swal.fire("png, jpg, jpge only");
 				img = null;
 				return;
 			}

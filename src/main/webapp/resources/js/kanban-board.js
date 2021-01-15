@@ -286,7 +286,7 @@ $(function() {
 			' src="/resources/profile/' + email + '_' + profile + '">';
 		return memTag;
 	}
-	
+
 	//cardmempro
 	function cardMemIcon(email,nickName) {
 		let memIcon = "<img class='cardMemProfile' id='cardMemProfile' title='"+nickName+
@@ -346,6 +346,8 @@ $(function() {
 						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
 						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
 					}
+						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
+						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
 					});
 				}
 			});
@@ -484,6 +486,7 @@ $(function() {
 
 						//4. 데이터 다시 업데이트 
 						updateKanban(projectNum);
+						socketkanban.send("리스트삭제");
 					},
 					error: function(data) {
 						swal.fire("Error", "Try Again", "error");
@@ -593,7 +596,7 @@ $(function() {
 
 							//3. updateWholeInfo 
 							updateKanban(projectNum);
-
+							socketkanban.send("카드삭제");
 						},
 						error: function(data) {
 							swal.fire("Error", "Try Again", "error");

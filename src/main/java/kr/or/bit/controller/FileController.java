@@ -107,7 +107,7 @@ public class FileController {
 								 ModelAndView mv) {
 		
 		String fullPath = UploadPath.upload_path_files();
-		fullPath += "file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		

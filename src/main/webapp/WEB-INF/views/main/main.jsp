@@ -17,10 +17,6 @@
 	<script src="/resources/js/main.js"></script>
 	<script src="/resources/js/main-profile.js"></script>
 	<script src="/resources/js/googleLogout.js" ></script>
-<<<<<<< HEAD
-	
-=======
->>>>>>> cdb6088f38d4cf3e1430b8b5d70f331fc8d42994
 </head>
 <body>
 	<!-- Top -->

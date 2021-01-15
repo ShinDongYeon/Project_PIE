@@ -135,41 +135,46 @@ $.fn.setCursorPosition = function( pos )
 
 // 이모티콘 리스너
 function inputEmoji(me){
-   let element = document.getElementById('message');
-   let strOriginal = element.value;
-   let iStartPos = element.selectionStart;
-   let iEndPos = element.selectionEnd;
-	
+
+	let element = document.getElementById('message');
+	let strOriginal = element.value;
+	let iStartPos = element.selectionStart;
+	let iEndPos = element.selectionEnd;
+		
 	//이모티콘 1개일 때 확대
 	if(me.innerHTML.length == 1 || me.innerHTML.length == 2){
 		
 	}
-   let strFront = "";
-   let strEnd = "";
-
-   console.log(iStartPos + " / " + iEndPos);
-   if(iStartPos == iEndPos) {
-      
-      strFront = strOriginal.substring(0, iStartPos);
-      strEnd = strOriginal.substring(iStartPos, strOriginal.length);
-
-      console.log(strFront + " / " + strEnd);
-   } else return;
-   element.value = strFront + me.innerHTML + strEnd;
-   console.log(strFront.length + " |자리| " + me.innerHTML.length)
-   $('#message').focus().setCursorPosition(strFront.length + me.innerHTML.length);
+	let strFront = "";
+	let strEnd = "";
+	
+	console.log(iStartPos + " / " + iEndPos);
+	if(iStartPos == iEndPos) {
+	      
+		strFront = strOriginal.substring(0, iStartPos);
+		strEnd = strOriginal.substring(iStartPos, strOriginal.length);
+		
+		console.log(strFront + " / " + strEnd);
+	} else return;
+	
+	element.value = strFront + me.innerHTML + strEnd;
+	console.log(strFront.length + " |자리| " + me.innerHTML.length)
+	$('#message').focus().setCursorPosition(strFront.length + me.innerHTML.length);
+	$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
 }
 
 // 이모티콘 켜기/끄기
 function switchAnimation(target) {
-   if(target.hasClass('appear')){
-      target.addClass('disappear');
-      setTimeout( () => { 
-         target.removeClass('appear'); 
-         target.css('display','none'); 
-      }, 580 );
-   }else {
-      target.removeClass('disappear').addClass('appear');
-      target.css('display','block');
-   }
+	if(!$('.emoji-content').hasClass('disappear2')){
+		if(target.hasClass('appear')){
+			target.addClass('disappear');
+			setTimeout( () => {
+				target.removeClass('appear'); 
+				target.css('display','none'); 
+			}, 580 );
+		}else {
+			target.removeClass('disappear').addClass('appear');
+			target.css('display','block');
+		}
+	}
 }

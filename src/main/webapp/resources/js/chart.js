@@ -87,7 +87,7 @@ $(document).ready(function() {
 			datasets: [{
 				data: [done,inProgress],
 				barPercentage: 1,
-				backgroundColor: rancolor2,
+				backgroundColor:['#f2dd68',"#31353d"],
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
