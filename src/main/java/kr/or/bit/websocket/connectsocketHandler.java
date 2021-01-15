@@ -44,6 +44,7 @@ public class connectsocketHandler extends TextWebSocketHandler{
 			WebSocketSession sess = (WebSocketSession) m.getValue(); 
 			sess.sendMessage(message);
 		}
+		
 	}
 	
 	@Override

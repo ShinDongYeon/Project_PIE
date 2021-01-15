@@ -83,6 +83,7 @@ public class chatsocketHandler extends TextWebSocketHandler{
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					sess.sendMessage(message);
 				}
+				
 			}
 			
 
