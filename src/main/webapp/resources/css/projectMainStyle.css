@@ -839,13 +839,13 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 1.6rem;
-	color: #d8d8d8;
+	color: #31353d;
 	height: 62px;
 	margin: 0;
 	padding: 0 15px;
 }
 .sidebar-light > i:hover{
-	background-color: #d8d8d8;
+	background-color: #31353d;
 	color: #f2dd68;
 	cursor: pointer;
 }

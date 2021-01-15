@@ -14,7 +14,7 @@ let fileList = new Array();
 // 파일 사이즈 리스트
 let fileSizeList = new Array();
 // 등록 가능한 파일 사이즈 MB
-let uploadSize = 50;
+let uploadSize = 100;
 // 등록 가능한 총 파일 사이즈 MB
 let maxUploadSize = 500;
 

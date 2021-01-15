@@ -479,16 +479,6 @@ $(function() {
 					}
 				});
 
-				/*캘린더 삭제*/
-				$.ajax({
-					type: "POST",
-					url: "/calendarDeleteKanban.pie",
-					data: {
-						card_seq: $(this).parent().attr("data-card-seq")
-					},
-					success: function(data) {
-					}
-				});
 			}
 		});
 	});
@@ -598,6 +588,16 @@ $(function() {
 							swal.fire("Error", "Try Again", "error");
 						}
 					});
+									/*캘린더 삭제*/
+				$.ajax({
+					type: "POST",
+					url: "/calendarDeleteKanban.pie",
+					data: {
+						card_seq: $(this).parent().attr("data-card-seq")
+					},
+					success: function(data) {
+					}
+				});
 				}
 			});
 		});
@@ -624,7 +624,7 @@ $(function() {
 				let card_seq = makeKanbanCard(card, projectNum);
 				let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 				$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
-
+				
 				miniSortable();
 				updateKanban(projectNum);
 
@@ -643,7 +643,7 @@ $(function() {
 
 				let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 				$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
-
+				
 				miniSortable();
 				updateKanban(projectNum);
 			}
