@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.bit.dto.file;
 import kr.or.bit.service.ChatFileService;
@@ -107,6 +108,22 @@ public class ChatFileController {
 	public String makeDate() {
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		return nowDateTime;
+	}
+	
+	
+	@RequestMapping(value = "/chat/file/download", method = RequestMethod.GET)
+	public ModelAndView download(@RequestParam("project_seq")int project_seq,
+								 @RequestParam("file_uploaded_name")String file_uploaded_name,
+								 ModelAndView mv) {
+		
+		String fullPath = UploadPath.upload_path_files();
+		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+
+		File file = new File(fullPath);
+		
+		mv.setViewName("downloadView");
+		mv.addObject("downloadFile", file);
+		return mv;
 	}
 	
 }
