@@ -48,9 +48,24 @@ $(document).ready(function() {
 	$('#sendBtn').click( (event) => {
 		//버튼이 활성화 되어 있는 상태이면 메시지를 보낸다
 		if($('#chat-msgWrite-btn').attr('class') == 'chat-msgWrite-btn'){
-			send();
+			
+			let filename = $('#file-input').val();
+			if(filename != null || filename != ''){
+				sendFiles(filename);
+			}else{
+				send();
+			}
+			
 			$('#message').focus(); 
 			$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+			
+			$('#img_zone').css('display','none');
+			$('#message').attr('readonly',false);
+			$('#message').attr('placeholder','메시지를 입력하세요');
+			$('#img_zone').attr('src', '/resources/img/icon/none.png');
+			$('.emoji-content').removeClass('disappear2');
+			$('.emoji-content').addClass('disappear');
+			
 			event.preventDefault();
 			
 		//버튼이 활성화 되어 있지 않으면 입력상태 ON
@@ -59,7 +74,7 @@ $(document).ready(function() {
 		}
 	});
 
-	
+		
 	/*
 	$('#exitBtn').click(function() {
 		disconnect();
@@ -108,37 +123,28 @@ function readURL(file) {
   	reader.readAsDataURL(file);
 
 	//확장자명
-	imgEtc = file.name.split(".");
-	if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
-		
-	}else{
-		//초기화
-		Swal.fire("png, jpg, jpge only");
-		file = null;
-		return;
-	}
 	let index = file.name.lastIndexOf(".");
-	let imgEtc = file.name.substring(index+1);
+	let extension = file.name.substring(index+1);
 	
 	//파일이 다 읽어지면 
   	reader.onload = (e) => {
 		$('#img_zone').css('display','block');
 		
-		if(imgEtc === "png" || imgEtc === "jpg" || imgEtc === "jpeg"){
+		if(extension === "png" || extension === "jpg" || extension === "jpeg"){
 			$('#img_zone').attr('src', e.target.result);
-		}else if(imgEtc === "ppt" || imgEtc === "pptx"){
+		}else if(extension === "ppt" || extension === "pptx"){
 			$('#img_zone').attr('src', '/resources/img/icon/ppt.png');
-		}else if(imgEtc === "xlsx"){
+		}else if(extension === "xlsx"){
 			$('#img_zone').attr('src', '/resources/img/icon/excel.png');
-		}else if(imgEtc === "hwp"){
+		}else if(extension === "hwp"){
 			$('#img_zone').attr('src', '/resources/img/icon/hwp.png');
-		}else if(imgEtc === "doc" || imgEtc === "docx"){
+		}else if(extension === "doc" || extension === "docx"){
 			$('#img_zone').attr('src', '/resources/img/icon/doc.png');
-		}else if(imgEtc === "pdf"){
+		}else if(extension === "pdf"){
 			$('#img_zone').attr('src', '/resources/img/icon/pdf.png');
-		}else if(imgEtc === "txt"){
+		}else if(extension === "txt"){
 			$('#img_zone').attr('src', '/resources/img/icon/txt.png');
-		}else if(imgEtc === "zip"){
+		}else if(extension === "zip"){
 			$('#img_zone').attr('src', '/resources/img/icon/zip.png');
 		}else{
 			$('#img_zone').attr('src', '/resources/img/icon/file.png');
@@ -152,6 +158,8 @@ function readURL(file) {
 		$('.emoji-content').removeClass('disappear');
 		$('.emoji-content').addClass('disappear2');
 		
+		
+		
 		window.onkeydown = (event) => {
 			if (event.keyCode == 8 || event.which == 8) {
 				$('#img_zone').css('display','none');
@@ -160,10 +168,11 @@ function readURL(file) {
 				$('#img_zone').attr('src', '/resources/img/icon/none.png');
 				$('.emoji-content').removeClass('disappear2');
 				$('.emoji-content').addClass('disappear');
-				
+				$('#file-input').val('');
 			}
 		}
 		
+		/*
 		//전송 버튼을 눌렀을 때
 		$('#sendBtn').click( (event) => {
 			//버튼이 활성화 되어 있는 상태이면 메시지를 보낸다
@@ -171,6 +180,7 @@ function readURL(file) {
 				send();
 				$('#message').focus(); 
 				$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+				
 				event.preventDefault();
 				
 			//버튼이 활성화 되어 있지 않으면 입력상태 ON
@@ -178,9 +188,10 @@ function readURL(file) {
 				$('#message').focus();
 			}
 		});
+		*/
 		
 		console.log(e);  
-		//uploadFile(file);
+		uploadFile(file);
   	}
 }
 
@@ -216,17 +227,6 @@ function uploadFile(file) {
 			console.log(data);
 		}
 	});
-	
-	/*
-	$.ajax(
-		{
-			type 		: "GET",
-			url  		: "users?select="+$('#select').val(),
-			error		: function(request,status,error){
-				alert(error);
-			},
-			success 	: function(data){
-	*/
 }
 
 
@@ -275,6 +275,7 @@ function onOpen(evt){
 		}
 		
 		for(let i=1; i < data.val().length; i++){
+			
 			let str = data.val()[i].message_date;
 			let strArr = str.split('-');
 			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
@@ -296,7 +297,7 @@ function onOpen(evt){
 								"</div>";
 				}
 			
-			
+				//내가 보낸 메일이면
 				if (data.val()[i].email == myemail) {
 					msgbox += 	"<div class='chat-receiver-wrapper'>"+
 									"<div class='chat-receiver-pic'>"+
@@ -306,17 +307,35 @@ function onOpen(evt){
 										"<div class='chat-receiver-name'>"+
 											data.val()[i].nickName+
 										"</div>"+
-										"<div class='chat-receiver-message-wrapper'>"+
-											"<div id='chatMessageArea' class='chat-receiver-message'>"+
-												data.val()[i].message_content+
-											"</div>"+
-											"<div class='chat-receiver-time'>"+
+										"<div class='chat-receiver-message-wrapper'>";
+											//file이 있으면
+											if(data.val()[i].message_content == ''){
+												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
+													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_1"+data.val()[i].message_file+"'>"+
+																"</div>";
+												}else{
+													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"</div>";
+												}
+												
+												
+											//일반 메시지가 들어오면
+											}else{
+												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																data.val()[i].message_content+
+															"</div>";
+											}
+											
+					msgbox +=				"<div class='chat-receiver-time'>"+
 												data.val()[i].message_time+
 											"</div>"+
 										"</div>"+
 									"</div>"+
 								"</div>";
 								
+				//내가 보낸 메일이 아니면
 				}else {
 					msgbox += 	"<div class='chat-sender-wrapper'>"+
 									"<div class='chat-sender-pic'>"+
@@ -326,11 +345,27 @@ function onOpen(evt){
 										"<div class='chat-sender-name'>"+
 											data.val()[i].nickName+
 										"</div>"+
-										"<div class='chat-sender-message-wrapper'>"+
-											"<div id='chatMessageArea' class='chat-sender-message'>"+
-												data.val()[i].message_content+
-											"</div>"+
-											"<div class='chat-sender-time'>"+
+										"<div class='chat-sender-message-wrapper'>";
+											//file이 있으면
+											if(data.val()[i].message_content == ''){
+												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
+													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_1"+data.val()[i].message_file+"'>"+
+																"</div>";
+												}else{
+													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"</div>";
+												}
+												
+											
+											//일반 메시지가 들어오면
+											}else{
+												msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																data.val()[i].message_content+
+															"</div>";
+											}
+					msgbox +=				"<div class='chat-sender-time'>"+
 												data.val()[i].message_time+
 											"</div>"+
 										"</div>"+
@@ -358,6 +393,8 @@ function onOpen(evt){
 		var chatAreaHeight = $("#chatArea").height();
 		var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
 		$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+		
+		
 	});//firebase end
 }
 
@@ -380,11 +417,22 @@ function send(){
 	var msg = $('#message').val();
 	$('#message').val('');
 	if(msg.trim() != ''){
-		websocket.send(email + "|" + msg + "|" + nickname);
+		websocket.send(email + "|" + msg + "|" + nickname + "|"+nickname);
 	}
 }
 
+function sendFiles(filename){
+	let email = $('#session_email').val();
+	let nickname = $('#nickname').val();
+	var msg = $('#message').val();
+	let index = filename.lastIndexOf('\\');
+	let original_filename = filename.substring(index+1);
+	console.log(original_filename);
+	websocket.send(email + "|" + msg + "|" + nickname +"|/"+original_filename);
+}
+
 function appendMessage(msg) {
+	console.log(msg.indexOf('|/'));
 	
 	$.ajax(
 		{
@@ -409,6 +457,9 @@ function appendMessage(msg) {
 				let time = today.toLocaleTimeString().substr(0,time_index);
 				let date = today.format('yyyy-MM-dd');
 				
+				let index = strarray[3].lastIndexOf(".");	
+				let extension = strarray[3].substring(index+1);
+				
 				if (msginfo == myemail) {
 					msgbox = 	"<div class='chat-receiver-wrapper'>"+
 									"<div class='chat-receiver-pic'>"+
@@ -418,17 +469,35 @@ function appendMessage(msg) {
 										"<div class='chat-receiver-name'>"+
 											mynickname+
 										"</div>"+
-										"<div class='chat-receiver-message-wrapper'>"+
-											"<div id='chatMessageArea' class='chat-receiver-message'>"+
-												message+
-											"</div>"+
-											"<div class='chat-receiver-time'>"+
+										"<div class='chat-receiver-message-wrapper'>";
+										//file이 들어오면
+										if(msg.indexOf('|/') != -1){
+											if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
+												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_1"+strarray[3]+"'>"+
+															"</div>";
+											}else{
+												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+															"</div>";
+											}
+											
+										
+										//일반 메시지가 들어오면
+										}else{
+											msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+															message+
+														"</div>";
+										}
+											
+					msgbox +=				"<div class='chat-receiver-time'>"+
 												time+
 											"</div>"+
 										"</div>"+
 									"</div>"+
 								"</div>";
 								
+							
 							//SELECT chatting_room_seq
 							firebase.database().ref().child('chatting_room_seq').once('value',function(data){
 								//message_seq 추출
@@ -441,7 +510,8 @@ function appendMessage(msg) {
 									message_content : message,
 									message_date : date,
 									message_time : time,
-									message_file : null,
+									message_file : strarray[3],
+									extension: extension,
 									email : $('#session_email').val(),
 									nickName : $('#nickname').val(),
 									profile : null,
@@ -474,11 +544,26 @@ function appendMessage(msg) {
 												"<div class='chat-sender-name'>"+
 													elem.nickName+
 												"</div>"+
-												"<div class='chat-sender-message-wrapper'>"+
-													"<div id='chatMessageArea' class='chat-sender-message'>"+
-														message+
-													"</div>"+
-													"<div class='chat-sender-time'>"+
+												"<div class='chat-sender-message-wrapper'>";
+													//file이 들어오면
+													if(msg.indexOf('|/') != -1){
+														if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
+															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																			"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_1"+strarray[3]+"'>"+
+																		"</div>";
+														}else{
+															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																			"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																		"</div>";
+														}
+													
+													//일반 메시지가 들어오면
+													}else{
+														msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																		message+
+																	"</div>";
+													}
+							msgbox +=				"<div class='chat-sender-time'>"+
 														time+
 													"</div>"+
 												"</div>"+
@@ -493,9 +578,10 @@ function appendMessage(msg) {
 				var chatAreaHeight = $("#chatArea").height();
 				var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
 				$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
-			}
+				
+				
 		}
-	);
+	});
 	
 }
 	//날짜 포맷 형식을 지정해준 함수

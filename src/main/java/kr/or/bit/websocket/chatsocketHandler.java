@@ -56,18 +56,24 @@ public class chatsocketHandler extends TextWebSocketHandler{
 
 		@Override
 		public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+			System.out.println(message.getPayload());
 			//'|' 이 문자가 있으면 => 실제 채팅메시지를 보낼때
 			if(message.getPayload().toString().indexOf("|") != -1) {
 				String select = getCurrentChatRoom(session);
-				String loginuser = getLoginUser(session);
 				
 				for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					sess.sendMessage(message);
 				}
 			
-			//'|' 이 문자가 없으면(loginuser이메일을 메시지로 받음) 
-			//	=> connect socket을 태웠을때
+			//'|' 이 문자가 없으면
+			}else if(message.getPayload().toString().indexOf("|/") != -1){
+				String select = getCurrentChatRoom(session);
+				for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
+					WebSocketSession sess = (WebSocketSession) m.getValue();
+					sess.sendMessage(message);
+				}
+				
 			}else {
 				Map<String, Object> pushAlarmMap = new HashMap<String, Object>();
 				String select = getCurrentChatRoom(session);
@@ -83,7 +89,6 @@ public class chatsocketHandler extends TextWebSocketHandler{
 					WebSocketSession sess = (WebSocketSession) m.getValue();
 					sess.sendMessage(message);
 				}
-				
 			}
 			
 
