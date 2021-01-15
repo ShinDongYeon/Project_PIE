@@ -26,7 +26,7 @@ public class FileService{
 	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
 		String UPLOAD_PATH = UploadPath.upload_path_files();
 		//파일 저장 경로 (프로젝트번호 기준)
-		String specific_path = "\\file_directory_project_seq_"+projectNum;
+		String specific_path = "/file_directory_project_seq_"+projectNum;
 		
 		File fileOb = new File(UPLOAD_PATH+specific_path);
 		
@@ -78,7 +78,7 @@ public class FileService{
 				
 				data = files.get(i).getBytes();
 				//절대경로 + 프로젝트번호 + 파일이름 
-				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"\\"+upload_file_name);
+				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
 				//파일 업로드 
 				fos.write(data);
 				 

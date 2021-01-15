@@ -71,8 +71,6 @@
 	<!-- naverbo -->
 	<beans:bean name ="naverLoginBO" class = "kr.or.bit.util.NaverLoginBO"/>
 	
-	<beans:bean id="downloadView" class="kr.or.bit.util.DownloadView" />
-	
 	<mvc:annotation-driven>
 	<mvc:message-converters>
 		<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">

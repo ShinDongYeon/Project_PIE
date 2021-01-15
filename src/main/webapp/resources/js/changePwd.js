@@ -5,14 +5,14 @@ let doublePwdCheck = false;
 //submit 전 검증 함수 
 function check(){
 	if(!firstPwdCheck){
-		alert("비밀번호를 확인해주세요.");
+		Swal.fire("비밀번호를 확인해주세요.");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwd").focus();
 		return false;
 	}
 	if(!doublePwdCheck){
-		alert("비밀번호 재입력을 확인해주세요.");
+		Swal.fire("비밀번호 재입력을 확인해주세요.");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwdCheck").focus();
@@ -41,7 +41,7 @@ function isPassword(asValue) {
         console.log(firstPwdCheck);
         console.log($("#pwd").val())
         if($("#pwd").val().search(/\s/) != -1){
-            alert("공백은 허용되지 않습니다.");
+            Swal.fire("공백은 허용되지 않습니다.");
             $("#pwd").val("");
         }
         if(isPassword($("#pwd").val())){
@@ -58,7 +58,7 @@ function isPassword(asValue) {
         //비밀번호 2차 확인 함수
     $(document).on('keyup', '#pwdCheck', function(){
         if($("#pwdCheck").val().search(/\s/) != -1){
-            alert("공백은 허용되지 않습니다.");
+            Swal.fire("공백은 허용되지 않습니다.");
             $("#pwdCheck").val("");
         }
         if($("#pwd").val()===$("#pwdCheck").val()){

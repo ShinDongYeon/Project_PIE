@@ -113,7 +113,7 @@ function readURL(file) {
 		
 	}else{
 		//초기화
-		alert("png, jpg, jpge only");
+		Swal.fire("png, jpg, jpge only");
 		file = null;
 		return;
 	}

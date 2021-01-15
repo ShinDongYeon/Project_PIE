@@ -47,7 +47,12 @@
 						<option value="txt">txt</option>
 						<option value="hwp">hwp</option>
 						<option value="png">png</option>
+						<option value="doc">doc</option>
+						<option value="docx">docx</option>
+						<option value="xlsx">xlsx</option>
+						<option value="xls">xls</option>
 						<option value="jpg">jpg</option>
+						<option value="jpeg">jpeg</option>
 					</select>
 				</form>
 			</div>
