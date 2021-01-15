@@ -270,29 +270,9 @@ function logonUser(data){
 작성자: 도재구
 */
 function popupOpen(roomno,roomname){
-	/*
-	$.ajax(
-		{
-			type 		: "GET",
-			url  		: "chat/room/list",
-			async: false,
-			error		: function(request,status,error){
-				alert(error);
-			},
-			success 	: function(data){
-				console.log("check");
-				console.log(data);
-				//chattingRoomList(data);
-				$.each(data.chat_room_list,function(index,elem){
-					if(elem.clicked == 0)
-				});
-			}
-		}
-	);
-	*/
 	
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
-	let popOption = "width=370, height=600, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
+	let popOption = "width=370, height=550, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
 	
 	$.ajax(
@@ -343,8 +323,8 @@ function chattingRoomList(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 15){
-			chat_title_substr = chat_title.substr(0,15) + "...";
+		if(chat_title.length > 12){
+			chat_title_substr = chat_title.substr(0,12) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
@@ -400,8 +380,8 @@ function completeChattingRoom(data){
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
-		if(chat_title.length > 15){
-			chat_title_substr = chat_title.substr(0,15) + "...";
+		if(chat_title.length > 12){
+			chat_title_substr = chat_title.substr(0,12) + "...";
 		}else{
 			chat_title_substr = chat_title;
 		}
@@ -568,10 +548,10 @@ function updateNameOk(me){
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
-		if (chat_room_input.val().length > 15) {
+		if (chat_room_input.val().length > 12) {
 			swal.fire({
 				title: 'Check Please',
-				text: '15자 이하로 입력해주세요',
+				text: '12자 이하로 입력해주세요',
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: '확인',

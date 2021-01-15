@@ -144,10 +144,10 @@
 			<div class="chat-msgWrite-wrapper">
 				<!-- message area -->
 				<textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea>
+				<img id="img_zone" class="chat-msgWrite-file" src =""/>
 				<!-- <div contentEditable="true"></div> -->
 				<!-- 파일 업로드 폼 -->
 				<form name="chat_uploadForm" id="chat_uploadForm" method="post" enctype="multipart/form-data">
-					<!-- <img id="img_zone" class="chat-msgWrite-file" src =""/> -->
 					<input type="file" id="file-input" name="chat_file" style="display:none;">
 				</form>
 
