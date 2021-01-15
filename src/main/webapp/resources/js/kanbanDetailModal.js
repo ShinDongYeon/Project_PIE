@@ -157,7 +157,7 @@ $(document).ready(function() {
 	
 	
 	//edit card Content
-	$('.fa-edit').click(function(e){
+	$(document).on("click", ".fa-edit", function(e) {
 		let cardText = $('.fa-edit').parents().children().children('.cardContents').html();
 		e.preventDefault();
 		$('.fa-edit').hide();
@@ -224,7 +224,6 @@ $(document).ready(function() {
 				async: false,
 				data: card,
 				success: function(data) {
-					console.log(data);
 				}
 			});
 			$('.cardTitleMo').html(editedCardTitle);
@@ -236,7 +235,7 @@ $(document).ready(function() {
 	});
 	
 	/*Card Details*/
-	$('.cardDetailsForm').submit(function(e){
+	$(document).on("submit", ".cardDetailsForm", function(e) {
 		e.preventDefault();
 		let cardOb = new Object();
 		let contents = $(this).children('.addCardDetails').val();

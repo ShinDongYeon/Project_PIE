@@ -35,8 +35,6 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		// 1대1
 		Map<String, WebSocketSession>	userSessionsMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
-		@Autowired
-		private KanbanService kanbanservice;
 
 		//서버에 접속 성공했을때
 		@Override
@@ -53,8 +51,6 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 					sess.sendMessage(new TextMessage("kanban"));		
 			}
 		}
-		
-		
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 			sessionList.remove(session);
@@ -70,15 +66,5 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 				return loginUser.getEmail();
 			}
 				
-		}
-		private static JSONObject JsonToObjectParser(String jsonStr) {
-			JSONParser parser = new JSONParser();
-			JSONObject obj = null;
-			try {
-				obj = (JSONObject) parser.parse(jsonStr);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			return obj;
 		}
 }
