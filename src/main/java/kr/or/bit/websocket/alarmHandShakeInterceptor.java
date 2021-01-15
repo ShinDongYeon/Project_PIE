@@ -19,7 +19,6 @@ public class alarmHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     	
     	ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
     	HttpServletRequest req= ssreq.getServletRequest();
-        System.out.println("loginuser: " + req.getSession().getAttribute("loginuser"));
         // 파라미터로 입력된 attributes에 put을 하면 
         // WebSocketSession에 자동으로 저장되어 Chat class에서 활용 가능
         attributes.put("loginuser", req.getSession().getAttribute("loginuser"));
@@ -30,9 +29,6 @@ public class alarmHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     public void afterHandshake(ServerHttpRequest request,
             ServerHttpResponse response, WebSocketHandler wsHandler,
             Exception ex) {
-        System.out.println("After Handshake");
-  
         super.afterHandshake(request, response, wsHandler, ex);
     }
-  
 }
