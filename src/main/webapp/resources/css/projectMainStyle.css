@@ -24,7 +24,6 @@
 	z-index: 100;
 	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
 }
-
 /*project-main-navbar*/
 .navbar {
 	padding: 10px 20px 10px 10px;
@@ -732,7 +731,18 @@
     padding: 5px;
     margin-left: 4px;
 }
-	
+.users-select-user-on{
+	visibility: hidden;
+	background-color: #00ff00;
+	width: 7px;
+	height: 7px;
+	border-radius: 7px;
+	margin: 0px;
+	color: white;
+	position: relative;
+	right: -4px;
+	top: 0px;
+}	
 
 /************************/
 /* project main wrapper */
@@ -790,5 +800,110 @@
 	display: inline-block;
 	cursor: pointer;
 }
+#usersimg{
+	/* margin-top : 10px; */
+	border-radius: 70%;
+	overflow: hidden;
+	width: 40px;
+	height: 40px;
+}
+/* Toggle */
+.top-menu-light{
+	display: flex;
+	justify-content: space-between;
+	height: 65px;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 100;
+	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+}
+.fa-bars-light{
+	color:#31353d;
+}
+.sidebar-ligth{
+	display: block;
+	width: 62px;
+	height: 100vh;
+	position: fixed;
+	background: #fff;
+	padding-top: 65px;
+	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+	z-index: 99;
+	transition: width .5s;
+}
+.sidebar-ligth > i{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.6rem;
+	color: #d8d8d8;
+	height: 62px;
+	margin: 0;
+	padding: 0 15px;
+}
+.sidebar-light > i:hover{
+	background-color: #d8d8d8;
+	color: #f2dd68;
+	cursor: pointer;
+}
+.right-sidebar-contents-wrapper-display-light{
+	position: fixed;
+	background-color: #fff;
+	width: 308px;
+	height: 100%;
+	/*padding-top: 65px;*/
+	/*padding-right: 62px;*/
+	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
+	transition: width .5s;
+	z-index: 2;
+	overflow: scroll;
+	overflow-x: hidden;
+	right: 60px;
+	top: 65px;
+}
 
-
+.right-sidebar-contents-wrapper-light-hidden{
+	display: none;
+	height: 100vh;
+	padding-top: 65px;
+	padding-right: 62px;
+	transition: width .5s;
+}
+.file-top-icon-wrapper-light{
+	text-align: center;
+	border: 1.8px dashed #31353d;
+	padding: 20px;
+	margin: 30px 0 20px 0;
+}
+.file-top-icon-letter-light{
+	color: #31353d;
+}
+.file-top-icon-light{
+	font-size: 5rem;
+	color: #31353d;
+}
+.file-search-item-letter1-light{
+ 	color: #31353d;
+	font-size: 0.8rem;
+	font-weight: 300;
+}
+.file-search-item-letter2-light{
+	color: #31353d;
+	font-size: 0.8rem;
+	font-weight: 300;
+}
+.file-list-letter-title-light{
+	color: #31353d;
+	font-size: 0.9rem;
+}
+.file-list-img-light img{
+	place-self: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	background-color: #31353d;
+	padding: 5px;
+}

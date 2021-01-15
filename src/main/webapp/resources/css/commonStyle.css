@@ -9,11 +9,11 @@ url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 body{
 	margin: 0;
 	height: 100vh;
-	background-image: url(/resources/img/background_dark.png);
+	background-image: url(/resources/img/background_dark2.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	background: url(/resources/img/background_dark.png) no-repeat center/cover;
+	background: url(/resources/img/background_dark2.png) no-repeat center/cover;
 }
 
 ul{

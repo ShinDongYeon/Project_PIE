@@ -32,7 +32,7 @@ public class UserProfileService{
 
 	
 	//지연
-	private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
+	//private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\profile"; 
 	//파일 업로드 서비스 
 	public void profileUploadService(MultipartFile file, String email) {
 		String fileOGName = file.getOriginalFilename();
