@@ -18,6 +18,7 @@ public class UserProfileService{
 	private SqlSession sqlsession;
 
 
+
 	//파일 업로드 서비스 
 	public void profileUploadService(MultipartFile file, String email) {
 		String fileOGName = file.getOriginalFilename();

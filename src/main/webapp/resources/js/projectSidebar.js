@@ -22,19 +22,30 @@ $(document).ready(function(){
 	$('#sidebar-star').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
 	});
 	$(document).on("click","#sidebar-bell",function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
 	});
 	$('#sidebar-file').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
 	});
 	$('#sidebar-chat').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
-		
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
 		//채팅방 목록 가져오기
 		if(wrapper.className === 'right-sidebar-contents-wrapper-display'){
 			$.ajax(
@@ -62,6 +73,9 @@ $(document).ready(function(){
 	$('#sidebar-users').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
 	});
 	
 	function sidebarToggle(){

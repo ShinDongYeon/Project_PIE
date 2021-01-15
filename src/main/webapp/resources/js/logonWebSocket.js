@@ -19,7 +19,8 @@ function connectWS_logon(){
 	logon_ws.onmessage = (event) => {
 		let data = event.data;
 		logonUser(JSON.parse(data));
-		
+		usersLogon(JSON.parse(data));
+
 	};
 	logon_ws.onclose = (event) => {
 		
@@ -27,4 +28,21 @@ function connectWS_logon(){
 	logon_ws.onerror = (event) => {
 		console.log("logon_WS Error");
 	};
+}
+	function usersLogon(data){
+	//유저리스트의 데이터
+	let div_length = $('#users').find('div').length;
+	for(let j=1; j <= div_length / 7; j++){
+		let k = j * 7 - 1;
+		let div = $('#users').find('div:eq('+k+')').text().trim().split(':');
+		let mail = div[1]
+		let index = j-1;
+		$('#users-select-user-on-'+index).css('visibility','hidden');
+		//방금 서버에서 가져온 데이터
+		for(let i=0; i < data.length; i++){
+			if(data[i] == mail){
+				$('#users-select-user-on-'+index).css('visibility','visible');
+			}	
+		}
+	}
 }

@@ -279,6 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			$('#contentView').val(content);
 			$("#deleteCalendar").unbind('click');
 			$('#deleteCalendar').click(function() {
+				
 				swal({
 					title: "일정을 삭제하시겠습니까?",
 					icon: "warning",
@@ -289,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						if (willDelete) {
 							deleteCalendar(info)
 							var event = calendar.getEventById(info.event.id);
+							document.getElementById('calendar_modal_background').style.display = 'none';
 							event.remove();
 						} else {
 

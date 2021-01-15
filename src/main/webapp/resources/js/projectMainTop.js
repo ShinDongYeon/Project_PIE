@@ -10,4 +10,3 @@ function collapseSidebar(){
 	sidebar.style.width = (sidebar.style.width == '0px') ? '62px' : '0px';
 	contents.style.display = (contents.style.display == 'none') ? 'block' : 'none';	
 }
-/*//right sidebar contents wrapper*/
