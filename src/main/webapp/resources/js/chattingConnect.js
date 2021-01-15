@@ -38,8 +38,8 @@ function chattingAlarm(data){
 					//프로젝트 제목
 					let chat_title = elem.chatting_room_name;
 					let chat_title_substr = "";
-					if(chat_title.length > 15){
-						chat_title_substr = chat_title.substr(0,15) + "...";
+					if(chat_title.length >= 10){
+						chat_title_substr = chat_title.substr(0,10) + "...";
 					}else{
 						chat_title_substr = chat_title;
 					}
