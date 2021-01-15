@@ -24,7 +24,6 @@
 		<property name="order" value="0"/>
 	</bean>
 	
-	<bean id="downloadView" class="kr.or.bit.util.DownloadView" />
 	<!-- /spring-donwload bean -->
 	
 	<!-- mysql -->
