@@ -4,7 +4,6 @@
 작성일: 2020-12-28 ~ 2021-01-11
 작성자: 문지연,변재홍
 */
-
 $(function() {
 
 	//칸반 객체를 컨트롤러에게 보내는 ajax 
@@ -22,7 +21,6 @@ $(function() {
 	});
 
 	let projectNum = pjNumByController;
-	console.log("project seq : " + projectNum);
 
 	//프로젝트 제목 가져오는 ajax 
 	$.ajax(
@@ -38,15 +36,11 @@ $(function() {
 			}
 		}
 	)
-
 	let lastNum = getLastNumFromController(projectNum);
-	console.log("페이지 로드시 리스트 개수 : " + lastNum);
 
 	loadKanban(projectNum);
-	console.log("created");
 
 	function allSortable() {//리스트 단위 sortable 
-		console.log("all sortable");
 		$("#listWrap").sortable({
 			handle: ".listTitleWrap",
 			start: function(event, ui) {	//드래그 시작시 동작하는 함수 
@@ -83,7 +77,6 @@ $(function() {
 				//움직인 카드의 요소의 개수를 알아내서 인덱싱하는 역할 
 				let newListIndex = 1;
 				$(new_list).children().each(function() {
-					console.log();
 					$(this).attr("id", $(this).parent().parent().attr("id") + "-" + newListIndex);
 					newListIndex++;
 				});
@@ -91,11 +84,9 @@ $(function() {
 				//빠진 부분 카드의 요소의 개수를 알아내서 인덱싱하는 역할
 				let oldListIndex = 1;
 				$(event.target).children().each(function() {
-					console.log($(this).parent());
 					$(this).attr("id", $(this).parent().parent().attr("id") + "-" + oldListIndex);
 					oldListIndex++;
 				});
-				console.log("db insert");
 				updateKanban(projectNum);//컨트롤러에게 칸반 객체 전달 & 파라미터는 프로젝트 번호 
 
 			},
@@ -127,8 +118,6 @@ $(function() {
 	//edit project Title
 	proTitleEdit.submit(function(e) {
 		e.preventDefault();
-		console.log("projectTitle")
-		console.log(proTitleEdit.children("#projectTitleInput").val());
 		let editedTitle = proTitleEdit.children("#projectTitleInput").val();
 		let projectSeq = projectNum;
 
@@ -146,7 +135,7 @@ $(function() {
 				async: false,
 				data: project,
 				success: function(data) {
-					console.log(data);
+					
 				}
 			});
 			proTitle.html(editedTitle);
@@ -178,11 +167,8 @@ $(function() {
 		}
 
 		let listM = $(".list").first();
-		console.log("listM");
-		console.log(listM);
 
 		if (isNull(listM)) {
-			console.log("첫번째 요소가 없음");
 			return;
 		} else {
 			for (let i = 1; i < $(".list").length + 1; i++) {
@@ -198,17 +184,10 @@ $(function() {
 		let kanban = new Object();//모든 리스트와 카드를 담을 오브젝트 
 		let listList = new Array();//각각의 리스트객체를 담을 리스트array 
 
-		console.log(lastNum);
-
 		for (let i = 1; i <= lastNum; i++) {//첫번째 카드 리스트부터 마지막 리스트까지 
 			let list = new Object();//하나의 리스트의 정보를 담을 리스트 객체 
 			list.list_order_num = Number($("#" + i.toString()).attr("id"));//리스트의 순서 번호 
 			list.list_seq = Number($("#" + i.toString()).attr("data-list-seq"));//리스트의 고유 번호 
-
-			console.log(list);
-			//여기서 리스트의 다른 항목들 추가되면 추가 
-			//ex) list.listTitle = ...
-			//ex) list.listDate = ... 
 
 			let cardList = new Array();//각각의 카드객체를 담을 카드 array 
 			$("#" + i.toString() + " div:nth-child(2n)").children().each(function() {
@@ -216,11 +195,6 @@ $(function() {
 				card.card_order_num = $(this).attr("id"); //카드의 순서 번호  
 				card.card_name = $(this).text();//카드의 제목 
 				card.card_seq = Number($(this).attr("data-card-seq"));//카드의 고유 번호
-
-				//여기서 카드의 다른 항목을 추가되면 추가 
-				//ex) card.cardTitle = ...
-				//ex) card.cardMember = ... 
-
 				cardList.push(card);//카드 하나 하나를 카드리스트 배열에 담아준다.
 			});
 
@@ -228,7 +202,6 @@ $(function() {
 			listList.push(list);//하나의 리스트 객체를 리스트array에 담아준다. 
 		}
 		kanban.kanban = listList;
-		console.log(kanban);
 
 		return kanban;
 	}
@@ -248,8 +221,6 @@ $(function() {
 			async: false,
 			data: kanbanJson,
 			success: function(data) {
-				console.log(data.success);
-				console.log(wholeList);
 			}
 		}
 		)
@@ -332,7 +303,6 @@ $(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				console.log(data);
 				$.each(data, function(index, item) {
 							let cardPro = makeMemPro(item.email,item.nickName,item.profile)
 							$("[data-card-seq="+item.card_seq+"]").append(cardPro);
@@ -362,8 +332,6 @@ $(function() {
 	getCheckListByCard();
 
 	}
-
-	console.log("요소의 마지막 번호 : " + lastNum);
 
 	/*Add a List*/
 	const addListTitle = $("#addListLabel");
@@ -406,9 +374,7 @@ $(function() {
 			listTag += "</div>";
 			listTag += makeCardAddBtn();
 			$("#listWrap").append(listTag);
-			console.log(listTag);
 			lastNum += 1;
-			console.log("마지막 번호 : " + lastNum);
 			updateKanban(projectNum);
 		}
 		$(this).children("#addListTitleInput").val("");
@@ -429,7 +395,6 @@ $(function() {
 				alramOb.project_seq = Number($("#projectNum").val())
 				alramOb.alramseq = (data + 1)
 				let alram = JSON.stringify(alramOb);
-				console.log("알람갯수" + data)
 				$.ajax({
 					type: "POST",
 					url: "alramInsert.pie",
@@ -480,8 +445,6 @@ $(function() {
 				});
 				listOb.cardList = cardArray; //리스트에 카드를 할당해줌 
 				let list = JSON.stringify(listOb);//컨트롤러로 보낼 리스트 
-				console.log("list");
-				console.log(list);
 
 				let listView = $(this).parent().parent();
 
@@ -510,7 +473,6 @@ $(function() {
 						updateKanban(projectNum);
 					},
 					error: function(data) {
-						console.log(data);
 						swal.fire("Error", "Try Again", "error");
 
 					}
@@ -547,7 +509,6 @@ $(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				console.log(data);
 				lastNum = data.data;
 			}
 		});
@@ -575,6 +536,8 @@ $(function() {
 		return card_seq;
 	}
 
+	//$('.cardContent').mouseover(function() {
+	
 	/*Add Card Label*/
 	$(document).on("click", ".addCardLabel", function(e) {
 		e.preventDefault();
@@ -582,8 +545,12 @@ $(function() {
 		$(this).parent().children("form").show();
 		$(this).parent().children("form").children("textarea").focus();
 	});
+	
+	$(document).on("mouseleave", ".cardContent", function() {
+		$(this).children('.deleteCard').fadeOut();
+	});
 
-	$('.cardContent').mouseover(function() {
+	$(document).on("mouseover", ".cardContent", function() {
 		let cardDelteBtn = $(this).children('.deleteCard');
 		cardDelteBtn.fadeIn();
 		cardDelteBtn.click(function(e) {
@@ -626,18 +593,12 @@ $(function() {
 							updateKanban(projectNum);
 						},
 						error: function(data) {
-							console.log(data);
-							console.log("error error error error");
 							swal.fire("Error", "Try Again", "error");
 						}
 					});
 				}
 			});
 		});
-	});
-
-	$('.cardContent').mouseleave(function() {
-		$(this).children('.deleteCard').fadeOut();
 	});
 
 	$(document).on("submit", ".addCard", function(e, item) {
@@ -652,8 +613,7 @@ $(function() {
 			if (upperCard === undefined) {//리스트에 처음으로 카드를 만드는 경우 
 				let card_order_num = "";
 				card_order_num += list_order_num + "-1";
-				console.log(card_order_num);
-
+				
 				let card = new Object(); //컨트롤러에게 넘길 카드 객체 
 				card.card_order_num = card_order_num;
 				card.card_name = cardTitleVal;
@@ -667,12 +627,10 @@ $(function() {
 				updateKanban(projectNum);
 
 			} else {
-				let upper_order_num = upperCard
 				let card_order_num = "";
 				card_order_num += list_order_num + "-";
 				let card_order_num2 = ($(this).parent().prev().children().length) + 1;
 				card_order_num += card_order_num2;
-				console.log(card_order_num);
 
 				let card = new Object(); //컨트롤러에게 넘길 카드 객체 
 				card.card_order_num = card_order_num;
@@ -706,7 +664,6 @@ $(function() {
 				alramOb.project_seq = Number($("#projectNum").val())
 				alramOb.alramseq = (data + 1)
 				let alram = JSON.stringify(alramOb);
-				console.log("알람갯수" + data)
 				$.ajax({
 					type: "POST",
 					url: "alramInsert.pie",
@@ -717,7 +674,6 @@ $(function() {
 					success: function(data) {
 						socket.send("등록")
 						socketkanban.send("등록")
-
 					},
 				})
 			}
@@ -778,7 +734,6 @@ $(function() {
 			async: false,
 			data: list,
 			success: function(data) {
-				console.log(data);
 			}
 		});
 
@@ -806,18 +761,14 @@ $(function() {
 		let ws = new WebSocket("ws://localhost:8090/websocket/kanban/websocket");
 		socketkanban = ws;
 		ws.open = function(msg) {
-			console.log("칸반:" + msg);
 		}
 		
 		ws.onmessage = function(event) {
-			console.log("칸반:" + event.data)
 			loadKanban(projectNum)
 		};
 		ws.onclose = function() {
-			console.log("Sever Close");
 		}
 		ws.onerror = function() {
-			console.log("Server Error");
 		}
 	};
 	connectWS();
