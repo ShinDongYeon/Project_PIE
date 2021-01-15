@@ -351,6 +351,8 @@ input[type="checkbox"] {
 	padding: 10px 5px;
 	height: 37px;
 	position: relative;
+	width: 90%;
+	word-break: break-all;
 }
 
 .todo:before {

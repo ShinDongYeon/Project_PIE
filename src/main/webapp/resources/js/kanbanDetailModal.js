@@ -225,16 +225,10 @@ $(document).ready(function() {
 				async: false,
 				data: card,
 				success: function(data) {console.log(data);
-					thisCard.text(data.data.card_name);
+					thisCard.children('.cardName').text(data.data.card_name);
 				}
 			});
 			$('.cardTitleMo').html(editedCardTitle);
-			//$("[data-card-seq=" + modal_card_seq + "]").text(editedCardTitle);
-			//let test=$("[data-card-seq=" + modal_card_seq + "]")[0].firstChild.val(editedCardTitle);
-			//let test=thisCard[0].firstChild.data;
-			//let text=thisCard.text();
-			//thisCard.text(text.replace(test,editedCardTitle));
-			console.log($("[data-card-seq=" + modal_card_seq + "]"));
 			$(this).parents().children().children("#cardTitleInput").val("");
 			$('.cardTitleForm').hide();
 			$('.cardTitleMo').show();
@@ -569,6 +563,7 @@ $(document).ready(function() {
 		cardMemOb.email = email;
 
 		let cardMem = JSON.stringify(cardMemOb);
+		
 		let thisCard = $("[data-card-seq="+cardSeq+"]");
 		$.ajax({
 			type: "post",
@@ -592,18 +587,9 @@ $(document).ready(function() {
 			$(".memList").append(cardMem);
 			
 			if($('#session_email').val()==email){
-				if(thisCard.children().hasClass('checkStatus')){
-					//thisCard.prepend(cardMem);
-					console.log(thisCard.children());
-					console.log("hasClass")
-					thisCard.children('.temp').show();
-					thisCard.children('.temp').append(cardMem);
-					//cardMem.prependTo(thisCard.children('.checkStatus'));
-					thisCard.children().children('.selectedMemPro').attr('class','cardMemProfile');
-				}else{
-					thisCard.append(cardMem);
-					thisCard.children('.selectedMemPro').attr('class','cardMemProfile');
-				}
+				thisCard.children('.temp').show();
+				thisCard.children('.temp').append(cardMem);
+				thisCard.children('.temp').children('.selectedMemPro').attr('class','cardMemProfile');
 				}
 			}
 			});

@@ -249,7 +249,7 @@ $(function() {
 			async: false,
 			data: kanbanJson,
 			success: function(data) {
-			}
+		}
 		}
 		)
 	}
@@ -264,8 +264,8 @@ $(function() {
 
 	//카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name) {
-		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'>" + card_name +
-			"<i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" +
+		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'><p class='cardName'>" + card_name +
+			"</p><i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" +
 			"</div>";
 		return cardTag;
 	}
@@ -346,8 +346,6 @@ $(function() {
 						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
 						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
 					}
-						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
-						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
 					});
 				}
 			});
