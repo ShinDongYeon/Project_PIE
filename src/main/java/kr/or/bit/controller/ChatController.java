@@ -99,8 +99,8 @@ public class ChatController {
 						for(roomlist list : user_room_list) {
 							nickname += "#" + list.getNickName();
 						}
-						if(nickname.length() > 20){
-							nickname = nickname.substring(0,20) + "...";
+						if(nickname.length() > 15){
+							nickname = nickname.substring(0,15) + "...";
 						}
 						nicknames.add(nickname);
 						nickname = "";
@@ -152,8 +152,8 @@ public class ChatController {
 				for(roomlist list : user_room_list) {
 					nickname += "#" + list.getNickName();
 				}
-				if(nickname.length() > 20){
-					nickname = nickname.substring(0,20) + "...";
+				if(nickname.length() > 15){
+					nickname = nickname.substring(0,15) + "...";
 				}
 				nicknames.add(nickname);
 				nickname = "";
@@ -292,8 +292,8 @@ public class ChatController {
 					nickname += "#" + list.getNickName();
 				}
 				
-				if(nickname.length() > 20){
-					nickname = nickname.substring(0,20) + "...";
+				if(nickname.length() > 15){
+					nickname = nickname.substring(0,15) + "...";
 				}
 				nicknames.add(nickname);
 				nickname = "";

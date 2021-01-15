@@ -201,6 +201,7 @@ function onOpen(evt){
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages').once('value',function(data){
 		let myemail = $('#session_email').val();
 		let msgbox = '';
+		//데이터가 1개이면,
 		if(data.val().length == 1){
 			msgbox += 	"<div class='chat-body-date'>"+
 							"<div class='chat-body-date-line'>"+
@@ -214,26 +215,30 @@ function onOpen(evt){
 							"</div>"+
 						"</div>";
 		}
+		
 		for(let i=1; i < data.val().length; i++){
 			let str = data.val()[i].message_date;
 			let strArr = str.split('-');
 			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
 			let DB_date_format = DB_date.format('yyyy년 MM월 dd일');
-			if(data.val()[i].message_date != data.val()[i-1].message_date){
-				msgbox += 	"<div class='chat-body-date'>"+
-								"<div class='chat-body-date-line'>"+
-									"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
-								"</div>"+
-								"<div class='chat-body-date-letter'>"+
-									DB_date_format+
-								"</div>"+
-								"<div class='chat-body-date-line'>"+
-									"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
-								"</div>"+
-							"</div>";
-			}
+			//날짜가 1일이 지난 메시지는 띄우지 않기
 			if((today - DB_date)/1000/60/60/24 < 1){
-
+				//날짜가 바뀌었으면 바뀐 것을 표시
+				if(data.val()[i].message_date != data.val()[i-1].message_date){
+					msgbox += 	"<div class='chat-body-date'>"+
+									"<div class='chat-body-date-line'>"+
+										"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+									"</div>"+
+									"<div class='chat-body-date-letter'>"+
+										DB_date_format+
+									"</div>"+
+									"<div class='chat-body-date-line'>"+
+										"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+									"</div>"+
+								"</div>";
+				}
+			
+			
 				if (data.val()[i].email == myemail) {
 					msgbox += 	"<div class='chat-receiver-wrapper'>"+
 									"<div class='chat-receiver-pic'>"+

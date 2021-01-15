@@ -270,29 +270,9 @@ function logonUser(data){
 작성자: 도재구
 */
 function popupOpen(roomno,roomname){
-	/*
-	$.ajax(
-		{
-			type 		: "GET",
-			url  		: "chat/room/list",
-			async: false,
-			error		: function(request,status,error){
-				alert(error);
-			},
-			success 	: function(data){
-				console.log("check");
-				console.log(data);
-				//chattingRoomList(data);
-				$.each(data.chat_room_list,function(index,elem){
-					if(elem.clicked == 0)
-				});
-			}
-		}
-	);
-	*/
 	
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
-	let popOption = "width=370, height=600, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
+	let popOption = "width=370, height=550, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
 	
 	$.ajax(
@@ -568,6 +548,7 @@ function updateNameOk(me){
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
+
 		if (chat_room_input.val().length > 10) {
 			swal.fire({
 				title: 'Check Please',
