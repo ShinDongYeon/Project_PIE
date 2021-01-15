@@ -70,10 +70,10 @@ public class CalendarController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "calendarListKanban.pie", method = RequestMethod.GET)
-	public List<calendar> calendarListKanban(String email) {
+	public List<calendar> calendarListKanban(String email,int project_seq) {
 		List<calendar> calendarListKanban = null;
 		try {
-			calendarListKanban = calendarservice.calendarListKanban(email);
+			calendarListKanban = calendarservice.calendarListKanban(email,project_seq);
 
 		} catch (Exception e) {
 			e.printStackTrace();

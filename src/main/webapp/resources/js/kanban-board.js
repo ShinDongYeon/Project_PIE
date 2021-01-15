@@ -471,6 +471,7 @@ $(function() {
 
 						//4. 데이터 다시 업데이트 
 						updateKanban(projectNum);
+						socketkanban.send("리스트삭제");
 					},
 					error: function(data) {
 						swal.fire("Error", "Try Again", "error");
@@ -580,13 +581,14 @@ $(function() {
 
 							//3. updateWholeInfo 
 							updateKanban(projectNum);
+							socketkanban.send("카드삭제");
 
 						},
 						error: function(data) {
 							swal.fire("Error", "Try Again", "error");
 						}
 					});
-					/*캘린더 삭제*/
+									/*캘린더 삭제*/
 					$.ajax({
 						type: "POST",
 						url: "/calendarDeleteKanban.pie",
@@ -638,7 +640,6 @@ $(function() {
 
 				let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 				$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
-
 			}
 		}
 		$(this).children(".addCardTitle").val("");

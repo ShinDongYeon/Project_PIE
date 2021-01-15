@@ -108,7 +108,7 @@ function readURL(file) {
   	reader.readAsDataURL(file);
 
 	//확장자명
-	let imgEtc = file.name.split(".");
+	imgEtc = file.name.split(".");
 	if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
 		
 	}else{

@@ -11,10 +11,14 @@ $(document).ready(function() {
 				project_seq: $("#projectNum").val()
 			},
 			success: function(data) {
-				console.log($("#projectNum").val())
 				console.log("알람갯수" + data.length)
+				if(data.length===0){
+					console.log("제로")
+					createZero(data)
+				}else{
 				createAlram(data)
 				createCount(data)
+				}
 			}
 		});
 	}
@@ -74,6 +78,32 @@ function createAlram(data) {
 			</div>\
 			<div class="alram-list-letter-contents">\
 			<span>'+ alramTime + '</span>\
+			</div>\
+			</div>\
+			<div class="alram-list-cancel">\
+			<i class="fas fa-times"></i>\
+			<input type="hidden" id="alramseq" name="alramseq" value='+ alram.alramseq + ' />\
+			<input type="hidden" id="memberEmail" name="memberEmail" value='+ $("#email").val() + ' />\
+			</div>\
+			</div>';
+	});
+	$('#alram').append(html)
+}
+/*알람이 없을때*/
+function createZero(data) {
+	let html = "";
+	$.each(data, function(index, alram) {
+		let alramTime = moment(alram.alramTime).format('YYYY-MM-DD' + " " + 'HH:mm')
+		html += '<div class="alram-list-wrapper">\
+			<div class="alram-list-img">\
+			<img src="/resources/img/pie_logo.png">\
+			</div>\
+			<div class="alram-list-letter-wrapper">\
+			<div class="alram-list-letter-title">\
+			알람이 없습니다.\
+			</div>\
+			<div class="alram-list-letter-contents">\
+			<span></span>\
 			</div>\
 			</div>\
 			<div class="alram-list-cancel">\

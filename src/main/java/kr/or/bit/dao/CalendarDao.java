@@ -12,7 +12,7 @@ public interface CalendarDao {
 	
 	public List<calendar> getCalendarList(int project_seq);
 	
-	public List<calendar> getCalendarListKanban(String email);
+	public List<calendar> getCalendarListKanban(String email,int project_seq);
 	
 	public void editCalendar(String start, String end, String id);
 	
