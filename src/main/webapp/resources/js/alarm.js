@@ -11,14 +11,10 @@ $(document).ready(function() {
 				project_seq: $("#projectNum").val()
 			},
 			success: function(data) {
-				console.log("알람갯수" + data.length)
-				if(data.length===0){
-					console.log("제로")
-					createZero(data)
-				}else{
+			
 				createAlram(data)
 				createCount(data)
-				}
+				
 			}
 		});
 	}
