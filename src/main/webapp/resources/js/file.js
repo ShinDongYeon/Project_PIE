@@ -174,14 +174,14 @@ $(document).ready(function() {
 		// 파일이 있는지 체크
 		if (uploadFileList.length == 0) {
 			// 파일등록 경고창
-			alert("파일이 없습니다.");
+			Swal.fire("파일이 없습니다.");
 			return;
 		}
 
 		// 용량을 500MB를 넘을 경우 업로드 불가
 		if (totalFileSize > maxUploadSize) {
 			// 파일 사이즈 초과 경고창
-			alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
+			Swal.fire("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
 			return;
 		}
 
@@ -375,14 +375,12 @@ $(document).ready(function() {
 			let files = e.originalEvent.dataTransfer.files;
 			if (files != null) {
 				if (files.length < 1) {
-					/* alert("폴더 업로드 불가"); */
-					console.log("폴더 업로드 불가");
 					return;
 				} else {
 					selectFile(files)
 				}
 			} else {
-				alert("ERROR");
+				Swal.fire("ERROR");
 			}
 		});
 	}
@@ -425,9 +423,9 @@ $(document).ready(function() {
 					fileSizeStr = parseInt(fileSize) + " byte";
 				}
 				if ($.inArray(ext, ['hwp', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'png', 'pdf', 'jpg', 'jpeg', 'gif', 'zip']) <= 0) {
-					alert("등록이 불가능한 파일 입니다.(" + fileName + ")");
+					Swal.fire("등록이 불가능한 파일 입니다.(" + fileName + ")");
 				} else if (fileSizeMb > uploadSize) {
-					alert("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
+					Swal.fire("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
 					break;
 				} else {
 					// 전체 파일 사이즈
@@ -447,7 +445,7 @@ $(document).ready(function() {
 				}
 			}
 		} else {
-			alert("ERROR");
+			Swal.fire("ERROR");
 		}
 	}
 	// 업로드 파일 목록 생성

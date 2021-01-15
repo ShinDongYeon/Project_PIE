@@ -143,7 +143,7 @@ $(document).on("click", ".userInviteBtn", function(e) {
 	
 	//본인을 초대하려고 할 시 
 	if ($("#userName").val() === $("#userEmail").val()) {
-		alert("본인은 초대할 수 없습니다.");
+		Swal.fire("본인은 초대할 수 없습니다.");
 		$("#userName").val("");
 		$("#userName").focus();
 		//그 외 
@@ -152,7 +152,7 @@ $(document).on("click", ".userInviteBtn", function(e) {
 		if (isEmail($("#userName").val())) {
 			//중복으로 초대하려고 할 시 
 			if (pies.includes($("#userName").val())) {
-				alert("초대는 한번이면 충분하죠 ^_^");
+				Swal.fire("초대는 한번이면 충분하죠 ^_^");
 				//통과 
 			} else {
 				$("#userList").append(users);
@@ -161,7 +161,7 @@ $(document).on("click", ".userInviteBtn", function(e) {
 			}
 			//이메일 형식이 틀리면 alert 		
 		} else {
-			alert("잘못된 이메일입니다.");
+			Swal.fire("잘못된 이메일 입니다.");
 			$("#userName").val("");
 			$("#userName").focus();
 		}
@@ -181,7 +181,7 @@ $(document).on("click", "#invite-submit", function(e) {
 
 	//아무도 입력 안 했는데 초대하려고 할 시
 	if (pies.length === 0) {
-		alert("초대할 사람을 알려주세요.");
+		Swal.fire("초대할 사람을 알려주세요.");
 	} else {
 		//json을 java컨트롤러가 받을 수 있는 string으로 변환 		
 		//let finalPie = JSON.stringify(pies);
@@ -212,7 +212,7 @@ $(document).on("click", "#invite-submit", function(e) {
 						invite_new_pie_modal.style.display = 'none';
 						$("#userList").empty();
 						$("#userName").val('');
-						alert("초대가 완료되었습니다!");
+					Swal.fire("초대가 완료되었습니다!");
 					}else{
 						
 					}

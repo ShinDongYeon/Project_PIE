@@ -139,30 +139,30 @@ $(document).ready(function() {
 //submit전 검사 함수 
 function check() {
 	if (!emailCheck) {
-		alert("이메일을 확인해주세요.");
+		Swal.fire("이메일을 확인해주세요.");
 		$("#email").val("");
 		$("#email").focus();
 		return false;
 	}
 	if (!emailDoubleCheck) {
-		alert("이메일 중복을 확인해주세요.");
+		Swal.fire("이메일 중복을 확인해주세요.");
 		return false;
 	}
 	if (!nickNameCheck) {
-		alert("닉네임을 확인해주세요.");
+		Swal.fire("닉네임을 확인해주세요.");
 		$("#nickName").val("");
 		$("#nickName").focus();
 		return false;
 	}
 	if (!firstPwdCheck) {
-		alert("비밀번호를 확인해주세요.");
+		Swal.fire("비밀번호를 확인해주세요.");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwd").focus();
 		return false;
 	}
 	if (!doublePwdCheck) {
-		alert("비밀번호 확인이 틀렸습니다.");
+		Swal.fire("비밀번호 확인이 틀렸습니다.");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwdCheck").focus();

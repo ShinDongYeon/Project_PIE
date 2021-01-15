@@ -25,6 +25,7 @@
 	</bean>
 	
 	<!-- /spring-donwload bean -->
+	<bean id="downloadView" class="kr.or.bit.util.DownloadView" />
 	
 	<!-- mysql -->
 	<!-- <bean id="dataSource"
