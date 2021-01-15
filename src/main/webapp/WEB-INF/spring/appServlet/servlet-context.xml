@@ -70,9 +70,7 @@
 	
 	<!-- naverbo -->
 	<beans:bean name ="naverLoginBO" class = "kr.or.bit.util.NaverLoginBO"/>
-	
-	
-	
+
 	<mvc:annotation-driven>
 	<mvc:message-converters>
 		<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">

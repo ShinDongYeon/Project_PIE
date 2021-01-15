@@ -108,6 +108,15 @@ function readURL(file) {
   	reader.readAsDataURL(file);
 
 	//확장자명
+	let imgEtc = file.name.split(".");
+	if(imgEtc[1] === "png" || imgEtc[1] === "jpg" || imgEtc[1] === "jpeg"){
+		
+	}else{
+		//초기화
+		Swal.fire("png, jpg, jpge only");
+		file = null;
+		return;
+	}
 	let index = file.name.lastIndexOf(".");
 	let imgEtc = file.name.substring(index+1);
 	

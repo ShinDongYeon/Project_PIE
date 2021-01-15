@@ -9,9 +9,9 @@ $(document).ready(function(){
 						async : false,
 						success : function(data){
 								if(data.user === null){
-									alert("존재하지 않는 이메일 입니다.");
+									Swal.fire("존재하지 않는 이메일 입니다.");
 								}else{
-									alert("입력하신 이메일로 인증번호를 전송하였습니다.");
+									Swal.fire("입력하신 이메일로 인증번호를\n전송하였습니다.");
 									//이메일로 인증번호 전송
 									  $.ajax(
 											 {  
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		//인증번호 확인
 		$(document).on('click', '#certifyCheck', function(){
 				if($('#certifyNum').val() === ''){
-						alert("인증번호를 입력해주세요.");
+						Swal.fire("인증번호를 입력해주세요.");
 						return;
 				}
 			  $.ajax(
@@ -63,11 +63,11 @@ $(document).ready(function(){
 							success : function(data){
 									console.log(data);
 									if(data === "success"){
-										alert("인증 번호 확인 완료");
+										Swal.fire("인증 번호 확인 완료");
 										location.href = "changePwdAfterCertify.pie?email="+$('#email').val();
 										
 									}else{
-										alert("인증실패 !");
+										Swal.fire("인증실패 !");
 									}
 							} 
 						 } 
