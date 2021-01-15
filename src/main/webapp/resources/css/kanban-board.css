@@ -92,6 +92,8 @@ cursor: pointer;
     vertical-align: top;
     margin-right: 10px;
     margin-bottom: 35px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .listTitleWrap {
@@ -185,11 +187,14 @@ cursor: pointer;
 .cardWrap {
     min-height: 10px;
     max-height: 663px;
+    overflow-x: hidden;
     overflow-y: auto;
     margin-bottom: 10px;
 }
 
 .cardContent {
+	height: 100%;
+	overflow: hidden;
     padding: 7px 10px;
     background: white;
     width: 250px;
@@ -197,12 +202,22 @@ cursor: pointer;
     -moz-border-radius: 5px;
     border-radius: 5px;
     margin-bottom: 12px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     word-wrap: normal;
     -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
     -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
     box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+
+}
+
+.cardName{
+	max-width: 170px;
+	font-weight: 400;
+	height: 100%;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
 }
 
 .cardContent:hover {

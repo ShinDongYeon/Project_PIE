@@ -249,7 +249,7 @@ $(function() {
 			async: false,
 			data: kanbanJson,
 			success: function(data) {
-			}
+		}
 		}
 		)
 	}
@@ -264,8 +264,8 @@ $(function() {
 
 	//카드 태그를 만들고 리턴해주는 함수 	
 	function makeCard(card_order_num, card_seq, card_name) {
-		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'>" + card_name +
-			"<i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" +
+		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'><p class='cardName'>" + card_name +
+			"</p><i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" +
 			"</div>";
 		return cardTag;
 	}
@@ -285,6 +285,14 @@ $(function() {
 			"(" + email + ")' value=" + email +
 			' src="/resources/profile/' + email + '_' + profile + '">';
 		return memTag;
+	}
+
+	//cardmempro
+	function cardMemIcon(email,nickName) {
+		let memIcon = "<img class='cardMemProfile' id='cardMemProfile' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="/resources/img/icon/none.png">';
+		return memIcon;
 	}
 
 	//loadCheckList
@@ -331,8 +339,13 @@ $(function() {
 				async: false,
 				success: function(data) {
 					$.each(data, function(index, item) {
+						if(item.profile==null){
+						let memIcon = cardMemIcon(item.email,item.nickName);
+						$("[data-card-seq=" + item.card_seq + "]").append(memIcon);
+					}else {
 						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
 						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
+					}
 					});
 				}
 			});
@@ -582,13 +595,12 @@ $(function() {
 							//3. updateWholeInfo 
 							updateKanban(projectNum);
 							socketkanban.send("카드삭제");
-
 						},
 						error: function(data) {
 							swal.fire("Error", "Try Again", "error");
 						}
 					});
-									/*캘린더 삭제*/
+					/*캘린더 삭제*/
 					$.ajax({
 						type: "POST",
 						url: "/calendarDeleteKanban.pie",
@@ -640,6 +652,7 @@ $(function() {
 
 				let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 				$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+
 			}
 		}
 		$(this).children(".addCardTitle").val("");

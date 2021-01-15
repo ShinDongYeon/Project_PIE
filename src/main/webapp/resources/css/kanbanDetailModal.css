@@ -118,7 +118,7 @@ cursor: pointer;
     border: none;
     background: #f5df4d;
     border-radius: 5px;
-    width:100%;
+    width:255%;
 }
 
 /* Selected Members */
@@ -262,7 +262,7 @@ cursor: pointer;
 
 .progressbar-container {
   position: relative;
-  width: 100%; 
+  width: 103%; 
   margin-left: 10px;
   display: inline-flex;
 }
@@ -351,6 +351,8 @@ input[type="checkbox"] {
 	padding: 10px 5px;
 	height: 37px;
 	position: relative;
+	width: 90%;
+	word-break: break-all;
 }
 
 .todo:before {

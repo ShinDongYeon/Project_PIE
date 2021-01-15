@@ -206,15 +206,19 @@ $(document).ready(function() {
 
 	//edit card Title in Modal
 	$(document).on("submit", ".cardTitleForm", function(e) {
+		
+		//let card = carasdasdasd
+		
 		e.preventDefault();
 		let editedCardTitle = $(this).parents().children().children("#cardTitleInput").val();
 		let modal_card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
-
+		
 		let cardOb = new Object();
 		cardOb.card_seq = modal_card_seq;
 		cardOb.card_name = editedCardTitle;
 
 		let card = JSON.stringify(cardOb);
+		let thisCard = $("[data-card-seq=" + modal_card_seq + "]");
 		if (editedCardTitle.length > 0) {
 			$.ajax({
 				type: "post",
@@ -223,11 +227,24 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {
+				success: function(data) {console.log(data);
+					thisCard.children('.cardName').text(data.data.card_name);
 				}
 			});
+			let caca  = $("[data-card-seq=" + modal_card_seq + "]");
+			
+			
+			
+			console.log(caca);
+			console.log(caca.children());
+			console.log(caca.append(caca.children()));
+
+			//$("#1").append(caca);
+			//$("#1").append(caca.children());
+			$("#1").append(caca.append(caca.children()));
+			
+			
 			$('.cardTitleMo').html(editedCardTitle);
-			$("[data-card-seq=" + modal_card_seq + "]").html(editedCardTitle);
 			$(this).parents().children().children("#cardTitleInput").val("");
 			$('.cardTitleForm').hide();
 			$('.cardTitleMo').show();
@@ -302,7 +319,7 @@ $(document).ready(function() {
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');
 		$('#input-todo' + newId + '').parent().parent().animate({
-			height: "40px"
+			height: "80px"
 		}, 200)
 		$('#input-todo' + newId + '').focus();
 
@@ -562,6 +579,7 @@ $(document).ready(function() {
 		cardMemOb.email = email;
 
 		let cardMem = JSON.stringify(cardMemOb);
+		
 		let thisCard = $("[data-card-seq="+cardSeq+"]");
 		$.ajax({
 			type: "post",
@@ -585,18 +603,9 @@ $(document).ready(function() {
 			$(".memList").append(cardMem);
 			
 			if($('#session_email').val()==email){
-				if(thisCard.children().hasClass('checkStatus')){
-					//thisCard.prepend(cardMem);
-					console.log(thisCard.children());
-					console.log("hasClass")
-					thisCard.children('.temp').show();
-					thisCard.children('.temp').append(cardMem);
-					//cardMem.prependTo(thisCard.children('.checkStatus'));
-					thisCard.children().children('.selectedMemPro').attr('class','cardMemProfile');
-				}else{
-					thisCard.append(cardMem);
-					thisCard.children('.selectedMemPro').attr('class','cardMemProfile');
-				}
+				thisCard.children('.temp').show();
+				thisCard.children('.temp').append(cardMem);
+				thisCard.children('.temp').children('.selectedMemPro').attr('class','cardMemProfile');
 				}
 			}
 			});
@@ -670,6 +679,5 @@ $(document).ready(function() {
 				});
 			}
 		});
-	});
-	
+	});	
 });
