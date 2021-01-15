@@ -206,6 +206,9 @@ $(document).ready(function() {
 
 	//edit card Title in Modal
 	$(document).on("submit", ".cardTitleForm", function(e) {
+		
+		//let card = carasdasdasd
+		
 		e.preventDefault();
 		let editedCardTitle = $(this).parents().children().children("#cardTitleInput").val();
 		let modal_card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
@@ -226,6 +229,19 @@ $(document).ready(function() {
 				success: function(data) {
 				}
 			});
+			let caca  = $("[data-card-seq=" + modal_card_seq + "]");
+			
+			
+			
+			console.log(caca);
+			console.log(caca.children());
+			console.log(caca.append(caca.children()));
+
+			//$("#1").append(caca);
+			//$("#1").append(caca.children());
+			$("#1").append(caca.append(caca.children()));
+			
+			
 			$('.cardTitleMo').html(editedCardTitle);
 			$("[data-card-seq=" + modal_card_seq + "]").html(editedCardTitle);
 			$(this).parents().children().children("#cardTitleInput").val("");
