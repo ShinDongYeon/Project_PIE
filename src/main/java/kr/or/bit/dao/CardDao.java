@@ -24,6 +24,9 @@ public interface CardDao {
 	public void editKanbanCardTitle(card ca);
 	
 	public void updateCardContent(card ca);
+
+	public List<card> getCardContent(Map<String,Object> cardInfo);
 	
-	public String getCardContent(int cardSeq);
+	public int getlCardCount(int projectNum);
+
 }

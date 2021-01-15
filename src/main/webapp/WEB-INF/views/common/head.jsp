@@ -24,12 +24,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 
 
-<!-- Firebase CDN -->
-
-
-<!-- ------------------------------------------------------------------ -->
-
-
 <!-- Firebase 연동 -->
 
 <script src="https://www.gstatic.com/firebasejs/7.2/firebase.js"></script>

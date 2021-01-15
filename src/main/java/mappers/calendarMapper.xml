@@ -43,4 +43,9 @@ SET start=#{param1},end = #{param2},title = #{param3},content = #{param4},allday
 WHERE id = #{param7} 
 </update>
 
+<select id="getCalendarCount" resultType="int" parameterType = "int">
+SELECT COUNT(*) FROM CALENDAR WHERE PROJECT_SEQ = #{param1}
+</select>
+
+
 </mapper>

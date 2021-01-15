@@ -14,34 +14,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.bit.dao.FileDao;
 import kr.or.bit.dto.file;
+import kr.or.bit.util.UploadPath;
 
 @Service
 public class FileService{
 	
 	@Autowired
 	private SqlSession sqlsession;
-	
-	//파일 저장 절대 경로 
-
-	
-	//재구
-	//private final String UPLOAD_PATH = "C:\\develop\\Spring\\PIE_workspace2\\Project_PIE\\src\\main\\webapp\\resources\\files";
-	
-	//재홍
-	//private final String UPLOAD_PATH = "/Users/byeonjaehong/Desktop/project3_final_forked/Project_PIE/src/main/webapp/resources/files"; 
-	
-	//동연
-	private final String UPLOAD_PATH = "C:\\aaaa\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
-	
-	//지연
-	//private final String UPLOAD_PATH = "C:\\Users\\jiyeo\\Desktop\\Project_PIE\\src\\main\\webapp\\resources\\files"; 
-
 
 	//파일 업로드 서비스 
 	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
-		
+		String UPLOAD_PATH = UploadPath.upload_path_files();
 		//파일 저장 경로 (프로젝트번호 기준)
-		String specific_path = "/file_directory_project_seq_"+projectNum;
+		String specific_path = "\\file_directory_project_seq_"+projectNum;
 		
 		File fileOb = new File(UPLOAD_PATH+specific_path);
 		
@@ -93,7 +78,7 @@ public class FileService{
 				
 				data = files.get(i).getBytes();
 				//절대경로 + 프로젝트번호 + 파일이름 
-				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
+				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"\\"+upload_file_name);
 				//파일 업로드 
 				fos.write(data);
 				 

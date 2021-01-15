@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	<!-- public List<room> getRoomList(Map<String, Object> getRoomListMap); -->
 	<select id="getRoomList" resultType="roomDto" parameterType="hashMap">
-		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM, L.CLICKED
 		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
 		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
 		WHERE PROJECT_SEQ = #{projectNum}
@@ -153,10 +153,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND EMAIL NOT IN (#{loginuser})
 	</update>
 	
+	<!-- chatsocketHandler -->
+	<!-- public void roomClosed(Map<String, Object> roomCloseMap); -->
+	<update id="roomClosed" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CLICKED = 0
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL = #{loginuser}
+	</update>	
+	
+	<!-- public void resetAlarm(Map<String, Object> resetAlarmMap); -->
+	<update id="resetAlarm" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET RESET = 1
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL IN #{loginuser}
+	</update>	
+	
 	<!-- public void checkalarm(Map<String, Object> checkAlarmMap); -->
 	<update id="checkalarm" parameterType="hashMap">
 		UPDATE CHATTINGROOMLIST
 		SET CHATTING_ALARM = 0
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL = #{loginuser}
+	</update>
+	
+	<!-- public void roomClicked(Map<String, Object> checkAlarmMap); -->
+	<update id="roomClicked" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CLICKED = 1
 		WHERE CHATTING_ROOM_SEQ = #{select}
 			AND EMAIL = #{loginuser}
 	</update>

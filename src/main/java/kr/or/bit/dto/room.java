@@ -10,5 +10,6 @@ public class room {
 	private int project_seq;
 	
 	private int chatting_alarm;
+	private int clicked;
 	
 }

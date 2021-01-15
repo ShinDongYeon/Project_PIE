@@ -31,13 +31,30 @@
 	float : left;
 	width : 500px;
 }
-.chart-letter-wrapper{
+.chart-letter-wrapper-1{
+	color : white;
+	text-align : center;
 	position : relative;
-	left : 225px;
-	bottom : 50px;
+}
+.chart-letter-wrapper-2{
+	color : white;
+	text-align : center;
+	position : relative;
+	
+}
+.chart-letter-wrapper-3{
+	color : white;
+	text-align : center;
+	position : relative;
+	
+}
+.chart-letter-wrapper-4{
+	color : white;
+	text-align : center;
+	position : relative;
+	
 }
 
-.chart-letter-wrapper > span{
-	color : white;
-	position : fixed;
-}
+
+
+

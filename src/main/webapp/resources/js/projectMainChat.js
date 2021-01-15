@@ -41,6 +41,13 @@ $(document).ready(function(){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
 		
+		
+		if($('#Chatting-UserList').html() == ''){
+			let message = '<div class="crtChat-middle-select-none">현재 채팅할 파이원이 없습니다.<br>파이원을 초대하세요.</div>';
+				message+= '<button onclick="location.href=\'main.pie\'" id="crtChatBtn" class="crtChat-middle-select-button">프로젝트 홈가기</button>';
+			$('#Chatting-UserList').append(message);
+		}
+		
 		//웹소켓 - ON/OFF 상태 알림등 구현
 		logonSocket.send('');
 		
@@ -55,7 +62,7 @@ $(document).ready(function(){
 			}
 		}
 	}
-	window.onmouseout = (event) => {
+	window.onmouseup = (event) => {
 		connectSocket.send('');
 		event.preventDefault();
 	}
@@ -167,6 +174,10 @@ $(document).ready(function(){
 					data : { 'nickName' : $('#crtChat-search-box').val()},
 					success : function(data){
 						userList(data);
+						if(data.length == 0){
+							let message = '<div class="crtChat-middle-select-all">\''+$('#crtChat-search-box').val()+'\'의 검색 결과가 없습니다.</div>';
+							$('#Chatting-UserList').append(message);
+						}
 					},
 					error: function(request,status,error){
 						alert(error);
@@ -199,12 +210,26 @@ $(document).ready(function(){
 					success 	: function(data){
 						console.log(data);
 						userList(data);
+						if(data.length == 0){
+							let message = '<div class="crtChat-middle-select-all">\''+$('#crtChat-search-box').val()+'\'의 검색 결과가 없습니다.</div>';
+							$('#Chatting-UserList').append(message);
+							if($('#crtChat-search-box').val() == ''){
+								$('#Chatting-UserList').empty();
+								let message = '<div class="crtChat-middle-select-all">모든 파이원이 선택되었습니다.</div>';
+								$('#Chatting-UserList').append(message);
+							}
+						}
 					},
 					error		: function(request,status,error){
 						alert(error);
 					}
 				}
 			);
+			
+			if($('#Chatting-UserList').html() == ''){
+				let message = '<div class="crtChat-middle-select-all">모든 파이원이 선택되었습니다.</div>';
+				$('#Chatting-UserList').append(message);
+			}
 		}
 
 	});
@@ -245,8 +270,29 @@ function logonUser(data){
 작성자: 도재구
 */
 function popupOpen(roomno,roomname){
+	/*
+	$.ajax(
+		{
+			type 		: "GET",
+			url  		: "chat/room/list",
+			async: false,
+			error		: function(request,status,error){
+				alert(error);
+			},
+			success 	: function(data){
+				console.log("check");
+				console.log(data);
+				//chattingRoomList(data);
+				$.each(data.chat_room_list,function(index,elem){
+					if(elem.clicked == 0)
+				});
+			}
+		}
+	);
+	*/
+	
 	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
-	let popOption = "width=370, height=700, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
+	let popOption = "width=370, height=600, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "", popOption);
 	
 	$.ajax(
@@ -311,11 +357,16 @@ function chattingRoomList(data){
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
 					"<div class='chat-list-letter-wrapper'>"+
-						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
-							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
-								chat_title_substr+
-							"</a>"+
-						"</div>"+
+						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
+						if(elem.clicked == 0){
+							opr+=	"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
+										chat_title_substr+
+									"</a>";
+						}else{
+							opr+=	chat_title_substr;
+						}
+							
+		opr+=		"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 					"</div>"+
 					"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+
@@ -361,11 +412,16 @@ function completeChattingRoom(data){
 						"<i class='fas fa-th-large'></i>"+
 					"</div>"+
 					"<div id='chat-list-letter-wrapper-"+elem.chatting_room_seq+"' class='chat-list-letter-wrapper'>"+
-						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
-							"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
-								chat_title_substr+
-							"</a>"+
-						"</div>"+
+						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
+							if(elem.clicked == 0){
+								opr+=	"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
+											chat_title_substr+
+										"</a>";
+							}else{
+								opr+=	chat_title_substr;
+							}
+								
+		opr+=			"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 					"</div>"+
 					"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+
@@ -614,9 +670,13 @@ function userList(data){
 					"<div class='crtChat-select-user-wrapper'>"+
 						"<div class='crtChat-select-user-subWrapper'>"+
 							"<div id='crtChat-select-user-on-"+index+"' class='crtChat-select-user-on'></div>"+
-							"<div class='crtChat-select-user-pic'>"+
-								"<i class='fas fa-user'></i>"+					
-							"</div>"+
+							"<div class='crtChat-select-user-pic'>";
+								if(user.profile != null){
+									opr += "<img class='crtChat-select-user-img' src='/resources/profile/"+user.email+"_"+user.profile+"'/>";
+								}else{
+									opr += "<i class='fas fa-user'></i>";
+								}
+		opr +=				"</div>"+
 							"<div class='crtChat-select-user-letters-wrapper'>"+
 								"<div id='crtChat-select-user-name-"+index+"' class='crtChat-select-user-name'>"+
 									user.nickName+
@@ -745,6 +805,9 @@ function selectUser(me){
 					
 					$('#crtChat-select-users-wrapper-'+div_substr).remove();
 					$('.crtChat-btn-created-not').attr('class','crtChat-btn-created');
+					
+					let message = '<div class="crtChat-middle-select-all">모든 파이원이 선택되었습니다.</div>';
+					$('#Chatting-UserList').append(message);
 				}
 			}
 		);

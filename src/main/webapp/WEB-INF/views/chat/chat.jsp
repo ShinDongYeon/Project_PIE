@@ -17,6 +17,7 @@
 <input type="hidden" value="${roomname}" id="roomname">
 <input type="hidden" value="${sessionScope.nick}" id="nickname">
 <input type="hidden" value="${sessionScope.loginuser}" id="session_email">
+<input type="hidden" value="${sessionScope.projectNum}" id="projectNum" >
 	<div id="chatArea" class="chat-wrapper">	
 		<!-- chat top -->
 		<div class="chat-top-wrapper">
@@ -143,6 +144,13 @@
 			<div class="chat-msgWrite-wrapper">
 				<!-- message area -->
 				<textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea>
+				<!-- <div contentEditable="true"></div> -->
+				<!-- 파일 업로드 폼 -->
+				<form name="chat_uploadForm" id="chat_uploadForm" method="post" enctype="multipart/form-data">
+					<!-- <img id="img_zone" class="chat-msgWrite-file" src =""/> -->
+					<input type="file" id="file-input" name="chat_file" style="display:none;">
+				</form>
+
 
 				<!-- icons & button -->
 				<div class="chat-msgWrite-bottom-wrapper">
@@ -154,10 +162,14 @@
 								<div class="emoji-area"></div>
 							</div>
 						</div>
-						<i class="fas fa-at"></i>
-						<i class="fas fa-font"></i>
-						<i class="fas fa-download"></i>
+							<i class="fas fa-at"></i>
+							<i class="fas fa-font"></i>
+						<label for="file-input">
+							<i class="fas fa-upload"></i>
+						</label>
 					</div>
+					
+
 					
 					<!-- chat send button -->
 					<div id="chat-msgWrite-btn" class="chat-msgWrite-btn">

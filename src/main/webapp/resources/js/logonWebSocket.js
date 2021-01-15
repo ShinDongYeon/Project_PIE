@@ -20,6 +20,7 @@ function connectWS_logon(){
 		let data = event.data;
 		logonUser(JSON.parse(data));
 		usersLogon(JSON.parse(data));
+
 	};
 	logon_ws.onclose = (event) => {
 		

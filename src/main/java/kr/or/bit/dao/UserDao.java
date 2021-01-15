@@ -14,4 +14,6 @@ public interface UserDao {
 	
 	public boolean profileUploadToDB(String email, String fullName);
 	
+	public String getNickNameByEmail(String email);
+	
 }
