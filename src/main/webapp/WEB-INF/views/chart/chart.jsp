@@ -16,6 +16,9 @@ crossorigin="anonymous"></script>
 
 <!-- whole wrapper -->
 <div class = "whole-chart-wrapper">
+	<div class = "member-progress-wrapper">
+		
+	</div>
 
 	<!-- chart-1 -->
 	<div class = "chart-1-wrapper">

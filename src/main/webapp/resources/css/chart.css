@@ -1,36 +1,33 @@
 @charset "UTF-8";
 
 .whole-chart-wrapper{
-	margin : 70px 70px 70px 170px;
+	margin : auto;
 }
 
 .chart-1-wrapper{
-	margin : 50px;
-	display :flex;
-	float : left;
-	width : 500px;
+	border-radius : 5px;
+	background-color : rgb(255,255,255,0.45);
+	width : 1500px;
+	margin : 30px;
 }
 
 .chart-2-wrapper{
-	margin : 50px;
-	display :flex;
-	float : left;
-	width : 500px;
+	border-radius : 5px;
+	background-color : rgb(255,255,255,0.45);
+	width : 680px;
 }
 
 .chart-3-wrapper{
-	margin : 50px;
-	display :flex;
-	float : left;
-	width : 500px;
+	border-radius : 5px;
+	background-color : rgb(255,255,255,0.45);
+	width : 680px;
+}
+.chart-4-wrapper{
+	border-radius : 5px;
+	background-color : rgb(255,255,255,0.45);
+	width : 680px;
 }
 
-.chart-4-wrapper{
-	margin : 50px;
-	display :flex;
-	float : left;
-	width : 500px;
-}
 .chart-letter-wrapper-1{
 	color : white;
 	text-align : center;
@@ -40,13 +37,11 @@
 	color : white;
 	text-align : center;
 	position : relative;
-	
 }
 .chart-letter-wrapper-3{
 	color : white;
 	text-align : center;
 	position : relative;
-	
 }
 .chart-letter-wrapper-4{
 	color : white;

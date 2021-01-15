@@ -66,7 +66,7 @@ $(document).ready(function() {
 			legend: { 
 				position : "bottom",
             	labels: {
-                	fontColor: "#f2dd68"
+                	fontColor: "#f2dd68",
             	}
        		},
 			scales: {
@@ -87,7 +87,7 @@ $(document).ready(function() {
 			datasets: [{
 				data: [done,inProgress],
 				barPercentage: 1,
-				backgroundColor:['#f2dd68',"#31353d"],
+				backgroundColor: ["f2dd68", "#31353d"],
 				borderColor: '#f2dd68',
 				borderWidth: 1
 			}]
@@ -183,7 +183,6 @@ $(document).ready(function() {
 				async: false,
 				success: function(data) {
 					list_count = data.list_count;
-					console.log("리스트 수 : "+list_count);
 				}
 			});
 			return list_count;
@@ -202,7 +201,6 @@ $(document).ready(function() {
 				async: false,
 				success: function(data) {
 					card_count = data.card_count;
-					console.log("카드 수 : "+card_count);
 				}
 			});
 			return card_count;
@@ -221,7 +219,6 @@ $(document).ready(function() {
 				async: false,
 				success: function(data) {
 					checklist_count = data.checklist_count;
-					console.log("체크리스트 수 : "+checklist_count);
 				}
 			});
 			return checklist_count;
@@ -240,7 +237,6 @@ $(document).ready(function() {
 				async: false,
 				success: function(data) {
 					member_count = data.member_count;
-					console.log("멤버 수 : "+member_count);
 				}
 			});
 			return member_count;
@@ -259,7 +255,6 @@ $(document).ready(function() {
 				async: false,
 				success: function(data) {
 					calendar_count = data.calendar_count;
-					console.log("캘린더 수 : "+calendar_count);
 				}
 			});
 			return calendar_count;
@@ -277,7 +272,6 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				success: function(data) {
-					console.log("전체 진행도");
 					inProgress = Number(data.progress.inProgress);
 					done = Number(data.progress.done);
 				}
