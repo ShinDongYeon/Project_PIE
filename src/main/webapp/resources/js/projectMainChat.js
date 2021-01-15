@@ -550,7 +550,7 @@ function updateNameOk(me){
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
-		if (chat_room_input.val().length > 13) {
+		if (chat_room_input.val().length > 13) { 
 			swal.fire({
 				title: 'Check Please',
 				text: '13자 이하로 입력해주세요',

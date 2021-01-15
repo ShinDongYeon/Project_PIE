@@ -135,7 +135,7 @@ function readURL(file) {
 			$('#img_zone').attr('src', '/resources/img/icon/file.png');
 		}
 		console.log(e);  
-		//uploadFile(file);
+		uploadFile(file);
   	}
 	
 }
