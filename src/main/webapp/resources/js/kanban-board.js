@@ -508,6 +508,7 @@ $(function() {
 
 						//4. 데이터 다시 업데이트 
 						updateKanban(projectNum);
+						socketkanban.send("리스트삭제");
 					},
 					error: function(data) {
 						console.log(data);
@@ -624,6 +625,7 @@ $(function() {
 
 							//3. updateWholeInfo 
 							updateKanban(projectNum);
+							socketkanban.send("카드삭제");
 						},
 						error: function(data) {
 							console.log(data);
