@@ -287,6 +287,14 @@ $(function() {
 		return memTag;
 	}
 
+	//cardmempro
+	function cardMemIcon(email,nickName) {
+		let memIcon = "<img class='cardMemProfile' id='cardMemProfile' title='"+nickName+
+							"("+email+")' value="+email+
+						' src="/resources/img/icon/none.png">';
+		return memIcon;
+	}
+
 	//loadCheckList
 	function loadChkList(ischecked, total) {
 		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> " + ischecked + "/" + total + "</i></div>";
@@ -331,6 +339,13 @@ $(function() {
 				async: false,
 				success: function(data) {
 					$.each(data, function(index, item) {
+						if(item.profile==null){
+						let memIcon = cardMemIcon(item.email,item.nickName);
+						$("[data-card-seq=" + item.card_seq + "]").append(memIcon);
+					}else {
+						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
+						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
+					}
 						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
 						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
 					});
@@ -582,13 +597,12 @@ $(function() {
 							//3. updateWholeInfo 
 							updateKanban(projectNum);
 							socketkanban.send("카드삭제");
-
 						},
 						error: function(data) {
 							swal.fire("Error", "Try Again", "error");
 						}
 					});
-									/*캘린더 삭제*/
+					/*캘린더 삭제*/
 					$.ajax({
 						type: "POST",
 						url: "/calendarDeleteKanban.pie",
@@ -640,6 +654,7 @@ $(function() {
 
 				let cardTag = makeCard(card_order_num, card_seq, cardTitleVal);
 				$(this).parents(".list").children(".cardWrap").append(cardTag);//여기서 시작 
+
 			}
 		}
 		$(this).children(".addCardTitle").val("");
