@@ -307,6 +307,7 @@ function popupOpen(roomno,roomname){
 		}
 	);
 	
+	
 }
 
 /*
@@ -602,7 +603,7 @@ function updateNameOk(me){
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
 					confirmButtonText: '확인',
-				})
+				});
 				
 			}else{
 				//input 태그 삭제

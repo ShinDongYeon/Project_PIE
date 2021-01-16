@@ -428,6 +428,7 @@ public class ChatController {
 		return room_list;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="/chat/checkalarm", method = RequestMethod.POST)
 	public void checkalarm(int select, HttpServletRequest request){
@@ -439,11 +440,13 @@ public class ChatController {
 			checkAlarmMap.put("select", select);
 			checkAlarmMap.put("loginuser", loginuser);
 			chatservice.checkalarm(checkAlarmMap);
-			chatservice.roomClicked(checkAlarmMap);
+			//2번 클릭 방지
+			//chatservice.roomClicked(checkAlarmMap);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

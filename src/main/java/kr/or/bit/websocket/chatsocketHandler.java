@@ -66,14 +66,6 @@ public class chatsocketHandler extends TextWebSocketHandler{
 					sess.sendMessage(message);
 				}
 			
-			//'|' 이 문자가 없으면
-			}else if(message.getPayload().toString().indexOf("|/") != -1){
-				String select = getCurrentChatRoom(session);
-				for(Map.Entry m : selectmap.get(select).entrySet()) { // 메시지가 입력된 채팅방에 있는 클라이언트에게만 메시지 전송
-					WebSocketSession sess = (WebSocketSession) m.getValue();
-					sess.sendMessage(message);
-				}
-				
 			}else {
 				Map<String, Object> pushAlarmMap = new HashMap<String, Object>();
 				String select = getCurrentChatRoom(session);

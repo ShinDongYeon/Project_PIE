@@ -224,11 +224,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq); -->
 	<select id="getChattingRoomUserListByRoomSeq" resultType="roomlistDto">
-		SELECT U.EMAIL, U.NICKNAME, C.CHATTING_ROOM_SEQ
+		SELECT U.EMAIL, U.NICKNAME, L.CHATTING_ROOM_SEQ, U.PROFILE
 		FROM CHATTINGROOMLIST L JOIN USER U
 		ON U.EMAIL = L.EMAIL
-		JOIN CHATTINGROOM C
-		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
-		WHERE C.CHATTING_ROOM_SEQ = #{chatting_room_seq}
+		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
 	</select>
 </mapper>
