@@ -10,11 +10,11 @@
 <div id="calendar_modal_background"></div>
  <!-- The Modal -->
 <!--Details Modal-->
-	<div id="detailsInsertModalKanban" class="calendarDetailsModal">
+	<div id="calendarInsert_modal_contents" class="calendarDetailsModal">
 		<div class="calendar-modal-detail">
 			<!-- Modal close btn -->
 			<span class="calendarCloseModal" id="insertCancelKanBan"
-			onclick="document.getElementById('detailsInsertModalKanban').style.display='none'">&times;</span>
+			onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'">&times;</span>
 			
 			<div class="calendarCheckBox"></div>
 			<h3 class="CheckBox">
@@ -78,18 +78,13 @@
 				</div>
 			</div>
 				<button class="addDetailsInsert-btn" id="insertCalendarKanBan"
-				onclick="document.getElementById('detailsInsertModalKanban').style.display='none'">등록</button>
+				onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'">등록</button>
 		</div>
 	</div>
 
 <!--Details Modal-->
 	<div id="calendarEdit_modal_contents" class="calendarDetailsModal">
 		<div class="calendar-modal-detail">
-			<!-- Modal close btn -->
-	<!-- 	<div class="calendar-main-withdrawal-wrapper-delete">
-		<i class='far fa-trash-alt deleteCalendar' id='deleteCalendar' 
-		onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'" style='display:block;'></i>
-		</div> -->
 			<span class="calendarCloseModal" id="editCancel"
 		onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">&times;</span>
 			
