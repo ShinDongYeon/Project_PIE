@@ -14,6 +14,8 @@ public interface CalendarDao {
 	
 	public List<calendar> getCalendarListKanban(String email,int project_seq);
 	
+	public calendar getCalendarListKanbanDetail(int card_seq);
+	
 	public void editCalendar(String start, String end, String id);
 	
 	public void deleteCalendar(int id);

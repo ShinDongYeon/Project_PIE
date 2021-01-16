@@ -298,7 +298,7 @@ $(function() {
 	//loadCheckList
 	function loadChkList(ischecked, total) {
 		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> " + ischecked + "/" + total + "</i></div>";
-		return chkTag;
+		return chkTag;	
 	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
@@ -756,3 +756,20 @@ $(function() {
 	connectWS();
 
 });
+/*카드 일정보이기*/
+		/*
+		$.ajax({
+			type : "GET",
+			url  : "calendarListKanbanDetail.pie",
+			data:{	card_seq:card_seq },
+				success : function(data){
+				start = moment(data.start).format('YYYY-MM-DD');
+				end = moment(data.end).format('YYYY-MM-DD')
+				if(data === ""){
++
+				}else{
+
+				}	
+				}
+		})
+		*/

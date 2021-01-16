@@ -11,10 +11,8 @@ $(document).ready(function() {
 				project_seq: $("#projectNum").val()
 			},
 			success: function(data) {
-			
 				createAlram(data)
 				createCount(data)
-				
 			}
 		});
 	}
