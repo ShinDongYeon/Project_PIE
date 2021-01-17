@@ -39,7 +39,7 @@
 /* Side */
 .side{
 	display:inline-block;
-	position:fixed;
+	position:absolute;
 	margin-left:10px;
 }
 
@@ -354,7 +354,7 @@ input[type="checkbox"] {
 	width: 90%;
 	word-break: break-all;
 }
-
+/* 
 .todo:before {
 	content: '';
 	display: block;
@@ -364,12 +364,12 @@ input[type="checkbox"] {
 	width: 0%;
 	height: 1px;
 	background: #cd4400;
-	/*transition*/
+	transition
 	-webkit-transition: .25s ease-in-out;
 	-moz-transition: .25s ease-in-out;
 	-o-transition: .25s ease-in-out;
 	transition: .25s ease-in-out;
-}
+} */
 
 .todo:after {
 	content: '';
@@ -418,6 +418,9 @@ input[type="checkbox"] {
 
 input[type=checkbox]:checked + label.todo {
 	color: #717171;
+	text-decoration:line-through;
+	transition: all 175ms ease;
+    opacity: 0.7;
 }
 
 input[type=checkbox]:checked + label.todo:before {
