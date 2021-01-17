@@ -6,7 +6,75 @@ $(document).ready(function() {
 	//웹소켓 연결
 	connect();
 	
-	var rootRef = firebase.database().ref();
+	$.ajax({
+			type : "GET",
+			url  : "profile",
+			data : { 'chatting_room_seq' : $('#select').val()},
+			async: false,
+			success : function(data){
+				console.log(data);
+				$('.chat-top-pic').empty();
+				let opr = '';
+				if(data.length > 3){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-1-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-1-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-2' src='/resources/img/icon/none.png'>";
+					}
+					if(data[2].profile != null){
+						opr+=	"<img class='chat-top-img-1-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-3' src='/resources/img/icon/none.png'>";
+					}
+					if(data[3].profile != null){
+						opr+=	"<img class='chat-top-img-1-4' src='/resources/profile/"+data[3].email+"_"+data[3].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-4' src='/resources/img/icon/none.png'>";
+					}
+					
+				}else if(data.length == 3){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-2-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-2-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-2' src='/resources/img/icon/none.png'>";
+					}
+					if(data[2].profile != null){
+						opr+=	"<img class='chat-top-img-2-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-3' src='/resources/img/icon/none.png'>";
+					}
+															
+				}else if(data.length == 2){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-3-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-3-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-3-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-3-2' src='/resources/img/icon/none.png'>";
+					}										
+				}
+						
+				$('.chat-top-pic').append(opr);
+				
+			},
+			error: function(request,status,error){
+				alert(error);
+			}
+		});
+	
 	
 	//Enter 키 입력
 	$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
@@ -251,7 +319,7 @@ function uploadFile(file) {
 
 
 var websocket;
-
+var chatReceiveSocket;
 
 function connect(){
 	websocket = new WebSocket(
@@ -259,6 +327,12 @@ function connect(){
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
+	
+	chatReceiveSocket = new WebSocket(
+		"ws://localhost:8090/websocket/chatReceive/websocket?select="+$('#select').val()+"&roomname="+$('#roomname').val());
+	chatReceiveSocket.onopen = (event) => {};
+	chatReceiveSocket.onmessage = (event) => {};
+	chatReceiveSocket.onclose = (event) => {};
 }
 
 function disconnect(){
@@ -365,7 +439,7 @@ function onOpen(evt){
 					msgbox += 	"<div class='chat-sender-wrapper'>"+
 									"<div class='chat-sender-pic'>";
 										if(data.val()[i].profile != null){
-											msgbox +=	"<img class='chat-receiver-profile' src='/resources/profile/"+myemail+"_"+data.val()[i].profile+"'>";
+											msgbox +=	"<img class='chat-receiver-profile' src='/resources/profile/"+data.val()[i].email+"_"+data.val()[i].profile+"'>";
 										}else{
 											msgbox +=	"<i class='fas fa-user'></i>";
 										}
@@ -559,6 +633,7 @@ function appendMessage(msg) {
 										});
 										
 										websocket.send($('#session_email').val());
+										//connectSocket.send($('#select').val());
 								}
 							
 							});
@@ -620,6 +695,9 @@ function appendMessage(msg) {
 													"</div>"+
 												"</div>"+
 											"</div>";
+											
+											//websocket.send($('#session_email').val());
+											chatReceiveSocket.send('');
 											
 							}//if
 						});//each end

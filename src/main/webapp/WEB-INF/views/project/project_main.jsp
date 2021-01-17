@@ -10,8 +10,9 @@
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/projectSidebar.js"></script>
-	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
+	<script src="/resources/js/chattingConnect.js"></script>
+	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
 	
 	

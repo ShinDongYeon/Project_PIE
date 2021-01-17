@@ -42,6 +42,7 @@
 			</div>
 			 -->
 		</div>
+		<div id="chat-list-hidden" style="display: none;"></div>
 
 	</div>
 </body>

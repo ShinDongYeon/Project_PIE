@@ -13,6 +13,7 @@
 	<script src="/resources/js/projectMainChat.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
 	<script src="/resources/js/chattingConnect.js"></script>
+	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
 	
 </head>
 <body>
