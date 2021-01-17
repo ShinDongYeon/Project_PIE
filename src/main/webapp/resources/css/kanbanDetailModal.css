@@ -195,11 +195,16 @@ cursor: pointer;
 
 .addDetails-btn {
     font-family: 'Lato', sans-serif;
-    padding: 3px;
+    display: block;
+    margin-left: 67%;
+    margin-top: 5px;
+    padding: 3px 5px;
     background-color: #f2dd68;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
 }
 
 .closeDetails {
@@ -439,6 +444,7 @@ input[type=checkbox]:checked + label.todo .fa-check {
 	line-height: 35px;
 	color: #0eb0b7;
 }
+
 /* Delete Items */
 .delete-item {
 	display: block;
