@@ -124,7 +124,7 @@
 					<i class="far fa-comments"></i> Comments
 				</h2>
 				<div class="comments" style="display:none;"></div>
-				<form class="commentsForm" style="display:neone;">
+				<form class="commentsForm">
 					<textarea class="addComments" cols="30" rows="10" placeholder="enter comments"></textarea>
 					<button class="addComments-btn">Save</button>
 				</form>

@@ -36,5 +36,16 @@ public class CardCommentsService {
 		commList = comdao.loadComments(cardSeq);
 		return commList;
 	}
+	
+	//Delete Card Comment
+	public void deleteCardCommentService(int commSeq) {
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
+		try {
+			comdao.deleteCardComment(commSeq);
+		}catch (Exception e) {
+			System.out.println("delteChkList Error" + e.getMessage());
+			throw e;
+		}
+	}
 
 }

@@ -51,6 +51,15 @@ public class CardCommentsController {
 		model.addAttribute("commList",commList);
 		return jsonview;
 	}
+	
+	//delete Card Comment
+	@ResponseBody
+	@RequestMapping(value = "deleteCardComment.pie", method = RequestMethod.POST)
+	public View deleteCardComment(@RequestParam("commSeq") int commSeq, Model model) {
+		cardcomservice.deleteCardCommentService(commSeq);
+		model.addAttribute("data", "success");
+		return jsonview;
+	}
 
 
 }

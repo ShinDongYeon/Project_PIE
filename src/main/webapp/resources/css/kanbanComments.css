@@ -53,9 +53,9 @@
 }
 
 
-.commMemWrap {
+/* .commMemWrap {
 	display: block;
-}
+} */
 
 .commPro {
 	width:40px;
@@ -106,7 +106,7 @@
 }
 
 .fa-eraser.editComm:hover {
-	font-size: 17px;
+	font-size: 20px;
 	cursor: pointer;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .fa-trash-alt.deleteComm:hover {
-	font-size: 17px;
+	font-size: 20px;
 	cursor: pointer;
 }
 

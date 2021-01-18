@@ -23,6 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY K.COMMENTS_SEQ ASC;
 	</select>
 	
+	<delete id="deleteCardComment" parameterType="int">
+		DELETE FROM KANBAN_COMMENTS
+		WHERE COMMENTS_SEQ = #{param1}
+	</delete>
+	
 </mapper>
 
 
