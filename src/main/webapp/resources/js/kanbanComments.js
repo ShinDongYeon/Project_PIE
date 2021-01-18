@@ -9,16 +9,18 @@ $(document).ready(function(){
 
 					
 	function commentsIcon(nickName,reg_date,comments){
-		let commTag = '<div><img class="commPro" src="/resources/img/icon/none.png">'+
+		let commTag = '<div class="commMemWrap"><img class="commPro" src="/resources/img/icon/none.png">'+
 						'<div class="writerWrap"><p class="commWriter">'+nickName+'</p><p class="commDate">'+reg_date+'</p></div>'+
-						'<div class="memComment">'+comments+'</div></div>';
+						'<div class="memCommentWrap"><div class="memComment">'+comments+
+						'</div><div class="commIcons"><i class="fas fa-eraser editComm"></i><i class="far fa-trash-alt deleteComm"></i><div></div></div>';
 		return commTag;
 	}
 	
 	function commentsPro(email,profile,nickName,reg_date,comments){
-		let commTag = '<div><img class="commPro" src="resources/profile/'+email+'_'+profile+'">'+
+		let commTag = '<div class="commMemWrap"><img class="commPro" src="resources/profile/'+email+'_'+profile+'">'+
 						'<div class="writerWrap"><p class="commWriter">'+nickName+'</p><p class="commDate">'+reg_date+'</p></div>'+
-						'<div class="memComment">'+comments+'</div></div>';
+						'<div class="memCommentWrap"><div class="memComment">'+comments+
+						'</div><div class="commIcons"><i class="fas fa-eraser editComm"></i><i class="far fa-trash-alt deleteComm"></i><div></div></div>';
 		return commTag;
 	}
 	
