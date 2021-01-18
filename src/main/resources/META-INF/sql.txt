@@ -105,6 +105,7 @@ INSERT INTO sequences VALUES ('project_seq', 0);
 INSERT INTO sequences VALUES ('check_seq', 0);
 INSERT INTO sequences VALUES ('card_seq', 0);
 INSERT INTO sequences VALUES ('list_seq', 0);
+INSERT INTO sequences VALUES ('comments_seq', 0);
  
 #5. nextval 값 가져오기 ('Statistics_seq' 대신 생성한 시퀀스 명을 넣을 것)
 
@@ -245,4 +246,15 @@ ALTER TABLE `pie`.`alarm`
 CHANGE COLUMN `alramseq` `alramseq` INT NOT NULL ,
 DROP PRIMARY KEY;
 
+#kanban_comments
+CREATE TABLE KANBAN_COMMENTS (
+  EMAIL VARCHAR(100) NOT NULL,
+    FOREIGN KEY (EMAIL) REFERENCES USER(EMAIL),
+  CARD_SEQ INT NOT NULL,
+    FOREIGN KEY (CARD_SEQ) REFERENCES KANBANCARD(CARD_SEQ),
+  COMMENTS_SEQ INT NOT NULL,
+  COMMENTS VARCHAR(1000) NOT NULL,
+  REG_DATE DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO sequences VALUES ('comments_seq', 0);
