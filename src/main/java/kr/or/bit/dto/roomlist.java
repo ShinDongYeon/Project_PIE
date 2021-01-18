@@ -10,5 +10,6 @@ public class roomlist {
 	
 	private String email;
 	private String profile;
+	private String chatting_alarm;
 	
 }
