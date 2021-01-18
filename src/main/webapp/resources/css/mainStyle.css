@@ -1,18 +1,18 @@
 @charset "UTF-8";
 
-body{
+body {
 	background-color: #f1f1f1;
 	background-image: none;
 	background: none;
 	height: auto;
 }
 
-.main-wrapper{
+.main-wrapper {
 	display: flex;
 }
 
 /*Left: main-profile*/
-.main-profile-wrapper{
+.main-profile-wrapper {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -20,22 +20,23 @@ body{
 	width: 20%;
 	height: 100vh;
 	background-color: #31343c;
-	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px 1px;
 }
 
-.main-profile-inner-wrapper{
+.main-profile-inner-wrapper {
 	width: 245px;
 	padding-left: 45px;
 }
 
-.main-profile-pic-wrapper{
+.main-profile-pic-wrapper {
 	display: block;
 	width: 245px;
 	margin-top: 50px;
 	margin-bottom: 10px;
 	text-align: center;
 }
-.main-profile-pic{
+
+.main-profile-pic {
 	position: relative;
 	background-color: #fff;
 	font-size: 7rem;
@@ -44,60 +45,61 @@ body{
 	padding: 20px 30px;
 }
 
-.main-profile-pic:after{
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    content: '';
-    border: 4px solid black;
-    border-radius: 100%;
-    height: 100%;
-    width: 100%;
-    -webkit-box-sizing: border-box;
+.main-profile-pic:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	content: '';
+	border: 4px solid black;
+	border-radius: 100%;
+	height: 100%;
+	width: 100%;
+	-webkit-box-sizing: border-box;
 }
 
-.main-profile-edit{
+.main-profile-edit {
 	color: #fff;
 	margin-bottom: 35px;
 }
-.fa-edit{
+
+.fa-edit {
 	font-size: 1.1rem;
 }
 
-.fa-edit:hover{
+.fa-edit:hover {
 	color: #f2dd68;
 	cursor: pointer;
 }
 
-.main-profile-edit-letter{
+.main-profile-edit-letter {
 	font-size: 0.9rem;
 	margin-left: 10px;
 }
 
-.main-profile-info{
+.main-profile-info {
 	font-size: 0.8rem;
 	color: #fff;
 	margin-bottom: 30px;
 }
 
-.main-profile-name{
+.main-profile-name {
 	font-size: 1.1rem;
 	font-weight: 500;
 	margin-right: 5px;
 }
 
-.fa-envelope:hover{
+.fa-envelope:hover {
 	color: #f2dd68;
 	cursor: pointer;
 }
 
-.main-profile-email{
+.main-profile-email {
 	font-size: 0.8rem;
 	font-weight: 200;
 }
 
-.main-profile-logout-btn{
+.main-profile-logout-btn {
 	width: 160px;
 	height: 40px;
 	background-color: #f2dd68;
@@ -114,23 +116,23 @@ body{
 	-webkit-appearance: none;
 }
 
-.main-profile-logout-btn:hover{
+.main-profile-logout-btn:hover {
 	background-color: #666e80;
 	color: #f2dd68;
 }
 
 /*Right: main-list*/
-.main-list-wrapper{
+.main-list-wrapper {
 	padding-top: 65px;
 	width: 80%;
 	height: 100vh;
 	background-color: #f1f1f1;
-	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px 1px;
 	text-align: -webkit-center;
 	overflow: auto;
 }
 
-.main-list-top{
+.main-list-top {
 	display: flex;
 	justify-content: space-between;
 	width: 70%;
@@ -139,13 +141,13 @@ body{
 	margin-bottom: 10px;
 }
 
-.main-list-letter{
+.main-list-letter {
 	align-self: flex-end;
 	color: #666666;
-	font-weight: 600;	
+	font-weight: 600;
 }
 
-.main-list-create-btn{
+.main-list-create-btn {
 	width: 200px;
 	height: 50px;
 	background-color: #f2dd68;
@@ -161,72 +163,73 @@ body{
 	-webkit-appearance: none;
 }
 
-.main-list-create-btn:hover{
+.main-list-create-btn:hover {
 	background-color: #31353d;
 	color: #f2dd68;
 }
 
-.main-list-body{
+.main-list-body {
 	
 }
 
-.main-list-project-wrapper{
+.main-list-project-wrapper {
 	display: flex;
 	justify-content: space-between;
 	width: 70%;
-	height: 110px;
+	height: 140px;
 	background-color: #fff;
 	margin-bottom: 10px;
-	padding: 10px;
-	box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 1px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 0px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px 1px;
 }
 
-.main-list-project-inner-wrapper{
+.main-list-project-inner-wrapper {
 	display: flex;
 	justify-content: space-between;
-	padding: 10px;
+	padding : 10px;
 }
 
-.main-list-project-left-info{
-	padding-top: 5px;
-	padding-left: 5px;
+.main-list-project-left-info {
+	padding-top: 0px;
+	padding-left: 0px;
 }
 
-.main-list-project-logo-wrapper{
+.main-list-project-logo-wrapper {
 	float: left;
 	width: fit-content;
 	height: 100%;
 	margin-right: 10px;
 }
-.project-logo{
-	width:45px;
-	box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+
+.project-logo {
+	width: 45px;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 1px;
 }
-.main-list-project-letter{
+
+.main-list-project-letter {
 	float: left;
-	text-align: left;	
+	text-align: left;
+	margin-left : 10px;
 }
-.main-list-project-letter1{
+
+.main-list-project-letter1 {
 	font-size: 1.1rem;
 	font-weight: bold;
 	margin-bottom: 2px;
-
 }
-.main-list-project-letter2{
-	font-size: 0.8rem;
-	font-weight: 100;
-	text-decoration: underline;	
-	margin-bottom: 12px;
-}
-.main-list-project-letter3{
+.main-list-project-letter3 {
 	font-size: 0.8rem;
 	font-weight: 100;
 }
 
-.main-list-project-right-btn-wrapper{
+.main-list-project-right-btn-wrapper {
 	align-self: center;
 }
-.main-list-project-right-btn1{
+
+.main-list-project-right-btn1 {
 	width: 50px;
 	height: 50px;
 	background-color: #fff;
@@ -241,15 +244,15 @@ body{
 	margin-right: 5px;
 	cursor: pointer;
 	-webkit-appearance: none;
-	box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 1px;
 }
 
-.main-list-project-right-btn1:hover{
+.main-list-project-right-btn1:hover {
 	background-color: #31353d;
 	color: #f2dd68;
 }
 
-.main-list-project-right-btn2{
+.main-list-project-right-btn2 {
 	width: 100px;
 	height: 50px;
 	background-color: #f2dd68;
@@ -263,27 +266,31 @@ body{
 	padding: 5px;
 	cursor: pointer;
 	-webkit-appearance: none;
-	box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 1px;
 }
-.main-list-project-right-btn2:hover{
+
+.main-list-project-right-btn2:hover {
 	background-color: #31353d;
 	color: #f2dd68;
 }
 
-
 /* 992px */
 @media only screen and (max-width: 992px) {
-	.main-profile-wrapper {width: 25%;}
+	.main-profile-wrapper {
+		width: 25%;
+	}
 }
 
 /* 768px */
 @media only screen and (max-width: 768px) {
-	.main-wrapper{display: block;}
-	.main-profile-wrapper{
+	.main-wrapper {
+		display: block;
+	}
+	.main-profile-wrapper {
 		width: 100%;
 		height: auto;
 	}
-	.main-list-wrapper{
+	.main-list-wrapper {
 		padding-top: 0;
 		width: 100%;
 		height: auto;
@@ -294,13 +301,20 @@ body{
 
 /* 600px */
 @media only screen and (max-width: 600px) {
-	.main-list-project-wrapper{width: 420px}
+	.main-list-project-wrapper {
+		width: 420px
+	}
 }
 
-#main-profile-img{
+#main-profile-img {
 	/* margin-top : 10px; */
 	border-radius: 70%;
 	overflow: hidden;
-	width: 120px;
-	height: 120px;
+	width: 60px;
+	height: 60px;
+}
+.chart-wrapper{
+	padding : 0px;
+	margin : 0px;
+	width : 150px;
 }
