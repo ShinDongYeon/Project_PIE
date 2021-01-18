@@ -7,5 +7,6 @@ public class member_progress {
 	
 	private String email;
 	private String done;
+	private String inProgress;
 
 }
