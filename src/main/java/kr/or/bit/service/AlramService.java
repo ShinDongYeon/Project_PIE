@@ -20,7 +20,6 @@ public class AlramService {
 	}
 	public void insertAlram(alram alram)throws Exception{
 		AlramDao alramdao = sqlsession.getMapper(AlramDao.class);
-		System.out.println("알람리스트:"+alram);
 		alramdao.insertAlram(alram);
 
 	}

@@ -10,11 +10,11 @@
 <div id="calendar_modal_background"></div>
  <!-- The Modal -->
 <!--Details Modal-->
-	<div id="detailsInsertModal" class="calendarDetailsModal">
+	<div id="calendarInsert_modal_contents" class="calendarDetailsModal">
 		<div class="calendar-modal-detail">
 			<!-- Modal close btn -->
 			<span class="calendarCloseModal" id="insertCancel"
-			onclick="document.getElementById('detailsInsertModal').style.display='none'">&times;</span>
+			onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'">&times;</span>
 			
 			<div class="calendarCheckBox"></div>
 			<h3 class="CheckBox">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 				<button class="addDetailsInsert-btn" id="insertCalendar"
-				onclick="document.getElementById('calendarEdit_modal_contents').style.display='none'">등록</button>
+				onclick="document.getElementById('calendarInsert_modal_contents').style.display='none'">등록</button>
 		</div>
 	</div>
 

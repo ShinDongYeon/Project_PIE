@@ -40,23 +40,28 @@ $('.setDueDateBtn').click(function(){
 				}else{
 				  allDay=false
 					 }
-		  $.ajax({  
-					type : "POST",
-					url  : "calendarInsert.pie",
-					data:{
-						start:$('#startDate').val(),
-						end:$('#endDate').val(),
-						title:$('#title').val()+"(칸반)",
-						content:$('#content').val(),
-						allDay:allDay,
-						color:$('#eventColor').val(),
-						project_seq:$("#projectNum").val(),
-						card_seq:$(".modal_card_seq").val()
-						},
-					success : function(data){	
-						insertButton()		
+		  /* 캘린더 등록*/
+				let calendarInsertOb = new Object();
+				calendarInsertOb.start = $('#startDate').val()
+				calendarInsertOb.end = $('#endDate').val()
+				calendarInsertOb.title = $('#title').val()+"(칸반)"
+				calendarInsertOb.content = $('#content').val()
+				calendarInsertOb.allDay = allDay
+				calendarInsertOb.color = $('#eventColor').val()
+				calendarInsertOb.project_seq = $("#projectNum").val()
+				calendarInsertOb.card_seq = $(".modal_card_seq").val()
+				let calendarInsert = JSON.stringify(calendarInsertOb);
+				$.ajax({
+					type: "POST",
+					url: "calendarInsert.pie",
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: calendarInsert,
+					success: function(data) {
+						insertButton()
 					}
-			  })
+				})
 				 	$.ajax({
 					type: "POST",
 					url: "alramLastSeq.pie",
@@ -110,14 +115,16 @@ $('.getDueDateBtn').click(function(){
     document.getElementById('calendar_modal_background').style.display = 'block';
 	$("#deleteCalendar").unbind('click');
 			$('#deleteCalendar').click(function() {
-				swal.fire({
+				Swal.fire({
 					title: "일정을 삭제하시겠습니까?",
 					icon: "warning",
-					buttons: true,
-					dangerMode: true,
+					howCancelButton: true,
+					confirmButtonColor: '#3085d6',
+  					cancelButtonColor: '#d33',
+  					confirmButtonText: 'Yes'
 				})
-					.then((willDelete) => {
-						if (willDelete) {
+					.then((result) => {
+						if (result.isConfirmed) {
 							document.getElementById('calendarEdit_modal_contents').style.display = 'none';
 							document.getElementById('calendar_modal_background').style.display = 'none';
 							$.ajax({
@@ -130,7 +137,8 @@ $('.getDueDateBtn').click(function(){
 							}
 							});
 						} else {
-
+							document.getElementById('calendarEdit_modal_contents').style.display = 'none';
+							document.getElementById('calendar_modal_background').style.display = 'none';
 						}
 					});
 			})
@@ -166,24 +174,27 @@ $('.getDueDateBtn').click(function(){
 				} else {
 					allDay = false
 				}
+				/*캘린더 수정*/
+				let calendarEditOb = new Object();
+				calendarEditOb.id	= $('#seqView').val()
+				calendarEditOb.start = $('#startDateView').val()
+				calendarEditOb.end = $('#endDateView').val()
+				calendarEditOb.title = $('#titleView').val()+"(칸반)"
+				calendarEditOb.content = $('#contentView').val()
+				calendarEditOb.allDay = allDay
+				calendarEditOb.color = $('#eventColorView').val()
+				let calendarEdit = JSON.stringify(calendarEditOb);
 				$.ajax({
 					type: "POST",
 					url: "calendarUpdate.pie",
-					data: {
-						id: $('#seqView').val(),
-						start: $('#startDateView').val(),
-						end: $('#endDateView').val(),
-						title: $('#titleView').val(),
-						content: $('#contentView').val(),
-						allDay: allDay,
-						color: $('#eventColorView').val()
-					},
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: calendarEdit,
 					success: function(data) {
 						editButton()
-
 					}
 				})
-
 					$.ajax({
 					type: "POST",
 					url: "alramLastSeq.pie",
