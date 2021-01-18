@@ -24,8 +24,6 @@ public class chatHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
         // 파라미터로 입력된 attributes에 put을 하면 
         // WebSocketSession에 자동으로 저장되어 Chat class에서 활용 가능
         attributes.put("select", req.getParameter("select"));
-        attributes.put("roomname", req.getParameter("roomname"));
-        attributes.put("nick", req.getSession().getAttribute("nick"));
         attributes.put("loginuser", req.getSession().getAttribute("loginuser"));
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }

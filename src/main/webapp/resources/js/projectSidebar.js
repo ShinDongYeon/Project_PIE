@@ -54,7 +54,6 @@ $(document).ready(function(){
 					url  		: "chat/room/list",
 					async		: false,
 					success 	: function(data){
-						console.log(data);
 						chattingRoomList(data);
 					},
 					error		: function(request,status,error){

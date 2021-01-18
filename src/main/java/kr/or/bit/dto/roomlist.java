@@ -9,5 +9,7 @@ public class roomlist {
 	private int chatting_room_seq;
 	
 	private String email;
+	private String profile;
+	private String chatting_alarm;
 	
 }

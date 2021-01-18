@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	<!-- public List<room> getRoomList(Map<String, Object> getRoomListMap); -->
 	<select id="getRoomList" resultType="roomDto" parameterType="hashMap">
-		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, C.PROJECT_SEQ, L.CHATTING_ALARM, L.CLICKED
+		SELECT C.CHATTING_ROOM_SEQ, L.CHATTING_ROOM_NAME, L.CHATTING_ALARM
 		FROM CHATTINGROOM C JOIN CHATTINGROOMLIST L
 		ON C.CHATTING_ROOM_SEQ = L.CHATTING_ROOM_SEQ
 		WHERE PROJECT_SEQ = #{projectNum}
@@ -64,6 +64,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT CHATTING_ROOM_SEQ, CHATTING_ROOM_NAME, PROJECT_SEQ 
 		FROM CHATTINGROOM
 		WHERE PROJECT_SEQ = #{projectNum}
+	</select>
+	
+	<!-- public List<roomlist> getProfiles(); -->
+	<select id="getProfiles" resultType="roomlistDto">
+		SELECT U.EMAIL, U.PROFILE, L.CHATTING_ROOM_SEQ
+		FROM USER U JOIN CHATTINGROOMLIST L
+		ON U.EMAIL = L.EMAIL
+		ORDER BY L.CHATTING_ROOM_SEQ;
+	</select>
+	
+	<!-- public List<user> getProfilesByRoomSeq(int chatting_room_seq); -->
+	<select id="getProfilesByRoomSeq" resultType="userDto">
+		SELECT U.EMAIL, U.PROFILE
+		FROM USER U JOIN CHATTINGROOMLIST L
+		ON U.EMAIL = L.EMAIL
+		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
+		ORDER BY L.CHATTING_ROOM_SEQ;
 	</select>
 	
 	<!-- public List<user> selectedUser(Map<String, Object> selectUserMap); -->
@@ -162,6 +179,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND EMAIL = #{loginuser}
 	</update>	
 	
+	<!-- chatsocketHandler -->
 	<!-- public void resetAlarm(Map<String, Object> resetAlarmMap); -->
 	<update id="resetAlarm" parameterType="hashMap">
 		UPDATE CHATTINGROOMLIST
@@ -169,6 +187,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE CHATTING_ROOM_SEQ = #{select}
 			AND EMAIL IN #{loginuser}
 	</update>	
+	
+	<!-- chatsocketHandler -->
+	<!-- public int alarmIsNotNull(Map<String, Object> pushAlarmMap); -->
+	<select id="alarmIsNotNull" resultType="int" parameterType="hashMap">
+		SELECT CHATTING_ALARM FROM CHATTINGROOMLIST
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL IN (#{loginuser})
+	</select>
+	
+	<!-- chatsocketHandler -->
+	<!-- public int pushAlarmNotMe(Map<String, Object> pushAlarmMap); -->
+	<update id="pushAlarmNotMe" parameterType="hashMap">
+		UPDATE CHATTINGROOMLIST
+		SET CHATTING_ALARM = 0
+		WHERE CHATTING_ROOM_SEQ = #{select}
+			AND EMAIL IN (#{loginuser})
+	</update>
 	
 	<!-- public void checkalarm(Map<String, Object> checkAlarmMap); -->
 	<update id="checkalarm" parameterType="hashMap">
@@ -222,13 +257,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY L.EMAIL
 	</select>
 	
+	<!-- public List<roomlist> getChattingRoomList2(Map<String, Object> chattingRoomListMap); -->
+	<select id="getChattingRoomList2" resultType="roomlistDto" parameterType="hashMap">
+		SELECT L.EMAIL, L.CHATTING_ALARM
+		FROM CHATTINGROOMLIST L JOIN CHATTINGROOM C
+		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
+		WHERE C.PROJECT_SEQ = #{projectNum}
+			AND C.CHATTING_ROOM_SEQ = #{room_num}
+		ORDER BY L.EMAIL
+	</select>
+	
 	<!-- public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq); -->
 	<select id="getChattingRoomUserListByRoomSeq" resultType="roomlistDto">
-		SELECT U.EMAIL, U.NICKNAME, C.CHATTING_ROOM_SEQ
+		SELECT U.EMAIL, U.NICKNAME, L.CHATTING_ROOM_SEQ, U.PROFILE
 		FROM CHATTINGROOMLIST L JOIN USER U
 		ON U.EMAIL = L.EMAIL
-		JOIN CHATTINGROOM C
-		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
-		WHERE C.CHATTING_ROOM_SEQ = #{chatting_room_seq}
+		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
 	</select>
 </mapper>

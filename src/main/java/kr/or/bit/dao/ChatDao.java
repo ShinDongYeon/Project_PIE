@@ -27,6 +27,10 @@ public interface ChatDao {
 	 
 	 public List<room> getRoomList2(Map<String, Object> getRoomListMap);
 	 
+	 public List<roomlist> getProfiles();
+	 
+	 public List<user> getProfilesByRoomSeq(int chatting_room_seq);
+	 
 	 public room getRoomListBySeq(int room_seq);
 	 
 	 public List<user> selectedUser(Map<String, Object> selectUserMap);
@@ -47,6 +51,10 @@ public interface ChatDao {
 	 
 	 public void resetAlarm(Map<String, Object> resetAlarmMap);
 	 
+	 public int alarmIsNotNull(Map<String, Object> pushAlarmMap);
+	 
+	 public int pushAlarmNotMe(Map<String, Object> pushAlarmMap);
+	 
 	 public void checkalarm(Map<String, Object> checkAlarmMap);
 	 
 	 public void roomClicked(Map<String, Object> checkAlarmMap);
@@ -60,6 +68,8 @@ public interface ChatDao {
 	 public List<room> getRoomListByProjectSeq(int projectNum);
 	 
 	 public List<String> getChattingRoomList(Map<String, Object> chattingRoomListMap);
+	 
+	 public List<roomlist> getChattingRoomList2(Map<String, Object> chattingRoomListMap);
 	 
 	 public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq);
 	 

@@ -49,6 +49,18 @@ public class ChatController {
 		return memberList;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/chat/profile", method = RequestMethod.GET)
+	public List<user> getProfile(@RequestParam("chatting_room_seq") int chatting_room_seq){
+		List<user> profile_list = null;
+		try {
+			 profile_list = chatservice.getProfilesByRoomSeq(chatting_room_seq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return profile_list;
+	}
+	
 	//채팅방 생성하기 버튼 클릭시 채팅방 생성하기
 	@ResponseBody
 	@RequestMapping(value="/chat/members", method = RequestMethod.POST)
@@ -106,8 +118,23 @@ public class ChatController {
 						nickname = "";
 					}
 					
+					//회원 이미지 불러오기
+					List<roomlist> user_list = chatservice.getProfiles();
+					List<room> room_list2 = chatservice.getRoomList(getRoomListMap);
+					Map<Integer, Object> profile_map = new HashMap<>();
+					for(int k=0; k < room_list2.size(); k++) {
+						List<roomlist> profile_list = new ArrayList<>();
+						for(int j=0; j < user_list.size(); j++) {
+							if(room_list2.get(k).getChatting_room_seq() == user_list.get(j).getChatting_room_seq()) {
+								profile_list.add(user_list.get(j));
+							}
+						}
+						profile_map.put(room_list2.get(k).getChatting_room_seq(), profile_list);
+					}
+					
 					selectMap.put("chat_room_list", roomList);
 					selectMap.put("nicknames", nicknames);
+					selectMap.put("profiles", profile_map);
 					
 					return selectMap;
 				}
@@ -131,6 +158,7 @@ public class ChatController {
 			chatservice.insertChattingRoom(chatting_room_name, projectNum);
 			
 			getRoomListMap.put("projectNum", projectNum);
+			getRoomListMap.put("loginuser", loginuser);
 			//채팅방 리스트 페이지에 바인딩
 			roomList = chatservice.getRoomList2(getRoomListMap);
 			//생성한 채팅방 번호 추출
@@ -158,13 +186,29 @@ public class ChatController {
 				nicknames.add(nickname);
 				nickname = "";
 			}
-			selectMap.put("chat_room_list", roomList);
-			selectMap.put("nicknames", nicknames);
+			
+			//회원 이미지 불러오기
+			List<roomlist> user_list = chatservice.getProfiles();
+			List<room> room_list2 = chatservice.getRoomList(getRoomListMap);
+			Map<Integer, Object> profile_map = new HashMap<>();
+			for(int k=0; k < room_list2.size(); k++) {
+				List<roomlist> profile_list = new ArrayList<>();
+				for(int j=0; j < user_list.size(); j++) {
+					if(room_list2.get(k).getChatting_room_seq() == user_list.get(j).getChatting_room_seq()) {
+						profile_list.add(user_list.get(j));
+					}
+				}
+				profile_map.put(room_list2.get(k).getChatting_room_seq(), profile_list);
+			}
+			
+			getRoomListMap.put("chat_room_list", roomList);
+			getRoomListMap.put("nicknames", nicknames);
+			getRoomListMap.put("profiles", profile_map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return selectMap;
+		return getRoomListMap;
 	}
 	
 	@ResponseBody
@@ -299,8 +343,23 @@ public class ChatController {
 				nickname = "";
 			}
 			
+			//회원 이미지 불러오기
+			List<roomlist> user_list = chatservice.getProfiles();
+			List<room> room_list = chatservice.getRoomList(getRoomListMap);
+			Map<Integer, Object> profile_map = new HashMap<>();
+			for(int i=0; i < room_list.size(); i++) {
+				List<roomlist> profile_list = new ArrayList<>();
+				for(int j=0; j < user_list.size(); j++) {
+					if(room_list.get(i).getChatting_room_seq() == user_list.get(j).getChatting_room_seq()) {
+						profile_list.add(user_list.get(j));
+					}
+				}
+				profile_map.put(room_list.get(i).getChatting_room_seq(), profile_list);
+			}
+			
 			map.put("chat_room_list", chat_room_list);
 			map.put("nicknames", nicknames);
+			map.put("profiles", profile_map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -373,14 +432,30 @@ public class ChatController {
 				for(roomlist list : user_room_list) {
 					nickname += "#" + list.getNickName();
 				}
-				if(nickname.length() > 19){
-					nickname = nickname.substring(0,19) + "...";
+				if(nickname.length() > 15){
+					nickname = nickname.substring(0,15) + "...";
 				}
 				nicknames.add(nickname);
 				nickname = "";
 			}
+			
+			//회원 이미지 불러오기
+			List<roomlist> user_list = chatservice.getProfiles();
+			//List<room> room_list2 = chatservice.getRoomList(searchRoomMap);
+			Map<Integer, Object> profile_map = new HashMap<>();
+			for(int i=0; i < room_list.size(); i++) {
+				List<roomlist> profile_list = new ArrayList<>();
+				for(int j=0; j < user_list.size(); j++) {
+					if(room_list.get(i).getChatting_room_seq() == user_list.get(j).getChatting_room_seq()) {
+						profile_list.add(user_list.get(j));
+					}
+				}
+				profile_map.put(room_list.get(i).getChatting_room_seq(), profile_list);
+			}
+			
 			map.put("chat_room_list", room_list);
 			map.put("nicknames", nicknames);
+			map.put("profiles", profile_map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -403,8 +478,8 @@ public class ChatController {
 		for(roomlist list : user_room_list) {
 			nickname += "#" + list.getNickName();
 		}
-		if(nickname.length() > 19){
-			nickname = nickname.substring(0,19) + "...";
+		if(nickname.length() > 15){
+			nickname = nickname.substring(0,15) + "...";
 		}
 		
 		model.addAttribute("select", select);
@@ -428,6 +503,7 @@ public class ChatController {
 		return room_list;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="/chat/checkalarm", method = RequestMethod.POST)
 	public void checkalarm(int select, HttpServletRequest request){
@@ -439,11 +515,13 @@ public class ChatController {
 			checkAlarmMap.put("select", select);
 			checkAlarmMap.put("loginuser", loginuser);
 			chatservice.checkalarm(checkAlarmMap);
-			chatservice.roomClicked(checkAlarmMap);
+			//2번 클릭 방지
+			//chatservice.roomClicked(checkAlarmMap);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

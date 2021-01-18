@@ -74,8 +74,11 @@
 				<div class="cardMembersBtn">
 					<i class="fas fa-user-check"></i> Add Members
 				</div>
-				<div class="setDueDateBtn">
-					<i class="far fa-calendar-check"></i> Due Date
+				<div class="setDueDateBtn" style="display:">
+					<i class="far fa-calendar" ></i> Set Date
+				</div>
+				<div class="getDueDateBtn" style="display:">
+					<i class="far fa-calendar-check" ></i> Get Date
 				</div>
 			</div>
 			

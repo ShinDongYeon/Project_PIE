@@ -6,14 +6,101 @@ $(document).ready(function() {
 	//웹소켓 연결
 	connect();
 	
-	var rootRef = firebase.database().ref();
+	$.ajax({
+			type : "GET",
+			url  : "profile",
+			data : { 'chatting_room_seq' : $('#select').val()},
+			async: false,
+			success : function(data){
+				console.log(data);
+				$('.chat-top-pic').empty();
+				let opr = '';
+				if(data.length > 3){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-1-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-1-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-2' src='/resources/img/icon/none.png'>";
+					}
+					if(data[2].profile != null){
+						opr+=	"<img class='chat-top-img-1-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-3' src='/resources/img/icon/none.png'>";
+					}
+					if(data[3].profile != null){
+						opr+=	"<img class='chat-top-img-1-4' src='/resources/profile/"+data[3].email+"_"+data[3].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-1-4' src='/resources/img/icon/none.png'>";
+					}
+					
+				}else if(data.length == 3){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-2-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-2-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-2' src='/resources/img/icon/none.png'>";
+					}
+					if(data[2].profile != null){
+						opr+=	"<img class='chat-top-img-2-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-2-3' src='/resources/img/icon/none.png'>";
+					}
+															
+				}else if(data.length == 2){
+					if(data[0].profile != null){
+						opr+=	"<img class='chat-top-img-3-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-3-1' src='/resources/img/icon/none.png'>";
+					}
+					if(data[1].profile != null){
+						opr+=	"<img class='chat-top-img-3-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
+					}else{
+						opr+=	"<img class='chat-top-img-3-2' src='/resources/img/icon/none.png'>";
+					}										
+				}
+						
+				$('.chat-top-pic').append(opr);
+				
+			},
+			error: function(request,status,error){
+				alert(error);
+			}
+		});
+	
 	
 	//Enter 키 입력
 	$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
 	$('#message').keypress( (event) => {
 		//Enter 키 입력 시
 		if (event.which == 13) {
-			send();
+			
+			let filename = $('#file-input').val();
+			console.log('filename');
+			console.log(filename);
+			if(filename != null && filename != ''){
+				sendFiles(filename);
+			}else{
+				send();
+			}
+			$('#message').focus(); 
+			$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+			
+			$('#img_zone').css('display','none');
+			$('#message').attr('readonly',false);
+			$('#message').attr('placeholder','메시지를 입력하세요');
+			$('#img_zone').attr('src', '/resources/img/icon/none.png');
+			$('.emoji-content').removeClass('disappear2');
+			$('.emoji-content').addClass('disappear');
+			$('#file-input').val('');
+			
 			event.preventDefault();
 		}
 	});
@@ -50,7 +137,7 @@ $(document).ready(function() {
 		if($('#chat-msgWrite-btn').attr('class') == 'chat-msgWrite-btn'){
 			
 			let filename = $('#file-input').val();
-			if(filename != null || filename != ''){
+			if(filename != null){
 				sendFiles(filename);
 			}else{
 				send();
@@ -65,6 +152,7 @@ $(document).ready(function() {
 			$('#img_zone').attr('src', '/resources/img/icon/none.png');
 			$('.emoji-content').removeClass('disappear2');
 			$('.emoji-content').addClass('disappear');
+			$('#file-input').val('');
 			
 			event.preventDefault();
 			
@@ -231,7 +319,7 @@ function uploadFile(file) {
 
 
 var websocket;
-
+var chatReceiveSocket;
 
 function connect(){
 	websocket = new WebSocket(
@@ -239,6 +327,12 @@ function connect(){
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
+	
+	chatReceiveSocket = new WebSocket(
+		"ws://localhost:8090/websocket/chatReceive/websocket?select="+$('#select').val()+"&roomname="+$('#roomname').val());
+	chatReceiveSocket.onopen = (event) => {};
+	chatReceiveSocket.onmessage = (event) => {};
+	chatReceiveSocket.onclose = (event) => {};
 }
 
 function disconnect(){
@@ -280,8 +374,8 @@ function onOpen(evt){
 			let strArr = str.split('-');
 			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
 			let DB_date_format = DB_date.format('yyyy년 MM월 dd일');
-			//날짜가 1일이 지난 메시지는 띄우지 않기
-			if((today - DB_date)/1000/60/60/24 < 1){
+			//날짜가 3일뒤 자정이 지난 메시지는 띄우지 않기
+			if((today - DB_date)/1000/60/60/24 < 3){
 				//날짜가 바뀌었으면 바뀐 것을 표시
 				if(data.val()[i].message_date != data.val()[i-1].message_date){
 					msgbox += 	"<div class='chat-body-date'>"+
@@ -300,9 +394,13 @@ function onOpen(evt){
 				//내가 보낸 메일이면
 				if (data.val()[i].email == myemail) {
 					msgbox += 	"<div class='chat-receiver-wrapper'>"+
-									"<div class='chat-receiver-pic'>"+
-										"<i class='fas fa-user'></i>"+
-									"</div>"+
+									"<div class='chat-receiver-pic'>";
+										if(data.val()[i].profile != null){
+											msgbox +=	"<img class='chat-receiver-profile' src='/resources/profile/"+myemail+"_"+data.val()[i].profile+"'>";
+										}else{
+											msgbox +=	"<i class='fas fa-user'></i>";
+										}
+					msgbox +=		"</div>"+
 									"<div>"+
 										"<div class='chat-receiver-name'>"+
 											data.val()[i].nickName+
@@ -312,14 +410,15 @@ function onOpen(evt){
 											if(data.val()[i].message_content == ''){
 												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
 													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_1"+data.val()[i].message_file+"'>"+
+																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
+																	"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
 																"</div>";
 												}else{
 													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
 																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																	"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
 																"</div>";
 												}
-												
 												
 											//일반 메시지가 들어오면
 											}else{
@@ -338,9 +437,13 @@ function onOpen(evt){
 				//내가 보낸 메일이 아니면
 				}else {
 					msgbox += 	"<div class='chat-sender-wrapper'>"+
-									"<div class='chat-sender-pic'>"+
-										"<i class='fas fa-user'></i>"+
-									"</div>"+
+									"<div class='chat-sender-pic'>";
+										if(data.val()[i].profile != null){
+											msgbox +=	"<img class='chat-receiver-profile' src='/resources/profile/"+data.val()[i].email+"_"+data.val()[i].profile+"'>";
+										}else{
+											msgbox +=	"<i class='fas fa-user'></i>";
+										}
+					msgbox +=		"</div>"+
 									"<div>"+
 										"<div class='chat-sender-name'>"+
 											data.val()[i].nickName+
@@ -350,11 +453,13 @@ function onOpen(evt){
 											if(data.val()[i].message_content == ''){
 												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
 													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_1"+data.val()[i].message_file+"'>"+
+																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
+																	"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
 																"</div>";
 												}else{
 													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
 																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																	"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
 																"</div>";
 												}
 												
@@ -460,120 +565,144 @@ function appendMessage(msg) {
 				let index = strarray[3].lastIndexOf(".");	
 				let extension = strarray[3].substring(index+1);
 				
-				if (msginfo == myemail) {
-					msgbox = 	"<div class='chat-receiver-wrapper'>"+
-									"<div class='chat-receiver-pic'>"+
-										"<i class='fas fa-user'></i>"+
-									"</div>"+
-									"<div>"+
-										"<div class='chat-receiver-name'>"+
-											mynickname+
-										"</div>"+
-										"<div class='chat-receiver-message-wrapper'>";
-										//file이 들어오면
-										if(msg.indexOf('|/') != -1){
-											if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
-												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_1"+strarray[3]+"'>"+
-															"</div>";
-											}else{
-												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
-															"</div>";
-											}
-											
-										
-										//일반 메시지가 들어오면
-										}else{
-											msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-															message+
-														"</div>";
-										}
-											
-					msgbox +=				"<div class='chat-receiver-time'>"+
-												time+
-											"</div>"+
-										"</div>"+
-									"</div>"+
-								"</div>";
-								
-							
-							//SELECT chatting_room_seq
-							firebase.database().ref().child('chatting_room_seq').once('value',function(data){
-								//message_seq 추출
-								let message_seq = Object.keys(data.val()[$('#select').val()].messages).length;
-								
-								//INSERT message
-								firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/'+message_seq).set({
-									chatting_room_seq : $('#select').val(),
-									message_seq : message_seq,
-									message_content : message,
-									message_date : date,
-									message_time : time,
-									message_file : strarray[3],
-									extension: extension,
-									email : $('#session_email').val(),
-									nickName : $('#nickname').val(),
-									profile : null,
-								});
-							});
-							
-							websocket.send($('#session_email').val());
-							
-				}else if(msginfo == "알림"){
-					msgbox += 	"<div class='chat-body-date'>"+
-									"<div class='chat-body-date-line'>"+
-										"―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
-									"</div>"+
-									"<div class='chat-body-date-letter'>"+
-										message+
-									"</div>"+
-									"<div class='chat-body-date-line'>"+
-										"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
-									"</div>"+
-								"</div>";
-								
-				}else {
-					$.each(data,function(index,elem){
-						if(msginfo == elem.email){
-							msgbox = 	"<div class='chat-sender-wrapper'>"+
-											"<div class='chat-sender-pic'>"+
-												"<i class='fas fa-user'></i>"+
-											"</div>"+
-											"<div>"+
-												"<div class='chat-sender-name'>"+
-													elem.nickName+
-												"</div>"+
-												"<div class='chat-sender-message-wrapper'>";
+				
+				
+					if (msginfo == myemail) {
+						$.each(data,function(index,elem){
+							if(myemail == elem.email){
+								msgbox = 	"<div class='chat-receiver-wrapper'>"+
+												"<div class='chat-receiver-pic'>";
+												if(elem.profile != null){
+													msgbox +=	"<img class='chat-receiver-profile' src='/resources/profile/"+myemail+"_"+elem.profile+"'>";
+												}else{
+													msgbox +=	"<i class='fas fa-user'></i>";
+												}
+								msgbox +=		"</div>"+
+												"<div>"+
+													"<div class='chat-receiver-name'>"+
+														mynickname+
+													"</div>"+
+													"<div class='chat-receiver-message-wrapper'>";
 													//file이 들어오면
 													if(msg.indexOf('|/') != -1){
 														if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
-															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																			"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_1"+strarray[3]+"'>"+
+															msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																			"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
+																			"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
 																		"</div>";
 														}else{
-															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																			"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+															msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
+																			"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
 																		"</div>";
 														}
 													
 													//일반 메시지가 들어오면
 													}else{
-														msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+														msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
 																		message+
 																	"</div>";
 													}
-							msgbox +=				"<div class='chat-sender-time'>"+
-														time+
+														
+								msgbox +=				"<div class='chat-receiver-time'>"+
+															time+
+														"</div>"+
 													"</div>"+
 												"</div>"+
-											"</div>"+
-										"</div>";
+											"</div>";
+											
 										
-						}//if
-					});//each
-					
-				}
+										//SELECT chatting_room_seq
+										firebase.database().ref().child('chatting_room_seq').once('value',function(data){
+											//message_seq 추출
+											let message_seq = Object.keys(data.val()[$('#select').val()].messages).length;
+											
+											//INSERT message
+											firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/'+message_seq).set({
+												chatting_room_seq : $('#select').val(),
+												message_seq : message_seq,
+												message_content : message,
+												message_date : date,
+												message_time : time,
+												message_file : strarray[3],
+												extension: extension,
+												email : $('#session_email').val(),
+												nickName : $('#nickname').val(),
+												profile : elem.profile,
+											});
+										});
+										
+										websocket.send($('#session_email').val());
+										//connectSocket.send($('#select').val());
+								}
+							
+							});
+						
+								
+					}else if(msginfo == "알림"){
+						msgbox += 	"<div class='chat-body-date'>"+
+										"<div class='chat-body-date-line'>"+
+											"―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+										"</div>"+
+										"<div class='chat-body-date-letter'>"+
+											message+
+										"</div>"+
+										"<div class='chat-body-date-line'>"+
+											"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
+										"</div>"+
+									"</div>";
+									
+					}else {
+						$.each(data,function(index,elem){
+							if(msginfo == elem.email){
+								msgbox = 	"<div class='chat-sender-wrapper'>"+
+												"<div class='chat-sender-pic'>";
+												if(elem.profile != null){
+													msgbox +=	"<img class='chat-sender-profile' src='/resources/profile/"+elem.email+"_"+elem.profile+"'>";
+												}else{
+													msgbox +=	"<i class='fas fa-user'></i>";
+												}
+													
+								msgbox +=		"</div>"+
+												"<div>"+
+													"<div class='chat-sender-name'>"+
+														elem.nickName+
+													"</div>"+
+													"<div class='chat-sender-message-wrapper'>";
+														//file이 들어오면
+														if(msg.indexOf('|/') != -1){
+															if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
+																msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																				"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
+																				"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
+																			"</div>";
+															}else{
+																msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																				"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																				"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
+																			"</div>";
+															}
+														
+														//일반 메시지가 들어오면
+														}else{
+															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
+																			message+
+																		"</div>";
+														}
+								msgbox +=				"<div class='chat-sender-time'>"+
+															time+
+														"</div>"+
+													"</div>"+
+												"</div>"+
+											"</div>";
+											
+											//websocket.send($('#session_email').val());
+											chatReceiveSocket.send('');
+											
+							}//if
+						});//each end
+					}
+				
 				$("#chatMessageArea").append(msgbox);
 				var chatAreaHeight = $("#chatArea").height();
 				var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;

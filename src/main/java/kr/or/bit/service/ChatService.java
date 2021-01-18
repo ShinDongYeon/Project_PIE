@@ -63,6 +63,16 @@ public class ChatService {
 		return dao.getRoomList2(getRoomListMap);
 	}
 	
+	public List<roomlist> getProfiles() {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getProfiles();
+	}
+	
+	public List<user> getProfilesByRoomSeq(int chatting_room_seq) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getProfilesByRoomSeq(chatting_room_seq);
+	}
+	
 	public room getRoomListBySeq(int room_seq) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.getRoomListBySeq(room_seq);
@@ -117,6 +127,18 @@ public class ChatService {
 		dao.resetAlarm(resetAlarmMap);
 	}
 	
+	//chatsocketHandler
+	public int alarmIsNotNull(Map<String, Object> pushAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.alarmIsNotNull(pushAlarmMap);
+	}
+	
+	//chatsocketHandler
+	public int pushAlarmNotMe(Map<String, Object> pushAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.pushAlarmNotMe(pushAlarmMap);
+	}
+	
 	public void checkalarm(Map<String, Object> checkAlarmMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		dao.checkalarm(checkAlarmMap);
@@ -145,6 +167,11 @@ public class ChatService {
 	public List<String> getChattingRoomList(Map<String, Object> chattingRoomListMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.getChattingRoomList(chattingRoomListMap);
+	}
+	
+	public List<roomlist> getChattingRoomList2(Map<String, Object> chattingRoomListMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.getChattingRoomList2(chattingRoomListMap);
 	}
 	
 	public List<roomlist> getChattingRoomUserListByRoomSeq(int chatting_room_seq) {

@@ -76,7 +76,21 @@ $(document).ready(function() {
 		$('.modal_card_seq').attr("value", $(this).data().cardSeq);
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
 		console.log("cardSeq:" + cardSeq);
-	
+			/*캘린더연동 유무*/
+			$.ajax({
+			type : "GET",
+			url  : "calendarListKanbanDetail.pie",
+			data:{	card_seq:cardSeq },
+				success : function(data){	
+				if(data === ""){
+				$('.getDueDateBtn').css("display","none")
+				$('.setDueDateBtn').css("display","")
+				}else{
+				$('.getDueDateBtn').css("display","")
+				$('.setDueDateBtn').css("display","none")	
+				}		
+				}
+		})
 		//get cardMember 
 		
 		$.ajax({

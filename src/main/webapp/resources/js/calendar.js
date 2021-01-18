@@ -280,8 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			$('#contentView').val(content);
 			$("#deleteCalendar").unbind('click');
 			$('#deleteCalendar').click(function() {
-				
-				swal({
+					swal.fire({
 					title: "일정을 삭제하시겠습니까?",
 					icon: "warning",
 					buttons: true,
@@ -305,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
-				swal("수정이 가능합니다");
+				Swal.fire("수정이 가능합니다")
 				$('#seqView').val(info.event.id)
 				$('#titleView').removeAttr("readonly");
 				$('#startDateView').removeAttr("readonly");

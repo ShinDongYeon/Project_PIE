@@ -62,10 +62,12 @@ $(document).ready(function(){
 			}
 		}
 	}
+	/*
 	window.onmouseup = (event) => {
 		event.stopPropagation();
 		connectSocket.send('');
 	}
+	*/
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
 	crtChatCancelBtn.onclick = () => {
@@ -133,7 +135,6 @@ $(document).ready(function(){
 					url  		: "chat/room/list",
 					async: false,
 					success 	: function(data){
-						console.log(data);
 						chattingRoomList(data);
 					},
 					error		: function(request,status,error){
@@ -144,6 +145,11 @@ $(document).ready(function(){
 		}
 	}
 	
+	//채팅 웹소켓 연결기능을 해주는 핸들러 함수
+	$('#chat-list-hidden').bind('DOMNodeInserted', () => {
+		connectChatAlarm_Socket.send('');
+	});
+	
 	//채팅방 비동기 검색기능
 	$('#chat-search-box').keyup( () => {
 		$.ajax(
@@ -153,7 +159,6 @@ $(document).ready(function(){
 				data : { 'searchKeyword' : $('#chat-search-box').val()},
 				async: false,
 				success : function(data){
-					console.log(data);
 					chattingRoomList(data);
 				},
 				error: function(request,status,error){
@@ -298,7 +303,6 @@ function popupOpen(roomno,roomname){
 			url  		: "chat/room/list",
 			async		: false,
 			success 	: function(data){
-				console.log(data);
 				chattingRoomList(data);
 			},
 			error		: function(request,status,error){
@@ -306,6 +310,7 @@ function popupOpen(roomno,roomname){
 			}
 		}
 	);
+	
 	
 }
 
@@ -320,7 +325,6 @@ function chattingRoomList(data){
 	$('#chat-list').empty();
 	let opr = "";
 	$.each(data.chat_room_list,function(index,elem){
-		
 		//프로젝트 제목
 		let chat_title = elem.chatting_room_name;
 		let chat_title_substr = "";
@@ -330,22 +334,75 @@ function chattingRoomList(data){
 			chat_title_substr = chat_title;
 		}
 		
-		//connectSocket.send(elem.chatting_room_seq);
-		
 		opr = 	"<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
 					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
-					"<div class='chat-list-img'>"+
-						"<i class='fas fa-th-large'></i>"+
-					"</div>"+
+					"<div class='chat-list-img'>";
+							$.each(Object.keys(data.profiles),function(index, roomno){
+								if(roomno == elem.chatting_room_seq){
+									if(data.profiles[elem.chatting_room_seq].length > 3){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-1-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-1-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-2' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][2].profile != null){
+											opr+=	"<img class='chat-list-img-1-3' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][2].email+"_"+data.profiles[elem.chatting_room_seq][2].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-3' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][3].profile != null){
+											opr+=	"<img class='chat-list-img-1-4' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][3].email+"_"+data.profiles[elem.chatting_room_seq][3].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-4' src='/resources/img/icon/none.png'>";
+										}
+										
+									}else if(data.profiles[elem.chatting_room_seq].length == 3){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-2-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-2-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-2' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][2].profile != null){
+											opr+=	"<img class='chat-list-img-2-3' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][2].email+"_"+data.profiles[elem.chatting_room_seq][2].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-3' src='/resources/img/icon/none.png'>";
+										}
+																				
+									}else if(data.profiles[elem.chatting_room_seq].length == 2){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-3-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-3-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-3-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-3-2' src='/resources/img/icon/none.png'>";
+										}										
+									}
+									
+								}
+							});
+		opr +=		"</div>"+
 					"<div class='chat-list-letter-wrapper'>"+
 						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
-						if(elem.clicked == 0){
+						//if(elem.clicked == 0){
 							opr+=	"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
 										chat_title_substr+
 									"</a>";
-						}else{
-							opr+=	chat_title_substr;
-						}
+						//}else{
+						//	opr+=	chat_title_substr;
+						//}
 							
 		opr+=		"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
@@ -389,9 +446,64 @@ function completeChattingRoom(data){
 		
 		opr = "<div id='chat-list-wrapper-"+elem.chatting_room_seq+"' class='chat-list-wrapper'>"+
 					"<div id='chat-list-alarm-"+elem.chatting_room_seq+"' class='chat-list-alarm'>0</div>"+
-					"<div class='chat-list-img'>"+
-						"<i class='fas fa-th-large'></i>"+
-					"</div>"+
+					"<div class='chat-list-img'>";
+						$.each(Object.keys(data.profiles),function(index, roomno){
+								if(roomno == elem.chatting_room_seq){
+									if(data.profiles[elem.chatting_room_seq].length > 3){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-1-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-1-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-2' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][2].profile != null){
+											opr+=	"<img class='chat-list-img-1-3' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][2].email+"_"+data.profiles[elem.chatting_room_seq][2].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-3' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][3].profile != null){
+											opr+=	"<img class='chat-list-img-1-4' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][3].email+"_"+data.profiles[elem.chatting_room_seq][3].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-1-4' src='/resources/img/icon/none.png'>";
+										}
+										
+									}else if(data.profiles[elem.chatting_room_seq].length == 3){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-2-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-2-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-2' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][2].profile != null){
+											opr+=	"<img class='chat-list-img-2-3' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][2].email+"_"+data.profiles[elem.chatting_room_seq][2].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-2-3' src='/resources/img/icon/none.png'>";
+										}
+																				
+									}else if(data.profiles[elem.chatting_room_seq].length == 2){
+										if(data.profiles[elem.chatting_room_seq][0].profile != null){
+											opr+=	"<img class='chat-list-img-3-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-3-1' src='/resources/img/icon/none.png'>";
+										}
+										if(data.profiles[elem.chatting_room_seq][1].profile != null){
+											opr+=	"<img class='chat-list-img-3-2' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][1].email+"_"+data.profiles[elem.chatting_room_seq][1].profile+"'>";
+										}else{
+											opr+=	"<img class='chat-list-img-3-2' src='/resources/img/icon/none.png'>";
+										}										
+									}
+									
+								}
+							});
+			opr+=	"</div>"+
 					"<div id='chat-list-letter-wrapper-"+elem.chatting_room_seq+"' class='chat-list-letter-wrapper'>"+
 						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
 							if(elem.clicked == 0){
@@ -447,8 +559,6 @@ function deleteChatRoom(me){
 				let div_index = div_attr.lastIndexOf("-")+1;
 				let div_substr = div_attr.substring(div_index);
 				
-				console.log("div_substr");
-				console.log(div_substr);
 				
 				$('#chat-list-wrapper-'+div_substr).remove();
 				
@@ -461,7 +571,6 @@ function deleteChatRoom(me){
 							},
 							async: false,
 							success 	: function(data){
-								console.log(data);
 								
 							},
 							error		: function(request,status,error){
@@ -522,9 +631,11 @@ function updateChatRoomName(me){
 		}
 	});
 	
+	/*
 	window.onmouseup = (event) => {
 		event.stopPropagation();
 	}
+	*/
 	
 	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
@@ -544,9 +655,6 @@ function updateNameOk(me){
 
 	let chat_room_input = $('#chat-list-letter-title-input-'+div_substr);
 	let chat_room_title = $('#chat-list-letter-title-'+div_substr);
-	
-	console.log("chat_room_input.attr('value')");
-	console.log(chat_room_input.attr("value"));
 	
 	//input 태그에 값이 입력되어 있으면 그 값으로 수정함
 	if(chat_room_input.val() != ''){
@@ -580,7 +688,6 @@ function updateNameOk(me){
 						type 		: "GET",
 						url  		: "chat/room?chatting_room_seq="+div_substr+"&chatting_room_name="+chat_room_input.val(),
 						success 	: function(data){
-							console.log(data);
 						},
 						async: false,
 						error		: function(request,status,error){
@@ -602,7 +709,7 @@ function updateNameOk(me){
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
 					confirmButtonText: '확인',
-				})
+				});
 				
 			}else{
 				//input 태그 삭제
@@ -696,7 +803,6 @@ function selectUser(me){
 	$('.crtChat-btn-created-not').attr('class','crtChat-btn-created');
 	
 	let div_length = $('#Chatting-UserList').find('div').length;
-	console.log(div_length);
 	let select_user_array = [];
 	for(let i=1; i <= div_length / 9; i++){
 		let j = i * 9 - 2;
@@ -809,7 +915,6 @@ function selectedClose(me){
 	let div = $(me).closest('div');
 	//selected list에서 해당 유저 삭제
 	let email = div.prev().html();
-	console.log(div.parent('div').parent('div'));
 	div.parent('div').parent('div').remove();
 	//$('#crtChat-selected-user-wrapper-'+close_substr).remove();
 
@@ -822,8 +927,6 @@ function selectedClose(me){
 
 	//$('#crtChat-select-users-wrapper-'+close_substr).css("display","block");
 	
-	console.log("email");
-	console.log(email);
 	
 	if($('#Selected-List').html() != ''){
 		
@@ -836,8 +939,6 @@ function selectedClose(me){
 				user_array.push(div);
 			}
 		}
-		console.log('user_array');
-		console.log(user_array);
 		
 		//채팅방 취소버튼을 눌렀을 떄 유저리스트에 적용될 데이터 전달
 		$.ajax(
@@ -851,7 +952,6 @@ function selectedClose(me){
 				traditional : true,
 				async		: false,
 				success 	: function(data){
-					console.log(data);
 					userList(data);
 				},
 				error		: function(request,status,error){
@@ -872,7 +972,6 @@ function selectedClose(me){
 				traditional : true,
 				async		: false,
 				success 	: function(data){
-					console.log(data);
 					selectedUserList(data);
 				},
 				error		: function(request,status,error){
