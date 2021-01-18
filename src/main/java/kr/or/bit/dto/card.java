@@ -14,5 +14,6 @@ public class card {
 	private ArrayList<checkList> chkList;
 	private ArrayList<cardMember> cmList;
 	private int project_seq;
+	private ArrayList<cardComments> commList;
 	
 }

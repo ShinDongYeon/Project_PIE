@@ -41,7 +41,6 @@ public class CardMemberService {
 	public boolean insertCardMemService(HashMap<String, Object> cardMemInfo) {
 		CardMemberDao cardmemdao = sqlsession.getMapper(CardMemberDao.class);
 		cardmemdao.insertCardMem(cardMemInfo);
-		System.out.println(cardMemInfo);
 		return true;
 	}
 
