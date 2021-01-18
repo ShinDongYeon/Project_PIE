@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/resources/js/kanbanCalendar.js"></script>
+<script src="/resources/js/kanbanComments.js"></script>
+<link rel="stylesheet" href="/resources/css/kanbanComments.css">
 <title>KANBAN-BOARD</title>
 </head>
 <body>
@@ -110,10 +112,22 @@
 					
 					<form id="checkListForm">
 						<div id="add-todo">
-							<i class="fa fa-plus"></i> Add an item
+							<i class="fa fa-plus"></i> Add a CheckList
 						</div>
 					</form>
 				</div>
+			</div>
+			
+			<!-- Comments Wrap -->
+			<div class = CommetnsWrap>
+				<h2 class="commentsTitle">
+					<i class="far fa-comments"></i> Comments
+				</h2>
+				<div class="comments" style="display:none;"></div>
+				<form class="commentsForm" style="display:neone;">
+					<textarea class="addComments" cols="30" rows="10" placeholder="enter comments"></textarea>
+					<button class="addComments-btn">Save</button>
+				</form>
 			</div>
 		</div>
 	</div>

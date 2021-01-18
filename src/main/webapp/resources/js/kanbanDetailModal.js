@@ -317,7 +317,7 @@ $(document).ready(function() {
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');
 		$('#input-todo' + newId + '').parent().parent().animate({
-			height: "80px"
+			height: "60px"
 		}, 200)
 		$('#input-todo' + newId + '').focus();
 
@@ -350,7 +350,7 @@ $(document).ready(function() {
 				let check = JSON.stringify(checkOb);
 				
 				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus').children('.fa-check-square');
-
+				
 				$.ajax({
 					type: "post",
 					url: "insertCheckList.pie",
@@ -367,6 +367,8 @@ $(document).ready(function() {
 							let checked = $('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length;
 							thisCard.text(" "+checked+"/"+total);
 						}
+						$('.todo-wrap').css('height','auto');
+						
 					}
 				});
 			} else {
@@ -505,6 +507,7 @@ $(document).ready(function() {
 			})
 		})
 	}
+	
 	
 	/*Open Card Members Modal*/
 	const memModal = document.getElementById("inviteModal");
