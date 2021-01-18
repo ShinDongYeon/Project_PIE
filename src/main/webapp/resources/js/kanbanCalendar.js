@@ -32,6 +32,17 @@ $('.setDueDateBtn').click(function(){
         	  insertButton()			
         	  document.getElementById('calendar_modal_background').style.display = 'none';
 				})
+			$.ajax({
+			type: "post",
+			url: "getCardContent.pie?cardSeq="+$(".modal_card_seq").val(),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data){
+				$('#title').val(data[0].card_name);
+				$('#content').val(data[0].card_content);			
+				}	
+			})		
 		$("#insertCalendarKanBan").unbind('click');		
 		$('#insertCalendarKanBan').click(function(){
 			 document.getElementById('calendar_modal_background').style.display = 'none';
@@ -118,7 +129,7 @@ $('.getDueDateBtn').click(function(){
 				Swal.fire({
 					title: "일정을 삭제하시겠습니까?",
 					icon: "warning",
-					howCancelButton: true,
+					showCancelButton: true,
 					confirmButtonColor: '#3085d6',
   					cancelButtonColor: '#d33',
   					confirmButtonText: 'Yes'
