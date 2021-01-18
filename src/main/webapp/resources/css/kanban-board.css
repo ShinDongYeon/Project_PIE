@@ -290,10 +290,14 @@ cursor: pointer;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    border:none;
+    padding: 5px 7px;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
 }
 
 .addCard-btn:hover{
-    background-color: #f8df8c;
+    background-color: #31353d;
+    color: #f5df4d;
 }
 
 .editCard-btn:hover{
@@ -376,10 +380,14 @@ cursor: pointer;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    border:none;
+    padding: 5px 7px;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
 }
 
 .addList-btn:hover{
-    background-color: #f8df8c;
+    background-color: #31353d;
+    color: #f5df4d;
 }
 
 .close {
