@@ -180,6 +180,40 @@ public class PIEChartController {
 				return jsonview; 
 		}
 	/*멤버 진행도 끝*/
+	
+	@ResponseBody
+	@RequestMapping(value = "getProgressByNameAndProjectSeq.pie", method = RequestMethod.POST)
+	public View getProgressByNameAndProjectSeq(@RequestParam("projectNum") int projectNum, Model model,
+											   @RequestParam("name") String name){
+				int total_count = 0;
+				int done_count = 0;
+				
+				double hundred = 100;
+				
+				ArrayList<cardMember> cdm = chartservice.getCardSeqByMemberEmailService(name);
+				for(int j = 0; j < cdm.size(); j++) {
+					total_count	+= chartservice.getTotalCheckListByCardSeqService(cdm.get(j).getCard_seq());
+					done_count += chartservice.getTotalCheckedCheckListByCardSeqService(cdm.get(j).getCard_seq());
+				}
+				DecimalFormat form = new DecimalFormat("#.##");
+				String done = form.format(((double)done_count/(double)total_count)*100);
+				member_progress mp = new member_progress();
+				
+				mp.setEmail(name);
+				mp.setDone(done);
+				double doneDouble = Double.parseDouble(done);
+				double inpro = hundred-doneDouble;
+				String lastInpro = form.format(inpro);
+				
+				mp.setInProgress(lastInpro);
+				
+				System.out.println(doneDouble);
+				System.out.println(lastInpro);
+				
+				model.addAttribute("mp", mp);
+		
+				return jsonview; 
+		}
 }
 
 

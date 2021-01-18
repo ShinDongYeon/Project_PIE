@@ -974,3 +974,9 @@
 	background-color: #31353d;
 	padding: 5px;
 }
+.chart-wrapper{
+	position : relative;
+	top : -70px;
+	left : 190px;
+	width : 100px;
+}

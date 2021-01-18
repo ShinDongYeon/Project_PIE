@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+파일명: cardCommentsMapper.xml
+설명: cardCommentsMapper.xml
+작성일: 2021-01-17 ~
+작성자: 문지연
+ -->
+<mapper namespace="kr.or.bit.dao.CardCommentsDao">
+
+	<insert id="insertComments" parameterType="cardCommentsDto">
+		INSERT INTO KANBAN_COMMENTS(EMAIL, CARD_SEQ, COMMENTS_SEQ, COMMENTS, REG_DATE) 
+		VALUES(#{email}, #{card_seq}, nextval('comments_seq'), #{comments}, now())
+	</insert>
+	
+	<select id="loadComments" parameterType="int" resultType="cardCommentsDto">
+		SELECT U.EMAIL, U.PROFILE, U.NICKNAME, K.COMMENTS, K.REG_DATE, K.COMMENTS_SEQ
+		FROM KANBAN_COMMENTS K
+		JOIN USER U ON U.EMAIL=K.EMAIL
+		WHERE CARD_SEQ = #{param1}
+		ORDER BY K.COMMENTS_SEQ ASC;
+	</select>
+	
+</mapper>
+
+
+
