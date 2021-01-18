@@ -475,10 +475,12 @@ input[type=checkbox]:checked + label.todo .fa-check {
 	color: #6e7579;
 	display: inline-block;
 	cursor: pointer;
+	font-weight: 350;
 }
 
 #add-todo:hover {
-	color: #f8df8c;
+	color: #0eb0b7;
+	font-weight: 450;
 	/*transition*/
 	-webkit-transition: none;
 	-moz-transition: none;
@@ -514,3 +516,4 @@ input[type=checkbox]:checked + label.todo .fa-check {
 .editing.todo-wrap {
 	box-shadow: 0 0 400px rgba(0, 0, 0, .8), inset 0 0px 0 2px #ebebeb;
 }
+

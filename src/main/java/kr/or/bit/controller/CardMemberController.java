@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
-import kr.or.bit.dto.card;
 import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.user;
 import kr.or.bit.service.CardMemberService;
