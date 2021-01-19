@@ -29,9 +29,7 @@ public class NoticeController {
 			totalNumber = noticeservice.getNoticeTotalNumber(project_seq);
 			model.addAttribute("totalNumber", totalNumber);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("totalNumber");
 		}
 		return jsonview;
 		
@@ -48,10 +46,13 @@ public class NoticeController {
 	
 	@ResponseBody
 	@RequestMapping(value="noticeList.pie", method = RequestMethod.GET)
-	public List<notice> noticeList(int project_seq){
+	public List<notice> noticeList(int project_seq, int page){
 		List<notice> noticeList = null;
+		System.out.println(page);
+		int start = 0;
+		start = (page*10)-10;
 		try {
-			noticeList = noticeservice.getNoticeList(project_seq);
+			noticeList = noticeservice.getNoticeList(project_seq,start);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

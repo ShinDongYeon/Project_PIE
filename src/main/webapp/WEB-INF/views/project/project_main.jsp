@@ -35,8 +35,8 @@
 		<jsp:include page="/WEB-INF/views/common/project_main_sidebar.jsp"></jsp:include>
 		
 			<!-- bookmark -->
-		<div id="right-sidebar-contents-wrapper-bookmark" class="right-sidebar-contents-wrapper-hidden">
-			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_bookmark.jsp"></jsp:include>
+		<div id="right-sidebar-contents-wrapper-notice" class="right-sidebar-contents-wrapper-hidden">
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_notice.jsp"></jsp:include>
 		</div>
 		
 			<!-- alarm -->

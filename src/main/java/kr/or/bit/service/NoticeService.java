@@ -19,9 +19,9 @@ public class NoticeService {
 		noticedao.insertNotice(notice);
 	}
 	
-	public List<notice> getNoticeList(int project_seq)throws Exception{
+	public List<notice> getNoticeList(int project_seq, int page)throws Exception{
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
-		return noticedao.getNoticeList(project_seq);
+		return noticedao.getNoticeList(project_seq,page);
 	}
 	public notice getNoticeDatail(int notice_seq)throws Exception{
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);

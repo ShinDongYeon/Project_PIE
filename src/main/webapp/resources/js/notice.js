@@ -20,7 +20,7 @@ $(document).ready(function() {
 		}
 	});
 	}
-		$('#wirte').click(function(){
+		$('#write').click(function(){
 		document.getElementById('noticeInsert_modal_contents').style.display='block'
        //document.getElementById('notice_modal_background').style.display = 'block';
 	$('#summernote').summernote({
@@ -82,22 +82,25 @@ $(document).ready(function() {
 					async: false,
 					data: noticeInsert,
 					success: function(data) {
-						$.ajax({
+						loadNotice(currentPage);
+						getFileTotalNumber();
+						makePageBtn(totalNum, currentPage);
+				/*		$.ajax({
 						type: "GET",
 						url: "lastNotice_seq.pie",
 						contentType: "application/json; charset=UTF-8",
 						async: false,
 						success: function(result) {
 						let writeDate = moment(noticeInsertOb.writeDate).format('YYYY-MM-DD' + " " + 'HH:mm')
-						let html = 	'<div class="bookmark-item-wrapper">\
-								 <div class="bookmark-top-wrapper">\
-								 <div class="bookmark-username">'+noticeInsertOb.title+'</div>\
+						let html = 	'<div class="notice-item-wrapper">\
+								 <div class="notice-top-wrapper">\
+								 <div class="notice-username">'+noticeInsertOb.title+'</div>\
 								 </div>\
-								 <div class="bookmark-middle-wrapper">\
-								 <div class="bookmark-reply">\
+								 <div class="notice-middle-wrapper">\
+								 <div class="notice-reply">\
 							   	 <i class="fas fa-pencil-alt"></i>'+noticeInsertOb.nickName+'\
 								 </div>\
-								 <div class="bookmark-flag">\
+								 <div class="notice-flag">\
 								 <i class="far fa-calendar"></i>'+writeDate+'\
 								 </div>\
 								 </div>\
@@ -105,35 +108,38 @@ $(document).ready(function() {
 								 </div>'
 								$('#noticeList').append(html)
 											}
-						})
+						})*/
 					}
 				})
 		})
+		function loadNotice(page){
+			$("#noticeList").empty();
 		$.ajax({
 			type: "GET",
 			url:"noticeList.pie",
 			contentType: "application/json; charset=UTF-8",
 			async: false,
-			data:{project_seq:$("#projectNum").val()},
+			data:{project_seq:$("#projectNum").val(),
+					page: page},
 			success: function(data) {
 				createNotice(data)
 					}
 		})
-					
+					}
 	
 function createNotice(data) {
 	let html = "";
 	$.each(data, function(index, notice) {
 		let writeDate = moment(notice.writeDate).format('YYYY-MM-DD' + " " + 'HH:mm')
-		html += 	'<div class="bookmark-item-wrapper">\
-					 <div class="bookmark-top-wrapper">\
-					 <div class="bookmark-username">'+notice.title+'</div>\
+		html += 	'<div class="notice-item-wrapper">\
+					 <div class="notice-top-wrapper">\
+					 <div class="notice-username">'+notice.title+'</div>\
 					 </div>\
-					 <div class="bookmark-middle-wrapper">\
-					 <div class="bookmark-reply">\
+					 <div class="notice-middle-wrapper">\
+					 <div class="notice-reply">\
 				   	 <i class="fas fa-pencil-alt"></i>'+notice.nickName+'\
 					 </div>\
-					 <div class="bookmark-flag">\
+					 <div class="notice-flag">\
 					 <i class="far fa-calendar"></i>'+writeDate+'\
 					 </div>\
 					 </div>\
@@ -142,7 +148,7 @@ function createNotice(data) {
 	});
 	$('#noticeList').append(html)
 }
-	$(document).on("click",".bookmark-item-wrapper",function(){
+	$(document).on("click",".notice-item-wrapper",function(){
 			$.ajax({
 			type: "GET",
 			url:"noticeDetail.pie",
@@ -189,24 +195,25 @@ function createNotice(data) {
 	});
 	})
 	})
+	loadNotice(1)
 	getNoticeTotalNumber()
 	makePageBtn(totalNum,currentPage)
 	//페이지 버튼 
 	function btn(num) {
-		let btn = "<div class = 'btn'>" + num + "</div>";
+		let btn = "<div class = 'notice-btn'>" + num + "</div>";
 		return btn;
 	}
 
 	//현재 페이지 버튼 
 	function current_page_btn(num) {
-		let current_page_btn = "<div class = 'current-page-btn'>" + num + "</div>";
+		let current_page_btn = "<div class = 'notice-current-page-btn'>" + num + "</div>";
 		return current_page_btn;
 	}
 		//페이지 버튼 만드는 루프 
 	function pageBtnLoop(total_page_btn, curPage) {
 
 		//기존 페이지 버튼을 지워줌 
-		$(".page-btn-zone").empty();
+		$(".notice-page-btn-zone").empty();
 
 		//시작 페이지 
 		start_page = ((Math.ceil((curPage / 5))) * 5) - 4;
@@ -216,8 +223,8 @@ function createNotice(data) {
 
 		//왼쪽 버튼을 만드는 조건문 
 		if (start_page > 1) {
-			let left_btn = "<div class = 'left-btn'><i class='fas fa-angle-left'></i></div>";
-			$(".page-btn-zone").append(left_btn)
+			let left_btn = "<div class = 'notice-left-btn'><i class='fas fa-angle-left'></i></div>";
+			$(".notice-page-btn-zone").append(left_btn)
 		}
 
 		//오른쪽 버튼 생성 여부를 결정하는 카운트 변수 
@@ -231,10 +238,10 @@ function createNotice(data) {
 				break;
 			} else {
 				if (i === Number(curPage)) {
-					$(".page-btn-zone").append(current_page_btn(i));
+					$(".notice-page-btn-zone").append(current_page_btn(i));
 				} else {
 					let btnDoc = btn(i);
-					$(".page-btn-zone").append(btnDoc);
+					$(".notice-page-btn-zone").append(btnDoc);
 				}
 				count += 1;
 			}
@@ -242,8 +249,8 @@ function createNotice(data) {
 		}
 		//오른쪽 버튼을 만드는 조건문 
 		if (total_page_btn > forRightBtn) {
-			let right_btn = "<div class = 'right-btn'><i class='fas fa-angle-right'></i></div>";
-			$(".page-btn-zone").append(right_btn);
+			let right_btn = "<div class = 'notice-right-btn'><i class='fas fa-angle-right'></i></div>";
+			$(".notice-page-btn-zone").append(right_btn);
 		}
 
 	}
@@ -257,14 +264,31 @@ function createNotice(data) {
 		let total_page_btn = null;
 
 		//나누고 나머지가 있으면 딱 떨어지는 수가 아님 
-		if (totalCount % 5 === 0) {
-			total_page_btn = totalCount / 5;
+		if (totalCount % 10 === 0) {
+			total_page_btn = totalCount / 10;
 		} else {
-			total_page_btn = Math.floor((totalCount / 5)) + 1;
+			total_page_btn = Math.floor((totalCount / 10)) + 1;
 		}
 		pageBtnLoop(total_page_btn, curPage);
 		currentPage = curPage;
 
 	}
+		$(document).on("click", ".notice-btn", function(e) {
+		let page = $(this)[0].innerText
+		loadNotice(page);
+		makePageBtn(totalNum, page);
+	});
+		//오른쪽 버튼 클릭 이벤트 
+	$(document).on("click", ".notice-right-btn", function(e) {
+		currentPage = Number(currentPage) + 1;
+		loadNotice(currentPage);
+		makePageBtn(totalNum, currentPage);
+	});
 
+	//왼쪽 버튼 클릭 이벤트
+	$(document).on("click", ".notice-left-btn", function(e) {
+		currentPage = Number(currentPage) - 1;
+		loadNotice(currentPage);
+		makePageBtn(totalNum, currentPage);
+	});
 });

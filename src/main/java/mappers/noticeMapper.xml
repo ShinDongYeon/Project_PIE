@@ -12,7 +12,7 @@ VALUES(#{title},#{content},#{project_seq},#{nickName},#{email},#{writeDate},#{fi
 </insert>
 
 <select id="getNoticeList" resultType="noticeDto" parameterType = "int">
-SELECT * FROM notice WHERE project_seq = #{param1} ORDER BY FILE_SEQ DESC LIMIT 5 OFFSET #{param2}
+SELECT * FROM notice WHERE project_seq = #{param1} ORDER BY notice_SEQ DESC LIMIT 10 OFFSET #{param2}
 </select>
 
 <select id="getNoticeDetail" resultType="noticeDto" parameterType = "int">

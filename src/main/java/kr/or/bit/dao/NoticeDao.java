@@ -8,7 +8,7 @@ public interface NoticeDao {
 	
 	public void insertNotice(notice notice);
 	
-	public List<notice> getNoticeList(int project_seq);
+	public List<notice> getNoticeList(int project_seq,int page);
 	
 	public notice getNoticeDetail(int notice_seq);
 	
