@@ -134,7 +134,13 @@ public class ProjectController {
 			}
 		}
 		
-		
-		
-		
+		//프로젝트 삭제
+		@ResponseBody
+		@RequestMapping(value = "deletePie.pie", method = RequestMethod.POST)
+		public View deletePie(@RequestParam("projectNum")int projectNum, Model model){
+			
+			System.out.println(projectNum);
+			
+			return jsonview;
+			}
 	}				
