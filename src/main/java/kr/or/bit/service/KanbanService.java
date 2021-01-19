@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.bit.dao.CardCommentsDao;
 import kr.or.bit.dao.CardDao;
 import kr.or.bit.dao.CardMemberDao;
 import kr.or.bit.dao.CheckListDao;
@@ -101,13 +102,14 @@ public class KanbanService {
 		listdao.editKanbanListTitle(li);
 	}
 
-	// Delete Kanban List, Card and CheckList
+	// Delete Kanban List, Card and CheckList_CardMem_CardComments
 	@Transactional
 	public void deleteKanbanListService(list li) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		ListDao listdao = sqlsession.getMapper(ListDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
 
 		ArrayList<card> cardList = li.getCardList();
 		int list_seq = li.getList_seq();
@@ -115,7 +117,7 @@ public class KanbanService {
 		try {
 			for (int i = 0; i < cardList.size(); i++) {
 				int cardSeq = cardList.get(i).getCard_seq();
-				System.out.println(cardSeq);
+				comdao.deleteAllCardComm(cardSeq);
 				cmdao.deleteAllCardMem(cardSeq);
 				chkdao.deleteChkListByCardSeq(cardSeq);// delete chkList
 				carddao.deleteKanbanCard(cardSeq); // delete Card
@@ -127,15 +129,17 @@ public class KanbanService {
 		}
 	}
 
-	// Delete Card_CheckList
+	// Delete Card_CheckList_CardMem_CardComments
 	@Transactional
 	public void deleteKanbanCardService(card ca) {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
 		int card_seq = ca.getCard_seq();
 
 		try {
+			comdao.deleteAllCardComm(card_seq);
 			chkdao.deleteChkListByCardSeq(card_seq);
 			cmdao.deleteAllCardMem(card_seq);
 			carddao.deleteKanbanCard(card_seq);

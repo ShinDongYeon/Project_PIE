@@ -139,7 +139,7 @@ public class KanbanController {
 		return jsonview;
 	}
 
-	// delete_list_card_checkList_cardMember
+	// delete_list_card_checkList_cardMember_cardComments
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
 	public View deleteKanbanList(@RequestBody list li, @RequestParam("projectNum") int projectNum, Model model) {
@@ -148,7 +148,7 @@ public class KanbanController {
 		return jsonview;
 	}
 
-	// delete_card_checkList_cardMember
+	// delete_card_checkList_cardMember_cardComments
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
 	public View deleteKanbanCard(@RequestBody card ca, @RequestParam("projectNum") int projectNum, Model model) {
