@@ -15,6 +15,7 @@
 </head>
 <body>
 
+
 	<!-- whole wrapper -->
 	<div class="whole-chart-wrapper">
 		<!-- chart-1 -->
@@ -48,6 +49,7 @@
 		<div class="chart-3-wrapper">
 			<div class='chart-letter-wrapper-3'>개인 진행도 파이</div>
 			<canvas id="chart-3"></canvas>
+
 		</div>
 
 		<div class="chart-3-wrapper-bar">
