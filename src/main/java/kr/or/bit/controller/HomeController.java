@@ -55,7 +55,6 @@ public class HomeController {
 	//비밀번호 인증 완료 후 비밀번호 변경 페이지로 이동 
 	@RequestMapping(value = "changePwdAfterCertify.pie", method = RequestMethod.GET)
 	public String changePwdAfterCertify(@RequestParam("email") String email, HttpSession session) {
-		System.out.println("비밀번호 변경 이메일 : "+email);
 		session.setAttribute("email", email);
 		return "user/pwdForgot_reset";
 	}

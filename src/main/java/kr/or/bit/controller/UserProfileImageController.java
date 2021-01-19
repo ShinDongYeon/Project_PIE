@@ -30,7 +30,6 @@ public class UserProfileImageController {
 		String profile = ups.getProfileService(u.getEmail());
 		user us = new user();
 		us.setProfile(profile);
-		System.out.println(profile);
 		model.addAttribute("profile", us);
 		return jsonview;
   }

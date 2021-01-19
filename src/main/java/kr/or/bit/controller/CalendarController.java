@@ -81,7 +81,6 @@ public class CalendarController {
 			System.out.println("에러:" + e.getMessage());
 
 		}
-		System.out.println("리스트리스트:"+calendarListKanban);
 		return calendarListKanban;
 	}
 	
@@ -97,7 +96,6 @@ public class CalendarController {
 			System.out.println("에러:" + e.getMessage());
 
 		}
-		System.out.println("리스트리스트:"+calendarListKanbanDetail);
 		return calendarListKanbanDetail;
 	}
 	
@@ -112,7 +110,6 @@ public class CalendarController {
 			start = new_format.format(startformat);
 			end = new_format.format(endformat);
 
-			System.out.println("시작:" + start + "/" + "끝:" + end + "/" + "번호:" + id);
 			calendarservice.calendarEdit(start, end, id);
 			;
 		} catch (Exception e) {
@@ -124,7 +121,6 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarDelete.pie", method = RequestMethod.POST)
 	public void calendarDelete(int id) {
-		System.out.println("번호:" + id);
 		try {
 			calendarservice.calendarDelete(id);
 		} catch (Exception e) {
@@ -136,7 +132,6 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarDeleteKanban.pie", method = RequestMethod.POST)
 	public void calendarDeleteKanban(int card_seq) {
-		System.out.println("카드번호"+card_seq);
 		try {
 			calendarservice.calendarDeleteKandan(card_seq);
 		} catch (Exception e) {

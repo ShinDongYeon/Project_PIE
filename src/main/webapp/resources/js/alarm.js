@@ -22,7 +22,6 @@ $(document).ready(function() {
 		let alramseq = $(this).children().next().val()
 		$(this).parent().remove();
 		alramseq = Number(alramseq);
-		console.log("no" + alramseq + "--" + typeof alramseq);
 		$.ajax({
 			type: "POST",
 			url: "alramDelete.pie",
@@ -41,16 +40,13 @@ $(document).ready(function() {
 		var ws = new WebSocket("ws://localhost:8090/websocket/echo/websocket");
 		socket = ws;
 		ws.open = function(message) {
-			console.log("알람:"+message)
 		}
 		ws.onmessage = function(event) {
 			alarm()
 		};
 		ws.onclose = function(event) {
-			console.log("Server Close")
 		};
 		ws.onerror = function(event) {
-			console.log("Server Error");
 		}
 	}
 	connectWS();
@@ -113,15 +109,12 @@ function createZero(data) {
 function createCount(data) {
 	var alramCount = $('#alramCount');
 	alramCount.empty();
-	console.log("카운트:" + data.length)
 	if (data.length !== 0) {
-		console.log("if"+data.length)
 		$(".right-sidebar-alarm").attr('id', 'far fa-bell bell')
 		$("#sidebar-bell").addClass('bell')
 		document.getElementById('alramCount').style.display = 'block'
 		document.getElementById('alramCount').innerText = data.length;
 	}else if(data.length === 0){
-					console.log("else"+data.length)
 					$("#sidebar-bell").removeClass('bell')
 					$(".right-sidebar-alarm").attr('id','far fa-bell')
 					document.getElementById('alramCount').style.display='none'
