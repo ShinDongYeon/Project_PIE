@@ -48,7 +48,6 @@ public class CardMemberController {
 
 		List<user> memberList = null;
 		Map<String, Object> projectMemListMap = new HashMap<String, Object>();
-		System.out.println("card project Members Controller");
 		try {
 			projectMemListMap.put("cardSeq", cardSeq);
 			projectMemListMap.put("projectNum", projectNum);
@@ -71,7 +70,6 @@ public class CardMemberController {
 
 		List<user> mycardList = null;
 		Map<String, Object> cardMemMap = new HashMap<String, Object>();
-		System.out.println("cardMemMap Controller");
 		try {
 			cardMemMap.put("sessionEmail", sessionEmail);
 			cardMemMap.put("projectNum", projectNum);
@@ -105,11 +103,9 @@ public class CardMemberController {
 
 		List<user> cardMemList = null;
 		Map<String, Object> selectedMemInfo = new HashMap<String, Object>();
-		System.out.println("card Members Controller");
 		try {
 			selectedMemInfo.put("cardSeq", cardSeq);
 			cardMemList = cardMemService.showMemberByCardService(selectedMemInfo);
-			System.out.println("cardMemList:::" + cardMemList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,7 +118,6 @@ public class CardMemberController {
 	public View deleteCardMem(@RequestBody cardMember cm, Model model) {
 		cardMemService.deleteCardMemService(cm);
 		model.addAttribute("data", cm);
-		System.out.println("deleted Mem:::" + cm);
 		return jsonview;
 	}
 

@@ -43,7 +43,6 @@ public class ProjectController {
 		@RequestMapping(value = "editProjectTitle.pie", method = RequestMethod.POST)
 		public View editProjectTitle(@RequestBody project pro, Model model){
 					projectservice.editProjectTitleService(pro);
-					System.out.println("프로젝트 제목 수정 완료");
 					model.addAttribute("data", "success");
 					return jsonview;
 			}
@@ -51,14 +50,12 @@ public class ProjectController {
 		@RequestMapping(value = "createPIE.pie", method = RequestMethod.POST)
 		public String createPIE(project pro){
 					projectservice.createPieService(pro);
-					System.out.println(pro);
 					return "main/main";
 			}
 		
 		//파이 버튼을 눌러서 해당 프로젝트로 이동 (프로젝트 넘버 가지고)
 		@RequestMapping(value = "goToMain.pie", method = RequestMethod.GET)
 		public String goToMain(@RequestParam("projectNum") int projectNum, HttpSession session){
-					System.out.println("입장한 프로젝트 넘버 : "+projectNum);
 					session.setAttribute("projectNum", projectNum);
 					return "project/project_main";
 			}
@@ -82,11 +79,7 @@ public class ProjectController {
 		@ResponseBody
 		@RequestMapping(value = "getPieList.pie", method = RequestMethod.POST)
 		public View getPieList(@RequestParam("userEmail")String userEmail, Model model){
-					System.out.println("컨트롤러에서 받은 이메일 : "+userEmail);
 					ArrayList<project> pieList = projectservice.getPieListService(userEmail);
-					
-					System.out.println(pieList);
-					
 					model.addAttribute("pieList",pieList);
 			return jsonview;
 			}
@@ -105,7 +98,6 @@ public class ProjectController {
 		@RequestMapping(value = "invitePIE.pie", method = RequestMethod.POST)
 		public View invitePIE(@RequestBody Map<String, Object> data,
 							  Model model){
-			System.out.println(data);
 			int projectNum = (int)data.get("finalProjectNum");
 			ArrayList<String> pies = (ArrayList<String>)data.get("finalPie");
 			String fromWho = (String)data.get("finalFromWho");
@@ -132,16 +124,12 @@ public class ProjectController {
 				try {
 					projectservice.joinToPieAsTeamService(projectNum, email);
 				} catch (Exception e) {
-					System.out.println("회원가입 필요");
 					return "etc/pleaseJoinFirst";
 				}
-				
-				System.out.println("파이 합류 성공");
 				return "etc/successedToJoinPie";
 				//여기서 인서트 
 			}else {
 				//중복 중복 
-				System.out.println("중복된 데이터");
 				return "etc/failedToJoinPie";
 			}
 		}

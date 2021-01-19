@@ -37,7 +37,6 @@ public class FileController {
 							 @RequestParam("nick") String nick) throws IOException {
 		
 		boolean check = fileservice.fileUploadService(files, projectNum, nick);
-		System.out.println(nick);
 		
 		if(check) {
 			System.out.println("파일 업로드 성공");
@@ -69,9 +68,7 @@ public class FileController {
 	@RequestMapping(value = "getFileTotalNumber.pie", method = RequestMethod.POST)
 	public View getFileTotalNumber(@RequestParam("projectNum") int projectNum,
 						 		   Model model) throws IOException {
-		System.out.println(projectNum);
 		int totalNumber = fileservice.getFileTotalNumberService(projectNum);
-		System.out.println(totalNumber);
 		model.addAttribute("totalNumber", totalNumber);
 	
 		return jsonview;
@@ -84,7 +81,6 @@ public class FileController {
 						 @RequestParam("page") int page,
 						 Model model) throws IOException {
 		int start = 0;
-		System.out.println(page);
 		start = (page*5)-5;
 		
 		ArrayList<file> files = fileservice.getFileService(projectNum, start);
@@ -96,8 +92,6 @@ public class FileController {
 	@ResponseBody
 	@RequestMapping(value = "fileSerchWithName.pie", method = RequestMethod.POST)
 	public View fileSerchWithName(@RequestBody file fileName, Model model) throws IOException {
-		System.out.println(fileName.getFile_original_name());
-		System.out.println(fileName.getExtension());
 		
 		if(!fileName.getExtension().equals("all") && !fileName.getFile_original_name().equals("")) {
 			ArrayList<file> files = fileservice.getFileWithOGNameAndExtensionService(fileName.getFile_original_name(), fileName.getExtension());

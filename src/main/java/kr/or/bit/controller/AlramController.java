@@ -32,7 +32,6 @@ public class AlramController {
 		List<alram> alramList = null;
 		try {
 			alramList = alramservice.alramList(email,project_seq);
-			System.out.println("메일메일:"+alramList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

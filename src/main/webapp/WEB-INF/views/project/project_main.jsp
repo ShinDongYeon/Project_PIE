@@ -14,8 +14,6 @@
 	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
-	
-	
 </head>
 <body>
 	<!-- projectNum(Sequence) -->

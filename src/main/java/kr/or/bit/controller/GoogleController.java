@@ -27,20 +27,15 @@ public class GoogleController {
 	public String googleLogin(@RequestParam("loginuser") String loginuser, @RequestParam("name") String name,
 			HttpSession session) {
 
-		System.out.println(loginuser);
-		System.out.println(name);
-
 		// 여기서 디비에 아이디가 있는지 조회 있으면 그냥 이동
 		user isExist = userservice.searchEmail(loginuser);
 		if (isExist != null) {
 			// 아이디가 이미 존재하면 바로 메인 페이지로 이동
-			System.out.println("아이디 존재");
 			session.setAttribute("nick", isExist.getNickName());
 			session.setAttribute("loginuser", loginuser);
 			return "main/main";
 		} else {
 			// 없으면 디비에 insert 후에 이동
-			System.out.println("아이디 없음");
 			user u = new user();
 			u.setEmail(loginuser);
 			u.setNickName(name);
