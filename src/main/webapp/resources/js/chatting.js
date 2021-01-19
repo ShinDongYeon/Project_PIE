@@ -5,69 +5,71 @@
 $(document).ready(function() {
 	//웹소켓 연결
 	connect();
-	
 	$.ajax({
 			type : "GET",
-			url  : "profile",
-			data : { 'chatting_room_seq' : $('#select').val()},
+			url  : "chat/users",
+			data : { 'select' : $('#select').val()},
 			async: false,
 			success : function(data){
-				console.log(data);
 				$('.chat-top-pic').empty();
 				let opr = '';
 				if(data.length > 3){
-					if(data[0].profile != null){
-						opr+=	"<img class='chat-top-img-1-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-1-1' src='/resources/img/icon/none.png'>";
-					}
-					if(data[1].profile != null){
-						opr+=	"<img class='chat-top-img-1-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-1-2' src='/resources/img/icon/none.png'>";
-					}
-					if(data[2].profile != null){
-						opr+=	"<img class='chat-top-img-1-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-1-3' src='/resources/img/icon/none.png'>";
-					}
-					if(data[3].profile != null){
-						opr+=	"<img class='chat-top-img-1-4' src='/resources/profile/"+data[3].email+"_"+data[3].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-1-4' src='/resources/img/icon/none.png'>";
-					}
+					$.each(data, function(index,elem) {
+						let i = index + 1;
+						if(elem.profile != null){
+							opr+=	"<img class='chat-top-img-1-"+i+"' src='/resources/profile/"+elem.email+"_"+elem.profile+"'>";
+						}else{
+							opr+=	"<img class='chat-top-img-1-"+i+"' src='/resources/img/icon/none.png'>";
+						}
+					});
 					
 				}else if(data.length == 3){
-					if(data[0].profile != null){
-						opr+=	"<img class='chat-top-img-2-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-2-1' src='/resources/img/icon/none.png'>";
-					}
-					if(data[1].profile != null){
-						opr+=	"<img class='chat-top-img-2-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-2-2' src='/resources/img/icon/none.png'>";
-					}
-					if(data[2].profile != null){
-						opr+=	"<img class='chat-top-img-2-3' src='/resources/profile/"+data[2].email+"_"+data[2].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-2-3' src='/resources/img/icon/none.png'>";
-					}
+					$.each(data, function(index,elem) {
+						let i = index + 1;
+						if(elem.profile != null){
+							opr+=	"<img class='chat-top-img-2-"+i+"' src='/resources/profile/"+elem.email+"_"+elem.profile+"'>";
+						}else{
+							opr+=	"<img class='chat-top-img-2-"+i+"' src='/resources/img/icon/none.png'>";
+						}
+					});
 															
 				}else if(data.length == 2){
-					if(data[0].profile != null){
-						opr+=	"<img class='chat-top-img-3-1' src='/resources/profile/"+data[0].email+"_"+data[0].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-3-1' src='/resources/img/icon/none.png'>";
-					}
-					if(data[1].profile != null){
-						opr+=	"<img class='chat-top-img-3-2' src='/resources/profile/"+data[1].email+"_"+data[1].profile+"'>";
-					}else{
-						opr+=	"<img class='chat-top-img-3-2' src='/resources/img/icon/none.png'>";
-					}										
+					$.each(data, function(index,elem) {
+						let i = index + 1;
+						if(elem.profile != null){
+							opr+=	"<img class='chat-top-img-3-"+i+"' src='/resources/profile/"+elem.email+"_"+elem.profile+"'>";
+						}else{
+							opr+=	"<img class='chat-top-img-3-"+i+"' src='/resources/img/icon/none.png'>";
+						}
+					});
 				}
-						
 				$('.chat-top-pic').append(opr);
+				
+				let element = '';
+				$.each(data,function(index,user){
+					element += 		"<div onclick='selectChatUser(this)' class='mension-select-user-wrapper'>"+
+										"<div class='mension-select-user-subWrapper'>"+
+											"<div id='mension-select-user-on-"+index+"' class='mension-select-user-on'></div>"+
+											"<div class='mension-select-user-pic'>";
+												if(user.profile != null){
+													element += "<img class='mension-select-user-img' src='/resources/profile/"+user.email+"_"+user.profile+"'/>";
+												}else{
+													element += "<i class='fas fa-user'></i>";
+												}
+					element +=				"</div>"+
+											"<div class='mension-select-user-letters-wrapper'>"+
+												"<div id='mension-select-user-name-"+index+"' class='mension-select-user-name'>"+
+													user.nickName+
+												"</div>"+
+												"<div id='mension-select-user-email-"+index+"' class='mension-select-user-email'>"+
+													user.email+
+												"</div>"+
+											"</div>"+
+										"</div>"+
+									"</div>";
+				});
+				$('.mension-area').append(element);
+				
 				
 			},
 			error: function(request,status,error){
@@ -81,38 +83,47 @@ $(document).ready(function() {
 	$('#message').keypress( (event) => {
 		//Enter 키 입력 시
 		if (event.which == 13) {
-			
 			let filename = $('#file-input').val();
-			console.log('filename');
-			console.log(filename);
 			if(filename != null && filename != ''){
 				sendFiles(filename);
 			}else{
 				send();
 			}
+			$('#message').attr('contenteditable',true);
 			$('#message').focus(); 
-			$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
-			
 			$('#img_zone').css('display','none');
-			$('#message').attr('readonly',false);
-			$('#message').attr('placeholder','메시지를 입력하세요');
-			$('#img_zone').attr('src', '/resources/img/icon/none.png');
 			$('.emoji-content').removeClass('disappear2');
 			$('.emoji-content').addClass('disappear');
 			$('#file-input').val('');
 			
 			event.preventDefault();
 		}
+		
+		//@ 멘션키 입력
+		if (event.key == '@') {
+			let mension_content = $('.mension-content');
+			popupMension(mension_content);
+		}
+		
 	});
 	//전송 버튼 CSS 조절
 	$('#message').keyup( (event) => {
-		// textarea에 값이 입력되어 있지 않다면, 전송버튼 비활성화
-		if($('#message').val().trim() == ''){
-			$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
-		//입력되어 있다면 전송버튼 활성화
-		}else if($('#message').val() != ''){
-			$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
+		let filename = $('#file-input').val();
+		//파일이 들어왔으면
+		if(filename != null && filename != ''){
+			//CSS 효과 주지 않음
+			
+		//일반 텍스트가 들어왔으면
+		}else{
+			// textarea에 값이 입력되어 있지 않다면, 전송버튼 비활성화
+			if($('#message').text().trim() == ''){
+				$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+			//입력되어 있다면 전송버튼 활성화
+			}else if($('#message').text() != ''){
+				$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
+			}
 		}
+
 	});
 	//처음 입장시 메시지 입력창 CSS 색 입히기
 	$('#message').focus();
@@ -137,19 +148,15 @@ $(document).ready(function() {
 		if($('#chat-msgWrite-btn').attr('class') == 'chat-msgWrite-btn'){
 			
 			let filename = $('#file-input').val();
-			if(filename != null){
+			if(filename != null && filename != ''){
 				sendFiles(filename);
 			}else{
 				send();
 			}
-			
+			$('#message').attr('contenteditable',true);
 			$('#message').focus(); 
 			$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
-			
 			$('#img_zone').css('display','none');
-			$('#message').attr('readonly',false);
-			$('#message').attr('placeholder','메시지를 입력하세요');
-			$('#img_zone').attr('src', '/resources/img/icon/none.png');
 			$('.emoji-content').removeClass('disappear2');
 			$('.emoji-content').addClass('disappear');
 			$('#file-input').val('');
@@ -162,47 +169,73 @@ $(document).ready(function() {
 		}
 	});
 
-		
-	/*
-	$('#exitBtn').click(function() {
-		disconnect();
-		window.close();
-	})
-	*/
+	//ESC 키 입력 시
+	window.onkeydown = (event) => {
+		if (event.keyCode == 27 || event.which == 27) {
+			swal.fire({
+				title: 'Warning',
+				text: '채팅방을 종료합니다',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '확인',
+				cancelButtonText: '취소',
+				
+			}).then((result) => {
+				if(result.isConfirmed){
+					swal.fire({
+						title: 'Confirm',
+						text: '채팅기록은 저장됩니다',
+						icon: 'success',
+						confirmButtonColor: '#3085d6',
+						confirmButtonText: '확인',
+					}).then((result) => {
+						if(result.isConfirmed){
+							disconnect();
+							window.close();
+						}
+					});
+				}
+			});
+		}
+	}
 	
 	//사용자가 이미지를 올렸을 때 
 	$("#file-input").on('change', function(e){
-		console.log("check");
-		console.log(this.files[0]);
 		readURL(this.files[0]);
 	});
+	
 });
-/*
-function getFile(email) {
-			
-	let file = null
-	
-	let userOb = new Object();
-	userOb.email = email;
-	let user = JSON.stringify(userOb);
-	
-	$.ajax({
-		type: "post",
-		url: "getProfile.pie",
-		contentType: "application/json; charset=UTF-8",
-		dataType: "json",
-		data: user,
-		async: false,
-		success: function(data) {
-			
-			//프로필 이미지 
-			file = data.profile.profile;
-		}
-	});
-	return profile;
-}
-*/
 
+function selectChatUser(me){
+	let nickname = $(me).find('div:eq(4)').text();
+	let email = $(me).find('div:eq(5)').text();
+	let element = "<div contenteditable='false' class='mension-added' value='"+email+"'>"+nickname+"</div>";
+	//$('#message').append(element);
+	let index = $('#message').html().lastIndexOf('@');
+	let prefix = $('#message').html().substring(0,index);
+	//let suffix = $('#message').html().substring(index+1);
+	//let message = prefix + suffix;
+	$('#message').html(prefix + element);
+	console.log($('#message').html());
+	
+}
+
+function popupMension(target){
+	if(!$('.mension-content').hasClass('disappear2')){
+		if(target.hasClass('appear')){
+			target.addClass('disappear');
+			setTimeout( () => {
+				target.removeClass('appear'); 
+				target.css('display','none'); 
+			}, 580 );
+		}else {
+			target.removeClass('disappear').addClass('appear');
+			target.css('display','block');
+		}
+	}
+}
 
 //이미지 미리보기 
 function readURL(file) {
@@ -216,13 +249,15 @@ function readURL(file) {
 	
 	//파일이 다 읽어지면 
   	reader.onload = (e) => {
+		uploadFile(file);
+		
 		$('#img_zone').css('display','block');
 		
-		if(extension === "png" || extension === "jpg" || extension === "jpeg"){
+		if(extension === "png" || extension === "jpg" || extension === "jpeg" || extension === "gif"){
 			$('#img_zone').attr('src', e.target.result);
 		}else if(extension === "ppt" || extension === "pptx"){
 			$('#img_zone').attr('src', '/resources/img/icon/ppt.png');
-		}else if(extension === "xlsx"){
+		}else if(extension === "xlsx" || extension === "xlsm"){
 			$('#img_zone').attr('src', '/resources/img/icon/excel.png');
 		}else if(extension === "hwp"){
 			$('#img_zone').attr('src', '/resources/img/icon/hwp.png');
@@ -237,8 +272,8 @@ function readURL(file) {
 		}else{
 			$('#img_zone').attr('src', '/resources/img/icon/file.png');
 		}
-		$('#message').attr('readonly',true);
-		$('#message').removeAttr('placeholder');
+		$('#message').attr('contenteditable',false);
+		$('#message').empty();
 		$('#chat-msgWrite-btn').attr('class','chat-msgWrite-btn')
 		
 		//파일이 업로드 되는 동안 이모티콘 올리지 않도록
@@ -246,40 +281,65 @@ function readURL(file) {
 		$('.emoji-content').removeClass('disappear');
 		$('.emoji-content').addClass('disappear2');
 		
-		
-		
+		//백스페이스 눌렀을 경우
 		window.onkeydown = (event) => {
 			if (event.keyCode == 8 || event.which == 8) {
+				$('#message').attr('contenteditable',true);
+				$('#message').focus(); 
 				$('#img_zone').css('display','none');
-				$('#message').attr('readonly',false);
-				$('#message').attr('placeholder','메시지를 입력하세요');
-				$('#img_zone').attr('src', '/resources/img/icon/none.png');
 				$('.emoji-content').removeClass('disappear2');
 				$('.emoji-content').addClass('disappear');
 				$('#file-input').val('');
 			}
-		}
-		
-		/*
-		//전송 버튼을 눌렀을 때
-		$('#sendBtn').click( (event) => {
-			//버튼이 활성화 되어 있는 상태이면 메시지를 보낸다
-			if($('#chat-msgWrite-btn').attr('class') == 'chat-msgWrite-btn'){
-				send();
+			
+			if (event.keyCode == 13 || event.which == 13) {
+				let filename = $('#file-input').val();
+				if(filename != null && filename != ''){
+					sendFiles(filename);
+				}else{
+					send();
+				}
+				$('#message').attr('contenteditable',true);
 				$('#message').focus(); 
-				$('.chat-msgWrite-btn').attr('class','chat-msgWrite-btn-not');
+				$('#img_zone').css('display','none');
+				$('.emoji-content').removeClass('disappear2');
+				$('.emoji-content').addClass('disappear');
+				$('#file-input').val('');
 				
 				event.preventDefault();
-				
-			//버튼이 활성화 되어 있지 않으면 입력상태 ON
-			}else{
-				$('#message').focus();
 			}
-		});
-		*/
-		
-		console.log(e);  
-		uploadFile(file);
+			
+				//ESC 키 입력 시
+				if (event.keyCode == 27 || event.which == 27) {
+					swal.fire({
+						title: 'Warning',
+						text: '채팅방을 종료합니다',
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: '확인',
+						cancelButtonText: '취소',
+						
+					}).then((result) => {
+						if(result.isConfirmed){
+							swal.fire({
+								title: 'Confirm',
+								text: '채팅기록은 저장됩니다',
+								icon: 'success',
+								confirmButtonColor: '#3085d6',
+								confirmButtonText: '확인',
+							}).then((result) => {
+								if(result.isConfirmed){
+									disconnect();
+									window.close();
+								}
+							});
+						}
+					});
+				}
+			
+		}
   	}
 }
 
@@ -287,8 +347,6 @@ function readURL(file) {
 function uploadFile(file) {
 	
 	let form = $('#chat_uploadForm')[0];
-	console.log(form);
-	console.log($("#file-input").val());
 	//파일 안 올리고 업로드 시 
 	if($("#file-input").val()===''){
 		console.log("파일없음");
@@ -296,11 +354,10 @@ function uploadFile(file) {
 	}
 	
     let formData = new FormData(form);
-	console.log(formData);
 	formData.append('file', file);
 
 	$.ajax({
-		url: 'file?email='+$("#session_email").val(),
+		url: 'chat/file?email='+$("#session_email").val(),
 		data: formData,
 		type: 'POST',
 		enctype: 'multipart/form-data',
@@ -308,12 +365,8 @@ function uploadFile(file) {
 		contentType: false,
 		async: false,
 		cache: false,
-		error		: function(request,status,error){
-			alert(error);
-		},
-		success: function(data) {
-			console.log(data);
-		}
+		error: function(request,status,error){},
+		success: function(data) {}
 	});
 }
 
@@ -405,29 +458,45 @@ function onOpen(evt){
 										"<div class='chat-receiver-name'>"+
 											data.val()[i].nickName+
 										"</div>"+
-										"<div class='chat-receiver-message-wrapper'>";
-											//file이 있으면
+										"<div class='chat-receiver-message-wrapper'>"+
+											"<div id='chatMessageArea' class='chat-receiver-message'>";
+											//file이 들어오면 파일 확장자 명에 따라 이미지를 다르게 준다
 											if(data.val()[i].message_content == ''){
-												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
-													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
-																	"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
-																"</div>";
+												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png' || data.val()[i].extension == 'gif'){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "ppt" || data.val()[i].extension === "pptx"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "xlsx" || data.val()[i].extension === "xlsm"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "hwp"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "doc" || data.val()[i].extension === "docx"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "pdf"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "txt"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "zip"){
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
 												}else{
-													msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
-																	"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
-																"</div>";
+													msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/file.png'>"+
+																"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
 												}
-												
+											
 											//일반 메시지가 들어오면
 											}else{
-												msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																data.val()[i].message_content+
-															"</div>";
+												msgbox +=	data.val()[i].message_content;
 											}
-											
-					msgbox +=				"<div class='chat-receiver-time'>"+
+					msgbox +=				"</div>"+
+											"<div class='chat-receiver-time'>"+
 												data.val()[i].message_time+
 											"</div>"+
 										"</div>"+
@@ -448,29 +517,45 @@ function onOpen(evt){
 										"<div class='chat-sender-name'>"+
 											data.val()[i].nickName+
 										"</div>"+
-										"<div class='chat-sender-message-wrapper'>";
-											//file이 있으면
+										"<div class='chat-sender-message-wrapper'>"+
+											"<div id='chatMessageArea' class='chat-sender-message'>";
+											//file이 들어오면 파일 확장자 명에 따라 이미지를 다르게 준다
 											if(data.val()[i].message_content == ''){
-												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png'){
-													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
-																	"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
-																"</div>";
+												if(data.val()[i].extension == 'jpg' || data.val()[i].extension == 'jpeg' || data.val()[i].extension == 'png' || data.val()[i].extension == 'gif'){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+data.val()[i].message_file+"'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "ppt" || data.val()[i].extension === "pptx"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "xlsx" || data.val()[i].extension === "xlsm"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "hwp"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "doc" || data.val()[i].extension === "docx"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "pdf"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "txt"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
+												}else if(data.val()[i].extension === "zip"){
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
 												}else{
-													msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+data.val()[i].extension+".png'>"+
-																	"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>"+
-																"</div>";
+													msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/file.png'>"+
+																"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+data.val()[i].message_file.substring(1)+"'><i class='fas fa-download'></i> "+data.val()[i].message_file.substring(1)+"</a>";
 												}
-												
 											
 											//일반 메시지가 들어오면
 											}else{
-												msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																data.val()[i].message_content+
-															"</div>";
+												msgbox +=	data.val()[i].message_content;
 											}
-					msgbox +=				"<div class='chat-sender-time'>"+
+					msgbox +=				"</div>"+
+											"<div class='chat-sender-time'>"+
 												data.val()[i].message_time+
 											"</div>"+
 										"</div>"+
@@ -519,8 +604,8 @@ function onClose(evt){
 function send(){
 	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
-	var msg = $('#message').val();
-	$('#message').val('');
+	var msg = $('#message').html();
+	$('#message').text('');
 	if(msg.trim() != ''){
 		websocket.send(email + "|" + msg + "|" + nickname + "|"+nickname);
 	}
@@ -529,20 +614,18 @@ function send(){
 function sendFiles(filename){
 	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
-	var msg = $('#message').val();
+	var msg = $('#message').text();
 	let index = filename.lastIndexOf('\\');
 	let original_filename = filename.substring(index+1);
-	console.log(original_filename);
 	websocket.send(email + "|" + msg + "|" + nickname +"|/"+original_filename);
 }
 
 function appendMessage(msg) {
-	console.log(msg.indexOf('|/'));
 	
 	$.ajax(
 		{
 			type 		: "GET",
-			url  		: "users?select="+$('#select').val(),
+			url  		: "chat/users?select="+$('#select').val(),
 			error		: function(request,status,error){
 				alert(error);
 			},
@@ -582,29 +665,45 @@ function appendMessage(msg) {
 													"<div class='chat-receiver-name'>"+
 														mynickname+
 													"</div>"+
-													"<div class='chat-receiver-message-wrapper'>";
-													//file이 들어오면
-													if(msg.indexOf('|/') != -1){
-														if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
-															msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																			"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
-																			"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
-																		"</div>";
-														}else{
-															msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																			"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
-																			"<br><a class='chat-receiver-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
-																		"</div>";
-														}
-													
-													//일반 메시지가 들어오면
-													}else{
-														msgbox +=	"<div id='chatMessageArea' class='chat-receiver-message'>"+
-																		message+
-																	"</div>";
-													}
+													"<div class='chat-receiver-message-wrapper'>"+
+														"<div id='chatMessageArea' class='chat-receiver-message'>";
+														//file이 들어오면 파일 확장자 명에 따라 이미지를 다르게 준다
+														if(msg.indexOf('|/') != -1){
+															if(extension == 'jpg' || extension == 'jpeg' || extension == 'png' || extension == 'gif'){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "ppt" || extension === "pptx"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "xlsx" || extension === "xlsm"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "hwp"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "doc" || extension === "docx"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "pdf"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "txt"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "zip"){
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else{
+																msgbox +=	"<img id='chat-receiver-file' class='chat-receiver-file' src='/resources/img/icon/file.png'>"+
+																			"<br><a class='chat-receiver-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}
 														
-								msgbox +=				"<div class='chat-receiver-time'>"+
+														//일반 메시지가 들어오면
+														}else{
+															msgbox +=	message;
+														}
+								msgbox +=				"</div>"+
+														"<div class='chat-receiver-time'>"+
 															time+
 														"</div>"+
 													"</div>"+
@@ -630,10 +729,48 @@ function appendMessage(msg) {
 												nickName : $('#nickname').val(),
 												profile : elem.profile,
 											});
+											
+											//멘션을 보낸경우
+											if(message.indexOf('<div contenteditable="false" class="mension-added" value="') != -1){
+												//div 태그에서 이메일 추출하기
+												let index = message.indexOf('<div contenteditable="false" class="mension-added" value="');
+												let substr = message.substring(58);
+												let suffix = substr.indexOf('"');
+												let email = substr.substring(0,suffix);
+												
+												firebase.database().ref().child('mension/0').set({
+													mension_seq : 0,
+													mension_email : email,
+													chatting_room_seq : $('#select').val(),
+													message_content : message,
+													message_date : date,
+													message_time : time,
+													email : $('#session_email').val(),
+													nickName : $('#nickname').val(),
+													profile : elem.profile
+												});
+												firebase.database().ref().child('mension').once('value',function(data){
+													let mension_seq = data.val().length;
+													
+													firebase.database().ref().child('mension/'+mension_seq).set({
+														mension_email : email,
+														chatting_room_seq : $('#select').val(),
+														message_seq : message_seq,
+														message_content : message,
+														message_date : date,
+														message_time : time,
+														email : $('#session_email').val(),
+														nickName : $('#nickname').val(),
+														profile : elem.profile
+													});
+												});
+												
+											}
+											
+											
 										});
 										
 										websocket.send($('#session_email').val());
-										//connectSocket.send($('#select').val());
 								}
 							
 							});
@@ -668,35 +805,51 @@ function appendMessage(msg) {
 													"<div class='chat-sender-name'>"+
 														elem.nickName+
 													"</div>"+
-													"<div class='chat-sender-message-wrapper'>";
-														//file이 들어오면
+													"<div class='chat-sender-message-wrapper'>"+
+														"<div id='chatMessageArea' class='chat-sender-message'>";
+														//file이 들어오면 파일 확장자 명에 따라 이미지를 다르게 준다
 														if(msg.indexOf('|/') != -1){
-															if(extension == 'jpg' || extension == 'jpeg' || extension == 'png'){
-																msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																				"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
-																				"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
-																			"</div>";
+															if(extension == 'jpg' || extension == 'jpeg' || extension == 'png' || extension == 'gif'){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/files/file_directory_project_seq_"+$('#projectNum').val()+strarray[3]+"'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "ppt" || extension === "pptx"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "xlsx" || extension === "xlsm"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "hwp"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "doc" || extension === "docx"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "pdf"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "txt"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
+															}else if(extension === "zip"){
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
 															}else{
-																msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																				"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/"+extension+".png'>"+
-																				"<br><a class='chat-sender-file-a' href='file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>"+
-																			"</div>";
+																msgbox +=	"<img id='chat-sender-file' class='chat-sender-file' src='/resources/img/icon/file.png'>"+
+																			"<br><a class='chat-sender-file-a' href='chat/file/download?project_seq="+$('#projectNum').val()+"&file_uploaded_name="+strarray[3].substring(1)+"'><i class='fas fa-download'></i> "+strarray[3].substring(1)+"</a>";
 															}
 														
 														//일반 메시지가 들어오면
 														}else{
-															msgbox +=	"<div id='chatMessageArea' class='chat-sender-message'>"+
-																			message+
-																		"</div>";
+															msgbox +=	message;
 														}
-								msgbox +=				"<div class='chat-sender-time'>"+
+								msgbox +=				"</div>"+
+														"<div class='chat-sender-time'>"+
 															time+
 														"</div>"+
 													"</div>"+
 												"</div>"+
 											"</div>";
 											
-											//websocket.send($('#session_email').val());
 											chatReceiveSocket.send('');
 											
 							}//if

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="/resources/css/main-top-clock.css">	
+<script src="/resources/js/clock.js"></script>
 <body>
 	<!-- Top Menu -->
 	<div class="main-top-menu">
@@ -11,7 +13,12 @@
 				<img src="/resources/img/pie_logo_letter.png" alt="PIE logo" class="logo">
 			</a>
 		</div>
-		<div class="main-top-bars">
+		
+		<div class = "clock-wrapper">
+				<span class="clock"></span>
+		</div>
+		
+<!-- 		<div class="main-top-bars">
 			<ul class="main-top-bar">
 				<li><a href="">제품소개</a></li>
 				<li><a href="">PIE 찾기</a></li>
@@ -20,7 +27,7 @@
 			</ul>
 		</div>
 		
-		<!-- top-main-bars-lang-link -->
+		top-main-bars-lang-link
 		<div class="main-top-bars-right-wrapper"> 
 			<div class="main-top-bars-lang">
 				<ul class="main-top-bar-lang">
@@ -28,7 +35,7 @@
 					<li><a href="">ENG</a></li>
 				</ul>
 			</div>
-			<!-- search -->
+			search
 			<div>
 				
 			</div>
@@ -44,7 +51,7 @@
 					</i>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 </html>

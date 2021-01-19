@@ -26,7 +26,6 @@ public class UsersController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("프로젝트리스트"+usersList);
 		return usersList;
 	}
 }

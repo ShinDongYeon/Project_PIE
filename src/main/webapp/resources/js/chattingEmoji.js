@@ -1,64 +1,59 @@
-$(function(){
-   getEmoticons($('.emoji-area'));
-   
-   //12. 메시지를 적어서 전송 버튼을 눌렀을때 실행 되는 것
-/*
-    $('#send').click(()=>{
-      //보내는거
-      
-      if($('#message').val()){
-          }
-      console.log($('#message').val());
-       websocket.send($('#message').val());
-      
-       if($('#msg_file').val() != ''){
-          console.log($('#msg_file').val());
-         console.log($('#msg_file')[0].files[0]);
-         websocket.send($('#msg_file')[0].files[0]);    
+$( () => {
+	getEmoticons($('.emoji-area'));
+	getChattingUserList();
+	
+	let emoji_content = $('.emoji-content');
+	let mension_content = $('.mension-content');
 
-         }
-      //받는거 
-      websocket.onmessage=(evt)=>{
-         writeMsg(evt);
-      }
-   });
-*/
+	// 모달처럼 이모티콘 닫기
+	$(document).on('click', (ev) => {
+		if(emoji_content.hasClass('appear')){
+			switchAnimation(emoji_content);
+		}
+		if(mension_content.hasClass('appear')){
+			popupMension(mension_content);
+		}
+	});
 
-   //엔터치면 전송되는거 
-   $('#message').on("keyup", (event) => {
-      if (event.keyCode === 13) {
-         event.preventDefault();
-         $('#send').click();
-      }
 
-   });
 
-   $('#fileSend').click(()=>{
-      $('#msg_file').click();
-   });
 
-let emoji_content = $('.emoji-content');
+	// 이모티콘 태그 토글 : 캡쳐링 방지
+	$('.smile-o').on('click', (ev) =>{
+		ev.stopPropagation();
+		switchAnimation(emoji_content);
+	});
 
-   // 모달처럼 이모티콘 닫기
-   $(document).on('click', (ev) => {
-      if(emoji_content.hasClass('appear')){
-         switchAnimation(emoji_content);
-      }
-   });
+	$('.fa-at').on('click', (event) => {
+		event.stopPropagation();
+		popupMension(mension_content);
+	});
 
-   // 이모티콘 태그 토글 : 캡쳐링 방지
-   $('.smile-o').on('click', (ev) =>{
-      ev.stopPropagation();
-      switchAnimation(emoji_content);
-   });
+	// 캡쳐링 방지
+	emoji_content.on('click', (ev) => {
+		ev.stopPropagation();
+	});
+	
+	mension_content.on('click', (event) => {
+		event.stopPropagation();
+	});
 
-   // 캡쳐링 방지
-   emoji_content.on('click', (ev) => {
-      ev.stopPropagation();
-   });
 
-       
 });
+
+function getChattingUserList(){
+	$.ajax({
+		type : "GET",
+		url  : "chat/users?select="+$('#select').val(),
+		async: false,
+		error: function(request,status,error){
+			alert(error);
+		},
+		success : function(data){
+			console.log(data);
+		}
+	});
+}
 
 function getEmoticons(target){
    $.ajax(

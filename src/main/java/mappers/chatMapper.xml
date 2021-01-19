@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT U.EMAIL, U.PROFILE, L.CHATTING_ROOM_SEQ
 		FROM USER U JOIN CHATTINGROOMLIST L
 		ON U.EMAIL = L.EMAIL
-		ORDER BY L.CHATTING_ROOM_SEQ;
+		ORDER BY L.CHATTING_ROOM_SEQ
 	</select>
 	
 	<!-- public List<user> getProfilesByRoomSeq(int chatting_room_seq); -->
@@ -80,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM USER U JOIN CHATTINGROOMLIST L
 		ON U.EMAIL = L.EMAIL
 		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
-		ORDER BY L.CHATTING_ROOM_SEQ;
+		ORDER BY L.CHATTING_ROOM_SEQ
 	</select>
 	
 	<!-- public List<user> selectedUser(Map<String, Object> selectUserMap); -->
