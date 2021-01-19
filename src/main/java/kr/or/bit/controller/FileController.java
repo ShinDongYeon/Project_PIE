@@ -100,6 +100,8 @@ public class FileController {
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
 		
+		System.out.println(file_uploaded_name);
+		
 		String fullPath = UploadPath.upload_path_files();
 		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
