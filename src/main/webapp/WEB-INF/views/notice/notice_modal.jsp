@@ -32,7 +32,9 @@
 			</div>
 				<div class="noticeContent">
 					<textarea class="ckeditor" id="summernote"></textarea>
-					<input type="file", name="uploadfile" placeholder="파일 선택" />
+					<form name="uploadForm" id="uploadFormNotice" method = "post" enctype="multipart/form-data">
+					<input type="file", name="noticefile" id="filename" placeholder="파일 선택" />
+					</form>
 					<button class="addNoticeInsert-btn" id="insertnotice"
 				onclick="document.getElementById('noticeInsert_modal_contents').style.display='none'">등록</button>
 				</div>
@@ -64,8 +66,10 @@
 				</div>
 				<div class="noticeContent" id="noticeContentEdit"style="display:none;">
 					<textarea class="ckeditor" id="summernoteEdit"></textarea>
-					<input type="file", name="uploadfile" placeholder="파일 선택" />
+					<input type="file" name="uploadfile" placeholder="파일 선택" />
 				</div>
+				<a href= '' class="noticedownload" style = 'text-decoration : none'>
+				<input type="button" id="downloadfile" name="downloadfile"value="파일다운로드" style="display:none;"/></a>
 				<button class="addDetailsEdit-btn" id="editnotice">수정</button>
 				<button class="addDetailsEdit-btn" id="deletenotice"
 				onclick="document.getElementById('noticeEdit_modal_contents').style.display='none'">삭제</button>

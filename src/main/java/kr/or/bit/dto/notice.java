@@ -12,4 +12,6 @@ public class notice {
 	private String nickName;
 	private String email;
 	private String writeDate;
+	private String filename;
+	private int file_seq;
 }

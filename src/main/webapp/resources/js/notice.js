@@ -24,7 +24,28 @@ $(document).ready(function() {
 	});
  });
 		$("#insertnotice").click(function(){
-		document.getElementById('notice_modal_background').style.display = 'none';
+				let fileNumber = 0;
+				var fileValue = $("#filename").val().split("\\");
+				var fileName = fileValue[fileValue.length-1]; // 파일명
+				let form = $("#uploadFormNotice")[0];
+				let formData = new FormData(form)
+				//파일 업로드
+				if($("#filename").val() !== null && $("#filename").val() !== ""){
+				$.ajax({
+					type: "POST",
+					url: "fileNotice.pie?projectNum=" + $("#projectNum").val() + "&nick=" + $("#nick").val(),
+					data: formData,
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
+					async: false,
+					cache: false,
+					success: function(result) {
+						fileNumber = result;
+						}
+				})
+				}
+			document.getElementById('notice_modal_background').style.display = 'none';
 				let noticeInsertOb = new Object();
 				noticeInsertOb.title = $('#title').val()
 				noticeInsertOb.content = $('#summernote').val()
@@ -32,6 +53,8 @@ $(document).ready(function() {
 				noticeInsertOb.nickName = $("#nick").val()
 				noticeInsertOb.email = $("#email").val()
 				noticeInsertOb.writeDate = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				noticeInsertOb.filename = fileName
+				noticeInsertOb.file_seq = fileNumber
 				let noticeInsert = JSON.stringify(noticeInsertOb);
 				$.ajax({
 					type: "POST",
@@ -84,7 +107,6 @@ function createNotice(data) {
 	let html = "";
 	$.each(data, function(index, notice) {
 		let writeDate = moment(notice.writeDate).format('YYYY-MM-DD' + " " + 'HH:mm')
-		//let alramTime = moment(alram.alramTime).format('YYYY-MM-DD' + " " + 'HH:mm')
 		html += 	'<div class="bookmark-item-wrapper">\
 					 <div class="bookmark-top-wrapper">\
 					 <div class="bookmark-username">'+notice.title+'</div>\
@@ -110,11 +132,22 @@ function createNotice(data) {
 			async: false,
 			data:{notice_seq:$(this).children('input').val()},
 			success: function(data) {
+				if(data.file_seq !== 0){
+				$.ajax({
+					type:"POST",
+					url:"getFileSeqName.pie",
+					data:{file_seq:data.file_seq},
+					success:function(result){
+						document.getElementById('downloadfile').style.display='block'
+					$(".noticedownload").prop('href','fileDownload.pie?project_seq=' +$("#projectNum").val() + '&file_uploaded_name=' + result)
+					}
+				})
+				}
 				document.getElementById('noticeEdit_modal_contents').style.display='block'
 				$("#titleView").val(data.title)
 				document.getElementById('noticeContentView').innerHTML= data.content
 				document.getElementById('summernoteEdit').innerHTML= data.content
-					}
+				}	
 		})
 	$("#editnotice").click(function(){
 		document.getElementById('noticeContentView').style.display='none'

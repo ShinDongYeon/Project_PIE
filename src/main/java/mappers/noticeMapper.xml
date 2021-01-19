@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <insert id="insertNotice" parameterType = "noticeDto" >
 INSERT INTO notice
-(title,content,project_seq,nickname,email,writedate)
-VALUES(#{title},#{content},#{project_seq},#{nickName},#{email},#{writeDate}) 
+(title,content,project_seq,nickname,email,writedate,filename,file_seq)
+VALUES(#{title},#{content},#{project_seq},#{nickName},#{email},#{writeDate},#{filename},#{file_seq}) 
 </insert>
 
 <select id="getNoticeList" resultType="noticeDto" parameterType = "int">

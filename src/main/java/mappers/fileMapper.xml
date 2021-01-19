@@ -38,5 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT FILE_UPLOADED_NAME FROM FILE WHERE PROJECT_SEQ = #{project_seq} AND FILE_ORIGINAL_NAME = #{file_original_name} ORDER BY LENGTH(FILE_UPLOADED_NAME) DESC LIMIT 1;
 </select>
 
+<select id="fileLastSeq" resultType="int">
+SELECT max(file_seq) as fileLast_seq FROM file
+</select>
 
+<select id="getFileSeqName" parameterType="int" resultType="String">
+SELECT file_uploaded_name FROM file WHERE file_seq = #{param1}
+</select>
 </mapper>
