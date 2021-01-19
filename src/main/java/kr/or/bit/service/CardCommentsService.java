@@ -47,5 +47,11 @@ public class CardCommentsService {
 			throw e;
 		}
 	}
+	
+	//edit Card Comment
+	public void editCardCommentService(cardComments comm) {
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
+		comdao.editCardComment(comm);
+	}
 
 }

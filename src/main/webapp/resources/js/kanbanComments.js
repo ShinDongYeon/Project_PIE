@@ -20,9 +20,33 @@ $(document).ready(function(){
 		let commTag = '<div class="commMemWrap" data-com-seq="'+comments_seq+'"value="'+email+
 						'"><img class="commPro" src="resources/profile/'+email+'_'+profile+'">'+
 						'<div class="writerWrap"><p class="commWriter">'+nickName+'</p><p class="commDate">'+reg_date+'</p></div>'+
-						'<div class="memCommentWrap"><div class="memComment">'+comments
+						'<div class="memCommentWrap"><div class="memComment">'+comments;
 		return commTag;
 	}
+	
+	function FormWithIcon(){
+		let formIcon = '</div><div class="commIcons"><i class="fas fa-eraser editComm"></i>'+
+						'<i class="far fa-trash-alt deleteComm"></i></div></div>'+
+						'<div class="editFormWrap"><form class="editCommentsForm" style="display:none;"><textarea class="editAddComments" cols="30" rows="10" placeholder="">'+
+						'</textarea><div class="btnWrap"><button class="editcancel-btn">Cancel</button>'+
+						'<button class="editAddComments-btn">Save</button></div>'+
+						'</form></div>';
+		return formIcon;
+	}
+		
+	function FormWoIcon(){
+		let formTag = '</div></div><div class="editFormWrap"><form class="editCommentsForm" style="display:none;"><textarea class="editAddComments" cols="30" rows="10" placeholder="">'+
+					  '</textarea><div class="btnWrap"><button class="editcancel-btn">Cancel</button>'+
+					  '<button class="editAddComments-btn">Save</button></div>'+
+					  '</form></div></div>';
+		return formTag;
+	}
+	
+	
+	//get time for ajax
+	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	let dateTime = date+' '+time;
 	
 	/*Add Comments*/
 	$(document).on("submit", ".commentsForm", function(e) {
@@ -31,10 +55,6 @@ $(document).ready(function(){
 		let comments = $(this).children('.addComments').val();
 		let card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
 		let email = $('#session_email').val();
-		
-		let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		let dateTime = date+' '+time;
 		
 		console.log(commentsOb);
 		commentsOb.comments=comments;
@@ -56,21 +76,19 @@ $(document).ready(function(){
 					if(comments.profile==null){
 						let commIcon = commentsIcon(comments.comments_seq,comments.email,comments.nickName,dateTime,comments.comments);
 						if(item.email==myEmail){
-							commIcon += '</div><div class="commIcons"><i class="fas fa-eraser editComm"></i>'+
-										'<i class="far fa-trash-alt deleteComm"></i><div></div></div>';
+							commIcon += FormWithIcon()
 							$('.comments').append(commIcon);
 						}else{
-							commIcon += '</div></div></div>';
+							commIcon += FormWoIcon();
 							$('.comments').append(commIcon);
 						}
 					}else {
 						let commPro = commentsPro(comments.comments_seq,comments.email,comments.profile,comments.nickName,comments.reg_date,comments.comments);
 						if(item.email==myEmail){
-							commIcon += '</div><div class="commIcons"><i class="fas fa-eraser editComm"></i>'+
-										'<i class="far fa-trash-alt deleteComm"></i><div></div></div>';
+							commPro += FormWithIcon()
 							$('.comments').append(commPro);
 						}else{
-							commIcon += '</div></div></div>';
+							commPro += FormWoIcon()
 							$('.comments').append(commPro);
 						}
 					}
@@ -84,10 +102,11 @@ $(document).ready(function(){
 	$(document).on('click','.cardContent',function(e){
 		e.preventDefault();
 		$('.comments').show();
+		$('.commentsForm').show();
+		
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
 		let myEmail = $('#session_email').val();
-		console.log(myEmail);
-		console.log("cardsequences:::"+cardSeq);
+		
 		$.ajax({
 				type: "post",
 				url: "loadComments.pie?cardSeq="+cardSeq,
@@ -95,27 +114,39 @@ $(document).ready(function(){
 				dataType: "json",
 				async: false,
 				success: function(data) {
-					console.log(data);
 					let commList = data.commList;
+					console.log(commList)
 					$.each(commList, function(index, item) {
 					if(item.profile==null){
 						let commIcon = commentsIcon(item.comments_seq,item.email,item.nickName,item.reg_date,item.comments);
-						if(item.email==myEmail){
-							commIcon += '</div><div class="commIcons"><i class="fas fa-eraser editComm"></i>'+
-										'<i class="far fa-trash-alt deleteComm"></i><div></div></div>';
+						let editedIcon = commentsIcon(item.comments_seq,item.email,item.nickName,item.reg_date+' (edited)',item.comments);
+						if(item.email==myEmail&&item.edited===1){
+							editedIcon += FormWithIcon();
+							$('.comments').append(editedIcon);
+						}else if(item.email==myEmail){
+							commIcon += FormWithIcon();
 							$('.comments').append(commIcon);
+						}else if(item.edited===1){
+							editedIcon += FormWoIcon();
+							$('.comments').append(editedIcon);
 						}else{
-							commIcon += '</div></div></div>';
+							commIcon += FormWoIcon();
 							$('.comments').append(commIcon);
 						}
 					}else {
 						let commPro = commentsPro(item.comments_seq,item.email,item.profile,item.nickName,item.reg_date,item.comments);
-						if(item.email==myEmail){
-							commPro += '</div><div class="commIcons"><i class="fas fa-eraser editComm"></i>'+
-										'<i class="far fa-trash-alt deleteComm"></i><div></div></div>';
+						let editedPro = commentsPro(item.comments_seq,item.email,item.profile,item.nickName,item.reg_date+' (edited)',item.comments);
+						if(item.email==myEmail&&item.edited===1){
+							editedPro += FormWithIcon();
+							$('.comments').append(editedPro);
+						}else if(item.email==myEmail){
+							commPro += FormWithIcon();
 							$('.comments').append(commPro);
+						}else if(item.edited===1){
+							editedPro += FormWoIcon();
+							$('.comments').append(editedPro);
 						}else{
-							commPro += '</div></div></div>';
+							commPro += FormWoIcon();
 							$('.comments').append(commPro);
 						}
 					}
@@ -124,9 +155,7 @@ $(document).ready(function(){
 				}
 			});
 	});
-	
-	
-	
+
 	
 	//delete comments
 	$(document).on('click','.fa-trash-alt.deleteComm',function(){
@@ -148,12 +177,72 @@ $(document).ready(function(){
 			setTimeout(function() { deletedComm.remove(); }, 1000);
 			}
 		});
-	})
+	});
 	
+	//edit Comments
+	$(document).on("click",".fa-eraser.editComm",function(){
+		let commSeq = Number($(this).parents('.commMemWrap').attr('data-com-seq'));
+		let origin = $(this).parents('.commMemWrap').children().children('.memComment');
+		let commentsWrap = $(this).parent().parent();
+		
+		$(this).parents().children().children('.editCommentsForm').show();
+		commentsWrap.hide();
+		$('.commIcons').hide();
+		$('.commentsForm').hide();
+		$('.editAddComments').attr('placeholder',origin.html());
+		
+		//edited val submit
+		$(document).on("submit",".editCommentsForm",function(e){
+		e.preventDefault();
+		let editedComm = $(this).children('.editAddComments').val();
+		let thisComm = $(this).children('.editAddComments');
+		
+		let commOb = new Object();
+		commOb.comments_seq = commSeq;
+		commOb.comments = editedComm;
+		
+		let comment = JSON.stringify(commOb);
+		
+		if(thisComm.val().length>0){
+		$.ajax({
+			url: "editCardComment.pie",
+			contentType: "application/json; charset=UTF-8",
+			type: "post",
+			async: "false",
+			dataType: "json",
+			data: comment,
+			success: function(data){
+				$('.commentsForm').show(); 
+				thisComm.val("");
+			}
+		});
+		$(this).hide();
+		let memCommWrap = $(this).parent().prev();
+		memCommWrap.show();
+		$('.commIcons').show();
+		memCommWrap.children('.memComment').text(editedComm);
+		memCommWrap.prev().children('.commDate').text(dateTime+' (edited)');
+		}
+		});
+	});
+	
+	//close eidt Comment Form 
+	$(document).on("click",".editcancel-btn",function(e){
+		e.preventDefault();
+		let thisCh = $(this).parents().children();
+		thisCh.children('.editAddComments').val("");
+		thisCh.children('.editCommentsForm').hide();
+		thisCh.children('.memCommentWrap').show();
+		$('.commentsForm').show(); 
+		$('.commIcons').show();
+	});
+	
+
 	//close Modal
 	$(document).on("click", ".closeModal", function(e) {
 		e.preventDefault();
 		$(".comments").empty();
+		$('.commentsForm').hide();
 	});
 
 });

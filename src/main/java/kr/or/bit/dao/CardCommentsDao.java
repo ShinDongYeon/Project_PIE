@@ -12,4 +12,6 @@ public interface CardCommentsDao {
 	
 	public void deleteCardComment(int commSeq);
 	
+	public void editCardComment(cardComments comm);
+	
 }

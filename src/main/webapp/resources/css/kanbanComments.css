@@ -5,7 +5,7 @@
 작성자: 문지연
 */
 
-/* Comments */
+/* Comments Title */
 .commentsTitle {
 	text-align: left;
     padding: 0;
@@ -21,6 +21,7 @@
     color: #f2dd68;
 }
 
+/* add Comments */
 .addComments {
     box-sizing: content-box;
     border: none;
@@ -52,11 +53,65 @@
     box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
 }
 
+/* edit Comments Form*/
 
-/* .commMemWrap {
-	display: block;
-} */
+.editAddComments {
+    box-sizing: content-box;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 10px;
+    width: 70%;
+    font-size: 15px;
+    resize: none;
+    height: 50px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    margin: 20px 10px 0px 0px;
+}
 
+.editAddComments-btn {
+	font-family: 'Lato', sans-serif;
+    margin-top: 5px;
+    padding: 3px 5px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+}
+
+.editcancel-btn {
+	font-family: 'Lato', sans-serif;
+    margin: 5px 5px 0px 0px;
+    padding: 3px 5px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+}
+
+.editcancel-btn:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.editAddComments-btn:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.btnWrap {
+	margin-left:62%;
+}
+
+
+/* comments */
 .commPro {
 	width:40px;
 	height:40px;
@@ -119,6 +174,24 @@
 	font-size: 20px;
 	cursor: pointer;
 }
+
+/* close edit form */
+.closeEditForm {
+    color: #aaaaaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.closeEditForm:hover,
+.closeEditForm:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 
 
 

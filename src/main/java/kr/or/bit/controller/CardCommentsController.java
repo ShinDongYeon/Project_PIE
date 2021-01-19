@@ -60,6 +60,16 @@ public class CardCommentsController {
 		model.addAttribute("data", "success");
 		return jsonview;
 	}
+	
+	//edit Card Comment
+	@ResponseBody
+	@RequestMapping(value = "editCardComment.pie", method = RequestMethod.POST)
+	public View editKanbanListTitle(@RequestBody cardComments comm, Model model) {
+		cardcomservice.editCardCommentService(comm);
+		model.addAttribute("data", "success");
+		System.out.println(comm);
+		return jsonview;
+	}
 
 
 }

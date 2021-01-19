@@ -11,12 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.bit.dao.CardCommentsDao">
 
 	<insert id="insertComments" parameterType="cardCommentsDto">
-		INSERT INTO KANBAN_COMMENTS(EMAIL, CARD_SEQ, COMMENTS_SEQ, COMMENTS, REG_DATE) 
-		VALUES(#{email}, #{card_seq}, nextval('comments_seq'), #{comments}, now())
+		INSERT INTO KANBAN_COMMENTS(EMAIL, CARD_SEQ, COMMENTS_SEQ, COMMENTS, REG_DATE,EDITED) 
+		VALUES(#{email}, #{card_seq}, nextval('comments_seq'), #{comments}, now(), DEFAULT)
 	</insert>
 	
 	<select id="loadComments" parameterType="int" resultType="cardCommentsDto">
-		SELECT U.EMAIL, U.PROFILE, U.NICKNAME, K.COMMENTS, K.REG_DATE, K.COMMENTS_SEQ
+		SELECT U.EMAIL, U.PROFILE, U.NICKNAME, K.COMMENTS, K.REG_DATE, K.COMMENTS_SEQ, K.EDITED
 		FROM KANBAN_COMMENTS K
 		JOIN USER U ON U.EMAIL=K.EMAIL
 		WHERE CARD_SEQ = #{param1}
@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBAN_COMMENTS
 		WHERE COMMENTS_SEQ = #{param1}
 	</delete>
+	
+	<update id="editCardComment" parameterType="cardCommentsDto">
+		UPDATE KANBAN_COMMENTS 
+		SET COMMENTS=#{comments}, REG_DATE=now(), EDITED=1 WHERE COMMENTS_SEQ=#{comments_seq}
+	</update>
 	
 </mapper>
 
