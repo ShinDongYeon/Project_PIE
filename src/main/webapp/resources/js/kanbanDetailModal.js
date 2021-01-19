@@ -238,7 +238,8 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {console.log(data);
+				success: function(data) {
+					console.log(data);
 					thisCard.children('.cardName').text(data.data.card_name);
 				}
 			});

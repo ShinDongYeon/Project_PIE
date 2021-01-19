@@ -1,10 +1,10 @@
 /*right sidebar contents wrapper*/
 $(document).ready(function() {
 	let btnClassName;
-	let tmpBtnClassName = 'fas fa-star';
-	let wrapper = document.getElementById('right-sidebar-contents-wrapper');
-
-	$('#sidebar-kanban').click(function() {
+	let tmpBtnClassName = 'fas fa-clipboard-list';
+	let wrapper = document.getElementById('right-sidebar-contents-wrapper');	
+	
+	$('#sidebar-kanban').click(function(){
 		wrapper.className = 'right-sidebar-contents-wrapper-hidden';
 		location.href = "goToMain.pie?projectNum=" + $("#projectNum").val();
 	});
