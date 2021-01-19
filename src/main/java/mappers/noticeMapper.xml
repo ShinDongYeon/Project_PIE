@@ -7,10 +7,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <insert id="insertNotice" parameterType = "noticeDto" >
 INSERT INTO notice
-(title,content)
-VALUES(#{title},#{content}) 
+(title,content,project_seq,nickname,email,writedate)
+VALUES(#{title},#{content},#{project_seq},#{nickName},#{email},#{writeDate}) 
 </insert>
 
+<select id="getNoticeList" resultType="noticeDto" parameterType = "int">
+SELECT * FROM notice WHERE project_seq = #{param1}
+</select>
 
-
+<select id="getNoticeDetail" resultType="noticeDto" parameterType = "int">
+SELECT * FROM notice WHERE notice_seq = #{param1}
+</select>
+<select id="lastNotice_seq" resultType="int">
+SELECT max(notice_seq) as lastNotice_seq FROM notice 
+</select>
 </mapper>

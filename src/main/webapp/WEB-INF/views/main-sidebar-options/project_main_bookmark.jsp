@@ -11,84 +11,11 @@
 </head>
 
 <body>
-	<div id="fas fa-star" class="right-sidebar-bookmark">
+	<div id="fas fa-clipboard-list" class="right-sidebar-bookmark">
 	<jsp:include page="/WEB-INF/views/notice/notice_modal.jsp"></jsp:include>
 		<!-- samples -->
 		<div><input type="button" id="wirte" value="글쓰기"/></div>
-		<div class="bookmark-item-wrapper">
-			<div class="bookmark-top-wrapper">
-				<div class="bookmark-user"><i class="fas fa-user"></i></div>
-				<div class="bookmark-username">강성윤</div>
-				<div class="bookmark-cancel"><i class="fas fa-times"></i></div>
-			</div>
-			<div class="bookmark-middle-wrapper">
-				<div class="bookmark-reply">
-					<i class="far fa-comment-dots"></i>댓글
-				</div>
-				<div class="bookmark-flag">
-					<i class="fas fa-star"></i>즐겨찾기
-				</div>
-			</div>
-			<div class="bookmark-bottom-wrapper">
-				내용입니다.
-			</div>
-		</div>
-		
-		<div class="bookmark-item-wrapper">
-			<div class="bookmark-top-wrapper">
-				<div class="bookmark-user"><i class="fas fa-user"></i></div>
-				<div class="bookmark-username">강성윤</div>
-				<div class="bookmark-cancel"><i class="fas fa-times"></i></div>
-			</div>
-			<div class="bookmark-middle-wrapper">
-				<div class="bookmark-reply">
-					<i class="far fa-comment-dots"></i>댓글
-				</div>
-				<div class="bookmark-flag">
-					<i class="fas fa-star"></i>즐겨찾기
-				</div>
-			</div>
-			<div class="bookmark-bottom-wrapper">
-				내용입니다.
-			</div>
-		</div>
-		
-		<div class="bookmark-item-wrapper">
-			<div class="bookmark-top-wrapper">
-				<div class="bookmark-user"><i class="fas fa-user"></i></div>
-				<div class="bookmark-username">강성윤</div>
-				<div class="bookmark-cancel"><i class="fas fa-times"></i></div>
-			</div>
-			<div class="bookmark-middle-wrapper">
-				<div class="bookmark-reply">
-					<i class="far fa-comment-dots"></i>댓글
-				</div>
-				<div class="bookmark-flag">
-					<i class="fas fa-star"></i>즐겨찾기
-				</div>
-			</div>
-			<div class="bookmark-bottom-wrapper">
-				내용입니다.
-			</div>
-		</div>		
-		
-		<div class="bookmark-item-wrapper">
-			<div class="bookmark-top-wrapper">
-				<div class="bookmark-user"><i class="fas fa-user"></i></div>
-				<div class="bookmark-username">강성윤</div>
-				<div class="bookmark-cancel"><i class="fas fa-times"></i></div>
-			</div>
-			<div class="bookmark-middle-wrapper">
-				<div class="bookmark-reply">
-					<i class="far fa-comment-dots"></i>댓글
-				</div>
-				<div class="bookmark-flag">
-					<i class="fas fa-star"></i>즐겨찾기
-				</div>
-			</div>
-			<div class="bookmark-bottom-wrapper">
-				내용입니다.
-			</div>
+		<div id="noticeList">
 		</div>
 	</div>
 </body>

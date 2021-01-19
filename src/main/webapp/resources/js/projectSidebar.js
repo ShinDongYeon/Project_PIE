@@ -1,7 +1,7 @@
 /*right sidebar contents wrapper*/
 $(document).ready(function(){
 	let btnClassName;
-	let tmpBtnClassName = 'fas fa-star';
+	let tmpBtnClassName = 'fas fa-clipboard-list';
 	let wrapper = document.getElementById('right-sidebar-contents-wrapper');	
 	
 	$('#sidebar-kanban').click(function(){
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	/*kanban & calendar 아이콘 클릭 시 다른 창 display: none */
 	
 	/*아이콘 클릭 시 해당 창으로 이동*/
-	$('#sidebar-star').click(function(){
+	$('#sidebar-board').click(function(){
 		btnClassName = $(this)[0].className;
 		sidebarToggle();
 		if($(".top-menu").hasClass("top-menu-light") === true){

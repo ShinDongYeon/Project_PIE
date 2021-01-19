@@ -122,7 +122,26 @@ cursor: pointer;
     border-radius: 5px;
     width:100%;
 }
-
+.noticeContentView{
+	font-size: 20px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    font-weight: 200;
+    background: transparent;
+    color: #000;
+    border: 2px solid;
+    background: #fbfdea;
+    border-radius: 5px;
+    min-height:300px;
+    width: 100%;
+    height: 50%;
+}
+.note-editable{
+    background: #fbfdea;
+}
+#wirte{
+	width: 297px;
+}
 /* .ckeditor {
 	box-sizing: content-box;
     border: none;
@@ -202,15 +221,16 @@ cursor: pointer;
 }
 
 
-.addDetailsInsert-btn {
+.addNoticeInsert-btn {
     font-family: 'Lato', sans-serif;
     padding: 3px;
     background-color: #f2dd68;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    width:39%;
+    width:10%;
     height:30px;
+    float:right;
 }
 .addDetailsEdit-btn {
     font-family: 'Lato', sans-serif;
@@ -292,3 +312,4 @@ cursor: pointer;
    	box-shadow: 0px 0px 20px rgba( 255, 255, 255, 0.8 );
    	background-color: rgba( 255, 255, 255, 0.8 );
 }
+
