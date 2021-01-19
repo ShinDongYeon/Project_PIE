@@ -19,9 +19,9 @@ public class CalendarService {
 		this.sqlsession = sqlsession;
 	}
 
-	public void insertCalendar(String start, String end, String title, String content, Boolean allDay, String color,int project_seq,int card_seq)throws Exception{
+	public void insertCalendar(calendar calendar)throws Exception{
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		calendardao.insertCalendar(start,end,title,content,allDay,color,project_seq,card_seq);
+		calendardao.insertCalendar(calendar);
 	
 	}
 
@@ -51,8 +51,8 @@ public class CalendarService {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		calendardao.deleteCalendarKanban(card_seq);
 	}
-	public void calendarUpdate(String start, String end, String title, String content, boolean allDay, String color, String id) {
+	public void calendarUpdate(calendar calendar) {
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
-		calendardao.updateCalendar(start,end,title,content,allDay,color,id);
+		calendardao.updateCalendar(calendar);
 	}
 }

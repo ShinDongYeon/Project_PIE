@@ -91,7 +91,78 @@ public class FileService{
 		}
 		return true;
 	}
-	
+	//마지막 번호 
+	public int fileLastSeq() {
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		return filedao.fileLastSeq();
+	}
+	//게시판 파일 업로드
+		public boolean fileUploadNoticeService(MultipartFile file, int projectNum, String nick) {
+			String UPLOAD_PATH = UploadPath.upload_path_files();
+			//파일 저장 경로 (프로젝트번호 기준)
+			String specific_path = "/file_directory_project_seq_"+projectNum;
+			
+			File fileOb = new File(UPLOAD_PATH+specific_path);
+			//폴더 존재 여부 
+			if(fileOb.isDirectory()) {
+				System.out.println("폴더 존재");
+			}else {
+				System.out.println("폴더 없음");
+				fileOb.mkdir();
+			}
+
+				String fileOGName = file.getOriginalFilename();
+		
+				//파일 확장자 
+				String ext = fileOGName.substring(fileOGName.lastIndexOf(".") + 1);
+				String upload_file_name = "";
+				
+				file fi = new file();
+				fi.setFile_uploaded_name(fileOGName);
+				fi.setProject_seq(projectNum);
+			
+				if(isExistFileMethod(fi)) {
+					System.out.println("파일 이름 중복");
+					fi.setFile_original_name(fileOGName);
+					String dupelName = getDupledNameMethod(fi);
+					
+					System.out.println("중복이름 "+ dupelName);
+					
+					//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
+					dupelName = dupelName.substring(0, dupelName.indexOf("."));
+					upload_file_name = dupelName+"1."+ext;
+				}else {
+					upload_file_name = fileOGName;
+				}
+				
+				byte[] data;
+				try {
+					file f = new file();
+					
+					f.setFile_original_name(fileOGName);
+					f.setFile_uploaded_name(upload_file_name);
+					f.setProject_seq(projectNum);
+					f.setExtension(ext);
+					f.setUpload_date(makeDate());
+					f.setNickName(nick);
+					
+					fileUploadToDBMethod(f);
+					
+					data = file.getBytes();
+					//절대경로 + 프로젝트번호 + 파일이름 
+					FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
+					//파일 업로드 
+					fos.write(data);
+					 
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			
+			return true;
+		}
 	//db에 파일 정보 저장하는 메서드 
 	public boolean fileUploadToDBMethod(file fi) {
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
@@ -156,5 +227,9 @@ public class FileService{
 		return totalNumber;
 		
 	}
-
+	//파일번호에 맞는 파일명 가져오기
+	public String getFileSeqName(int file_seq) {
+		FileDao filedao = sqlsession.getMapper(FileDao.class);
+		return filedao.getFileSeqName(file_seq);
+	}
 }

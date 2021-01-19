@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		dayMaxEvents: true,
 		locales: 'ko',
 		dateClick: function(info) {
-			document.getElementById('detailsInsertModal').style.display = 'block'
+			document.getElementById('calendarInsert_modal_contents').style.display = 'block'
 			document.getElementById('calendar_modal_background').style.display = 'block';
 			$('#startDate').val(info.dateStr + " " + hours + ":00")
 			$("#insertCancel").unbind('click');
@@ -174,24 +174,30 @@ document.addEventListener('DOMContentLoaded', function() {
 				} else {
 					allDay = false
 				}
+				/* 캘린더 등록*/
+				let calendarInsertOb = new Object();
+				calendarInsertOb.start = $('#startDate').val()
+				calendarInsertOb.end = $('#endDate').val()
+				calendarInsertOb.title = $('#title').val()
+				calendarInsertOb.content = $('#content').val()
+				calendarInsertOb.allDay = allDay
+				calendarInsertOb.color = $('#eventColor').val()
+				calendarInsertOb.project_seq = $("#projectNum").val()
+				calendarInsertOb.card_seq = 0
+				let calendarInsert = JSON.stringify(calendarInsertOb);
 				$.ajax({
 					type: "POST",
 					url: "calendarInsert.pie",
-					data: {
-						start: $('#startDate').val(),
-						end: $('#endDate').val(),
-						title: $('#title').val(),
-						content: $('#content').val(),
-						allDay: allDay,
-						color: $('#eventColor').val(),
-						project_seq: $("#projectNum").val(),
-						card_seq: 0
-					},
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: calendarInsert,
 					success: function(data) {
 						calendar.refetchEvents();
 						insertButton()
 					}
 				})
+				/* 캘린더 등록 알람*/
 				$.ajax({
 					type: "POST",
 					url: "alramLastSeq.pie",
@@ -214,23 +220,23 @@ document.addEventListener('DOMContentLoaded', function() {
 							data: alram,
 							success: function(data) {
 							socket.send("등록")
-								},
-							
+								},							
 						})
-
 					}
 				})
 			})
 		},
 		eventDrop: function(info) {
-			swal({
+			swal.fire({
 				title: "일정을 변경하시겠습니까?",
 				icon: "warning",
-				buttons: true,
-				dangerMode: true,
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+  				cancelButtonColor: '#d33',
+  				confirmButtonText: 'Yes'
 			})
-				.then((willDelete) => {
-					if (willDelete) {
+				.then((result) => {
+					if (result.isConfirmed) {
 						var msg = editCalendar(info);
 					} else {
 						info.revert();
@@ -238,14 +244,16 @@ document.addEventListener('DOMContentLoaded', function() {
 				});
 		},
 		eventResize: function(info) {
-			swal({
+			swal.fire({
 				title: "일정을 변경하시겠습니까?",
 				icon: "warning",
-				buttons: true,
-				dangerMode: true,
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+  				cancelButtonColor: '#d33',
+  				confirmButtonText: 'Yes'
 			})
-				.then((willDelete) => {
-					if (willDelete) {
+				.then((result) => {
+					if (result.isConfirmed) {
 						var msg = editCalendar(info);
 					} else {
 						info.revert();
@@ -280,20 +288,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			$('#contentView').val(content);
 			$("#deleteCalendar").unbind('click');
 			$('#deleteCalendar').click(function() {
-					swal.fire({
+					Swal.fire({
 					title: "일정을 삭제하시겠습니까?",
 					icon: "warning",
-					buttons: true,
-					dangerMode: true,
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+  					cancelButtonColor: '#d33',
+  					confirmButtonText: 'Yes'
 				})
-					.then((willDelete) => {
-						if (willDelete) {
+					.then((result) => {
+						if (result.isConfirmed) {
 							deleteCalendar(info)
 							var event = calendar.getEventById(info.event.id);
 							document.getElementById('calendar_modal_background').style.display = 'none';
 							event.remove();
 						} else {
-
+							document.getElementById('calendar_modal_background').style.display = 'none';
 						}
 					});
 			})
@@ -330,25 +340,29 @@ document.addEventListener('DOMContentLoaded', function() {
 				} else {
 					allDay = false
 				}
+				/*캘린더 수정*/
+				let calendarEditOb = new Object();
+				calendarEditOb.id	= $('#seqView').val()
+				calendarEditOb.start = $('#startDateView').val()
+				calendarEditOb.end = $('#endDateView').val()
+				calendarEditOb.title = $('#titleView').val()+"(칸반)"
+				calendarEditOb.content = $('#contentView').val()
+				calendarEditOb.allDay = allDay
+				calendarEditOb.color = $('#eventColorView').val()
+				let calendarEdit = JSON.stringify(calendarEditOb);
 				$.ajax({
 					type: "POST",
 					url: "calendarUpdate.pie",
-					data: {
-						id: $('#seqView').val(),
-						start: $('#startDateView').val(),
-						end: $('#endDateView').val(),
-						title: $('#titleView').val(),
-						content: $('#contentView').val(),
-						allDay: allDay,
-						color: $('#eventColorView').val()
-					},
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: calendarEdit,
 					success: function(data) {
 						calendar.refetchEvents();
 						editButton()
-
 					}
 				})
-
+				/*캘린더 수정 알람*/
 					$.ajax({
 					type: "POST",
 					url: "alramLastSeq.pie",
@@ -370,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							async: false,
 							data: alram,
 							success: function(data) {
-							socket.send("등록")
+							socket.send("수정")
 								},
 						})
 					}
@@ -395,12 +409,10 @@ $(document).ready(function() {
 			insertButton();
 			document.getElementById('calendar_modal_background').style.display = 'none';
 			document.getElementById('calendarEdit_modal_contents').style.display = 'none';
-			document.getElementById('detailsInsertModal').style.display = 'none';
+			document.getElementById('calendarInsert_modal_contents').style.display = 'none';
 			
 		}
 	}
 
 
 });
-
-

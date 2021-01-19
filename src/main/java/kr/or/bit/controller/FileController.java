@@ -46,6 +46,23 @@ public class FileController {
 			return "fail";
 		}
   }
+    //게시판 파일 업로드
+	@ResponseBody
+	@RequestMapping(value = "fileNotice.pie", method = RequestMethod.POST)
+	public int uploadFileNotice(@RequestParam("noticefile") MultipartFile file,
+							 @RequestParam("projectNum") int projectNum,
+							 @RequestParam("nick") String nick) throws IOException {
+		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick);
+		System.out.println(nick);
+		int fileLastSeq = fileservice.fileLastSeq();
+		if(check) {
+			System.out.println("파일 업로드 성공");
+			return fileLastSeq;
+		}else {
+			System.out.println("파일 업로드 실패");
+			return 0;
+		}
+  }
 	//파일 토탈 갯수 리턴 컨트로러 
 	@ResponseBody
 	@RequestMapping(value = "getFileTotalNumber.pie", method = RequestMethod.POST)
@@ -99,7 +116,6 @@ public class FileController {
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
 								 ModelAndView mv) {
-		
 		String fullPath = UploadPath.upload_path_files();
 		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
@@ -108,5 +124,14 @@ public class FileController {
 		mv.setViewName("downloadView");
 		mv.addObject("downloadFile", file);
 		return mv;
+	}
+	//파일번호에 맞는 파일명 가져오기
+	@ResponseBody
+	@RequestMapping(value = "getFileSeqName.pie", method = RequestMethod.POST)
+	public String getFileSeqName(int file_seq) {
+		System.out.println("ddddd"+file_seq);
+		String file_uploaded_name = null;
+		file_uploaded_name = fileservice.getFileSeqName(file_seq);
+		return file_uploaded_name;
 	}
 }

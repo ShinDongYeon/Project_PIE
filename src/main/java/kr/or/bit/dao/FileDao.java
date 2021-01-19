@@ -21,4 +21,8 @@ public interface FileDao {
 	public file isExistFile(file fi);
 	
 	public String getDupleName(file fi);
+	
+	public int fileLastSeq();
+	
+	public String getFileSeqName(int file_seq);
 }

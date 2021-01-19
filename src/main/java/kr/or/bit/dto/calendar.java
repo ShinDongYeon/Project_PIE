@@ -12,5 +12,6 @@ public class calendar {
 	private Boolean allDay;
 	private String color;
 	private String title;
+	private int project_seq;
 	private int card_seq;
 }

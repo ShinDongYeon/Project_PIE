@@ -37,6 +37,7 @@ $(document).ready(function() {
 							<div class = "chart-wrapper"><canvas id="myChart-'+ users.email + '"></canvas></div>\
 							</div>');
 			}
+
 			let ctx = document.getElementById('myChart-'  + users.email);
 			let myChart = new Chart(ctx, {
 				type: 'pie',

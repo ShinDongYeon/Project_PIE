@@ -12,12 +12,6 @@
     height: 100vh;
     backdrop-filter: blur(2.2px);
 }
-/*
-파일명: kanbanDetailModal.css
-설명: 칸반 카드 모달 상세페이지 내 구현될 카드 정보, 체크리스트 css
-작성일: 2021-01-04 ~ 
-작성자: 문지연
-*/
 
 /*Modals*/
 .calendarDetailsModal {

@@ -140,11 +140,11 @@
 }
 .right-sidebar-bookmark .bookmark-item-wrapper{
 	width: 450px;
-	height: 140px;
+	height: 50px;
 	border-bottom: 2px solid #000;
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
 	padding: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 }
 .bookmark-top-wrapper{
 	display: flex;
@@ -164,9 +164,9 @@
 	margin-bottom: 5px;
 }
 .bookmark-username{
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
-	padding: 5px 5px 5px 10px;
+	padding: 0px;
 }
 .bookmark-cancel{
 	font-size: 1.2rem;
@@ -178,8 +178,11 @@
 	font-size: 0.7rem;
 	font-weight: 100;
 	color: #808080;
-	padding-left: 185px;
+	padding-left: 0px;
 	margin-bottom: 5px;
+}
+.bookmark-item-wrapper:hover{
+	cursor: pointer;
 }
 .bookmark-reply{
 	margin-right: 5px;
@@ -195,8 +198,6 @@
     padding: 5px;
     margin-left: 4px;
 }
-	
-
 /*alarm*/
 .right-sidebar-alarm{
 	display: none;
