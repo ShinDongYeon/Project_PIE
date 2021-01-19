@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FullCalendar</title>
+<title>PIE</title>
 <!-- calendar를 위한 lib -->
 
 <link rel="stylesheet" href="/resources/css/calendar.css">

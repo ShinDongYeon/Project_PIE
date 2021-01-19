@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>PIE</title>
 <jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 <jsp:include page="/resources/static/static.jsp"></jsp:include>
 <script src="<c:url value="/resources/js/joinCheck.js"/>"></script>
