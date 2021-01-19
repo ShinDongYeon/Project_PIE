@@ -89,8 +89,10 @@ $(document).ready(function() {
 		}
 	});
 	*/
-	
-	function sidebarToggle(){
+
+
+	function sidebarToggle() {
+
 		let contentDiv = document.getElementById(btnClassName);
 		if (wrapper.className === 'right-sidebar-contents-wrapper-hidden') {
 			wrapper.className = 'right-sidebar-contents-wrapper-display';
