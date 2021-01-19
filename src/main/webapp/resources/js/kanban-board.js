@@ -300,6 +300,12 @@ $(function() {
 		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> " + ischecked + "/" + total + "</i></div>";
 		return chkTag;	
 	}
+	
+	//count comments
+	function countComm(total){
+		let commTag = "<div class='countComm'><i class='far fa-comment-dots'> " +total+"</i></div>";
+		return commTag;
+	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
 	function loadKanban(projectNum) {
@@ -368,10 +374,28 @@ $(function() {
 				}
 			});
 		}
-
 		getCheckListByCard();
+		
+		function countCommnets() {
+			$.ajax({
+				type: "post",
+				url: "getTotalCommByCard?sessionEmail=" + $('#session_email').val(),
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					$.each(data, function(index, item) {
+						let comm = countComm(item.total)
+						$("[data-card-seq=" + item.card_seq + "]").append(comm);
+					})
+				}
+			});
+		}
+		countCommnets();
+		
 		allSortable();
 		miniSortable();
+		
 
 	}
 

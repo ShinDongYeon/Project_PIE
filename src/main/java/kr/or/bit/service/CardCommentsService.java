@@ -1,6 +1,8 @@
 package kr.or.bit.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +56,10 @@ public class CardCommentsService {
 		comdao.editCardComment(comm);
 	}
 	
-	//get MyProfile
-	public String getMyProfileService(String email) {
+	//get myProfile&last comments sequence
+	public List<cardComments> getProAndSeqService(Map<String, Object> proSeqInfo) {
 		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
-		String profile = comdao.getMyProfile(email);
-		return profile;
+		return comdao.getProAndSeq(proSeqInfo); 
 	}
 
 }

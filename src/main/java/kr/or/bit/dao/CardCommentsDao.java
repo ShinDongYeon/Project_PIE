@@ -1,8 +1,11 @@
 package kr.or.bit.dao;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import kr.or.bit.dto.cardComments;
+import kr.or.bit.dto.user;
 
 public interface CardCommentsDao {
 	
@@ -16,6 +19,6 @@ public interface CardCommentsDao {
 	
 	public void deleteAllCardComm(int cardSeq);
 	
-	public String getMyProfile(String email);
+	public List<cardComments> getProAndSeq(Map<String, Object> proSeqInfo);
 	
 }

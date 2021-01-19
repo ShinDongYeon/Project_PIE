@@ -1,6 +1,9 @@
 package kr.or.bit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,13 +73,19 @@ public class CardCommentsController {
 		return jsonview;
 	}
 	
-	//get myProfile
+	//get myProfile&last comments sequence
 	@ResponseBody
-	@RequestMapping(value="getMyProfile.pie", method = RequestMethod.POST)
-	public View getMyProfile(@RequestParam("email") String email, Model model) {
-		String profile = cardcomservice.getMyProfileService(email);
-		model.addAttribute("profile", profile);
-		return jsonview;
+	@RequestMapping(value="getProAndSeq.pie", method = RequestMethod.POST)
+	public List<cardComments> getMyProfile(@RequestParam("email") String email) {
+		List<cardComments> proAndSeqList = null;
+		Map<String, Object> proSeqInfo = new HashMap<String,Object>();
+		try {
+			proSeqInfo.put("email", email);
+			proAndSeqList = cardcomservice.getProAndSeqService(proSeqInfo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return proAndSeqList;
 	}
 
 

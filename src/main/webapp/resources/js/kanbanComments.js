@@ -60,22 +60,22 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "post",
-			url: "getMyProfile.pie?email="+myEmail,
+			url: "getProAndSeq.pie?email="+myEmail,
 			contentType: "application/json; charset=UTF-8",
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				commentsOb.profile=data.profile;
+				commentsOb.profile=data[0].profile;
+				commentsOb.comments_seq=data[0].comments_seq;
 				}
 			});
 		
-		console.log(commentsOb);
 		commentsOb.comments=comments;
 		commentsOb.card_seq=card_seq;
 		commentsOb.email=myEmail;
 		
 		let cardComments = JSON.stringify(commentsOb);
-		
+
 			$.ajax({
 				type: "post",
 				url: "insertComments.pie",
@@ -85,6 +85,7 @@ $(document).ready(function(){
 				data: cardComments,
 				success: function(data) {
 					let comments=data.comments;
+					console.log(comments);
 					if(comments.profile==null){
 						let commIcon = commentsIcon(comments.comments_seq,comments.email,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
