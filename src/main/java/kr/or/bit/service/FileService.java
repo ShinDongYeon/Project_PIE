@@ -58,7 +58,7 @@ public class FileService{
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
-				upload_file_name = dupelName+"#."+ext;
+				upload_file_name = dupelName+"1."+ext;
 			}else {
 				upload_file_name = fileOGName;
 			}

@@ -105,14 +105,11 @@
 
 /**************************/
 /* right sidebar contents */
-
 .right-sidebar-contents-wrapper-display{
 	position: fixed;
 	background-color: #31353e;
 	width: 308px;
 	height: 100%;
-	/*padding-top: 65px;*/
-	/*padding-right: 62px;*/
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
 	transition: width .5s;
 	z-index: 2;
@@ -121,7 +118,6 @@
 	right: 60px;
 	top: 65px;
 }
-
 .right-sidebar-contents-wrapper-hidden{
 	display: none;
 	height: 100vh;
@@ -132,8 +128,6 @@
 
 /*bookmark*/
 .right-sidebar-bookmark{
-	display: none;
-	/*position: fixed;*/
 	width: 100%;
 	height: 100%;
 	padding-right: 62px;
@@ -200,7 +194,6 @@
 }
 /*alarm*/
 .right-sidebar-alarm{
-	display: none;
 	/*position: fixed;*/
 	width: 100%;
 	height: 100%;
@@ -214,55 +207,6 @@
 	padding: 5px;
 	margin-bottom: 5px;
 }
-/* .alarm-top-wrapper{
-	display: flex;
-	color: #fff;
-	padding: 0 10px;
-}
-.alarm-user{
-	width: 40px;
-    height: 40px;
-    font-size: 1.6rem;
-    background-color: #fff;
-    color: #29aae1;
-    text-align: center;
-    border-radius: 100%;
-}
-.alarm-user > i {
-	margin-bottom: 5px;
-}
-.alarm-username{
-    font-size: 1.2rem;
-    font-weight: 500;
-	padding: 5px 5px 5px 10px;
-}
-.alarm-cancel{
-	font-size: 1.2rem;
-	padding: 5px;
-	margin-left: 140px;
-}
-.alarm-middle-wrapper{
-	display: flex;
-	font-size: 0.7rem;
-	font-weight: 100;
-	color: #808080;
-	padding-left: 185px;
-	margin-bottom: 5px;
-}
-.alarm-reply{
-	margin-right: 5px;
-}
-.alarm-bottom-wrapper{
-    width: 280px;
-    height: 65px;
-    background-color: #181a1f;
-    color: #999999;
-    font-size: 0.8rem;
-    font-weight: 100;
-    border-radius: 5px;
-    padding: 5px;
-    margin-left: 4px;
-} */
 .alram-list-wrapper{
 	display: flex;
 	width: 298px;
@@ -318,7 +262,6 @@
 
 /*file*/
 .right-sidebar-file{
-	display: none;
 	/*position: fixed;*/
 	width: 100%;
 	height: 100%;
@@ -502,7 +445,6 @@
 
 /*chat*/
 .right-sidebar-chat{
-	display: none;
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -562,7 +504,6 @@
 	border-bottom: 1.5px solid #000;
 }
 .chat-list-alarm{
-	display: none;
 	background-color: red;
 	width: 20px;
 	height: 20px;
@@ -728,7 +669,6 @@
 
 /*users*/
 .right-sidebar-users{
-	display: none;
 	/*position: fixed;*/
 	width: 100%;
 	height: 100%;
