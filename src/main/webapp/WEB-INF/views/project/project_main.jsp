@@ -9,12 +9,7 @@
 	<link rel="stylesheet" href="/resources/css/projectMainStyle.css">
 	<link rel="stylesheet" href="/resources/css/projectChatCreateStyle.css">
 	<script src="/resources/js/projectMainTop.js"></script>
-	
-	 <!-- <script src="/resources/js/projectSidebar.js"></script>  -->
-	
 	<script src="/resources/js/NewprojectSidebar.js"></script>
-	
-	
 	<script src="/resources/js/projectMainChat.js"></script>
 	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
@@ -33,27 +28,27 @@
 		<!-- right sidebar -->
 		<jsp:include page="/WEB-INF/views/common/project_main_sidebar.jsp"></jsp:include>
 		
-			<!-- bookmark -->
-		<div id="right-sidebar-contents-wrapper-bookmark" class="right-sidebar-contents-wrapper-hidden">
-			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_bookmark.jsp"></jsp:include>
+		<!-- notice -->
+		<div id="right-sidebar-contents-wrapper-notice" class="right-sidebar-contents-wrapper-hidden">
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_notice.jsp"></jsp:include>
 		</div>
 		
-			<!-- alarm -->
+		<!-- alarm -->
 		<div id="right-sidebar-contents-wrapper-alarm" class="right-sidebar-contents-wrapper-hidden">
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_alarm.jsp"></jsp:include>
 		</div>	
 		
-			<!-- file -->
+		<!-- file -->
 		<div id="right-sidebar-contents-wrapper-file" class="right-sidebar-contents-wrapper-hidden">
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_file.jsp"></jsp:include>
 		</div>	
 		
-			<!-- chat -->
+		<!-- chat -->
 		<div id="right-sidebar-contents-wrapper-chat" class="right-sidebar-contents-wrapper-hidden">	
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_chat.jsp"></jsp:include>
 		</div>	
 		
-			<!-- users -->
+		<!-- users -->
 		<div id="right-sidebar-contents-wrapper-users" class="right-sidebar-contents-wrapper-hidden">	
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_users.jsp"></jsp:include>
 		</div>	
