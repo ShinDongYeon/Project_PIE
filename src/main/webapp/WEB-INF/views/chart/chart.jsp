@@ -35,9 +35,7 @@
 		</div>
 
 		<div class="pie-wrapper">
-			<div class = "clock-wrapper">
-			<span class="clock"></span>
-			</div>
+		<img src="/resources/img/prepare.png">
 		</div>
 
 		<!-- chart-2 -->

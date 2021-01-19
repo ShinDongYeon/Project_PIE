@@ -37,8 +37,6 @@ $(document).ready(function() {
 							<div class = "chart-wrapper"><canvas id="myChart-'+ users.email + '"></canvas></div>\
 							</div>');
 			}
-			console.log(done);
-			console.log(inProgress);
 			let ctx = document.getElementById('myChart-'  + users.email);
 			let myChart = new Chart(ctx, {
 				type: 'pie',
@@ -76,7 +74,6 @@ function getProgressByNameAndProjectSeq(name, projectNum) {
 		dataType: "json",
 		async: false,
 		success: function(data) {
-			console.log(data.mp);
 			done = Number(data.mp.done);
 			inProgress = Number(data.mp.inProgress);
 		}
