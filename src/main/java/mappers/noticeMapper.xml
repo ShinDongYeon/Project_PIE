@@ -12,7 +12,7 @@ VALUES(#{title},#{content},#{project_seq},#{nickName},#{email},#{writeDate},#{fi
 </insert>
 
 <select id="getNoticeList" resultType="noticeDto" parameterType = "int">
-SELECT * FROM notice WHERE project_seq = #{param1}
+SELECT * FROM notice WHERE project_seq = #{param1} ORDER BY notice_SEQ DESC LIMIT 10 OFFSET #{param2}
 </select>
 
 <select id="getNoticeDetail" resultType="noticeDto" parameterType = "int">
@@ -20,5 +20,8 @@ SELECT * FROM notice WHERE notice_seq = #{param1}
 </select>
 <select id="lastNotice_seq" resultType="int">
 SELECT max(notice_seq) as lastNotice_seq FROM notice 
+</select>
+<select id="getNoticeTotalNumber" resultType = "int">
+	SELECT count(*) FROM notice WHERE PROJECT_SEQ = #{param1}
 </select>
 </mapper>

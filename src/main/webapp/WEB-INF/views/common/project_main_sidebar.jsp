@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/resources/css/alarm.css">
 <div id="sidebar" class="sidebar">
 	<i id="sidebar-kanban" class="fas fa-columns"><span class="sidebar-icon-tooltip">칸반</span></i>
-	<i id="sidebar-board" class="fas fa-clipboard-list"><span class="sidebar-icon-tooltip">게시판</span></i>
+	<i id="sidebar-notice" class="fas fa-clipboard-list"><span class="sidebar-icon-tooltip">게시판</span></i>
 	<i id="sidebar-bell" class="far fa-bell"><span class="sidebar-icon-tooltip">알림</span>
 		<div class="alramCount" id="alramCount" style="display:none;">1</div>
 	</i>
