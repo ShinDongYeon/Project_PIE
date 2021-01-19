@@ -32,7 +32,6 @@ public class AlramController {
 		List<alram> alramList = null;
 		try {
 			alramList = alramservice.alramList(email,project_seq);
-			System.out.println("메일메일:"+alramList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -42,9 +41,7 @@ public class AlramController {
 	@ResponseBody
 	@RequestMapping(value = "alramInsert.pie", method = RequestMethod.POST)
 	public View alarmInsert(@RequestBody alram alram,Model model) {
-		System.out.println("알람DTO:"+alram);
 		List<String> memberEmail = alramservice.projectMemberList(alram.getProject_seq());
-		System.out.println("멤버이메일22:"+memberEmail);
 		memberEmail.remove(alram.getEmail());
 		alram.setMemberEmail(memberEmail);
 		try {
@@ -52,7 +49,6 @@ public class AlramController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("리턴하냐");
 		return jsonview;
 	}
 	@ResponseBody
@@ -60,7 +56,6 @@ public class AlramController {
 	public int alramLastSeq() {
 	int alramLastSeq = 0;
 	alramLastSeq = alramservice.alramLastSeq();
-	System.out.println(alramLastSeq);
 	return alramLastSeq;
 	}
 	

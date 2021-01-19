@@ -41,7 +41,6 @@ public class CheckListController {
 	@ResponseBody
 	@RequestMapping(value = "getLastCheckSeqNum.pie", method = RequestMethod.POST)
 	public View getLastListNum(Model model) {
-		System.out.println("checkSeq Controller");
 		int lastCheckSeq = checklistservice.getLastCheckSeqService();
 		model.addAttribute("data", lastCheckSeq);
 		return jsonview;
@@ -51,7 +50,6 @@ public class CheckListController {
 	@ResponseBody
 	@RequestMapping(value = "insertCheckList.pie", method = RequestMethod.POST)
 	public View insertCheckList(@RequestBody checkList chk, Model model) {
-		System.out.println("get in insert chk controller");
 		HashMap<String, Object> checkListInfo = new HashMap<String, Object>();// db update시 파라미터 담을 해쉬맵
 		checkListInfo.put("checkList", chk);
 		boolean check = checklistservice.insertCheckListService(checkListInfo);
@@ -66,15 +64,12 @@ public class CheckListController {
 	// Load CheckList
 	@RequestMapping(value = "loadCheckList.pie", method = RequestMethod.POST)
 	public View loadKanban(@RequestParam("cardSeq") int cardSeq, Model model) {
-		System.out.println("cardSeq : " + cardSeq);
 
 		ArrayList<checkList> chkList = checklistservice.loadWholeChkListService(cardSeq);
 		for (int i = 0; i < chkList.size(); i++) {
 			chkList.get(i).setCard_seq(cardSeq);
 		}
-
 		model.addAttribute("chkList", chkList);
-		System.out.println("chkListController:" + chkList);
 		return jsonview;
 	}
 
@@ -83,7 +78,6 @@ public class CheckListController {
 	@RequestMapping(value = "deleteChkList.pie", method = RequestMethod.POST)
 	public View deleteChkList(@RequestBody checkList chk, @RequestParam("cardSeq") int cardSeq, Model model) {
 		checklistservice.deleteChkListService(chk);
-		System.out.println("delete CheckList Seq:" + chk);
 		model.addAttribute("data", chk);
 		return jsonview;
 	}
@@ -93,7 +87,6 @@ public class CheckListController {
 	@RequestMapping(value = "editCheckedStatus.pie", method = RequestMethod.POST)
 	public View editCheckedStatus(@RequestBody checkList chk, Model model) {
 		checklistservice.editCheckedStatusService(chk);
-		System.out.println("edit checked status");
 		model.addAttribute("data", chk);
 		return jsonview;
 	}
@@ -106,7 +99,6 @@ public class CheckListController {
 		int projectNum = (int) httpsession.getAttribute("projectNum");
 		List<checkList> chkList = null;
 		Map<String, Object> chkListMap = new HashMap<String, Object>();
-		System.out.println("chkListMap Controller");
 		try {
 			chkListMap.put("projectNum", projectNum);
 			chkList = checklistservice.getCheckListByCardService(chkListMap);

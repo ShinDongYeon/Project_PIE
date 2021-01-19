@@ -163,7 +163,6 @@ public class PIEChartController {
 						int total_count = 0;
 						int done_count = 0;
 						
-						System.out.println(members.get(i).getEmail());
 						ArrayList<cardMember> cdm = chartservice.getCardSeqByMemberEmailService(members.get(i).getEmail());
 						for(int j = 0; j < cdm.size(); j++) {
 							total_count	+= chartservice.getTotalCheckListByCardSeqService(cdm.get(j).getCard_seq());
@@ -206,9 +205,6 @@ public class PIEChartController {
 				String lastInpro = form.format(inpro);
 				
 				mp.setInProgress(lastInpro);
-				
-				System.out.println(doneDouble);
-				System.out.println(lastInpro);
 				
 				model.addAttribute("mp", mp);
 		
