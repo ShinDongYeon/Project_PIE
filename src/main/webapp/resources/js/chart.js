@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
 	const clock = document.querySelector('.clock');
 
 
@@ -70,6 +71,7 @@ $(document).ready(function() {
 	getListProgress(project_seq);
 	/* 4번 차트*/
 
+
 	//리스트 만들기
 	function makeList_li(listName, listContent) {
 		if (listContent === "NaN") {
@@ -87,6 +89,7 @@ $(document).ready(function() {
 		let list_li = makeList_li(names[i], dones[i]);
 		$("#list-table").append(list_li);
 	}
+
 
 	let chart1 = document.getElementById('chart-1');
 	let cht1 = new Chart(chart1, {
@@ -178,6 +181,7 @@ $(document).ready(function() {
 		}
 	});
 
+
 	let chart3bar = document.getElementById('chart-3-bar');
 	let chtbar3 = new Chart(chart3bar, {
 		type: 'bar',
@@ -207,6 +211,7 @@ $(document).ready(function() {
 			}
 		}
 	});
+
 
 	let chart4 = document.getElementById('chart-4');
 	let cht4 = new Chart(chart4, {

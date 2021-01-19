@@ -83,11 +83,13 @@ th{
 	left : 40px;
 	width : 700px;
 	height : 374px;
+
 }
 
 .chart-3-wrapper{
 	border-radius : 5px;
 	background-color : rgb(255,255,255,0.45);
+
 	width : 700px;
 	position : absolute;
 	top : 948px;
@@ -109,6 +111,7 @@ th{
 	position : absolute;
 	left : 800px;
 	top : 1367px;
+
 }
  .whole-pie-wrapper{
 	border-radius : 5px;
@@ -118,6 +121,7 @@ th{
 	left : 40px;
 	height : 374px;
 	top : 1367px;
+
 }
 
 .chart-letter-wrapper-1{
@@ -167,6 +171,7 @@ th{
 .clock-wrapper{
 	position : absolute;
 	left : 38%;
+
 }
 
 
