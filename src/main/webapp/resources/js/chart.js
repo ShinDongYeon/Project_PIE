@@ -1,6 +1,32 @@
 $(document).ready(function() {
 
+
+	const clock = document.querySelector('.clock');
+
+
+	function getTime() {
+		const time = new Date();
+		const hour = time.getHours();
+		const minutes = time.getMinutes();
+		const seconds = time.getSeconds();
+		//clock.innerHTML = hour +":" + minutes + ":"+seconds;
+		clock.innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+	}
+
+
+	function init() {
+		setInterval(getTime, 1000);
+	}
+
+	init();
+
 	let project_seq = Number($("#projectNum").val());
+
+	$(".td1").text(getListCount(project_seq));
+	$(".td2").text(getCardCount(project_seq));
+	$(".td3").text(getCheckListCount(project_seq));
+	$(".td4").text(getMemberCount(project_seq));
+	$(".td5").text(getCalendarCount(project_seq));
 
 	function getRandomArbitrary(min, max) {
 		return Math.random() * (max - min) + min;
@@ -44,6 +70,26 @@ $(document).ready(function() {
 	let colors = new Array();
 	getListProgress(project_seq);
 	/* 4번 차트*/
+
+
+	//리스트 만들기
+	function makeList_li(listName, listContent) {
+		if (listContent === "NaN") {
+			listContent = 0;
+		}
+		let list = "<tr class = 'list-tr'>" +
+			"<td class = 'list-td'>" + listName + "</td>" +
+			"<td>" + listContent + "%</td>"  +
+			"</tr>";
+		return list;
+	}
+
+
+	for (let i = 0; i < names.length; i++) {
+		let list_li = makeList_li(names[i], dones[i]);
+		$("#list-table").append(list_li);
+	}
+
 
 	let chart1 = document.getElementById('chart-1');
 	let cht1 = new Chart(chart1, {
@@ -134,6 +180,38 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+
+	let chart3bar = document.getElementById('chart-3-bar');
+	let chtbar3 = new Chart(chart3bar, {
+		type: 'bar',
+		data: {
+			labels: memberNames,
+			datasets: [{
+				label: '파이원 진행도',
+				data: memberDones,
+				backgroundColor: memberColors,
+				borderColor: '#f2dd68',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			legend: {
+				position: "bottom",
+				labels: {
+					fontColor: "#f2dd68"
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+
 
 	let chart4 = document.getElementById('chart-4');
 	let cht4 = new Chart(chart4, {
