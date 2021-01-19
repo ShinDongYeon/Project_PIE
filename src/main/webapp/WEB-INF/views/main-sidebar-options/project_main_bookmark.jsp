@@ -3,8 +3,11 @@
 <!DOCTYPE html>
 <html>
 <body>
+	<input type="hidden" value="${sessionScope.loginuser}" id="session_email">
 	<div id="fas fa-star" class="right-sidebar-bookmark">
 		<!-- samples -->
+		<div id="bookmark-items-wrapper"></div>
+		<!-- 
 		<div class="bookmark-item-wrapper">
 			<div class="bookmark-top-wrapper">
 				<div class="bookmark-user"><i class="fas fa-user"></i></div>
@@ -80,6 +83,7 @@
 				내용입니다.
 			</div>
 		</div>
+		 -->
 	</div>
 </body>
 </html>

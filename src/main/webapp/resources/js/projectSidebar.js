@@ -76,6 +76,15 @@ $(document).ready(function(){
 		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
 		}
 	});
+	/*
+	$('#sidebar-mension').click(function(){
+		btnClassName = $(this)[0].className;
+		sidebarToggle();
+		if($(".top-menu").hasClass("top-menu-light") === true){
+		$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
+		}
+	});
+	*/
 	
 	function sidebarToggle(){
 		let contentDiv = document.getElementById(btnClassName);

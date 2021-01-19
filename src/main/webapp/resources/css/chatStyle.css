@@ -368,9 +368,9 @@ body{
 	outline: none;
 	padding: 7px 7px 0px 7px;
 	-webkit-appearance: none;
-	
 	font-size: 1.1rem;
 	color: #fff;
+	overflow-y: auto;
 }
 
 .chat-msgWrite-bottom-wrapper{
@@ -458,4 +458,96 @@ body{
 .fa-download{
 	color: #999999;
 	margin-left: 2px;
+}
+
+.mension{
+	position: absolute;
+	top: 26%;
+	font-size: 20px;
+	width: 16%;
+}
+.mension-content{
+	background-color: #ffffff;
+	/*position: absolute;*/
+	right: -40px;
+	bottom: 60px;
+	z-index: 3;
+	margin: auto;
+	padding: 0px;
+	border: 1px solid #888;
+	width: 320px;
+	height: 275px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px grey;
+	display: none;
+	opacity: 0;
+}
+.mension-area{
+	overflow-y: auto;
+	max-height: 270px;
+}
+.mension-select-user-wrapper{
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	border-bottom: 1px solid black;
+}
+.mension-select-user-wrapper:hover{
+	background-color: #eeeeee;
+	cursor: pointer;
+}
+.mension-select-user-subWrapper{
+	display: flex;
+}
+.mension-select-user-on{
+	visibility: hidden;
+	background-color: #00ff00;
+	width: 7px;
+	height: 7px;
+	border-radius: 7px;
+	margin: 0 auto;
+	color: white;
+	position: relative;
+	right: -4px;
+	top: 0px;
+}
+.mension-select-user-pic{
+	width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+    background-color: #fff;
+    color: #29aae1;
+    text-align: center;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+.mension-select-user-img{
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
+}
+.mension-select-user-letters-wrapper{
+	
+}
+.mension-select-user-name{
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+.mension-select-user-email{
+	font-size: 0.6rem;	
+	font-weight: 100;
+}
+.mension-added{
+	display: inline;
+	color: #03adfc;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color: #999999;
+  display: block; /* For Firefox */
+}
+
+div[contenteditable=true] {
+
 }
