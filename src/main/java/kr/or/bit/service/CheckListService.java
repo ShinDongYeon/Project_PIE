@@ -69,9 +69,9 @@ public class CheckListService {
 	}
 	
 	// getCheckListByCardService
-		public List<checkList> getCheckListByCardService(Map<String, Object> chkListMap) {
-			CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
-			return chkdao.getCheckListByCard(chkListMap);
-		}
+	public List<checkList> getCheckListByCardService(Map<String, Object> chkListMap) {
+		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
+		return chkdao.getCheckListByCard(chkListMap);
+	}
 
 }

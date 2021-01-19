@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.CardCommentsDao;
+import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dto.cardComments;
+import kr.or.bit.dto.checkList;
 
 /*
 파일명: CardCommentsService.java
@@ -61,5 +63,12 @@ public class CardCommentsService {
 		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
 		return comdao.getProAndSeq(proSeqInfo); 
 	}
+	
+	//getTotalCommByCardService
+	public List<cardComments> getTotalCommByCardService(Map<String, Object> commTotal) {
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
+		return comdao.getTotalCommByCard(commTotal);
+	}
+	
 
 }

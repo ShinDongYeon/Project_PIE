@@ -21,4 +21,5 @@ public interface CardCommentsDao {
 	
 	public List<cardComments> getProAndSeq(Map<String, Object> proSeqInfo);
 	
+	public List<cardComments> getTotalCommByCard(Map<String, Object> commTotal);
 }
