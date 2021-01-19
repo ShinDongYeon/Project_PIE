@@ -43,6 +43,10 @@
 			 -->
 		</div>
 		<div id="chat-list-hidden" style="display: none;"></div>
+		<form name="popForm">
+			<input type="hidden" id="room_number" name="select"/>
+			<input type="hidden" id="room_name" name="roomname"/>
+		</form>
 
 	</div>
 </body>

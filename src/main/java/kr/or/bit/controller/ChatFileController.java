@@ -29,18 +29,18 @@ public class ChatFileController {
 	
 	@RequestMapping(value="/chat/file", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("file") MultipartFile file, 
-								 @RequestParam("email") String email,
-								 HttpServletRequest request) throws IOException {
+							 @RequestParam("email") String email,
+							 HttpServletRequest request) throws IOException {
 		
 		HttpSession session = request.getSession();
 		int projectNum = (int)session.getAttribute("projectNum");
 		String nickname = (String)session.getAttribute("nick");
 		
-		String UPLOAD_PATH = UploadPath.upload_path_files();
+		String upload_path = session.getServletContext().getRealPath("/resources/files");
 		//boolean check = chatservice.file
 		//파일 저장 경로 (프로젝트번호 기준)
 		String specific_path = "\\file_directory_project_seq_"+projectNum;
-		File fileOb = new File(UPLOAD_PATH+specific_path);
+		File fileOb = new File(upload_path+specific_path);
 		
 		//폴더 존재 여부 
 		if(fileOb.isDirectory()) {
@@ -82,14 +82,14 @@ public class ChatFileController {
 				f.setFile_uploaded_name(upload_file_name);
 				f.setProject_seq(projectNum);
 				f.setExtension(ext);
-				f.setUpload_date(makeDate());
+				f.setUpload_date(chatfileservice.makeDate());
 				f.setNickName(nickname);
 				
 				chatfileservice.fileUploadToDBMethod(f);
 				
 				data = file.getBytes();
 				//절대경로 + 프로젝트번호 + 파일이름 
-				FileOutputStream fos = new FileOutputStream(UPLOAD_PATH+specific_path+"/"+upload_file_name);
+				FileOutputStream fos = new FileOutputStream(upload_path+specific_path+"/"+upload_file_name);
 				//파일 업로드 
 				fos.write(data);
 				 
@@ -104,20 +104,14 @@ public class ChatFileController {
 		
 	}
 	
-	//시간 리턴하는 함수 
-	public String makeDate() {
-		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		return nowDateTime;
-	}
-	
-	
 	@RequestMapping(value = "/chat/file/download", method = RequestMethod.GET)
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
-								 ModelAndView mv) {
-		
-		String fullPath = UploadPath.upload_path_files();
-		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+								 ModelAndView mv,
+								 HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String upload_path = session.getServletContext().getRealPath("/resources/files");
+		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
@@ -125,5 +119,4 @@ public class ChatFileController {
 		mv.addObject("downloadFile", file);
 		return mv;
 	}
-	
 }

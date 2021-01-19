@@ -464,14 +464,14 @@ public class ChatController {
 	}
 	
 	//우측 사이드바 채팅방 오픈
-	@RequestMapping(value="/chat/open", method = RequestMethod.GET)
-	public String openChatRoom(int select, String roomname, Model model, HttpServletRequest request){
+	@RequestMapping(value="/chat", method = RequestMethod.POST)
+	public String openChatRoom(String select, String roomname, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		
 		//채팅방 참여자를 넣어줌
 		//해당 채팅방의 참여자 리스트를 구함
 		List<roomlist> user_room_list = null;
-		user_room_list = chatservice.getChattingRoomUserListByRoomSeq(select);
+		user_room_list = chatservice.getChattingRoomUserListByRoomSeq(Integer.parseInt(select));
 		
 		//String 가공
 		String nickname = "";

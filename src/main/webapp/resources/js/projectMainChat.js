@@ -62,12 +62,6 @@ $(document).ready(function(){
 			}
 		}
 	}
-	/*
-	window.onmouseup = (event) => {
-		event.stopPropagation();
-		connectSocket.send('');
-	}
-	*/
 	
 	// 채팅생성창에서 취소버튼을 눌렀을 떄
 	crtChatCancelBtn.onclick = () => {
@@ -277,9 +271,16 @@ function logonUser(data){
 */
 function popupOpen(roomno,roomname){
 	
-	let popUrl = "chat/open?select="+roomno+"&roomname="+roomname;
-	let popOption = "width=370, height=500, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no;";
-	window.open(popUrl, "", popOption);
+	let form = document.popForm;
+	let url = "chat";
+	window.open(url,'popForm',
+		"width=370, height=500, location=no, toolbar=no, menubar=no, resizable=no, scrollbars=no, status=no");
+	form.action = url;
+	form.method = 'post';
+	form.target = 'popForm';
+	$('#room_number').val(roomno);
+	$('#room_name').val(roomname);
+	form.submit();
 	
 	$.ajax(
 		{

@@ -1,5 +1,8 @@
 package kr.or.bit.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +38,11 @@ public class ChatFileService {
 		FileDao filedao = sqlsession.getMapper(FileDao.class);
 		String fileName = filedao.getDupleName(fi);
 		return fileName;
+	}
+	
+	//시간 리턴하는 함수 
+	public String makeDate() {
+		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		return nowDateTime;
 	}
 }

@@ -11,6 +11,7 @@
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/NewprojectSidebar.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
+	<script src="/resources/js/mension.js"></script>
 	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
@@ -51,7 +52,12 @@
 		<!-- users -->
 		<div id="right-sidebar-contents-wrapper-users" class="right-sidebar-contents-wrapper-hidden">	
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_users.jsp"></jsp:include>
-		</div>	
+		</div>
+		
+		<!-- mension -->
+		<div id="right-sidebar-contents-wrapper-mension" class="right-sidebar-contents-wrapper-hidden">
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_mension.jsp"></jsp:include>
+		</div>
 		
 		<!-- main body -->
 		<div class="project-main-body-wrapper" id="kanban" style="display: block">

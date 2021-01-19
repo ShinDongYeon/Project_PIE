@@ -42,24 +42,28 @@ $(document).ready(function(){
 		return formTag;
 	}
 	
+	//session EMail
+	let myEmail = $('#email').val();
+	let nickName = $('#nick').val();
+	console.log(myEmail);
+	console.log("nickName::::"+nickName);
 	
 	//get time for ajax
 	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	let dateTime = date+' '+time;
 	
-	/*Add Comments*/
+	/*Insert Comments*/
 	$(document).on("submit", ".commentsForm", function(e) {
 		e.preventDefault();
 		let commentsOb = new Object();
 		let comments = $(this).children('.addComments').val();
 		let card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
-		let email = $('#session_email').val();
 		
 		console.log(commentsOb);
 		commentsOb.comments=comments;
 		commentsOb.card_seq=card_seq;
-		commentsOb.email=email;
+		commentsOb.email=myEmail;
 		
 		let cardComments = JSON.stringify(commentsOb);
 		
@@ -74,8 +78,8 @@ $(document).ready(function(){
 				success: function(data) {
 					let comments=data.comments;
 					if(comments.profile==null){
-						let commIcon = commentsIcon(comments.comments_seq,comments.email,comments.nickName,dateTime,comments.comments);
-						if(item.email==myEmail){
+						let commIcon = commentsIcon(comments.comments_seq,comments.email,nickName,dateTime,comments.comments);
+						if(comments.email==myEmail){
 							commIcon += FormWithIcon()
 							$('.comments').append(commIcon);
 						}else{
@@ -83,8 +87,8 @@ $(document).ready(function(){
 							$('.comments').append(commIcon);
 						}
 					}else {
-						let commPro = commentsPro(comments.comments_seq,comments.email,comments.profile,comments.nickName,comments.reg_date,comments.comments);
-						if(item.email==myEmail){
+						let commPro = commentsPro(comments.comments_seq,comments.email,comments.profile,nickName,comments.reg_date,comments.comments);
+						if(comments.email==myEmail){
 							commPro += FormWithIcon()
 							$('.comments').append(commPro);
 						}else{
@@ -105,7 +109,6 @@ $(document).ready(function(){
 		$('.commentsForm').show();
 		
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
-		let myEmail = $('#session_email').val();
 		
 		$.ajax({
 				type: "post",
@@ -115,7 +118,6 @@ $(document).ready(function(){
 				async: false,
 				success: function(data) {
 					let commList = data.commList;
-					console.log(commList)
 					$.each(commList, function(index, item) {
 					if(item.profile==null){
 						let commIcon = commentsIcon(item.comments_seq,item.email,item.nickName,item.reg_date,item.comments);

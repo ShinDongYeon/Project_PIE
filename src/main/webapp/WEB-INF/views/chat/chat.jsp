@@ -36,114 +36,14 @@
 		
 		<!-- chat body -->
 		<div id="chatMessageArea" class="chat-body-wrapper"></div>
-				<!-- date -->
-				<!-- 
-				<div class="chat-body-date">
-					<div class="chat-body-date-line">
-						――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-					</div>
-					<div class="chat-body-date-letter">
-						2020년 12월 12일
-					</div>
-					<div class="chat-body-date-line">
-						――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-					</div>
-				</div>
-				 -->
-				
-				<!-- chat contents -->
-				<!-- sender -->
-				<!-- 
-				<div class="chat-sender-wrapper">
-				-->
-					<!-- sender profile picture -->
-					<!-- 
-					<div class="chat-sender-pic">
-						<i class="fas fa-user"></i>
-					</div>
-					 -->
-					
-					<!-- chat sender message -->
-					<!-- 
-					<div>
-						<div class="chat-sender-name">
-							문지연
-						</div>
-						<div class="chat-sender-message-wrapper">
-							<div id="chatMessageArea" class="chat-sender-message">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna 
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-								ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-								Duis aute irure dolor in reprehenderit in voluptate velit 
-								esse cillum dolore eu fugiat nulla pariatur. 
-								Excepteur sint occaecat cupidatat non proident, 
-								sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-		
-							<div class="chat-sender-time">
-								오후 1:34
-							</div>
-						</div>
-					</div>
-				</div>
-				 -->
-				
-				<!-- receiver -->
-				<!-- <div class="chat-receiver-wrapper"> -->
-					<!-- sender profile picture -->
-					<!-- 
-					<div class="chat-receiver-pic">
-						<i class="fas fa-user"></i>
-					</div>
-					 -->
-					
-					<!-- chat receiver message -->
-					<!-- 
-					<div>
-						<div class="chat-receiver-name">
-							문지연
-						</div>
-						<div class="chat-receiver-message-wrapper">
-							<div class="chat-receiver-message">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna 
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-								ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-								Duis aute irure dolor in reprehenderit in voluptate velit 
-								esse cillum dolore eu fugiat nulla pariatur. 
-								Excepteur sint occaecat cupidatat non proident, 
-								sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-							<div class="chat-receiver-time">
-								오후 1:35
-							</div>
-						</div>
-					</div>
-				</div>
-				 -->
-			
-			<!-- '여기까지 읽었습니다' unread -->
-			<!-- 
-			<div class="chat-body-unread">
-				<div class="chat-body-unread-line">
-					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-				</div>
-				<div class="chat-body-unread-letter">
-					여기까지 읽었습니다.
-				</div>
-				<div class="chat-body-unread-line">
-					――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-				</div>
-			</div>
-			 -->
 			 
 		<!-- chat bottom -->
 		<div class="chat-bottom-wrapper">
 			<!-- chat message writing -->
 			<div class="chat-msgWrite-wrapper">
 				<!-- message area -->
-				<textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea>
+				<!-- <textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea> -->
+				<div contenteditable="true" placeholder="메시지를 입력하세요" id="message" class="chat-msgWrite"></div>
 				<img id="img_zone" class="chat-msgWrite-file" src =""/>
 				<!-- <div contentEditable="true"></div> -->
 				<!-- 파일 업로드 폼 -->
@@ -162,7 +62,13 @@
 								<div class="emoji-area"></div>
 							</div>
 						</div>
-							<i class="fas fa-at"></i>
+						
+						<i class="fas fa-at"></i>
+						<div class="mension">
+							<div class="mension-content">
+								<div class="mension-area"></div>
+							</div>
+						</div>
 							<i class="fas fa-font"></i>
 						<label for="file-input">
 							<i class="fas fa-upload"></i>
