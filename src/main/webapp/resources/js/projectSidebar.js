@@ -79,7 +79,7 @@ $(document).ready(function() {
 			$(".right-sidebar-contents-wrapper-display").toggleClass('right-sidebar-contents-wrapper-display-light')
 		}
 	});
-<<<<<<< HEAD
+
 	/*
 	$('#sidebar-mension').click(function(){
 		btnClassName = $(this)[0].className;
@@ -89,12 +89,9 @@ $(document).ready(function() {
 		}
 	});
 	*/
-	
-	function sidebarToggle(){
-=======
+
 
 	function sidebarToggle() {
->>>>>>> 937bc65f5d0cc247b478e9430ea91538b1777b8c
 		let contentDiv = document.getElementById(btnClassName);
 		if (wrapper.className === 'right-sidebar-contents-wrapper-hidden') {
 			wrapper.className = 'right-sidebar-contents-wrapper-display';

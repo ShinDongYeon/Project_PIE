@@ -33,6 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET COMMENTS=#{comments}, REG_DATE=now(), EDITED=1 WHERE COMMENTS_SEQ=#{comments_seq}
 	</update>
 	
+	<delete id="deleteAllCardComm" parameterType="int">
+		DELETE FROM KANBAN_COMMENTS WHERE CARD_SEQ=#{card_seq}
+	</delete>
+	
 </mapper>
 
 
