@@ -740,14 +740,15 @@ function appendMessage(msg) {
 												
 												firebase.database().ref().child('mension/0').set({
 													mension_seq : 0,
-													mension_email : email,
-													chatting_room_seq : $('#select').val(),
-													message_content : message,
-													message_date : date,
-													message_time : time,
-													email : $('#session_email').val(),
-													nickName : $('#nickname').val(),
-													profile : elem.profile
+													mension_email : '',
+													chatting_room_seq : '',
+													message_content : '',
+													message_date : '',
+													message_time : '',
+													email : '',
+													nickName : '',
+													profile : ''
+													
 												});
 												firebase.database().ref().child('mension').once('value',function(data){
 													let mension_seq = data.val().length;

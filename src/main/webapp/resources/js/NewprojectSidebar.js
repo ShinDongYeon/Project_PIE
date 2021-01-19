@@ -35,11 +35,35 @@ $(document).ready(function() {
 	//채팅 사이드바 오픈
 	$('#sidebar-chat').click(function() {
 		sideBarOpen("right-sidebar-contents-wrapper-chat");
+		
+		if(document.getElementById("right-sidebar-contents-wrapper-chat").className == "right-sidebar-contents-wrapper-display"){
+			$.ajax({
+					type: "GET",
+					url: "chat/room/list",
+					async: false,
+					success: function(data) {
+						chattingRoomList(data);
+					},
+					error: function(request, status, error) {
+						alert(error);
+					}
+			});
+		}
+		//채팅방 - 검색 입력 내용 초기화
+		if (document.getElementById("right-sidebar-contents-wrapper-chat").className == "right-sidebar-contents-wrapper-hidden") {
+			$('#chat-search-box').val('');
+		}
+		
 	});
 
 	//멤버 사이드바 오픈
 	$('#sidebar-users').click(function() {
 		sideBarOpen("right-sidebar-contents-wrapper-users");
+	});
+	
+	//멤버 사이드바 오픈
+	$('#sidebar-mension').click(function() {
+		sideBarOpen("right-sidebar-contents-wrapper-mension");
 	});
 	
 	//사이드바 오픈 함수
