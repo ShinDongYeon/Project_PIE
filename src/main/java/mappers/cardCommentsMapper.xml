@@ -37,6 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBAN_COMMENTS WHERE CARD_SEQ=#{card_seq}
 	</delete>
 	
+	<select id="getMyProfile" parameterType="String" resultType="String">
+		SELECT PROFILE FROM USER WHERE EMAIL=#{param1}
+	</select>
+	
 </mapper>
 
 

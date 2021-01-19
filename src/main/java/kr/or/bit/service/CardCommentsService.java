@@ -53,5 +53,12 @@ public class CardCommentsService {
 		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
 		comdao.editCardComment(comm);
 	}
+	
+	//get MyProfile
+	public String getMyProfileService(String email) {
+		CardCommentsDao comdao = sqlsession.getMapper(CardCommentsDao.class);
+		String profile = comdao.getMyProfile(email);
+		return profile;
+	}
 
 }

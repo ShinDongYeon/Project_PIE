@@ -16,4 +16,6 @@ public interface CardCommentsDao {
 	
 	public void deleteAllCardComm(int cardSeq);
 	
+	public String getMyProfile(String email);
+	
 }

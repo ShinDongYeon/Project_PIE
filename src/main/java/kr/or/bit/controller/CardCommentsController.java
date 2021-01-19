@@ -67,7 +67,15 @@ public class CardCommentsController {
 	public View editKanbanListTitle(@RequestBody cardComments comm, Model model) {
 		cardcomservice.editCardCommentService(comm);
 		model.addAttribute("data", "success");
-		System.out.println(comm);
+		return jsonview;
+	}
+	
+	//get myProfile
+	@ResponseBody
+	@RequestMapping(value="getMyProfile.pie", method = RequestMethod.POST)
+	public View getMyProfile(@RequestParam("email") String email, Model model) {
+		String profile = cardcomservice.getMyProfileService(email);
+		model.addAttribute("profile", profile);
 		return jsonview;
 	}
 
