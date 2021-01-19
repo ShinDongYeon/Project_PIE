@@ -51,6 +51,7 @@ $(document).ready(function() {
 			currentSideBar = document.getElementById(clickedBtnId);
 			document.getElementById(clickedBtnId).className = "right-sidebar-contents-wrapper-display";
 		}else {
+			console.log("asdasd");
 			currentSideBar.className = "right-sidebar-contents-wrapper-hidden";
 			currentSideBar = document.getElementById(clickedBtnId);
 			document.getElementById(clickedBtnId).className = "right-sidebar-contents-wrapper-display";
