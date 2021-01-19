@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main</title>
+<title>PIE</title>
 <jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 <link rel="stylesheet" href="/resources/css/mainStyle.css">
 <link rel="stylesheet" href="/resources/css/userEdit.css">

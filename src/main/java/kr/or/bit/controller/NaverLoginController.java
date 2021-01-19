@@ -95,8 +95,18 @@ public class NaverLoginController {
         	u.setEmail(email);
         	u.setNickName(nickname);
         	
-        	String pwd = "임시비밀번호";//임시 비밀번호 변경이 필요함..
-        	u.setPwd(this.bCryptPasswordEncoder.encode(pwd));
+    		//임시 비밀번호 생성
+			Random rnd = new Random();
+			StringBuffer buf = new StringBuffer();
+			for (int i = 0; i < 30; i++) {
+				if (rnd.nextBoolean()) {
+					buf.append((char) ((int) (rnd.nextInt(26)) + 97));
+				} else {
+					buf.append((rnd.nextInt(10)));
+				}
+			}
+			
+        	u.setPwd(this.bCryptPasswordEncoder.encode(buf));
         	session.setAttribute("nick", nickname);
         	session.setAttribute("loginuser", email);
         	

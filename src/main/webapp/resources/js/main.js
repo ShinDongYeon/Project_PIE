@@ -101,7 +101,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if(data.progress.inProgress === 'NaN' && 
 				   data.progress.done === 'NaN'){
-					inProgress = 1;
+					inProgress = 100;
 					done = 0;
 				}else{
 					inProgress = Number(data.progress.inProgress);
@@ -118,6 +118,7 @@ $(document).ready(function() {
 		let myChart = new Chart(ctx, {
 			type: 'pie',
 			data: {
+				labels: ["완료","진행중"],
 				datasets: [{
 					backgroundColor: [
 						"#f2dd68",
@@ -125,7 +126,14 @@ $(document).ready(function() {
 					],
 					data: [done, inProgress]
 				}]
-			}
+			},
+			options: {
+			legend: {
+				position: "right",
+				labels: {
+				}
+			},
+		}
 		});
 	}
 

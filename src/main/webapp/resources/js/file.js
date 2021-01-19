@@ -185,7 +185,6 @@ $(document).ready(function() {
 			return;
 		}
 
-		if (confirm("등록 하시겠습니까?")) {
 			// 등록할 파일 리스트를 formData로 데이터 입력
 			let form = $('#uploadForm')[0];
 			let formData = new FormData(form);
@@ -216,7 +215,6 @@ $(document).ready(function() {
 					makePageBtn(totalNum, currentPage);
 				}
 			});
-		}
 	}
 	//처음 페이지 입장시 파일 로드 및 페이징 
 	loadFiles($("#projectNum").val(), 1);
