@@ -13,4 +13,6 @@ public interface NoticeDao {
 	public notice getNoticeDetail(int notice_seq);
 	
 	public int lastNotice_seq();
+	
+	public int getNoticeTotalNumber(int project_seq);
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
@@ -20,6 +21,21 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeservice;
 	
+	@ResponseBody
+	@RequestMapping(value="noticeTotalNumber.pie", method = RequestMethod.POST)
+	public View getNoticeTotalNumber(@RequestParam("project_seq") int project_seq,Model model) {
+		int totalNumber = 0;
+		try {
+			totalNumber = noticeservice.getNoticeTotalNumber(project_seq);
+			model.addAttribute("totalNumber", totalNumber);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("totalNumber");
+		}
+		return jsonview;
+		
+	}
 	@RequestMapping(value="noticeInsert.pie", method = RequestMethod.POST)
 	public View noticeInsert(@RequestBody notice notice, Model model) {
 		try {
@@ -29,6 +45,7 @@ public class NoticeController {
 		}
 		return jsonview;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="noticeList.pie", method = RequestMethod.GET)
 	public List<notice> noticeList(int project_seq){
@@ -40,6 +57,7 @@ public class NoticeController {
 		}
 		return noticeList;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="noticeDetail.pie", method = RequestMethod.GET)
 	public notice noticeDatail(int notice_seq){
@@ -51,6 +69,7 @@ public class NoticeController {
 		}
 		return noticeDetail;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="lastNotice_seq.pie", method = RequestMethod.GET)
 	public int lastNotice_seq(){
@@ -62,4 +81,6 @@ public class NoticeController {
 		}
 		return lastNotice_seq;
 	}
+	
+	
 }

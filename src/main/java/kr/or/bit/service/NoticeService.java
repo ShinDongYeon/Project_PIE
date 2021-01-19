@@ -31,4 +31,8 @@ public class NoticeService {
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
 		return noticedao.lastNotice_seq();
 	}
+	public int getNoticeTotalNumber(int project_seq)throws Exception{
+		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
+		return noticedao.getNoticeTotalNumber(project_seq);
+	}
 }

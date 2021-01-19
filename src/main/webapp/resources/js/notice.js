@@ -1,7 +1,25 @@
 $(document).ready(function() {
+	//페이지 버튼 개수 
+	let totalNum = null;
+	//현재 머물고 있는 페이지
+	let currentPage = 1;
 	let today = new Date();
 	let hours = today.getHours();
 	let minutes = today.getMinutes();
+	
+	function getNoticeTotalNumber(){
+		$.ajax({
+		type: "post",
+		url: "noticeTotalNumber.pie?project_seq="+$("#projectNum").val(),
+		contentType: "application/json; charset=UTF-8",
+		dataType: "json",
+		async: false,
+		success: function(data) {
+			totalNum = data.totalNumber;
+			console.log(totalNum)
+		}
+	});
+	}
 		$('#wirte').click(function(){
 		document.getElementById('noticeInsert_modal_contents').style.display='block'
        //document.getElementById('notice_modal_background').style.display = 'block';
@@ -171,4 +189,82 @@ function createNotice(data) {
 	});
 	})
 	})
+	getNoticeTotalNumber()
+	makePageBtn(totalNum,currentPage)
+	//페이지 버튼 
+	function btn(num) {
+		let btn = "<div class = 'btn'>" + num + "</div>";
+		return btn;
+	}
+
+	//현재 페이지 버튼 
+	function current_page_btn(num) {
+		let current_page_btn = "<div class = 'current-page-btn'>" + num + "</div>";
+		return current_page_btn;
+	}
+		//페이지 버튼 만드는 루프 
+	function pageBtnLoop(total_page_btn, curPage) {
+
+		//기존 페이지 버튼을 지워줌 
+		$(".page-btn-zone").empty();
+
+		//시작 페이지 
+		start_page = ((Math.ceil((curPage / 5))) * 5) - 4;
+
+		//버튼을 최대 5개 까지만 만드는 카운트 
+		let count = 0;
+
+		//왼쪽 버튼을 만드는 조건문 
+		if (start_page > 1) {
+			let left_btn = "<div class = 'left-btn'><i class='fas fa-angle-left'></i></div>";
+			$(".page-btn-zone").append(left_btn)
+		}
+
+		//오른쪽 버튼 생성 여부를 결정하는 카운트 변수 
+		let forRightBtn = 0;
+
+		//페이지 버튼을 만드는 루프 
+		for (let i = start_page; i <= total_page_btn; i++) {
+
+			//루프가 최대 5번 돌면 for문 탈출
+			if (count === 5) {
+				break;
+			} else {
+				if (i === Number(curPage)) {
+					$(".page-btn-zone").append(current_page_btn(i));
+				} else {
+					let btnDoc = btn(i);
+					$(".page-btn-zone").append(btnDoc);
+				}
+				count += 1;
+			}
+			forRightBtn = i;
+		}
+		//오른쪽 버튼을 만드는 조건문 
+		if (total_page_btn > forRightBtn) {
+			let right_btn = "<div class = 'right-btn'><i class='fas fa-angle-right'></i></div>";
+			$(".page-btn-zone").append(right_btn);
+		}
+
+	}
+
+	//해당 프로젝트의 전체 파일 개수를 기준으로 하여 페이징 버튼을 만들어주는 함수 
+	function makePageBtn(totalCount, curPage) {
+		//현재 페이지 
+		curPage = Number(curPage);
+
+		//총 파일 개수를 기준으로 몇개의 버튼(페이지)을 만들지 결정하는 변수 
+		let total_page_btn = null;
+
+		//나누고 나머지가 있으면 딱 떨어지는 수가 아님 
+		if (totalCount % 5 === 0) {
+			total_page_btn = totalCount / 5;
+		} else {
+			total_page_btn = Math.floor((totalCount / 5)) + 1;
+		}
+		pageBtnLoop(total_page_btn, curPage);
+		currentPage = curPage;
+
+	}
+
 });

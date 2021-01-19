@@ -17,6 +17,8 @@
 		<div><input type="button" id="wirte" value="글쓰기"/></div>
 		<div id="noticeList">
 		</div>
+		<div class = "page-btn-zone">
+		</div>
 	</div>
 </body>
 </html>
