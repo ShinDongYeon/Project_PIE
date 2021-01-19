@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/cardMember.css">
 <link rel="stylesheet" href="/resources/css/kanban-board.css">
@@ -124,7 +124,7 @@
 					<i class="far fa-comments"></i> Comments
 				</h2>
 				<div class="comments" style="display:none;"></div>
-				<form class="commentsForm" style="display:neone;">
+				<form class="commentsForm">
 					<textarea class="addComments" cols="30" rows="10" placeholder="enter comments"></textarea>
 					<button class="addComments-btn">Save</button>
 				</form>

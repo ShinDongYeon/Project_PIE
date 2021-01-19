@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
+
 import kr.or.bit.dto.calendar;
 import kr.or.bit.service.CalendarService;
 
@@ -21,7 +25,9 @@ public class CalendarController {
 	public void setCalendarservice(CalendarService calendarservice) {
 		this.calendarservice = calendarservice;
 	}
-
+	@Autowired
+	private View jsonview;
+	
 	@RequestMapping(value = "fullcalendar.htm", method = RequestMethod.GET)
 	public String home() {
 		return "project/calendar_main";
@@ -29,28 +35,26 @@ public class CalendarController {
 
 	@ResponseBody
 	@RequestMapping(value = "calendarInsert.pie", method = RequestMethod.POST)
-	public String calendarInsert(String start, String end, String title, String content, Boolean allDay,
-			String color,int project_seq,int card_seq) {
+	public View calendarInsert(@RequestBody calendar calendar, Model model) {
 		try {
-			calendarservice.insertCalendar(start, end, title, content, allDay, color,project_seq,card_seq);
+			calendarservice.insertCalendar(calendar);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:" + e.getMessage());
 		}
-			return "a";
+			return jsonview;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "calendarUpdate.pie", method = RequestMethod.POST)
-	public String calendarUpdate(String start, String end, String title, String content, boolean allDay,
-			String color,String id) {
+	public View calendarUpdate(@RequestBody calendar calendar, Model model) {
 		try {
-			calendarservice.calendarUpdate(start, end, title, content,allDay,color, id);
+			calendarservice.calendarUpdate(calendar);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:" + e.getMessage());
 		}
-		return "a";
+		return jsonview;
 
 	}
 
@@ -81,7 +85,6 @@ public class CalendarController {
 			System.out.println("에러:" + e.getMessage());
 
 		}
-		System.out.println("리스트리스트:"+calendarListKanban);
 		return calendarListKanban;
 	}
 	
@@ -97,7 +100,6 @@ public class CalendarController {
 			System.out.println("에러:" + e.getMessage());
 
 		}
-		System.out.println("리스트리스트:"+calendarListKanbanDetail);
 		return calendarListKanbanDetail;
 	}
 	
@@ -112,7 +114,6 @@ public class CalendarController {
 			start = new_format.format(startformat);
 			end = new_format.format(endformat);
 
-			System.out.println("시작:" + start + "/" + "끝:" + end + "/" + "번호:" + id);
 			calendarservice.calendarEdit(start, end, id);
 			;
 		} catch (Exception e) {
@@ -124,7 +125,6 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarDelete.pie", method = RequestMethod.POST)
 	public void calendarDelete(int id) {
-		System.out.println("번호:" + id);
 		try {
 			calendarservice.calendarDelete(id);
 		} catch (Exception e) {
@@ -136,7 +136,6 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "calendarDeleteKanban.pie", method = RequestMethod.POST)
 	public void calendarDeleteKanban(int card_seq) {
-		System.out.println("카드번호"+card_seq);
 		try {
 			calendarservice.calendarDeleteKandan(card_seq);
 		} catch (Exception e) {

@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.or.bit.dao.CalendarDao">
  
-<insert id="insertCalendar">
+<insert id="insertCalendar" parameterType = "CalendarDto" >
 INSERT INTO calendar
 (start,end,title,content,allday,color,project_seq,card_seq)
-VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8}) 
+VALUES(#{start},#{end},#{title},#{content},#{allDay},#{color},#{project_seq},#{card_seq}) 
 </insert>
 
 
@@ -44,10 +44,10 @@ DELETE FROM calendar
 WHERE card_seq = #{param1} 
 </delete>
 
-<update  id="updateCalendar">
+<update  id="updateCalendar" parameterType = "CalendarDto">
 UPDATE calendar
-SET start=#{param1},end = #{param2},title = #{param3},content = #{param4},allday=#{param5},color=#{param6}
-WHERE id = #{param7} 
+SET start=#{start},end = #{end},title = #{title},content = #{content},allday=#{allDay},color=#{color}
+WHERE id = #{id} 
 </update>
 
 <select id="getCalendarCount" resultType="int" parameterType = "int">

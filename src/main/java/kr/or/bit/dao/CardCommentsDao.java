@@ -10,4 +10,8 @@ public interface CardCommentsDao {
 	
 	public ArrayList<cardComments> loadComments(int cardSeq);
 	
+	public void deleteCardComment(int commSeq);
+	
+	public void editCardComment(cardComments comm);
+	
 }

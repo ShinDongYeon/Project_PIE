@@ -36,10 +36,8 @@ crossorigin="anonymous"></script>
 	<jsp:include page="/WEB-INF/views/not-used-yet/userEdit_pwdCheck.jsp"></jsp:include>
 	<!-- userEdit_withdrawal_complete modal -->
 	<jsp:include page="/WEB-INF/views/not-used-yet/userEdit_withdrawal.jsp"></jsp:include>
-
 	<!-- 파이 생성하기 모달 -->
 	<jsp:include page="/WEB-INF/views/project/createNewPIE.jsp"></jsp:include>
-
 	<!-- 파이 초대하기 모달 -->
 	<jsp:include page="/WEB-INF/views/project/invitePIE.jsp"></jsp:include>
 

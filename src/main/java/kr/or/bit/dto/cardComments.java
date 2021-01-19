@@ -9,6 +9,7 @@ public class cardComments {
 	private int comments_seq;
 	private String comments;
 	private String reg_date;
+	private int edited;
 	private String nickName;
 	private String profile;
 }
