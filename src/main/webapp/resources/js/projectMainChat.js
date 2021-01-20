@@ -224,6 +224,23 @@ $(document).ready(function(){
 	});
 	
 	
+	$.ajax({
+			type 		: "GET",
+			url  		: "../chat/checkalarm/sidebar",
+			async		: false,
+			success 	: function(data){
+				$('#chatAlarmCount').html(data);
+				$('#chatAlarmCount').css('display','block');
+				if($('#chatAlarmCount').text() == 0){
+					$('#chatAlarmCount').css('display','none');
+				}
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+	});
+	
+	
 });
 
 /*
