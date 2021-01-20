@@ -13,7 +13,7 @@
 </head>
 <body>
 	<!-- Top -->
-	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/main_top2.jsp"></jsp:include>
 
 	<!-- login-register left navbar -->
 	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>
@@ -21,13 +21,16 @@
 	<!-- Register Page -->
 	<div class="register-wrapper">
 		<div class="register-contents">
-			<div class="register-user-pic-wrapper">
+			<!-- <div class="register-user-pic-wrapper">
 				<div class="register-user-pic">
 					<i class="fas fa-user"></i>
 				</div>
 				<div class="register-user-pic-select-wrapper">
 					<i class="fas fa-camera"></i>
 				</div>
+			</div> -->
+			<div class="register-message1">
+				회원가입
 			</div>
 
 			<!-- Register Form -->
