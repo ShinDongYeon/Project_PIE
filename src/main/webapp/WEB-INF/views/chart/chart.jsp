@@ -24,7 +24,7 @@
 			<canvas id="chart-1"></canvas>
 		</div>
 
-		<div class="list-progress-wrapper">
+<!-- 		<div class="list-progress-wrapper">
 			<div class="list-progress-title-wrapper"></div>
 
 			<div class="list-progress-content-wrapper">
@@ -33,11 +33,11 @@
 					<th>진행률</th>
 				</table>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="pie-wrapper">
+<!-- 		<div class="pie-wrapper">
 		<img src="/resources/img/prepare.png">
-		</div>
+		</div> -->
 
 		<!-- chart-2 -->
 		<div class="chart-2-wrapper">
