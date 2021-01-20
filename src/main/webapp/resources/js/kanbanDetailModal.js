@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
 	function makeChkList(check_seq, check_name, ischecked) {
-		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
+		let chkTag = '<span class="todo-wrap"><input type="checkbox" id="checkList" data-check-seq="' +
 			check_seq + '" isChecked="' + ischecked + '"/><label for="' + check_seq +
 			'" class="todo"><i class="fa fa-check"></i>' + check_name + '</label>' +
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
@@ -312,7 +312,7 @@ $(document).ready(function() {
 
 		let newId = Number(lastSibling) + 1;
 
-		$(this).before('<span class="editing todo-wrap"><input type="checkbox" data-check-seq="' +
+		$(this).before('<span class="editing todo-wrap"><input type="checkbox" id="checkList" data-check-seq="' +
 			newId + '"/><label for="' + newId +
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');

@@ -21,7 +21,7 @@
 			<i class="fas fa-pen"></i> 제목
 			</h3>
 			<div id="noticeInput" class="noticeTitle">
-				<input type="text" id="title" name="title" placeholder=""> 
+				<input type="text" id="noticeTitle" name="title" placeholder=""> 
 			</div>
 			<!-- Card Details -->
 			<div id="noticeDetailsWrap">
@@ -53,7 +53,7 @@
 			<i class="fas fa-pen"></i> 제목
 			</h3>
 			<div id="noticeInput" class="noticeTitle">
-				<input type="text" id="titleView" name="title" readonly /> 
+				<input type="text" id="noticeTitleView" name="title" readonly /> 
 			</div>
 			<!-- Card Details -->
 			<div id="noticeDetailsWrap">
@@ -66,6 +66,10 @@
 				</h2>
 			</div>
 				<div class="noticeContentView" id="noticeContentView" style="display:block;" readonly>
+				</div>
+				<div id="downloadDiv" style="display:none;">
+				<a href= '' class="noticedownload" style = 'text-decoration : none'>
+				<input type="button" id="downloadfile" name="downloadfile"value="파일다운로드" /><span id="downloadFilename"></span></a>
 				</div>
 				<!-- 댓글 -->
 				<div class = CommetnsWrap-notice id="CommetnsWrap-notice" style="display=">
@@ -83,8 +87,6 @@
 					<textarea class="ckeditor" id="summernoteEdit"></textarea>
 					<input type="file" name="uploadfile" placeholder="파일 선택" />
 				</div>
-				<a href= '' class="noticedownload" style = 'text-decoration : none'>
-				<input type="button" id="downloadfile" name="downloadfile"value="파일다운로드" style="display:none;"/></a>
 		</div>
 		<input type="hidden" id="notice_seq_hidden"value=""/>
 	</div>

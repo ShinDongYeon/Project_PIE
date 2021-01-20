@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.notice;
+import kr.or.bit.service.NoticeCommentsService;
 import kr.or.bit.service.NoticeService;
 
 /*
@@ -27,7 +28,8 @@ public class NoticeController {
 	private View jsonview;
 	@Autowired
 	private NoticeService noticeservice;
-	
+	@Autowired
+	private NoticeCommentsService noticecommentsservice;
 	//게시판 전체 게시물 수
 	@ResponseBody
 	@RequestMapping(value="noticeTotalNumber.pie", method = RequestMethod.POST)
@@ -106,6 +108,7 @@ public class NoticeController {
 	@RequestMapping(value="noticeDelete.pie", method = RequestMethod.POST)
 	public String noticeDelete(int notice_seq) {
 		try {
+			noticecommentsservice.deleteAllNoticeComments(notice_seq); //게시판 삭제시 댓글도 모두삭제
 			noticeservice.noticeDelete(notice_seq);
 		} catch (Exception e) {
 			e.printStackTrace();
