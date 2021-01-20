@@ -45,6 +45,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
 	</select>
 	
+	<select id="getCardSeqByProjectSeq" resultType="int" parameterType="int">
+		SELECT CARD_SEQ FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
+	<delete id="deleteKanbanCardByProjectSeq" parameterType="int">
+		DELETE FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
+	</delete>
+	
+	
 </mapper>
 
 

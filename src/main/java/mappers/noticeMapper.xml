@@ -24,4 +24,10 @@ SELECT max(notice_seq) as lastNotice_seq FROM notice
 <select id="getNoticeTotalNumber" resultType = "int">
 	SELECT count(*) FROM notice WHERE PROJECT_SEQ = #{param1}
 </select>
+
+<delete id="deleteNoticeByProjectSeq" parameterType = "int">
+	DELETE FROM notice WHERE PROJECT_SEQ = #{param1}
+</delete>
+
 </mapper>
+

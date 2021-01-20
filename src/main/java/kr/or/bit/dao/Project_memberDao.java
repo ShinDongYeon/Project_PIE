@@ -13,6 +13,8 @@ public interface Project_memberDao {
 	public int getMemberCount(int projectNum);
 	
 	public ArrayList<project_member> getMember(int projectNum);
+	
+	public void deletePmByProjectSeq(int projectNum);
 }
 
 

@@ -299,7 +299,9 @@ $(document).ready(function() {
 					dataType: "json",
 					async: false,
 					success: function(data) {
-						console.log(data);
+						if(data.data === 'success'){
+							location.href = "main.pie";
+						}
 					}
 				});
 
