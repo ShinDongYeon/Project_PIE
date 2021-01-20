@@ -37,7 +37,7 @@ $(document).ready(function() {
 	}
 	
 	function loadChkList(ischecked,total){
-		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> "+ischecked+"/"+total+"</i></div>";
+		let chkTag = "<i class='far fa-check-square'> "+ischecked+"/"+total+"</i>";
 		return chkTag;
 	}
 	
@@ -350,7 +350,7 @@ $(document).ready(function() {
 
 				let check = JSON.stringify(checkOb);
 				
-				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus').children('.fa-check-square');
+				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons').children('.fa-check-square');
 				
 				$.ajax({
 					type: "post",
@@ -363,7 +363,8 @@ $(document).ready(function() {
 						progressBar();
 						if(total===1){
 							let chk = loadChkList(0,1);
-							$("[data-card-seq="+cardSeq+"]").append(chk);
+							$("[data-card-seq="+cardSeq+"]").children('.icons').show();
+							$("[data-card-seq="+cardSeq+"]").children('.icons').append(chk);
 						}else {
 							let checked = $('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length;
 							thisCard.text(" "+checked+"/"+total);
@@ -393,7 +394,7 @@ $(document).ready(function() {
 		
 		let total=Number($(this).parents().children('.todo-wrap').length);
 		
-		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus').children('.fa-check-square');
+		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons').children('.fa-check-square');
 		console.log(thisCard);
 		
 		if (chk) {
@@ -464,7 +465,7 @@ $(document).ready(function() {
 			$('.progressbar-label').text(percentage + "%");
 		}
 		
-		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.checkStatus');
+		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons');
 		let chkNum = Number($('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length);
 		
 		$.ajax({
@@ -476,7 +477,7 @@ $(document).ready(function() {
 			data: check,
 			success: function(data) {
 				if(total===0){
-					thisCard.remove();
+					thisCard.children('.fa-check-square').remove();
 				}else if(ischecked===1){
 					thisCard.children('.fa-check-square').text(" "+(chkNum-1)+"/"+total);
 						if(chkNum<0){

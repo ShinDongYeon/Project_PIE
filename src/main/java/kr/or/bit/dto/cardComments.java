@@ -12,4 +12,5 @@ public class cardComments {
 	private int edited;
 	private String nickName;
 	private String profile;
+	private int total;
 }

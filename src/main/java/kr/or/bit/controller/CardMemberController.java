@@ -61,7 +61,7 @@ public class CardMemberController {
 	
 	//getCardMemBySession
 	@ResponseBody
-	@RequestMapping(value = "getCardMemBySession", method = RequestMethod.GET)
+	@RequestMapping(value = "getCardMemBySession.pie", method = RequestMethod.GET)
 	public List<user> getCardMemBySession(@RequestParam("sessionEmail") String sessionEmail,
 			HttpServletRequest request) {
 		// get Project Session
