@@ -1,7 +1,9 @@
 package kr.or.bit.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.alram;
-import kr.or.bit.dto.list;
-import kr.or.bit.dto.project_member;
 import kr.or.bit.service.AlramService;
 
 @Controller
@@ -51,6 +51,8 @@ public class AlramController {
 		}
 		return jsonview;
 	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "alramLastSeq.pie", method = RequestMethod.POST)
 	public int alramLastSeq() {

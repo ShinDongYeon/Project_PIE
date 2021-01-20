@@ -16,4 +16,5 @@ public class alram {
 	private int alramCount;
 	private List<String> memberEmail;
 
+	private int chatting_room_seq;
 }

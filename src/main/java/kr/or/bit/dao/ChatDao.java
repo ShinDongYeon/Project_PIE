@@ -30,8 +30,6 @@ public interface ChatDao {
 	 
 	 public List<roomlist> getProfiles();
 	 
-	 public List<user> getProfilesByRoomSeq(int chatting_room_seq);
-	 
 	 public room getRoomListBySeq(int room_seq);
 	 
 	 public List<user> selectedUser(Map<String, Object> selectUserMap);

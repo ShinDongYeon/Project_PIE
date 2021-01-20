@@ -68,10 +68,6 @@ public class ChatService {
 		return dao.getProfiles();
 	}
 	
-	public List<user> getProfilesByRoomSeq(int chatting_room_seq) {
-		ChatDao dao = sqlsession.getMapper(ChatDao.class);
-		return dao.getProfilesByRoomSeq(chatting_room_seq);
-	}
 	
 	public room getRoomListBySeq(int room_seq) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);

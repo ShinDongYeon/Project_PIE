@@ -103,16 +103,6 @@ $(document).ready(function(){
 					}
 			);
 		}
-		let today = new Date();
-		var alram = {
-			email:$("#session_email").val(),
-			nick:$("#nickname").val(),
-			title:"채팅방",
-			state:"생성",
-			alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
-			project_seq:$("#projectNum").val(),
-		}
-		socket.send(JSON.stringify(alram));
 	}
 	
 	
@@ -341,6 +331,7 @@ function chattingRoomList(data){
 							$.each(Object.keys(data.profiles),function(index, roomno){
 								if(roomno == elem.chatting_room_seq){
 									if(data.profiles[elem.chatting_room_seq].length > 3){
+										
 										if(data.profiles[elem.chatting_room_seq][0].profile != null){
 											opr+=	"<img class='chat-list-img-1-1' src='/resources/profile/"+data.profiles[elem.chatting_room_seq][0].email+"_"+data.profiles[elem.chatting_room_seq][0].profile+"'>";
 										}else{
@@ -396,16 +387,11 @@ function chattingRoomList(data){
 							});
 		opr +=		"</div>"+
 					"<div class='chat-list-letter-wrapper'>"+
-						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>";
-						//if(elem.clicked == 0){
-							opr+=	"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
-										chat_title_substr+
-									"</a>";
-						//}else{
-						//	opr+=	chat_title_substr;
-						//}
-							
-		opr+=		"</div>"+
+						"<div id='chat-list-letter-title-"+elem.chatting_room_seq+"' class='chat-list-letter-title'>"+
+						"<a id='chat-list-letter-a"+elem.chatting_room_seq+"' href='javascript:popupOpen("+elem.chatting_room_seq+",\""+chat_title_substr+"\");' class='chat-list-letter-a'>"+
+							chat_title_substr+
+						"</a>"+
+					"</div>"+
 						"<div id='chat-list-letter-members-"+elem.chatting_room_seq+"' class='chat-list-letter-members'>"+data.nicknames[index]+"</div>"+
 					"</div>"+
 					"<div id='chat-list-update-"+elem.chatting_room_seq+"' class='chat-list-update'>"+

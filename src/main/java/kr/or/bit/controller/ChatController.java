@@ -49,18 +49,6 @@ public class ChatController {
 		return memberList;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/chat/profile", method = RequestMethod.GET)
-	public List<user> getProfile(@RequestParam("chatting_room_seq") int chatting_room_seq){
-		List<user> profile_list = null;
-		try {
-			 profile_list = chatservice.getProfilesByRoomSeq(chatting_room_seq);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return profile_list;
-	}
-	
 	//채팅방 생성하기 버튼 클릭시 채팅방 생성하기
 	@ResponseBody
 	@RequestMapping(value="/chat/members", method = RequestMethod.POST)

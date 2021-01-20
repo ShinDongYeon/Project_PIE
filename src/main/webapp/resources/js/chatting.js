@@ -461,8 +461,8 @@ function onOpen(evt){
 			let strArr = str.split('-');
 			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
 			let DB_date_format = DB_date.format('yyyy년 MM월 dd일');
-			//날짜가 3일뒤 자정이 지난 메시지는 띄우지 않기
-			if((today - DB_date)/1000/60/60/24 < 3){
+			//날짜가 5일뒤 자정이 지난 메시지는 띄우지 않기
+			if((today - DB_date)/1000/60/60/24 < 5){
 				//날짜가 바뀌었으면 바뀐 것을 표시
 				if(data.val()[i].message_date != data.val()[i-1].message_date){
 					msgbox += 	"<div class='chat-body-date'>"+

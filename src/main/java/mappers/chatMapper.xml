@@ -74,15 +74,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY L.CHATTING_ROOM_SEQ
 	</select>
 	
-	<!-- public List<user> getProfilesByRoomSeq(int chatting_room_seq); -->
-	<select id="getProfilesByRoomSeq" resultType="userDto">
-		SELECT U.EMAIL, U.PROFILE
-		FROM USER U JOIN CHATTINGROOMLIST L
-		ON U.EMAIL = L.EMAIL
-		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
-		ORDER BY L.CHATTING_ROOM_SEQ
-	</select>
-	
 	<!-- public List<user> selectedUser(Map<String, Object> selectUserMap); -->
 	<select id="selectedUser" resultType="userDto" parameterType="hashMap">
 		SELECT U.EMAIL, U.NICKNAME, U.PROFILE 
