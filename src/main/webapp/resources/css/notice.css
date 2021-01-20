@@ -72,7 +72,7 @@
 cursor: pointer;
 }
 
-#title, #startDate, #endDate,#titleView,#startDateView,#endDateView {
+#title,#titleView{
     width: 30%;
     padding-left:10px;
     margin-bottom: 10px;
@@ -89,27 +89,7 @@ cursor: pointer;
 	display:inline-block;
 }
 
-#allDay,#allDayView{
-    border: block;
-    border-radius: 5px;
-    width:21px;
-    height:25px;
-    position:relative;
-    top:4px;
-    cursor: pointer;
-}
-#eventColor,#eventColorView{
-	font-size:20px;
-    padding-left:10px;
-    margin-bottom:10px;
-    font-weight: 200;
-    color: #000;
-    border: block;
-    background: #fbfdea;
-    border-radius: 5px;
-    width:100%;
-}
-#title, #startDate, #endDate, #endDateView,#titleView,#startDateView{
+#title,#titleView{
 	font-size:20px;
     padding-left:10px;
     margin-bottom:10px;
@@ -140,12 +120,16 @@ cursor: pointer;
 }
 #write{
 	width: 297px;
+    background: #f2dd68;
+    color: #000;
+    font-size: 15px;
+    padding: 10px 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.CheckBox{
-	width:30%;
-	margin-left:0px;
-}
 .Title, .StartDate, .EndDate, .CheckBox {
 	text-align: left;
 	padding: 0;
@@ -229,35 +213,7 @@ cursor: pointer;
 }
 
 /*Check List in Modal*/
-.select{
-	width:60%;
-}
-#selectColorWrap {
-	-webkit-transition: .25s ease-in-out;
-	-moz-transition: .25s ease-in-out;
-	-o-transition: .25s ease-in-out;
-	transition: .25s ease-in-out;
-	font-family: helvetica neue, helvetica, arial, sans-serif;
-	font-size: 18px;
-	line-height: 18px;
-	box-sizing: border-box;
-	margin: 0;
-}
 
-.selectColorTitle {
-	text-align: left;
-	padding: 0;
-	font-size: 25px;
-	font-weight: 200;
-	color: #454545;
-	margin-bottom: 10px;
-}
-
-.selectColorTitle .fa-palette {
-	font-size: 25px;
-	margin-right: 5px;
-	color: #f2dd68;
-}
 .noticeSelect{
 	width:100%;
 	margin:0px;
