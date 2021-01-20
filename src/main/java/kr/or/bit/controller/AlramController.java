@@ -58,7 +58,7 @@ public class AlramController {
 		}
 		return jsonview;
 		}
-		return null;
+		return jsonview;
 	}
 	
 	//알람 마지막 번호 
