@@ -8,7 +8,12 @@ import org.springframework.stereotype.Service;
 
 import kr.or.bit.dao.NoticeCommentsDao;
 import kr.or.bit.dto.noticeComments;
-
+/*
+파일명: NoticeCommentsService.java
+설명: 게시판 댓글 서비스
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Service
 public class NoticeCommentsService {
 

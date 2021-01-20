@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import kr.or.bit.dao.NoticeDao;
 import kr.or.bit.dto.notice;
 
+/*
+파일명: NoticeService.java
+설명: 게시판 서비스 
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Service
 public class NoticeService {
 	@Autowired

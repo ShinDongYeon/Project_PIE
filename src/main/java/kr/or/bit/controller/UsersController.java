@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.bit.dto.users;
 import kr.or.bit.service.UsersService;
-
+/*
+파일명: UsersController.java
+설명: 가입멤버목록
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Controller
 public class UsersController {
 	
