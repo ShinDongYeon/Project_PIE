@@ -61,9 +61,12 @@ $(document).ready(function() {
 		sideBarOpen("right-sidebar-contents-wrapper-users");
 	});
 	
-	//멤버 사이드바 오픈
+	//멘션 사이드바 오픈
 	$('#sidebar-mension').click(function() {
 		sideBarOpen("right-sidebar-contents-wrapper-mension");
+		if(document.getElementById("right-sidebar-contents-wrapper-mension").className == "right-sidebar-contents-wrapper-display"){
+			mensionList();
+		}
 	});
 	
 	//사이드바 오픈 함수
@@ -79,6 +82,9 @@ $(document).ready(function() {
 			currentSideBar.className = "right-sidebar-contents-wrapper-hidden";
 			currentSideBar = document.getElementById(clickedBtnId);
 			document.getElementById(clickedBtnId).className = "right-sidebar-contents-wrapper-display";
+			
+			//채팅방 - 검색 입력 내용 초기화
+			$('#chat-search-box').val('');
 		}
 	}
 

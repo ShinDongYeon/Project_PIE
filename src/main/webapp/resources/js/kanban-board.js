@@ -266,7 +266,7 @@ $(function() {
 	function makeCard(card_order_num, card_seq, card_name) {
 		let cardTag = "<div class = 'cardContent' id ='" + card_order_num + "' data-card-seq ='" + card_seq + "'><p class='cardName'>" + card_name +
 			"</p><i class='temp' style='display:none'></i><i class='far fa-trash-alt deleteCard' id='deleteCard' style='display:none;'></i>" +
-			"</div>";
+			"<div class='icons' style='display:none'></div></div>";
 		return cardTag;
 	}
 
@@ -297,8 +297,14 @@ $(function() {
 
 	//loadCheckList
 	function loadChkList(ischecked, total) {
-		let chkTag = "<div class='checkStatus'><i class='far fa-check-square'> " + ischecked + "/" + total + "</i></div>";
+		let chkTag = "<i class='far fa-check-square' style='margin-right:7px;'> " + ischecked + "/" + total + "</i>";
 		return chkTag;	
+	}
+	
+	//count comments
+	function countComm(total){
+		let commTag = "<i class='far fa-comment-dots' style='margin-right:7px;'> " +total+"</i>";
+		return commTag;
 	}
 
 	//칸반 페이지 입장시 해당 프로젝트의 번호로 칸반 리스트를 로드하는 함수 
@@ -333,7 +339,7 @@ $(function() {
 		function getCardMemBySession() {
 			$.ajax({
 				type: "get",
-				url: "getCardMemBySession?sessionEmail=" + $('#session_email').val(),
+				url: "getCardMemBySession.pie?sessionEmail=" + $('#session_email').val(),
 				contentType: "application/json; charset=UTF-8",
 				dataType: "json",
 				async: false,
@@ -341,10 +347,10 @@ $(function() {
 					$.each(data, function(index, item) {
 						if(item.profile==null){
 						let memIcon = cardMemIcon(item.email,item.nickName);
-						$("[data-card-seq=" + item.card_seq + "]").append(memIcon);
+						$("[data-card-seq=" + item.card_seq + "]").children('.cardName').append(memIcon);
 					}else {
 						let cardPro = makeMemPro(item.email, item.nickName, item.profile)
-						$("[data-card-seq=" + item.card_seq + "]").append(cardPro);
+						$("[data-card-seq=" + item.card_seq + "]").children('.cardName').append(cardPro);
 					}
 					});
 				}
@@ -356,22 +362,42 @@ $(function() {
 		function getCheckListByCard() {
 			$.ajax({
 				type: "post",
-				url: "getCheckListByCard?sessionEmail=" + $('#session_email').val(),
+				url: "getCheckListByCard.pie?sessionEmail=" + $('#session_email').val(),
 				contentType: "application/json; charset=UTF-8",
 				dataType: "json",
 				async: false,
 				success: function(data) {
 					$.each(data, function(index, item) {
 						let chk = loadChkList(item.ischecked, item.total)
-						$("[data-card-seq=" + item.card_seq + "]").append(chk);
+						$("[data-card-seq=" + item.card_seq + "]").children('.icons').show();
+						$("[data-card-seq=" + item.card_seq + "]").children('.icons').append(chk);
 					})
 				}
 			});
 		}
-
 		getCheckListByCard();
+		
+		function countCommnets() {
+			$.ajax({
+				type: "post",
+				url: "getTotalCommByCard.pie?sessionEmail=" + $('#session_email').val(),
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					$.each(data, function(index, item) {
+						let comm = countComm(item.total)
+						$("[data-card-seq=" + item.card_seq + "]").children('.icons').show();
+						$("[data-card-seq=" + item.card_seq + "]").children('.icons').append(comm);
+					})
+				}
+			});
+		}
+		countCommnets();
+		
 		allSortable();
 		miniSortable();
+		
 
 	}
 

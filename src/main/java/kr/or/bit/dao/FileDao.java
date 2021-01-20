@@ -25,4 +25,6 @@ public interface FileDao {
 	public int fileLastSeq();
 	
 	public String getFileSeqName(int file_seq);
+	
+	public void deleteFileByProjectSeq(int projectNum);
 }

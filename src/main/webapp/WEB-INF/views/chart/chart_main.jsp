@@ -51,7 +51,12 @@
 		<!-- users -->
 		<div id="right-sidebar-contents-wrapper-users" class="right-sidebar-contents-wrapper-hidden">	
 			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_users.jsp"></jsp:include>
-		</div>	
+		</div>
+		
+		<!-- mension -->
+		<div id="right-sidebar-contents-wrapper-mension" class="right-sidebar-contents-wrapper-hidden">
+			<jsp:include page="/WEB-INF/views/main-sidebar-options/project_main_mension.jsp"></jsp:include>
+		</div>
 		
 		<!-- main body -->
 		<div class="project-chart-body-wrapper" style="display: block">

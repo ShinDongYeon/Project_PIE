@@ -1,7 +1,11 @@
 /**
- * 멘션 추가하기
+ * 멘션 (@ + 이름)을 표시하여 채팅 메시지를 전송하면 특정 사람이 멘션을 받을 수 있음)
  */
 $(document).ready( () => {
+	
+});
+
+function mensionList(){
 	//SELECT mension
 	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
 		console.log(data.val());
@@ -28,7 +32,7 @@ $(document).ready( () => {
 							success : function(roomdata){
 								console.log(roomdata);
 								
-								opr += 	'<div class="mension-item-wrapper">'+
+								opr += 	'<div onclick="popupOpen('+elem.chatting_room_seq+',\''+roomdata[0].chatting_room_name+'\')" class="mension-item-wrapper">'+
 											'<div class="mension-top-wrapper">'+
 												'<div class="mension-user">';
 													if(roomdata != null){
@@ -39,17 +43,10 @@ $(document).ready( () => {
 								opr+=			'</div>'+
 												'<div class="mension-username">'+elem.nickName+'</div>'+
 												'<div class="mension-roomname">'+roomdata[0].chatting_room_name+'</div>'+
-												'<div class="mension-cancel"><i class="fas fa-times"></i></div>'+
+												//'<div class="mension-cancel"><i class="fas fa-times"></i></div>'+
 											'</div>'+
 											'<div class="mension-middle-wrapper">'+
-												
 												'<div class="mension-time">'+elem.message_date+'&nbsp;'+elem.message_time+'</div>'+
-												//'<div class="mension-reply">'+
-												//	'<i class="far fa-comment-dots"></i>댓글'+
-												//'</div>'+
-												//'<div class="mension-flag">'+
-												//	'<i class="fas fa-star"></i>즐겨찾기'+
-												//'</div>'+
 											'</div>'+
 											'<div class="mension-bottom-wrapper">'+
 												elem.message_content+
@@ -65,7 +62,5 @@ $(document).ready( () => {
 				
 		}
 		
-		
-		
 	});
-});
+}

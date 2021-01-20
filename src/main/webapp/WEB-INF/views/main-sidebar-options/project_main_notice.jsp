@@ -13,6 +13,7 @@
 
 <body>
 
+
 		<jsp:include page="/WEB-INF/views/notice/notice_modal.jsp"></jsp:include>
 	
 	<div><input type="button" id="write" value="글쓰기"/></div>
@@ -23,5 +24,6 @@
 		<div class = "notice-page-btn-zone">
 		</div>
 	</div>
+
 </body>
 </html>

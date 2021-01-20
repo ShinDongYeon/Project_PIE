@@ -6,8 +6,7 @@
 */
 
 $(document).ready(function(){
-
-					
+	
 	function commentsIcon(comments_seq,email,nickName,reg_date,comments){
 		let commTag = '<div class="commMemWrap" data-com-seq="'+comments_seq+'"value="'+email+
 						'"><img class="commPro" src="/resources/img/icon/none.png">'+
@@ -45,8 +44,6 @@ $(document).ready(function(){
 	//session EMail
 	let myEmail = $('#email').val();
 	let nickName = $('#nick').val();
-	console.log(myEmail);
-	console.log("nickName::::"+nickName);
 	
 	//get time for ajax
 	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -60,14 +57,25 @@ $(document).ready(function(){
 		let comments = $(this).children('.addComments').val();
 		let card_seq = $(this).parents().children().children('.modal_card_seq').attr('value');
 		
-		console.log(commentsOb);
+		
+		$.ajax({
+			type: "post",
+			url: "getProAndSeq.pie?email="+myEmail,
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				commentsOb.profile=data[0].profile;
+				commentsOb.comments_seq=data[0].comments_seq;
+				}
+			});
+		
 		commentsOb.comments=comments;
 		commentsOb.card_seq=card_seq;
 		commentsOb.email=myEmail;
 		
 		let cardComments = JSON.stringify(commentsOb);
-		
-		console.log(cardComments);
+
 			$.ajax({
 				type: "post",
 				url: "insertComments.pie",
@@ -77,6 +85,7 @@ $(document).ready(function(){
 				data: cardComments,
 				success: function(data) {
 					let comments=data.comments;
+					console.log(comments);
 					if(comments.profile==null){
 						let commIcon = commentsIcon(comments.comments_seq,comments.email,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
@@ -87,7 +96,7 @@ $(document).ready(function(){
 							$('.comments').append(commIcon);
 						}
 					}else {
-						let commPro = commentsPro(comments.comments_seq,comments.email,comments.profile,nickName,comments.reg_date,comments.comments);
+						let commPro = commentsPro(comments.comments_seq,comments.email,comments.profile,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
 							commPro += FormWithIcon()
 							$('.comments').append(commPro);

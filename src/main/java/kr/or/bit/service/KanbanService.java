@@ -103,8 +103,8 @@ public class KanbanService {
 	}
 
 	// Delete Kanban List, Card and CheckList_CardMem_CardComments
-	@Transactional
-	public void deleteKanbanListService(list li) {
+	@Transactional(rollbackFor=Exception.class)
+	public void deleteKanbanListService(list li) throws Exception {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		ListDao listdao = sqlsession.getMapper(ListDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
@@ -125,13 +125,13 @@ public class KanbanService {
 			listdao.deleteKanbanList(list_seq); // delete List
 		} catch (Exception e) {
 			System.out.println("delete List error:" + e.getMessage());
-			throw e; // 시점에 트랜잭션 감지하고 있다가 롤백 처리
+			throw new Exception(); // 시점에 트랜잭션 감지하고 있다가 롤백 처리
 		}
 	}
 
 	// Delete Card_CheckList_CardMem_CardComments
-	@Transactional
-	public void deleteKanbanCardService(card ca) {
+	@Transactional(rollbackFor=Exception.class)
+	public void deleteKanbanCardService(card ca) throws Exception {
 		CardDao carddao = sqlsession.getMapper(CardDao.class);
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		CardMemberDao cmdao = sqlsession.getMapper(CardMemberDao.class);
@@ -145,7 +145,7 @@ public class KanbanService {
 			carddao.deleteKanbanCard(card_seq);
 		} catch (Exception e) {
 			System.out.println("delteCardAndList Error" + e.getMessage());
-			throw e;
+			throw new Exception(); 
 		}
 	}
 

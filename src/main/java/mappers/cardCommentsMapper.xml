@@ -37,6 +37,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBAN_COMMENTS WHERE CARD_SEQ=#{card_seq}
 	</delete>
 	
+	<select id="getProAndSeq" parameterType="hashMap" resultType="cardCommentsDto">
+		SELECT U.PROFILE, MAX(S.CURRVAL)+1 AS COMMENTS_SEQ
+		FROM KANBAN_COMMENTS K 
+		RIGHT JOIN USER U ON U.EMAIL=#{email}
+		LEFT JOIN SEQUENCES S ON K.COMMENTS_SEQ
+		WHERE NAME='COMMENTS_SEQ'
+	</select>
+	
+	<select id="getTotalCommByCard" parameterType="hashMap" resultType="cardCommentsDto">
+		SELECT COUNT(*) AS 'TOTAL', K.CARD_SEQ
+		FROM KANBAN_COMMENTS K
+		JOIN KANBANCARD C ON C.CARD_SEQ=K.CARD_SEQ
+		WHERE C.PROJECT_SEQ=#{projectNum}
+		GROUP BY K.CARD_SEQ;
+	</select>
+ 	
 </mapper>
 
 

@@ -800,6 +800,7 @@
 	display: flex;
 	color: #fff;
 	padding: 0 10px;
+	width: 100%;
 }
 .mension-user{
 	width: 40px;
@@ -870,6 +871,8 @@
     padding: 5px;
     margin-left: 4px;
     word-break: break-all;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .mension-added{
 	display: inline;

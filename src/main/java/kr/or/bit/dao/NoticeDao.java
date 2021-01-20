@@ -19,4 +19,7 @@ public interface NoticeDao {
 	public void noticeUpdate(notice notice);
 	
 	public void noticeDelete(int notice_seq);
+
+	public void deleteNoticeByProjectSeq(int project_seq);
+
 }

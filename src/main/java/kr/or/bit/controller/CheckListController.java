@@ -92,7 +92,7 @@ public class CheckListController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "getCheckListByCard", method = RequestMethod.POST)
+	@RequestMapping(value = "getCheckListByCard.pie", method = RequestMethod.POST)
 	public List<checkList> getCheckListByCard(@RequestParam("sessionEmail") String sessionEmail,
 											HttpServletRequest request) {
 		HttpSession httpsession = request.getSession();
@@ -102,7 +102,6 @@ public class CheckListController {
 		try {
 			chkListMap.put("projectNum", projectNum);
 			chkList = checklistservice.getCheckListByCardService(chkListMap);
-			System.out.println("chkList:::" + chkList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
