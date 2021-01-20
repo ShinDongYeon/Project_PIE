@@ -21,6 +21,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeservice;
 	
+	//게시판 전체 게시물 수
 	@ResponseBody
 	@RequestMapping(value="noticeTotalNumber.pie", method = RequestMethod.POST)
 	public View getNoticeTotalNumber(@RequestParam("project_seq") int project_seq,Model model) {
@@ -34,6 +35,7 @@ public class NoticeController {
 		return jsonview;
 		
 	}
+	//게시물 등록
 	@RequestMapping(value="noticeInsert.pie", method = RequestMethod.POST)
 	public View noticeInsert(@RequestBody notice notice, Model model) {
 		try {
@@ -43,7 +45,7 @@ public class NoticeController {
 		}
 		return jsonview;
 	}
-	
+	//게시물 리스트
 	@ResponseBody
 	@RequestMapping(value="noticeList.pie", method = RequestMethod.GET)
 	public List<notice> noticeList(int project_seq, int page){
@@ -58,7 +60,7 @@ public class NoticeController {
 		}
 		return noticeList;
 	}
-	
+	//게시물 상세보기
 	@ResponseBody
 	@RequestMapping(value="noticeDetail.pie", method = RequestMethod.GET)
 	public notice noticeDatail(int notice_seq){
@@ -70,7 +72,7 @@ public class NoticeController {
 		}
 		return noticeDetail;
 	}
-	
+	//게시물 마지막 번호
 	@ResponseBody
 	@RequestMapping(value="lastNotice_seq.pie", method = RequestMethod.GET)
 	public int lastNotice_seq(){
@@ -82,6 +84,28 @@ public class NoticeController {
 		}
 		return lastNotice_seq;
 	}
-	
+	//게시판 수정
+	@ResponseBody
+	@RequestMapping(value="noticeUpdate.pie", method = RequestMethod.POST)
+	public View noticeUpdate(@RequestBody notice notice,Model model) {
+		try {
+			noticeservice.noticeUpdate(notice);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonview;
+	}
+	//게시판 삭제
+	@ResponseBody
+	@RequestMapping(value="noticeDelete.pie", method = RequestMethod.POST)
+	public String noticeDelete(int notice_seq) {
+		System.out.println(notice_seq);
+		try {
+			noticeservice.noticeDelete(notice_seq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "a";
+	}
 	
 }

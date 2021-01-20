@@ -7,6 +7,7 @@ $(document).ready(function() {
 	let hours = today.getHours();
 	let minutes = today.getMinutes();
 	
+	//게시물 총개수
 	function getNoticeTotalNumber(){
 		$.ajax({
 		type: "post",
@@ -16,13 +17,13 @@ $(document).ready(function() {
 		async: false,
 		success: function(data) {
 			totalNum = data.totalNumber;
-			console.log(totalNum)
-		}
+	}
 	});
 	}
-		$('#write').click(function(){
-		document.getElementById('noticeInsert_modal_contents').style.display='block'
-       //document.getElementById('notice_modal_background').style.display = 'block';
+	
+	//글쓰기
+	$('#write').click(function(){
+	document.getElementById('noticeInsert_modal_contents').style.display='block' 
 	$('#summernote').summernote({
 		  toolbar: [
     ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -31,23 +32,24 @@ $(document).ready(function() {
     ['color', ['color']],
     ['para', ['ul', 'ol', 'paragraph']],
     ['height', ['height']]
-  ],			 
+  					],			 
 		  height: 300,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-          
+		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정      
 	});
  });
+
+		//글 등록하기
 		$("#insertnotice").click(function(){
 				let fileNumber = 0;
 				var fileValue = $("#filename").val().split("\\");
 				var fileName = fileValue[fileValue.length-1]; // 파일명
 				let form = $("#uploadFormNotice")[0];
 				let formData = new FormData(form)
-				//파일 업로드
+				//파일 업로드 파일이 있을때만 적용
 				if($("#filename").val() !== null && $("#filename").val() !== ""){
 				$.ajax({
 					type: "POST",
@@ -83,37 +85,14 @@ $(document).ready(function() {
 					data: noticeInsert,
 					success: function(data) {
 						loadNotice(currentPage);
-						getFileTotalNumber();
+						getNoticeTotalNumber();
 						makePageBtn(totalNum, currentPage);
-				/*		$.ajax({
-						type: "GET",
-						url: "lastNotice_seq.pie",
-						contentType: "application/json; charset=UTF-8",
-						async: false,
-						success: function(result) {
-						let writeDate = moment(noticeInsertOb.writeDate).format('YYYY-MM-DD' + " " + 'HH:mm')
-						let html = 	'<div class="notice-item-wrapper">\
-								 <div class="notice-top-wrapper">\
-								 <div class="notice-username">'+noticeInsertOb.title+'</div>\
-								 </div>\
-								 <div class="notice-middle-wrapper">\
-								 <div class="notice-reply">\
-							   	 <i class="fas fa-pencil-alt"></i>'+noticeInsertOb.nickName+'\
-								 </div>\
-								 <div class="notice-flag">\
-								 <i class="far fa-calendar"></i>'+writeDate+'\
-								 </div>\
-								 </div>\
-								<input type="hidden" value='+Number(result)+'>\
-								 </div>'
-								$('#noticeList').append(html)
-											}
-						})*/
 					}
 				})
 		})
+		//글 목록 로드
 		function loadNotice(page){
-			$("#noticeList").empty();
+		$("#noticeList").empty();
 		$.ajax({
 			type: "GET",
 			url:"noticeList.pie",
@@ -126,28 +105,29 @@ $(document).ready(function() {
 					}
 		})
 					}
-	
-function createNotice(data) {
+	//글 목록 출력
+	function createNotice(data) {
 	let html = "";
 	$.each(data, function(index, notice) {
 		let writeDate = moment(notice.writeDate).format('YYYY-MM-DD' + " " + 'HH:mm')
-		html += 	'<div class="notice-item-wrapper">\
-					 <div class="notice-top-wrapper">\
-					 <div class="notice-username">'+notice.title+'</div>\
-					 </div>\
-					 <div class="notice-middle-wrapper">\
-					 <div class="notice-reply">\
-				   	 <i class="fas fa-pencil-alt"></i>'+notice.nickName+'\
-					 </div>\
-					 <div class="notice-flag">\
-					 <i class="far fa-calendar"></i>'+writeDate+'\
-					 </div>\
-					 </div>\
-					<input type="hidden" value='+notice.notice_seq+'>\
-					 </div>'
+		html += 	'<div class="notice-item-wrapper">'+
+					'<div class="notice-top-wrapper">'+
+					'<div class="notice-username">'+notice.title+'</div>'+
+					'</div>'+
+					'<div class="notice-middle-wrapper">'+
+					'<div class="notice-reply">'+
+				   	'<i class="fas fa-pencil-alt"></i>'+notice.nickName+
+					'</div>'+
+					'<div class="notice-flag">'+
+					'<i class="far fa-calendar"></i>'+writeDate+
+					 '</div>'+
+					 '</div>'+
+					'<input type="hidden" value='+notice.notice_seq+'>'+
+					 '</div>'
 	});
 	$('#noticeList').append(html)
-}
+	}
+	//글 상세보기
 	$(document).on("click",".notice-item-wrapper",function(){
 			$.ajax({
 			type: "GET",
@@ -156,6 +136,10 @@ function createNotice(data) {
 			async: false,
 			data:{notice_seq:$(this).children('input').val()},
 			success: function(data) {
+				if(data.email !== $("#email").val()){
+					$("#editnotice").hide();
+					$("#deletenotice").hide();
+				}
 				if(data.file_seq !== 0){
 				$.ajax({
 					type:"POST",
@@ -169,13 +153,21 @@ function createNotice(data) {
 				}
 				document.getElementById('noticeEdit_modal_contents').style.display='block'
 				$("#titleView").val(data.title)
+				$("#notice_seq_hidden").val(data.notice_seq)
 				document.getElementById('noticeContentView').innerHTML= data.content
 				document.getElementById('summernoteEdit').innerHTML= data.content
 				}	
-		})
+		})	
+		//글 수정하기
 	$("#editnotice").click(function(){
+		Swal.fire("수정이 가능합니다")
+		document.getElementById('CommetnsWrap-notice').style.display='none'
 		document.getElementById('noticeContentView').style.display='none'
 		document.getElementById('noticeContentEdit').style.display='block'
+		document.getElementById('editnotice').style.display='none'
+		document.getElementById('okeditnotice').style.display='block'
+		document.getElementById('deletenotice').style.display='none'
+		$('#titleView').removeAttr("readonly");
 		$('#summernoteEdit').summernote({
 		  toolbar: [
    			 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -194,6 +186,85 @@ function createNotice(data) {
           
 	});
 	})
+	})
+	//게시물 수정
+	$("#okeditnotice").click(function(){
+				let fileNumber = 0;
+				var fileValue = $("#filename").val().split("\\");
+				var fileName = fileValue[fileValue.length-1]; // 파일명
+				let form = $("#uploadFormNotice")[0];
+				let formData = new FormData(form)
+				//파일 업로드
+				if($("#filename").val() !== null && $("#filename").val() !== ""){
+				$.ajax({
+					type: "POST",
+					url: "fileNotice.pie?projectNum=" + $("#projectNum").val() + "&nick=" + $("#nick").val(),
+					data: formData,
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
+					async: false,
+					cache: false,
+					success: function(result) {
+						fileNumber = result;
+						}
+				})
+				}
+				let noticeEditOb = new Object();
+				noticeEditOb.title = $('#titleView').val()
+				noticeEditOb.content = $('#summernoteEdit').val()
+				noticeEditOb.notice_seq = $("#notice_seq_hidden").val()
+				noticeEditOb.filename = fileName
+				noticeEditOb.file_seq = fileNumber
+				let noticeEdit = JSON.stringify(noticeEditOb);
+				$.ajax({
+					type: "POST",
+					url: "noticeUpdate.pie",
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					data: noticeEdit,
+					success: function(data) {
+						loadNotice(currentPage);
+						getNoticeTotalNumber();
+						makePageBtn(totalNum, currentPage);
+					}
+				})
+	})
+	//게시물 삭제
+	$("#deletenotice").click(function(){
+		let notice_seq = $("#notice_seq_hidden").val();
+							Swal.fire({
+					title: "일정을 삭제하시겠습니까?",
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+  					cancelButtonColor: '#d33',
+  					confirmButtonText: 'Yes'
+				})
+					.then((result) => {
+						if (result.isConfirmed) {
+						document.getElementById('noticeEdit_modal_contents').style.display='none'
+						$.ajax({
+						type: "POST",
+						url: "noticeDelete.pie",
+						data: {notice_seq:notice_seq},
+						async: false,
+						success: function(result) {
+							loadNotice(currentPage);
+							getNoticeTotalNumber();
+							makePageBtn(totalNum, currentPage);
+							}
+					})
+						} else {
+						}
+					});
+	})
+	
+	$("#insertCancel").click(function(){
+		$("#title").val("");
+		$("#filename").val("");
+		$("#summernote").val("");
 	})
 	loadNotice(1)
 	getNoticeTotalNumber()
