@@ -41,6 +41,11 @@ $(document).ready(function(){
 		return formTag;
 	}
 	
+	function countComm(total){
+		let commTag = "<i class='far fa-comment-dots' style='margin-right:7px;'> " +total+"</i>";
+		return commTag;
+	}
+	
 	//session EMail
 	let myEmail = $('#email').val();
 	let nickName = $('#nick').val();
@@ -75,6 +80,9 @@ $(document).ready(function(){
 		commentsOb.email=myEmail;
 		
 		let cardComments = JSON.stringify(commentsOb);
+		
+		let thisIcon = $("[data-card-seq="+card_seq+"]").children('.icons');
+		let total = Number($(this).parents().children('.comments').children('.commMemWrap').length+1);
 
 			$.ajax({
 				type: "post",
@@ -85,7 +93,6 @@ $(document).ready(function(){
 				data: cardComments,
 				success: function(data) {
 					let comments=data.comments;
-					console.log(comments);
 					if(comments.profile==null){
 						let commIcon = commentsIcon(comments.comments_seq,comments.email,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
@@ -108,6 +115,19 @@ $(document).ready(function(){
 				}
 			});
 			$(this).children('.addComments').val("");
+			
+			if(total===1&&thisIcon.hasClass('.fa-check-square')){
+				thisIcon.show();
+				let com = countComm(total);
+				thisIcon.children('.fa-check-square').append(" "+com);
+			}else if(total===1){
+				thisIcon.show();
+				let com = countComm(total);
+				thisIcon.append(com);
+			}else{
+				thisIcon.children('.fa-comment-dots').text(" "+total);
+			}
+			
 			
 	});
 	
@@ -170,8 +190,12 @@ $(document).ready(function(){
 	
 	//delete comments
 	$(document).on('click','.fa-trash-alt.deleteComm',function(){
+		let cardSeq = Number($(this).parents().children().children('.modal_card_seq').val());
 		let commSeq = Number($(this).parents('.commMemWrap').attr('data-com-seq'));
 		let deletedComm = $(this).parents('.commMemWrap');
+		
+		let afterDel = $(this).parents().children('.commMemWrap').length-1;
+		let commIcon = $("[data-card-seq="+cardSeq+"]").children('.icons').children('.fa-comment-dots');
 		
 		$.ajax({
 			url: "deleteCardComment.pie?commSeq="+commSeq,
@@ -180,6 +204,13 @@ $(document).ready(function(){
 			async: "false",
 			dataType: "json",
 			success: function(data){
+				
+				if(afterDel===0){
+					commIcon.remove();
+				}else{
+					commIcon.text(" "+afterDel);
+				}
+				
 				deletedComm.animate({
 				left:"-30%",
 				height: 0,

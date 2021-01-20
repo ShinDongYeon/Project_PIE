@@ -239,7 +239,6 @@ $(document).ready(function() {
 				async: false,
 				data: card,
 				success: function(data) {
-					console.log(data);
 					thisCard.children('.cardName').text(data.data.card_name);
 				}
 			});
@@ -350,7 +349,7 @@ $(document).ready(function() {
 
 				let check = JSON.stringify(checkOb);
 				
-				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons').children('.fa-check-square');
+				let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons');
 				
 				$.ajax({
 					type: "post",
@@ -361,13 +360,17 @@ $(document).ready(function() {
 					data: check,
 					success: function(data) {
 						progressBar();
-						if(total===1){
+						if(total===1&&thisCard.children('.fa-comment-dots')){
+							thisCard.show();
 							let chk = loadChkList(0,1);
-							$("[data-card-seq="+cardSeq+"]").children('.icons').show();
-							$("[data-card-seq="+cardSeq+"]").children('.icons').append(chk);
+							thisCard.prepend(chk+" ");
+						}else if(total===1){
+							thisCard.show();
+							let chk = loadChkList(0,1);
+							thisCard.append(chk);
 						}else {
 							let checked = $('#checkListWrap').children().children('.todo-wrap').find('input[ischecked="1"]').length;
-							thisCard.text(" "+checked+"/"+total);
+							thisCard.children('.fa-check-square').text(" "+checked+"/"+total);
 						}
 						$('.todo-wrap').css('height','auto');
 						
@@ -395,7 +398,6 @@ $(document).ready(function() {
 		let total=Number($(this).parents().children('.todo-wrap').length);
 		
 		let thisCard = $("[data-card-seq="+cardSeq+"]").children('.icons').children('.fa-check-square');
-		console.log(thisCard);
 		
 		if (chk) {
 			chkBox.prop('checked', false);
@@ -522,7 +524,6 @@ $(document).ready(function() {
 		
 		//get CardSeq
 		cardSeq=$(this).parents().children().children(".modal_card_seq").val();
-		console.log("cardSeq:::"+cardSeq);
 		$(".invite-detail").attr("data-invite-card",cardSeq);
 		
 		//get project Member List
