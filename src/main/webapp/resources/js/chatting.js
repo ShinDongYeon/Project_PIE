@@ -227,6 +227,7 @@ function selectChatUser(me){
 	let index = $('#message').html().lastIndexOf('@');
 	let prefix = $('#message').html().substring(0,index);
 
+	$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
 	$('#message').html(prefix + element);
 	if($('.mension-content').hasClass('appear')){
 		$('.mension-content').addClass('disappear');
