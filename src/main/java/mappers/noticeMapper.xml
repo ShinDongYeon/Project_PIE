@@ -25,9 +25,18 @@ SELECT max(notice_seq) as lastNotice_seq FROM notice
 	SELECT count(*) FROM notice WHERE PROJECT_SEQ = #{param1}
 </select>
 
+<update  id="noticeUpdate" parameterType = "noticeDto">
+UPDATE notice
+SET title=#{title},content = #{content},filename=#{filename},file_seq=#{file_seq}
+WHERE notice_seq = #{notice_seq}
+</update>
+
+<delete id="noticeDelete">
+DELETE FROM notice
+WHERE notice_seq = #{param1} 
+</delete>
+
 <delete id="deleteNoticeByProjectSeq" parameterType = "int">
 	DELETE FROM notice WHERE PROJECT_SEQ = #{param1}
 </delete>
-
 </mapper>
-
