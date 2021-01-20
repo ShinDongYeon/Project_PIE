@@ -1,3 +1,10 @@
+/*
+파일명: main-profile.js
+설명: 메인 화면 프로필 변경 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 	
 		//여기서 아이디로 파일 이름 겟 ajax 

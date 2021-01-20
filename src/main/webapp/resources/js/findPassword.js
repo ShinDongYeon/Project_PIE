@@ -1,3 +1,10 @@
+/*
+파일명: findPassword.js
+설명: 비밀번호 찾기 및 유효성 검증 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function(){
 		//이메일 존재여부 체크 ajax 
 		$('#emailCheck').click(function(){

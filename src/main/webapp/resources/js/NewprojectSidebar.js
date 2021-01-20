@@ -1,3 +1,11 @@
+/*
+파일명: NewprojectSidebar.js
+설명: 사이드바 오픈 처리 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
+
 $(document).ready(function() {
 	//칸반 페이지 이동
 	$('#sidebar-kanban').click(function() {

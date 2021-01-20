@@ -3,7 +3,6 @@ package kr.or.bit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
 import kr.or.bit.util.UploadPath;
 
+/*
+파일명: FileController.java
+설명: 파일함 관련 파일 업로드 및 다운로드 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class FileController {
 	

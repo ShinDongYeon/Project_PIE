@@ -18,6 +18,14 @@ import org.springframework.web.servlet.View;
 import kr.or.bit.dto.user;
 import kr.or.bit.service.UserProfileService;
 
+
+/*
+파일명: UserProfileImageController.java
+설명: 프로필 이미지 업로드 처리 및 저장 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 @Controller
 public class UserProfileImageController {
 	
