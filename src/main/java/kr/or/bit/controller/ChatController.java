@@ -189,7 +189,9 @@ public class ChatController {
 				profile_map.put(room_list2.get(k).getChatting_room_seq(), profile_list);
 			}
 			
-			getRoomListMap.put("chat_room_list", roomList);
+			List<room> roomList2 = chatservice.getRoomList(getRoomListMap);
+			
+			getRoomListMap.put("chat_room_list", roomList2);
 			getRoomListMap.put("nicknames", nicknames);
 			getRoomListMap.put("profiles", profile_map);
 			

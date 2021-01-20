@@ -69,7 +69,7 @@
 								<div class="mension-area"></div>
 							</div>
 						</div>
-							<i class="fas fa-font"></i>
+							<!-- <i class="fas fa-font"></i> -->
 						<label for="file-input">
 							<i class="fas fa-upload"></i>
 						</label>
