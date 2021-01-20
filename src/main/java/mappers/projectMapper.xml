@@ -25,6 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getProjectTitle" parameterType="int" resultType="String">
 		SELECT PROJECT_NAME FROM PROJECT WHERE PROJECT_SEQ = #{param1}
 	</select>
+	
+	<delete id="deleteProjectByProjectSeq" parameterType="int">
+		DELETE FROM PROJECT WHERE PROJECT_SEQ = #{param1}
+	</delete>
+	
 
 </mapper>
 	

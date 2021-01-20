@@ -20,6 +20,7 @@
 		<typeAlias type="kr.or.bit.dto.users" alias="usersDto"/>
 		<typeAlias type="kr.or.bit.dto.notice" alias="noticeDto"/>
 		<typeAlias type="kr.or.bit.dto.cardComments" alias="cardCommentsDto"/>
+		<typeAlias type="kr.or.bit.dto.noticeComments" alias="noticeCommentsDto"/>
 
 	</typeAliases>
 </configuration>

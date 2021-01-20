@@ -22,7 +22,6 @@ public class CalendarService {
 	public void insertCalendar(calendar calendar)throws Exception{
 		CalendarDao calendardao = sqlsession.getMapper(CalendarDao.class);
 		calendardao.insertCalendar(calendar);
-	
 	}
 
 	public List<calendar> calendarList(int project_seq) throws Exception {

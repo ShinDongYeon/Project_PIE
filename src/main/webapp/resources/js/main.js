@@ -53,6 +53,7 @@ $(document).ready(function() {
 		}
 	}
 
+	//파이 태그 만들기 함수
 	function makePie(project_seq, project_name, leader_email) {
 		let pie = "<div class='main-list-project-wrapper'>" +
 			"<div class='main-list-project-left-info'>" +
@@ -65,13 +66,14 @@ $(document).ready(function() {
 			"<div class='main-list-project-right-btn-wrapper'>" +
 			"<button class='main-list-project-right-btn1 inviteBtn' data-project-seq ='" + project_seq +
 			"'data-leader-email='" + leader_email + "'data-project-name='" + project_name + "'>초대</button>" +
-			"<a href = 'goToMain.pie?projectNum=" + project_seq + "'><button class='main-list-project-right-btn2'>PIE로 가기</button></a>" +
+			"<button class='delete-pie-btn' data-project-seq ='" + project_seq + "'>파이 삭제</button>" +
+			"<a href = 'goToMain.pie?projectNum=" + project_seq + "'><button class='main-list-project-right-btn2'>파이로 가기</button></a>" +
 			"</div>" +
 			"</div>";
 		return pie;
 	}
 
-
+	//초대 버튼 만들기 함수
 	function makePieNoneInvite(project_seq, project_name, leader_email) {
 		let pie = "<div class='main-list-project-wrapper'>" +
 			"<div class='main-list-project-left-info'>" +
@@ -82,15 +84,16 @@ $(document).ready(function() {
 			"<div class = 'chart-wrapper'><canvas id='myChart-" + project_seq + "'></canvas></div>" +
 			"</div>" +
 			"<div class='main-list-project-right-btn-wrapper'>" +
-			"<a href = 'goToMain.pie?projectNum=" + project_seq + "'><button class='main-list-project-right-btn2'>PIE로 가기</button></a>" +
+			"<a href = 'goToMain.pie?projectNum=" + project_seq + "'><button class='main-list-project-right-btn2'>파이로 가기</button></a>" +
 			"</div>" +
 			"</div>";
 		return pie;
 	}
-	
-		let inProgress = 0;
-		let done = 0;
-	
+
+	let inProgress = 0;
+	let done = 0;
+
+	//프로젝트 진행률 가져오는 함수
 	function getTotalProgress(projectNum) {
 		$.ajax({
 			type: "post",
@@ -99,25 +102,27 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			success: function(data) {
-				if(data.progress.inProgress === 'NaN' && 
-				   data.progress.done === 'NaN'){
-					inProgress = 1;
+				if (data.progress.inProgress === 'NaN' &&
+					data.progress.done === 'NaN') {
+					inProgress = 100;
 					done = 0;
-				}else{
+				} else {
 					inProgress = Number(data.progress.inProgress);
 					done = Number(data.progress.done);
-					
+
 				}
 			}
 		});
 	}
-	
+
+	//가져온 진행률 기반으로 파이 차트 만드는 함수
 	function makePieProgress(project_seq) {
 		getTotalProgress(project_seq);
-		let ctx = document.getElementById('myChart-'+project_seq).getContext('2d');
+		let ctx = document.getElementById('myChart-' + project_seq).getContext('2d');
 		let myChart = new Chart(ctx, {
 			type: 'pie',
 			data: {
+				labels: ["완료", "진행중"],
 				datasets: [{
 					backgroundColor: [
 						"#f2dd68",
@@ -125,10 +130,18 @@ $(document).ready(function() {
 					],
 					data: [done, inProgress]
 				}]
+			},
+			options: {
+				legend: {
+					position: "right",
+					labels: {
+					}
+				},
 			}
 		});
 	}
 
+	//파이 리스트 만드는 ajax 
 	$.ajax(
 		{
 			type: "post",
@@ -173,7 +186,6 @@ $(document).ready(function() {
 
 	//사용자 초대하기 버튼 클릭 
 	$(document).on("click", ".userInviteBtn", function(e) {
-		console.log($("#userName").val());
 		let users = inviteUser($("#userName").val());
 
 		//본인을 초대하려고 할 시 
@@ -211,8 +223,6 @@ $(document).ready(function() {
 
 	//최종초대 버튼 누르기
 	$(document).on("click", "#invite-submit", function(e) {
-		console.log(pies);
-		console.log("최종초대");
 
 		//아무도 입력 안 했는데 초대하려고 할 시
 		if (pies.length === 0) {
@@ -230,7 +240,6 @@ $(document).ready(function() {
 			dataOb.finalFromProjectName = fromProjectName;
 			let data = JSON.stringify(dataOb);
 
-			console.log("data");
 			$.ajax(
 				{
 					method: "post",
@@ -261,7 +270,6 @@ $(document).ready(function() {
 	$(document).on("click", ".userList-btn", function(e) {
 		//삭제한 이메일 
 		let deletedEmail = $(this).prev()[0].innerText;
-		console.log(deletedEmail);
 
 		//화면상의 리스트 삭제 
 		$(this).parent().remove();
@@ -269,9 +277,38 @@ $(document).ready(function() {
 
 		//Array에 값을 지움 
 		pies.splice(deletedNum);
-		console.log(pies);
 	});
 
+	//파이 삭제 버튼 클릭
+	$(document).on("click", ".delete-pie-btn", function(e) {
+		projectSeq = $(this)[0].dataset.projectSeq;
+
+		Swal.fire({
+			title: '파이를 삭제하시겠습니까?',
+			showDenyButton: true,
+			confirmButtonText: `삭제`,
+			denyButtonText: `취소`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				console.log("삭제");
+
+				$.ajax({
+					type: "post",
+					url: "deletePie.pie?projectNum="+projectSeq,
+					contentType: "application/json; charset=UTF-8",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						if(data.data === 'success'){
+							location.href = "main.pie";
+						}
+					}
+				});
+
+			} else if (result.isDenied) {
+			}
+		})
+	});
 
 	//이메일 정규표현식
 	//이메일 형식이면 통과 글자수 제한없음

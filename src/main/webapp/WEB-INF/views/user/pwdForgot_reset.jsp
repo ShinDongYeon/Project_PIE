@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>pwdForgot reset</title>
+<title>PIE</title>
 <jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 <link rel="stylesheet" href="/resources/css/pwdForgotResetStyle.css">
 <jsp:include page="/resources/static/static.jsp"></jsp:include>

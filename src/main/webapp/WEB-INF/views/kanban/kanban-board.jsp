@@ -22,7 +22,7 @@
 <script src="/resources/js/kanbanCalendar.js"></script>
 <script src="/resources/js/kanbanComments.js"></script>
 <link rel="stylesheet" href="/resources/css/kanbanComments.css">
-<title>KANBAN-BOARD</title>
+<title>PIE</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/calendar/calendar_kanban_modal.jsp"></jsp:include>

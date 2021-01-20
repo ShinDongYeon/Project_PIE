@@ -143,7 +143,12 @@ public class KanbanController {
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanList.pie", method = RequestMethod.POST)
 	public View deleteKanbanList(@RequestBody list li, @RequestParam("projectNum") int projectNum, Model model) {
-		kanbanservice.deleteKanbanListService(li);
+		try {
+			kanbanservice.deleteKanbanListService(li);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		model.addAttribute("data", "success");
 		return jsonview;
 	}
@@ -152,7 +157,12 @@ public class KanbanController {
 	@ResponseBody
 	@RequestMapping(value = "deleteKanbanCard.pie", method = RequestMethod.POST)
 	public View deleteKanbanCard(@RequestBody card ca, @RequestParam("projectNum") int projectNum, Model model) {
-		kanbanservice.deleteKanbanCardService(ca);
+		try {
+			kanbanservice.deleteKanbanCardService(ca);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		model.addAttribute("data", "success");
 		return jsonview;
 	}

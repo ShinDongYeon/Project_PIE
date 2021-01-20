@@ -19,9 +19,9 @@ public class NoticeService {
 		noticedao.insertNotice(notice);
 	}
 	
-	public List<notice> getNoticeList(int project_seq)throws Exception{
+	public List<notice> getNoticeList(int project_seq, int page)throws Exception{
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
-		return noticedao.getNoticeList(project_seq);
+		return noticedao.getNoticeList(project_seq,page);
 	}
 	public notice getNoticeDatail(int notice_seq)throws Exception{
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
@@ -30,5 +30,17 @@ public class NoticeService {
 	public int lastNotice_seq()throws Exception{
 		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
 		return noticedao.lastNotice_seq();
+	}
+	public int getNoticeTotalNumber(int project_seq)throws Exception{
+		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
+		return noticedao.getNoticeTotalNumber(project_seq);
+	}
+	public void noticeUpdate(notice notice)throws Exception {
+		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
+		noticedao.noticeUpdate(notice);
+	}
+	public void noticeDelete(int notice_seq)throws Exception {
+		NoticeDao noticedao = sqlsession.getMapper(NoticeDao.class);
+		noticedao.noticeDelete(notice_seq);
 	}
 }

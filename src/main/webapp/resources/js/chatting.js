@@ -102,7 +102,8 @@ $(document).ready(function() {
 		//@ 멘션키 입력
 		if (event.key == '@') {
 			let mension_content = $('.mension-content');
-			popupMension(mension_content);
+			mension_content.removeClass('disappear').addClass('appear');
+			mension_content.css('display','block');
 		}
 		
 	});
@@ -208,7 +209,9 @@ $(document).ready(function() {
 	
 });
 
+
 function selectChatUser(me){
+	if()
 	let nickname = $(me).find('div:eq(4)').text();
 	let email = $(me).find('div:eq(5)').text();
 	let element = "<div contenteditable='false' class='mension-added' value='"+email+"'>"+nickname+"</div>";
@@ -219,8 +222,22 @@ function selectChatUser(me){
 	//let message = prefix + suffix;
 	$('#message').html(prefix + element);
 	console.log($('#message').html());
+	if($('.mension-content').hasClass('appear')){
+		$('.mension-content').addClass('disappear');
+		setTimeout( () => {
+			$('.mension-content').removeClass('appear'); 
+			$('.mension-content').css('display','none'); 
+		}, 580 );
+	}
+	//멘션 선택후 커서위치 지정해주는 기능
+	$('#message').focus();
+	let editor = document.getElementById('message');
+	var selection = window.getSelection();
+	selection.selectAllChildren(editor);
+	selection.collapseToEnd();
 	
 }
+
 
 function popupMension(target){
 	if(!$('.mension-content').hasClass('disappear2')){
@@ -605,10 +622,12 @@ function send(){
 	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
 	var msg = $('#message').html();
-	$('#message').text('');
-	if(msg.trim() != ''){
-		websocket.send(email + "|" + msg + "|" + nickname + "|"+nickname);
+	if($('#message').text().trim() != ''){
+		if(msg.trim() != ''){
+			websocket.send(email + "|" + msg + "|" + nickname + "|"+nickname);
+		}
 	}
+	$('#message').text('');
 }
 
 function sendFiles(filename){
@@ -734,20 +753,21 @@ function appendMessage(msg) {
 											if(message.indexOf('<div contenteditable="false" class="mension-added" value="') != -1){
 												//div 태그에서 이메일 추출하기
 												let index = message.indexOf('<div contenteditable="false" class="mension-added" value="');
-												let substr = message.substring(58);
+												let substr = message.substring(index+58);
 												let suffix = substr.indexOf('"');
 												let email = substr.substring(0,suffix);
 												
 												firebase.database().ref().child('mension/0').set({
 													mension_seq : 0,
-													mension_email : email,
-													chatting_room_seq : $('#select').val(),
-													message_content : message,
-													message_date : date,
-													message_time : time,
-													email : $('#session_email').val(),
-													nickName : $('#nickname').val(),
-													profile : elem.profile
+													mension_email : '',
+													chatting_room_seq : '',
+													message_content : '',
+													message_date : '',
+													message_time : '',
+													email : '',
+													nickName : '',
+													profile : ''
+													
 												});
 												firebase.database().ref().child('mension').once('value',function(data){
 													let mension_seq = data.val().length;

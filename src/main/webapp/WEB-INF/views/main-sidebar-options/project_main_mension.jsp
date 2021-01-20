@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 <body>
+	<input type="hidden" value="${sessionScope.loginuser}" id="session_email">
 	<div id="fas fa-at" class="right-sidebar-mension">
 		<!-- samples -->
-		<div id="mension-main"></div>
+		<div id="mension-items-wrapper"></div>
 	</div>
 </body>
 </html>
