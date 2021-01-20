@@ -39,7 +39,6 @@
     min-width:460px;
     min-height:460px;
     max-width:900px;
-    max-height:900px;
     
 }
 
@@ -160,7 +159,7 @@ cursor: pointer;
 /* Card Details */
 
 #noticeDetailsWrap {
-	width:75%; 
+	width:100%; 
 	display:inline-block;
 }
 
@@ -200,26 +199,33 @@ cursor: pointer;
 }
 
 
-.addNoticeInsert-btn {
+.addNoticeInsert-notice-btn {
     font-family: 'Lato', sans-serif;
-    padding: 3px;
+    display: block;
+    margin-top: 5px;
+    padding: 3px 5px;
     background-color: #f2dd68;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    width:10%;
-    height:30px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
     float:right;
 }
-.addDetailsEdit-btn {
+
+.addDetailsEdit-notice-btn {
     font-family: 'Lato', sans-serif;
-    padding: 3px;
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 3px 5px;
     background-color: #f2dd68;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    width:19%;
-    height:30px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+    float:right;
 }
 
 /*Check List in Modal*/
@@ -267,7 +273,10 @@ cursor: pointer;
    	border-top-left-radius: 5px;
    	border-top-right-radius: 5px;
 }
-
+#uploadFormNotice{
+	width:70%;
+	margin: 0px;
+}
 /***********************************************/
 /* responsive modal concerning userEdit modals */
 /* 1200px */
@@ -291,4 +300,189 @@ cursor: pointer;
    	box-shadow: 0px 0px 20px rgba( 255, 255, 255, 0.8 );
    	background-color: rgba( 255, 255, 255, 0.8 );
 }
+/* 댓글 */
+/* Comments Title */
+.commentsTitle-notice {
+	text-align: left;
+    padding: 0;
+    font-size: 25px;
+    font-weight: 200;
+    color: #454545;
+    margin-bottom: 10px;
+}
 
+.commentsTitle-notice .fa-comments {
+	font-size: 25px;
+    margin-right: 5px;
+    color: #f2dd68;
+}
+
+/* add Comments */
+.addComments-notice {
+    box-sizing: content-box;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 10px;
+    width: 70%;
+    font-size: 15px;
+    resize: none;
+    height: 50px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    margin: 20px 10px 0px 0px;
+}
+
+.addComments-btn-notice {
+	font-family: 'Lato', sans-serif;
+    display: block;
+    margin-left: 67%;
+    margin-top: 5px;
+    padding: 3px 5px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+}
+
+/* edit Comments Form*/
+
+.editAddComments-notice {
+    box-sizing: content-box;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 10px;
+    width: 70%;
+    font-size: 15px;
+    resize: none;
+    height: 50px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
+    margin: 20px 10px 0px 0px;
+}
+
+.editAddComments-btn-notice {
+	font-family: 'Lato', sans-serif;
+    margin-top: 5px;
+    padding: 3px 5px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+}
+
+.editcancel-btn-notice {
+	font-family: 'Lato', sans-serif;
+    margin: 5px 5px 0px 0px;
+    padding: 3px 5px;
+    background-color: #f2dd68;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.06) 0px 1px 2px 1px;
+}
+
+.editcancel-btn-notice:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.editAddComments-btn-notice:hover{
+	background-color: #31353d;
+	color: #f2dd68;
+	cursor: pointer;
+}
+
+.btnWrap-notice {
+	margin-left:62%;
+}
+
+
+/* comments */
+.commPro-notice {
+	width:40px;
+	height:40px;
+	border-radius: 100%;
+	float: left;
+}
+
+.commWriter-notice {
+	font-size: 14px;
+	margin-left: 5px;
+    font-weight: 500;
+}
+
+.commDate-notice {
+	font-size: 10px;
+	font-weight: 300;
+    margin-left: 10px;
+}
+
+.memCommentWrap-notice {
+	display: flex;
+}
+
+.memComment-notice {
+	font-size: 17px;
+	font-weight: 300;
+    width:fit-content;
+    max-width: 60%;
+	margin: 5px;
+	padding: 4px 10px;
+	background-color: #f2dd68;
+	border-top-right-radius: 13px;
+    border-bottom-right-radius: 14px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 0px;
+    word-break: break-all;
+}
+
+.commIcons-notice {
+	float:left;
+	margin-top:auto;
+}
+
+.fa-eraser.editComm-notice {
+	margin: 0px 5px 0px 3px;
+	font-size: 15px;
+}
+
+.fa-eraser.editComm-notice:hover {
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.fa-trash-alt.deleteComm-notice {
+	margin-right: 5px;
+	font-size: 15px;
+}
+
+.fa-trash-alt.deleteComm-notice:hover {
+	font-size: 20px;
+	cursor: pointer;
+}
+
+/* close edit form */
+.closeEditForm-notice {
+    color: #aaaaaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.closeEditForm-notice:hover,
+.closeEditForm-notice:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
