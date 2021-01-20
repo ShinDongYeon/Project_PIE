@@ -14,6 +14,13 @@ import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.notice;
 import kr.or.bit.service.NoticeService;
+
+/*
+파일명: NoticeController.java
+설명: 게시판 
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Controller
 public class NoticeController {
 	@Autowired
@@ -50,7 +57,6 @@ public class NoticeController {
 	@RequestMapping(value="noticeList.pie", method = RequestMethod.GET)
 	public List<notice> noticeList(int project_seq, int page){
 		List<notice> noticeList = null;
-		System.out.println(page);
 		int start = 0;
 		start = (page*10)-10;
 		try {
@@ -99,7 +105,6 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value="noticeDelete.pie", method = RequestMethod.POST)
 	public String noticeDelete(int notice_seq) {
-		System.out.println(notice_seq);
 		try {
 			noticeservice.noticeDelete(notice_seq);
 		} catch (Exception e) {

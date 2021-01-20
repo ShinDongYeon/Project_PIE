@@ -14,7 +14,12 @@ import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.noticeComments;
 import kr.or.bit.service.NoticeCommentsService;
-
+/*
+파일명: NoticeCommentsController.java
+설명: 게시판 댓글 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Controller
 public class NoticeCommentsController {
 	
@@ -41,7 +46,6 @@ public class NoticeCommentsController {
 		for(int i = 0; i < commentsList.size(); i++ ) {
 			commentsList.get(i).setNotice_seq(notice_seq);
 		}
-		System.out.println(notice_seq);
 		model.addAttribute("commList", commentsList);
 		return jsonview;	
 	}

@@ -15,24 +15,27 @@ import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.calendar;
 import kr.or.bit.service.CalendarService;
-
+/*
+파일명: CalendarController.java
+설명: 캘린더 컨트롤러  
+작성일: 2021-01-10 ~ 
+작성자: 신동연
+*/
 @Controller
 public class CalendarController {
-
+	@Autowired
 	private CalendarService calendarservice;
 
 	@Autowired
-	public void setCalendarservice(CalendarService calendarservice) {
-		this.calendarservice = calendarservice;
-	}
-	@Autowired
 	private View jsonview;
 	
+	//캘린더 페이지 이동
 	@RequestMapping(value = "fullcalendar.htm", method = RequestMethod.GET)
 	public String home() {
 		return "project/calendar_main";
 	}
-
+	
+	//캘린더 등록
 	@ResponseBody
 	@RequestMapping(value = "calendarInsert.pie", method = RequestMethod.POST)
 	public View calendarInsert(@RequestBody calendar calendar, Model model) {
@@ -45,6 +48,7 @@ public class CalendarController {
 			return jsonview;
 	}
 	
+	//캘린더 수정
 	@ResponseBody
 	@RequestMapping(value = "calendarUpdate.pie", method = RequestMethod.POST)
 	public View calendarUpdate(@RequestBody calendar calendar, Model model) {
@@ -57,7 +61,8 @@ public class CalendarController {
 		return jsonview;
 
 	}
-
+	
+	//캘린더 리스트 
 	@ResponseBody
 	@RequestMapping(value = "calendarList.pie", method = RequestMethod.GET)
 	public List<calendar> calendarList(int project_seq) {
@@ -68,11 +73,11 @@ public class CalendarController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러:" + e.getMessage());
-
 		}
 		return calendarList;
 	}
 	
+	//칸반보드 연동 캘린더 등록
 	@ResponseBody
 	@RequestMapping(value = "calendarListKanban.pie", method = RequestMethod.GET)
 	public List<calendar> calendarListKanban(String email,int project_seq) {
@@ -88,6 +93,7 @@ public class CalendarController {
 		return calendarListKanban;
 	}
 	
+	//칸반에서 캘린더 상세내용 보기
 	@ResponseBody
 	@RequestMapping(value = "calendarListKanbanDetail.pie", method = RequestMethod.GET)
 	public calendar calendarListKanbanDetail(int card_seq) {
@@ -103,6 +109,7 @@ public class CalendarController {
 		return calendarListKanbanDetail;
 	}
 	
+	//캘린더 Drag&Drop으로 날짜 수정
 	@ResponseBody
 	@RequestMapping(value = "calendarEdit.pie", method = RequestMethod.POST)
 	public void calendarEdit(String start, String end, String id) {
@@ -115,13 +122,14 @@ public class CalendarController {
 			end = new_format.format(endformat);
 
 			calendarservice.calendarEdit(start, end, id);
-			;
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
-
+	
+	//캘린더 삭제
 	@ResponseBody
 	@RequestMapping(value = "calendarDelete.pie", method = RequestMethod.POST)
 	public void calendarDelete(int id) {
@@ -131,8 +139,8 @@ public class CalendarController {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
+	//칸반카드 삭제시 캘린더 삭제
 	@ResponseBody
 	@RequestMapping(value = "calendarDeleteKanban.pie", method = RequestMethod.POST)
 	public void calendarDeleteKanban(int card_seq) {
