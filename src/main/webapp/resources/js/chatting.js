@@ -211,6 +211,7 @@ $(document).ready(function() {
 
 
 function selectChatUser(me){
+	if()
 	let nickname = $(me).find('div:eq(4)').text();
 	let email = $(me).find('div:eq(5)').text();
 	let element = "<div contenteditable='false' class='mension-added' value='"+email+"'>"+nickname+"</div>";
