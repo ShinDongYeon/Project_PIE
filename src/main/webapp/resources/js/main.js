@@ -284,6 +284,7 @@ $(document).ready(function() {
 		projectSeq = $(this)[0].dataset.projectSeq;
 
 		Swal.fire({
+			icon: 'warning',
 			title: '파이를 삭제하시겠습니까?',
 			showDenyButton: true,
 			confirmButtonText: `삭제`,
@@ -302,6 +303,7 @@ $(document).ready(function() {
 						if(data.data === 'success'){
 							location.href = "main.pie";
 						}
+						swal.fire("Done!", "It's succesfully deleted!", "success");
 					}
 				});
 
