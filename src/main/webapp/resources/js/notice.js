@@ -89,6 +89,9 @@ $(document).ready(function() {
 						makePageBtn(totalNum, currentPage);
 					}
 				})
+						$("#title").val("");
+						$("#filename").val("");
+						$(".note-editable").empty()
 		})
 		//글 목록 로드
 		function loadNotice(page){
@@ -260,11 +263,21 @@ $(document).ready(function() {
 						}
 					});
 	})
-	
+
 	$("#insertCancel").click(function(){
 		$("#title").val("");
 		$("#filename").val("");
-		$("#summernote").val("");
+		$(".note-editable").empty()
+	})
+	
+	$("#editCancel, #okeditnotice").click(function(){
+		document.getElementById('CommetnsWrap-notice').style.display='block'
+		document.getElementById('noticeContentView').style.display='block'
+		document.getElementById('noticeContentEdit').style.display='none'
+		document.getElementById('editnotice').style.display='block'
+		document.getElementById('okeditnotice').style.display='none'
+		document.getElementById('deletenotice').style.display='block'
+		$(".note-editable").empty()
 	})
 	loadNotice(1)
 	getNoticeTotalNumber()
