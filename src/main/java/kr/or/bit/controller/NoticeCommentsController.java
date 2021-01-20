@@ -48,8 +48,8 @@ public class NoticeCommentsController {
 	//댓글 삭제
 	@ResponseBody
 	@RequestMapping(value = "deleteNoticeComments.pie", method = RequestMethod.POST)
-	public View deleteNoticeComments(@RequestParam("comments_seq") int comments_seq, Model model) {
-		noticecommentsservice.deleteNoticeComments(comments_seq);
+	public View deleteNoticeComments(@RequestParam("notice_comments_seq") int notice_comments_seq, Model model) {
+		noticecommentsservice.deleteNoticeComments(notice_comments_seq);
 		model.addAttribute("data", "success");
 		return jsonview;
 	}

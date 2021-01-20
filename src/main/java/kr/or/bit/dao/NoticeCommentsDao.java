@@ -10,7 +10,7 @@ public interface NoticeCommentsDao {
 	
 	public ArrayList<noticeComments> loadComments(int notice_seq);
 	
-	public void deleteNoticeComments(int comments_seq);
+	public void deleteNoticeComments(int notice_comments_seq);
 	
 	public void updateNoticeComments(noticeComments noticecomments);
 	
