@@ -1,6 +1,12 @@
 package kr.or.bit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.bit.dto.cardComments;
+import kr.or.bit.dto.checkList;
 import kr.or.bit.service.CardCommentsService;
 
 /*
@@ -67,8 +74,41 @@ public class CardCommentsController {
 	public View editKanbanListTitle(@RequestBody cardComments comm, Model model) {
 		cardcomservice.editCardCommentService(comm);
 		model.addAttribute("data", "success");
-		System.out.println(comm);
 		return jsonview;
+	}
+	
+	//get myProfile&last comments sequence
+	@ResponseBody
+	@RequestMapping(value="getProAndSeq.pie", method = RequestMethod.POST)
+	public List<cardComments> getMyProfile(@RequestParam("email") String email) {
+		List<cardComments> proAndSeqList = null;
+		Map<String, Object> proSeqInfo = new HashMap<String,Object>();
+		try {
+			proSeqInfo.put("email", email);
+			proAndSeqList = cardcomservice.getProAndSeqService(proSeqInfo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return proAndSeqList;
+	}
+	
+	//count comments by card
+	@ResponseBody
+	@RequestMapping(value = "getTotalCommByCard.pie", method = RequestMethod.POST)
+	public List<cardComments> getTotalCommByCard(@RequestParam("sessionEmail") String sessionEmail,
+											HttpServletRequest request) {
+		HttpSession httpsession = request.getSession();
+		int projectNum = (int) httpsession.getAttribute("projectNum");
+		List<cardComments> commList = null;
+		Map<String, Object> commTotal = new HashMap<String, Object>();
+		try {
+			commTotal.put("projectNum", projectNum);
+			commList = cardcomservice.getTotalCommByCardService(commTotal);
+			System.out.println("chkList:::" + commList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return commList;
 	}
 
 
