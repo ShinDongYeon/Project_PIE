@@ -112,7 +112,7 @@ $(document).ready(function(){
 			alramTime: moment(today).format('YYYY-MM-DD'+" "+'HH:mm'),
 			project_seq:$("#projectNum").val(),
 		}
-		socket.send(JSON.stringify(alram))
+		socket.send(JSON.stringify(alram));
 	}
 	
 	

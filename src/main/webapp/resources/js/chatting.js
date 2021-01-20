@@ -209,17 +209,20 @@ $(document).ready(function() {
 	
 });
 
-
+/*
+파일명: projectMainChat.js
+설명: 멘션 기능
+작성일: 2021-01-20
+기능구현: 도재구
+*/
 function selectChatUser(me){
 	if()
 	let nickname = $(me).find('div:eq(4)').text();
 	let email = $(me).find('div:eq(5)').text();
 	let element = "<div contenteditable='false' class='mension-added' value='"+email+"'>"+nickname+"</div>";
-	//$('#message').append(element);
 	let index = $('#message').html().lastIndexOf('@');
 	let prefix = $('#message').html().substring(0,index);
-	//let suffix = $('#message').html().substring(index+1);
-	//let message = prefix + suffix;
+
 	$('#message').html(prefix + element);
 	console.log($('#message').html());
 	if($('.mension-content').hasClass('appear')){
@@ -238,7 +241,12 @@ function selectChatUser(me){
 	
 }
 
-
+/*
+파일명: projectMainChat.js
+설명: 멘션 팝업 띄우기
+작성일: 2021-01-20
+기능구현: 도재구
+*/
 function popupMension(target){
 	if(!$('.mension-content').hasClass('disappear2')){
 		if(target.hasClass('appear')){
@@ -254,7 +262,12 @@ function popupMension(target){
 	}
 }
 
-//이미지 미리보기 
+/*
+파일명: projectMainChat.js
+설명: 사용자가 채팅방에서 파일을 올렸을 때 실행되는 함수
+작성일: 2021-01-20
+기능구현: 도재구
+*/
 function readURL(file) {
   	let reader = new FileReader();
 	//파일을 읽어서
@@ -360,7 +373,12 @@ function readURL(file) {
   	}
 }
 
-//파일 업로드 
+/*
+파일명: projectMainChat.js
+설명: 사용자가 파일을 올렸을 때 파일 업로드
+작성일: 2021-01-20
+기능구현: 도재구
+*/
 function uploadFile(file) {
 	
 	let form = $('#chat_uploadForm')[0];
