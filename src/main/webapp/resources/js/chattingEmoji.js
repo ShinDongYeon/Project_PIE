@@ -132,34 +132,28 @@ $.fn.setCursorPosition = function( pos )
 function inputEmoji(me){
 
 	let element = document.getElementById('message');
-	let strOriginal = element.value;
-	let iStartPos = element.selectionStart;
-	let iEndPos = element.selectionEnd;
-		
-	//이모티콘 1개일 때 확대
-	if(me.innerHTML.length == 1 || me.innerHTML.length == 2){
-		
-	}
+	let strOriginal = $('#message').text();
+	var selection = window.getSelection();
 	let strFront = "";
 	let strEnd = "";
-	
-	console.log(iStartPos + " / " + iEndPos);
-	if(iStartPos == iEndPos) {
 	      
-		strFront = strOriginal.substring(0, iStartPos);
-		strEnd = strOriginal.substring(iStartPos, strOriginal.length);
-		
-		console.log(strFront + " / " + strEnd);
-	} else return;
+	strFront = strOriginal.substring(0, strOriginal.length);
+	//strEnd = strOriginal.substring(strOriginal.indexOf(me.innerHTML), strOriginal.length);
 	
-	element.value = strFront + me.innerHTML + strEnd;
-	console.log(strFront.length + " |자리| " + me.innerHTML.length)
-	$('#message').focus().setCursorPosition(strFront.length + me.innerHTML.length);
+	$('#message').text(strFront + me.innerHTML);
+	$('#message').focus();
+	selection.selectAllChildren(element);
+	selection.collapseToEnd();
 	$('.chat-msgWrite-btn-not').attr('class','chat-msgWrite-btn');
+	
 }
+
 
 // 이모티콘 켜기/끄기
 function switchAnimation(target) {
+	let element = document.getElementById('message');
+	let selection = window.getSelection();
+	
 	if(!$('.emoji-content').hasClass('disappear2')){
 		if(target.hasClass('appear')){
 			target.addClass('disappear');
@@ -167,9 +161,13 @@ function switchAnimation(target) {
 				target.removeClass('appear'); 
 				target.css('display','none'); 
 			}, 580 );
+			
 		}else {
 			target.removeClass('disappear').addClass('appear');
 			target.css('display','block');
+			$('#message').focus();
+			selection.selectAllChildren(element);
+			selection.collapseToEnd();
 		}
 	}
 }
