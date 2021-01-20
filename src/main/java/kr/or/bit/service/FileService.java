@@ -114,9 +114,12 @@ public class FileService{
 		return filedao.fileLastSeq();
 	}
 	//게시판 파일 업로드
-		public boolean fileUploadNoticeService(MultipartFile file, int projectNum, String nick) {
-			String UPLOAD_PATH = UploadPath.upload_path_files();
+		public boolean fileUploadNoticeService(MultipartFile file, int projectNum, String nick,
+											   HttpServletRequest request) {
+			//String UPLOAD_PATH = UploadPath.upload_path_files();
 			//파일 저장 경로 (프로젝트번호 기준)
+			HttpSession session = request.getSession();
+			String UPLOAD_PATH = session.getServletContext().getRealPath("/resources/files");
 			String specific_path = "/file_directory_project_seq_"+projectNum;
 			
 			File fileOb = new File(UPLOAD_PATH+specific_path);
