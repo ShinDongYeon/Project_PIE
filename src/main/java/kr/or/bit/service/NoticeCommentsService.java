@@ -31,9 +31,9 @@ public class NoticeCommentsService {
 	}
 	
 	//댓글 삭제
-	public void deleteNoticeComments(int comments_seq) {
+	public void deleteNoticeComments(int notice_comments_seq) {
 		NoticeCommentsDao noticecommentsdao = sqlsession.getMapper(NoticeCommentsDao.class);
-		noticecommentsdao.deleteNoticeComments(comments_seq);
+		noticecommentsdao.deleteNoticeComments(notice_comments_seq);
 	}
 	
 	//댓글 수정
