@@ -1,10 +1,15 @@
-/**
- * chat.jsp 웹소켓
- */
+/*
+파일명: chatting.js
+설명: 채팅 구현
+작성일: 2021-01-20
+기능구현: 도재구
+*/
 
 $(document).ready(function() {
 	//웹소켓 연결
 	connect();
+	
+	//채팅방 입장시 채팅방 회원의 회원정보를 가지고 와서 화면에 적용해주는 비동기 처리
 	$.ajax({
 			type : "GET",
 			url  : "chat/users",
@@ -99,7 +104,7 @@ $(document).ready(function() {
 			event.preventDefault();
 		}
 		
-		//@ 멘션키 입력
+		//@ 멘션키 입력시
 		if (event.key == '@') {
 			let mension_content = $('.mension-content');
 			mension_content.removeClass('disappear').addClass('appear');
@@ -107,7 +112,7 @@ $(document).ready(function() {
 		}
 		
 	});
-	//전송 버튼 CSS 조절
+	//전송 버튼 CSS 조절, 텍스트 박스에 글을 입력할 때마다
 	$('#message').keyup( (event) => {
 		let filename = $('#file-input').val();
 		//파일이 들어왔으면
@@ -211,7 +216,7 @@ $(document).ready(function() {
 
 /*
 파일명: projectMainChat.js
-설명: 멘션 기능
+설명: 멘션 기능(회원을 선택하면 멘션이 적용되도록 하는 함수)
 작성일: 2021-01-20
 기능구현: 도재구
 */
@@ -223,7 +228,6 @@ function selectChatUser(me){
 	let prefix = $('#message').html().substring(0,index);
 
 	$('#message').html(prefix + element);
-	console.log($('#message').html());
 	if($('.mension-content').hasClass('appear')){
 		$('.mension-content').addClass('disappear');
 		setTimeout( () => {
@@ -272,16 +276,19 @@ function readURL(file) {
 	//파일을 읽어서
   	reader.readAsDataURL(file);
 
-	//확장자명
+	//확장자명 추출 extension
 	let index = file.name.lastIndexOf(".");
 	let extension = file.name.substring(index+1);
 	
 	//파일이 다 읽어지면 
   	reader.onload = (e) => {
+		//파일을 업로드합니다.
 		uploadFile(file);
 		
+		//이미지 미리보기
 		$('#img_zone').css('display','block');
 		
+		//확장자명에 따라 이미지를 다르게 보여줍니다.
 		if(extension === "png" || extension === "jpg" || extension === "jpeg" || extension === "gif"){
 			$('#img_zone').attr('src', e.target.result);
 		}else if(extension === "ppt" || extension === "pptx"){
@@ -301,17 +308,19 @@ function readURL(file) {
 		}else{
 			$('#img_zone').attr('src', '/resources/img/icon/file.png');
 		}
+		//파일을 올렸을 때에는 텍스트를 작성할 수 없도록 합니다.
 		$('#message').attr('contenteditable',false);
 		$('#message').empty();
 		$('#chat-msgWrite-btn').attr('class','chat-msgWrite-btn')
 		
-		//파일이 업로드 되는 동안 이모티콘 올리지 않도록
+		//파일이 업로드 되는 동안 이모티콘 올리지 않도록 합니다.
 		//chattingEmoji.js 파일에서 function switchAnimation(target) 에서 쓰임
 		$('.emoji-content').removeClass('disappear');
 		$('.emoji-content').addClass('disappear2');
 		
-		//백스페이스 눌렀을 경우
+		
 		window.onkeydown = (event) => {
+			//백스페이스 눌렀을 경우
 			if (event.keyCode == 8 || event.which == 8) {
 				$('#message').attr('contenteditable',true);
 				$('#message').focus(); 
@@ -321,6 +330,7 @@ function readURL(file) {
 				$('#file-input').val('');
 			}
 			
+			//엔터키를 눌렀을 경우
 			if (event.keyCode == 13 || event.which == 13) {
 				let filename = $('#file-input').val();
 				if(filename != null && filename != ''){
@@ -383,7 +393,6 @@ function uploadFile(file) {
 	let form = $('#chat_uploadForm')[0];
 	//파일 안 올리고 업로드 시 
 	if($("#file-input").val()===''){
-		console.log("파일없음");
 		return;
 	}
 	
@@ -409,12 +418,14 @@ var websocket;
 var chatReceiveSocket;
 
 function connect(){
+	//전송하는 쪽에서 적용될 웹소켓
 	websocket = new WebSocket(
 		"ws://localhost:8090/websocket/chat/websocket?select="+$('#select').val()+"&roomname="+$('#roomname').val());
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
 	
+	//받는 쪽에서 적용될 웹소켓 생성
 	chatReceiveSocket = new WebSocket(
 		"ws://localhost:8090/websocket/chatReceive/websocket?select="+$('#select').val()+"&roomname="+$('#roomname').val());
 	chatReceiveSocket.onopen = (event) => {};
@@ -426,21 +437,23 @@ function disconnect(){
 	websocket.close();
 }
 
+//채팅방을 열었을 때 앞서 저장된 데이터를 불러와 주는 함수
 function onOpen(evt){
 	
 	let today = new Date();
 	let date = today.format('yyyy년 MM월 dd일');
 	
+	//파이어베이스 초기값 작성
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages/0').set({
 		chatting_room_seq : $('#select').val(),
 		message_seq : 0
 	});
 	
-	//DB에서 이전 데이터를 불러옴
+	//DB에서 이전 데이터를 불러옵니다.
 	firebase.database().ref().child('chatting_room_seq/'+$('#select').val()+'/messages').once('value',function(data){
 		let myemail = $('#session_email').val();
 		let msgbox = '';
-		//데이터가 1개이면,
+		//받아온 데이터가 1개이면,
 		if(data.val().length == 1){
 			msgbox += 	"<div class='chat-body-date'>"+
 							"<div class='chat-body-date-line'>"+
@@ -455,13 +468,14 @@ function onOpen(evt){
 						"</div>";
 		}
 		
+		//데이터의 갯수 만큼 반복문을 돌려서 데이터를 불러옵니다.
 		for(let i=1; i < data.val().length; i++){
 			
 			let str = data.val()[i].message_date;
 			let strArr = str.split('-');
 			let DB_date = new Date(strArr[0], strArr[1]-1, strArr[2]);
 			let DB_date_format = DB_date.format('yyyy년 MM월 dd일');
-			//날짜가 5일뒤 자정이 지난 메시지는 띄우지 않기
+			//날짜가 5일뒤 '자정이 지난' 메시지는 띄우지 않기
 			if((today - DB_date)/1000/60/60/24 < 5){
 				//날짜가 바뀌었으면 바뀐 것을 표시
 				if(data.val()[i].message_date != data.val()[i-1].message_date){
@@ -612,7 +626,8 @@ function onOpen(evt){
 							"</div>"+
 						"</div>";
 		}
-
+		
+		//불러온 데이터를 메시지 화면창에 append 합니다.
 		$("#chatMessageArea").append(msgbox);
 		var chatAreaHeight = $("#chatArea").height();
 		var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
@@ -624,9 +639,14 @@ function onOpen(evt){
 
 function onMessage(evt){
 	var data = evt.data;
+	//일반 메시지가 들어오면 다음 함수를 적용합니다.
 	if(data.indexOf('|') != -1){
 		appendMessage(data);
+		
+	//프로젝트 메인과 연결하기 위해서 또다른 웹소켓을 생성하였습니다.connectSocket
+	//메시지를 보낼때 onMessage 함수를 두번 타게 되는데, 두번째 타게될 때에 이곳을 지납니다.
 	}else if(data == $('#session_email').val()){
+		//프로젝트 메인과 연결되어 있는 웹소켓 send
 		connectSocket.send($('#select').val());
 	}
 }
@@ -635,6 +655,7 @@ function onClose(evt){
 	
 }
 
+//채팅방에 메시지를 입력할시 적용되는 함수
 function send(){
 	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
@@ -647,6 +668,7 @@ function send(){
 	$('#message').text('');
 }
 
+//채팅방에 파일을 업로드할 때 적용되는 함수
 function sendFiles(filename){
 	let email = $('#session_email').val();
 	let nickname = $('#nickname').val();
@@ -656,6 +678,7 @@ function sendFiles(filename){
 	websocket.send(email + "|" + msg + "|" + nickname +"|/"+original_filename);
 }
 
+//메시지를 실시간 보내주는 함수
 function appendMessage(msg) {
 	
 	$.ajax(
@@ -685,7 +708,7 @@ function appendMessage(msg) {
 				let extension = strarray[3].substring(index+1);
 				
 				
-				
+					//받은 정보가 나의 이메일이면, 
 					if (msginfo == myemail) {
 						$.each(data,function(index,elem){
 							if(myemail == elem.email){
@@ -812,7 +835,7 @@ function appendMessage(msg) {
 							
 							});
 						
-								
+					//OOO님이 입장하였습니다, 퇴장하였습니다 를 적용하고 싶을 때 이곳을 타게 하도록 합니다.
 					}else if(msginfo == "알림"){
 						msgbox += 	"<div class='chat-body-date'>"+
 										"<div class='chat-body-date-line'>"+
@@ -825,7 +848,8 @@ function appendMessage(msg) {
 											"――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"+
 										"</div>"+
 									"</div>";
-									
+					
+					//받은 정보가 다른 회원의 이메일이면,	
 					}else {
 						$.each(data,function(index,elem){
 							if(msginfo == elem.email){
@@ -893,6 +917,7 @@ function appendMessage(msg) {
 						});//each end
 					}
 				
+				//채팅 내용을 실시간 append 합니다.
 				$("#chatMessageArea").append(msgbox);
 				var chatAreaHeight = $("#chatArea").height();
 				var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;

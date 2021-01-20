@@ -1,3 +1,10 @@
+/*
+파일명: chattingEmoji.js
+설명: 채팅방 내에 이모지 기능이 적용되도록 구현하였습니다.
+작성일: 2021-01-17
+기능구현: 도재구
+*/
+
 $( () => {
 	getEmoticons($('.emoji-area'));
 	getChattingUserList();
@@ -49,9 +56,7 @@ function getChattingUserList(){
 		error: function(request,status,error){
 			alert(error);
 		},
-		success : function(data){
-			console.log(data);
-		}
+		success : function(data){}
 	});
 }
 
@@ -64,23 +69,11 @@ function getEmoticons(target){
          beforeSend : () => {
             // 보내기 전
          },
-         
-         complete: (jqXHR, textStatus) => {
-            console.log(jqXHR + "/" + textStatus);
-         },
-
+         complete: (jqXHR, textStatus) => {},
          success : (data) => {
-            
-            console.log( Object.keys(data) );
             
             $.each(data, (key, value) => {
                
-               console.log("테마 : " + key);
-               console.log("표시 : " + value[0].emoji);   // HTML 엔티티(&#과 10진수;)
-               console.log("코드 : " + value[0].code + " / " + "설명 : " + value[0].description);
-               console.log("테마별 길이 : " + value.length);
-               console.log("------------------------------");
-
                // 이모티콘 테마 태그
                let emojiBlock = '<hr class="hr-small">'
                            + '<div class="emoji-head" title="'+ key + '">'
@@ -102,9 +95,7 @@ function getEmoticons(target){
             });
          },
 
-         error : (xhr) => {
-            console.log("상태코드 : " + xhr.status + " ERROR");
-         }
+         error : (xhr) => {}
       }
    );
 }

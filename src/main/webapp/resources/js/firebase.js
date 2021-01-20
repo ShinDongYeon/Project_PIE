@@ -1,3 +1,10 @@
+/*
+파일명: firebase.js
+설명: 파이어베이스 계정 생성
+작성일: 2021-01-17
+기능구현: 도재구
+*/
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {

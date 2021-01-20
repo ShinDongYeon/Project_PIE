@@ -14,6 +14,12 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/*
+파일명: connectsocketHandler.java
+설명: 메시지를 보낸 시점에, 채팅방과 프로젝트 메인에 적용되는 핸들러
+작성일: 2021-01-17
+기능구현: 도재구
+*/
 public class connectsocketHandler extends TextWebSocketHandler{
 	
 	//로그인한 전체 회원 관리

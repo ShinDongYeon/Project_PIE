@@ -17,6 +17,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.bit.service.ChatService;
 
+/*
+파일명: chatReceivesocketHandler.java
+설명: 메시지를 보낼 떄, 받는 사람의 경우 적용될 웹소켓핸들러
+작성일: 2021-01-17
+기능구현: 도재구
+*/
 public class chatReceivesocketHandler extends TextWebSocketHandler{
 	
 	@Autowired
@@ -35,9 +41,11 @@ public class chatReceivesocketHandler extends TextWebSocketHandler{
 		pushAlarmMap.put("select", Integer.parseInt(select));
 		pushAlarmMap.put("loginuser", loginuser);
 		
-		
+		//대기하면서 DB와의 조회를 계속하다가
 		while(true) {
+			//보내는 쪽에서 알람을 보내게 되면
 			if(chatservice.alarmIsNotNull(pushAlarmMap) != 0) {
+				//채팅방이 ON 상태인 회원의 채팅방 알림은 울리지 않도록 합니다.
 				chatservice.pushAlarmNotMe(pushAlarmMap);
 				break;
 			}
