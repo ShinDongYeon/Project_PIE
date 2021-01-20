@@ -9,11 +9,12 @@
 	<div class="main-top-menu">
 		<!-- Logo -->
 		<div class="logo-box">
-			<a href="index.htm">
+			<a href="main.pie">
 				<img src="/resources/img/pie_logo_letter.png" alt="PIE logo" class="logo">
 			</a>
 		</div>
 		
+		<!-- 시계 -->
 		<div class = "clock-wrapper">
 				<span class="clock"></span>
 		</div>

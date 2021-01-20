@@ -126,26 +126,28 @@
 	transition: width .5s;
 }
 
-/*bookmark*/
-.right-sidebar-bookmark{
+/*notice*/
+.right-sidebar-notice{
 	width: 100%;
 	height: 100%;
 	padding-right: 62px;
 }
-.right-sidebar-bookmark .bookmark-item-wrapper{
+.right-sidebar-notice .notice-item-wrapper{
 	width: 450px;
 	height: 50px;
 	border-bottom: 2px solid #000;
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
 	padding: 5px;
 	margin-bottom: 0px;
+	
+	
 }
-.bookmark-top-wrapper{
+.notice-top-wrapper{
 	display: flex;
 	color: #fff;
 	padding: 0 10px;
 }
-.bookmark-user{
+.notice-user{
 	width: 40px;
     height: 40px;
     font-size: 1.6rem;
@@ -154,48 +156,48 @@
     text-align: center;
     border-radius: 100%;
 }
-.bookmark-img{
+.notice-img{
 	width: 40px;
     height: 40px;
 	border-radius: 100%;
 }
-.bookmark-user > i {
+.notice-user > i {
 	margin-bottom: 5px;
 }
-.bookmark-username{
+.notice-username{
     font-size: 1rem;
     font-weight: 500;
 	padding: 0px;
 }
-.bookmark-roomname{
+.notice-roomname{
     font-size: 5px;
 	color: #808080;
 	margin-right: 55px;
 }
-.bookmark-time{
+.notice-time{
     font-size: 5px;
 	color: #808080;
 }
-.bookmark-cancel{
+.notice-cancel{
 	font-size: 1.2rem;
 	padding: 5px;
 	margin-left: 140px;
 }
-.bookmark-middle-wrapper{
+.notice-middle-wrapper{
 	display: flex;
 	font-size: 0.7rem;
 	font-weight: 100;
 	color: #808080;
-	padding-left: 57px;
+	padding-left: 10px;
 	margin-bottom: 5px;
 }
-.bookmark-item-wrapper:hover{
+.notice-item-wrapper:hover{
 	cursor: pointer;
 }
-.bookmark-reply{
+.notice-reply{
 	margin-right: 5px;
 }
-.bookmark-bottom-wrapper{
+.notice-bottom-wrapper{
     width: 280px;
     height: 65px;
     background-color: #181a1f;
@@ -694,7 +696,16 @@
 	height: 100%;
 	padding-right: 62px;
 }
-.right-sidebar-users .users-item-wrapper{
+.right-sidebar-users{
+	width: 298px;
+	height: 90px;
+	/* border: 2px solid #f2dd68; */
+	border-bottom: 2px solid #000;
+	box-shadow: rgba(0,0,0,0.5) 0px 1px 4px 1px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+.users-item-wrapper{
 	width: 298px;
 	height: 90px;
 	/* border: 2px solid #f2dd68; */
@@ -887,7 +898,7 @@
 	padding-top: 65px;
 	overflow-y : scroll;
 }
-.page-btn-zone{
+.page-btn-zone, .notice-page-btn-zone{
 	position: fixed;
 	width: 298px;
 	text-align: center;
@@ -896,28 +907,28 @@
 	justify-content : center;
 	align-items : center 
 }
-.btn{
+.btn , .notice-btn{
 	margin-left : 2px;
 	margin-right : 2px;
 	color : #f2dd68;
 	display: inline-block;
 	cursor: pointer;
 }
-.current-page-btn{
+.current-page-btn , .notice-current-page-btn{
 	margin-left : 2px;
 	margin-right : 2px;
 	color : grey;
 	display: inline-block;
 	cursor: pointer;
 }
-.left-btn{
+.left-btn , .notice-left-btn{
 	margin-left : 2px;
 	margin-right : 2px;
 	color : #f2dd68;
 	display: inline-block;
 	cursor: pointer;
 }
-.right-btn{
+.right-btn , .notice-right-btn{
 	margin-left : 2px;
 	margin-right : 2px;
 	color : #f2dd68;

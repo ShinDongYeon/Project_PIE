@@ -41,15 +41,24 @@ $(document).ready(function() {
 			let ctx = document.getElementById('myChart-'  + users.email);
 			let myChart = new Chart(ctx, {
 				type: 'pie',
-				data: {
-					datasets: [{
-						backgroundColor: [
-							"#f2dd68",
-							"#31353d",
-						],
-						data: [done, inProgress]
-					}]
+					data: {
+				labels: ["완료","진행중"],
+				datasets: [{
+					backgroundColor: [
+						"#f2dd68",
+						"#31353d",
+					],
+					data: [done, inProgress]
+				}]
+			},
+			options: {
+			legend: {
+				display : false,
+				position: "right",
+				labels: {
 				}
+			},
+		}
 			});
 		})
 	}

@@ -1,5 +1,7 @@
 package kr.or.bit.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,19 @@ public class GoogleController {
 			user u = new user();
 			u.setEmail(loginuser);
 			u.setNickName(name);
-
-			String pwd = "임시비밀번호";// 임시 비밀번호 변경이 필요함..
-			u.setPwd(this.bCryptPasswordEncoder.encode(pwd));
+			
+			//임시 비밀번호 생성
+			Random rnd = new Random();
+			StringBuffer buf = new StringBuffer();
+			for (int i = 0; i < 30; i++) {
+				if (rnd.nextBoolean()) {
+					buf.append((char) ((int) (rnd.nextInt(26)) + 97));
+				} else {
+					buf.append((rnd.nextInt(10)));
+				}
+			}
+			
+			u.setPwd(this.bCryptPasswordEncoder.encode(buf));
 			session.setAttribute("nick", name);
 			session.setAttribute("loginuser", loginuser);
 

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Top</title>	
+	<title>PIE</title>	
 <link rel="stylesheet" href="/resources/css/project_main_top_style.css">	
 <script src="/resources/js/clock.js"></script>
 </head>

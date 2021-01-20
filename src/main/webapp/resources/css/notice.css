@@ -139,31 +139,10 @@ cursor: pointer;
 .note-editable{
     background: #fbfdea;
 }
-#wirte{
+#write{
 	width: 297px;
 }
-/* .ckeditor {
-	box-sizing: content-box;
-    border: none;
-    padding: 7px 10px;
-    resize: block;
-    height: 50px;
-    box-shadow: 1px 1px 1px 0px rgb(186, 186, 186);
-    margin-right:10px;
-    font-size:15px;
-    padding-left:10px;
-    margin-bottom:10px;
-    font-weight: 200;
-    background: transparent;
-    color: #000;
-    border: block;
-    background: #fbfdea;
-    border-radius: 5px;
-    width:95%;
-} */
-.ck{
-	height:500px;
-}
+
 .CheckBox{
 	width:30%;
 	margin-left:0px;

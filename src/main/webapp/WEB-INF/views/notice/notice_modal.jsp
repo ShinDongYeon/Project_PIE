@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PIE</title>
 </head>
 <body>
 <div id="notice_modal_background"></div>
@@ -15,7 +15,6 @@
 			<!-- Modal close btn -->
 			<span class="noticeCloseModal" id="insertCancel"
 			onclick="document.getElementById('noticeInsert_modal_contents').style.display='none'">&times;</span>
-			
 			<!-- Card Title -->
 			<div class="notices"></div>
 			<h3 class="Title">

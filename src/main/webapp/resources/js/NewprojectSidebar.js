@@ -18,8 +18,8 @@ $(document).ready(function() {
 	let currentSideBar = null;
 
 	//즐겨찾기 사이드바 오픈
-	$('#sidebar-star').click(function() {
-		sideBarOpen("right-sidebar-contents-wrapper-bookmark");
+	$('#sidebar-notice').click(function() {
+		sideBarOpen("right-sidebar-contents-wrapper-notice");
 	});
 
 	//알람 사이드바 오픈
@@ -78,6 +78,7 @@ $(document).ready(function() {
 			currentSideBar = document.getElementById(clickedBtnId);
 			document.getElementById(clickedBtnId).className = "right-sidebar-contents-wrapper-display";
 		}else {
+			console.log("asdasd");
 			currentSideBar.className = "right-sidebar-contents-wrapper-hidden";
 			currentSideBar = document.getElementById(clickedBtnId);
 			document.getElementById(clickedBtnId).className = "right-sidebar-contents-wrapper-display";
