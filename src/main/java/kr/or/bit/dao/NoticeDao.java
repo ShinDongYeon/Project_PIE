@@ -15,4 +15,6 @@ public interface NoticeDao {
 	public int lastNotice_seq();
 	
 	public int getNoticeTotalNumber(int project_seq);
+	
+	public void deleteNoticeByProjectSeq(int project_seq);
 }

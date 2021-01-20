@@ -274,4 +274,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON U.EMAIL = L.EMAIL
 		WHERE L.CHATTING_ROOM_SEQ = #{chatting_room_seq}
 	</select>
+	
+	<select id="getChatSeqByProjectSeq" resultType="int" parameterType="int" >
+		SELECT CHATTING_ROOM_SEQ FROM CHATTINGROOM WHERE PROJECT_SEQ = #{param1}
+	</select>
+	
+	<delete id="deleteRoomList" parameterType="int" >
+		DELETE FROM CHATTINGROOMLIST WHERE CHATTING_ROOM_SEQ = #{param1}
+	</delete>
+	
+	<delete id="deleteChatRoom" parameterType="int" >
+		DELETE FROM CHATTINGROOM WHERE PROJECT_SEQ = #{param1}
+	</delete>
+	
+	
 </mapper>

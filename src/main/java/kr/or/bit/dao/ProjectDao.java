@@ -13,4 +13,7 @@ public interface ProjectDao {
 	public ArrayList<project> getPieList(String userEmail);
 	
 	public String getProjectTitle(int projectNum);
+	
+	public void deleteProjectByProjectSeq(int projectNum);
+	
 }

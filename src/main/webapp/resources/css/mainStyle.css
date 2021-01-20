@@ -251,6 +251,28 @@ body {
 	background-color: #31353d;
 	color: #f2dd68;
 }
+.delete-pie-btn{
+	margin-right : 5px;
+	width: 70px;
+	height: 50px;
+	background-color: #ec5353;
+	border: none;
+	border-radius: 6px;
+	color: #31353d;
+	text-align: center;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 700;
+	padding: 5px;
+	cursor: pointer;
+	-webkit-appearance: none;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 1px;
+}
+
+.delete-pie-btn:hover {
+	background-color: #31353d;
+	color: #f2dd68;
+}
 
 .main-list-project-right-btn2 {
 	width: 100px;

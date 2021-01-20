@@ -26,5 +26,7 @@ public interface CalendarDao {
 	
 	public int getCalendarCount(int projectNum);
 	
+	public void deleteCalendarByProjectSeq(int projectNum);
+	
 	
 }

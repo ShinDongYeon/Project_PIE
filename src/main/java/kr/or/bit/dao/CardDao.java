@@ -28,5 +28,9 @@ public interface CardDao {
 	public List<card> getCardContent(Map<String,Object> cardInfo);
 	
 	public int getlCardCount(int projectNum);
-
+	
+	public ArrayList<Integer> getCardSeqByProjectSeq(int projectNum);
+	
+	public void deleteKanbanCardByProjectSeq(int projectNum);
+	
 }
