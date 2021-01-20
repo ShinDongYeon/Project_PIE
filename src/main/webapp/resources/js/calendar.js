@@ -163,16 +163,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		locales: 'ko',
 		dateClick: function(info) {         //캘린더의 날짜 클릭시 실행
 			document.getElementById('calendarInsert_modal_contents').style.display = 'block'
-			document.getElementById('calendar_modal_background').style.display = 'block';
 			$('#startDate').val(info.dateStr + " " + hours + ":00")
 			$("#insertCancel").unbind('click');
 			$('#insertCancel').click(function() {
 				insertButton()
-				document.getElementById('calendar_modal_background').style.display = 'none';
 			})
 			$("#insertCalendar").unbind('click');
 			$('#insertCalendar').click(function() {
-				document.getElementById('calendar_modal_background').style.display = 'none';
 				if ($("input:checkbox[name=allDay]").is(":checked") == true) {
 					allDay = true
 				} else {
@@ -274,7 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		//일정 클릭시 실행되는 이벤트
 		eventClick: function(info) {
 			document.getElementById('calendarEdit_modal_contents').style.display = 'block'
-			document.getElementById('calendar_modal_background').style.display = 'block';
 			start = info.event.start;
 			end = info.event.end;
 			title = info.event.title;
@@ -309,10 +305,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						if (result.isConfirmed) {
 							deleteCalendar(info)
 							var event = calendar.getEventById(info.event.id);
-							document.getElementById('calendar_modal_background').style.display = 'none';
 							event.remove();
 						} else {
-							document.getElementById('calendar_modal_background').style.display = 'none';
 						}
 					});
 			})
@@ -321,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#editCancel").unbind('click');
 			$('#editCancel').click(function() {
 				editButton()
-				document.getElementById('calendar_modal_background').style.display = 'none';
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
@@ -340,12 +333,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				$("#startDateView, #endDateView").flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" }, 'disableMobile', false);
 			})
 			$('#editCancelCalendar').click(function() {
-				document.getElementById('calendar_modal_background').style.display = 'none';
 				editButton()
 			})
 			$("#okeditCalendar").unbind('click');
 			$('#okeditCalendar').click(function() {
-				document.getElementById('calendar_modal_background').style.display = 'none';
 				if ($("input:checkbox[id=allDayView]").is(":checked") == true) {
 					allDay = true
 				} else {

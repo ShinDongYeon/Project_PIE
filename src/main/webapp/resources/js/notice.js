@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 				document.getElementById('notice_modal_background').style.display = 'none';
 				let noticeInsertOb = new Object();
-				noticeInsertOb.title = $('#title').val()
+				noticeInsertOb.title = $('#noticeTitle').val()
 				noticeInsertOb.content = $('#summernote').val()
 				noticeInsertOb.project_seq = $("#projectNum").val()
 				noticeInsertOb.nickName = $("#nick").val()
@@ -121,7 +121,7 @@ $(document).ready(function() {
 						makePageBtn(totalNum, currentPage);
 					}
 				})
-						$("#title").val("");
+						$("#noticeTitle").val("");
 						$("#filename").val("");
 						$(".note-editable").empty()
 		})
@@ -189,7 +189,7 @@ $(document).ready(function() {
 				})
 				}
 				document.getElementById('noticeEdit_modal_contents').style.display='block'
-				$("#titleView").val(data.title)
+				$("#noticeTitleView").val(data.title)
 				$("#notice_seq_hidden").val(data.notice_seq)
 				document.getElementById('noticeContentView').innerHTML= data.content
 				document.getElementById('summernoteEdit').innerHTML= data.content
@@ -205,7 +205,7 @@ $(document).ready(function() {
 		document.getElementById('okeditnotice').style.display='block'
 		document.getElementById('deletenotice').style.display='none'
 		document.getElementById('downloadDiv').style.display='none'
-		$('#titleView').removeAttr("readonly");
+		$('#noticeTitleView').removeAttr("readonly");
 		$('#summernoteEdit').summernote({
 		  toolbar: [
    			 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -249,7 +249,7 @@ $(document).ready(function() {
 				})
 				}
 				let noticeEditOb = new Object();
-				noticeEditOb.title = $('#titleView').val()
+				noticeEditOb.title = $('#noticeTitleView').val()
 				noticeEditOb.content = $('#summernoteEdit').val()
 				noticeEditOb.notice_seq = $("#notice_seq_hidden").val()
 				noticeEditOb.filename = fileName
@@ -300,7 +300,7 @@ $(document).ready(function() {
 	})
 	//게시글 등록 취소시 실행되는 이벤트
 	$("#insertCancel").click(function(){
-		$("#title").val("");
+		$("#noticeTitle").val("");
 		$("#filename").val("");
 		$(".note-editable").empty()
 	})

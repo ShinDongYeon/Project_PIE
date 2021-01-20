@@ -21,7 +21,7 @@
 			<i class="fas fa-pen"></i> 제목
 			</h3>
 			<div id="noticeInput" class="noticeTitle">
-				<input type="text" id="title" name="title" placeholder=""> 
+				<input type="text" id="noticeTitle" name="title" placeholder=""> 
 			</div>
 			<!-- Card Details -->
 			<div id="noticeDetailsWrap">
@@ -53,7 +53,7 @@
 			<i class="fas fa-pen"></i> 제목
 			</h3>
 			<div id="noticeInput" class="noticeTitle">
-				<input type="text" id="titleView" name="title" readonly /> 
+				<input type="text" id="noticeTitleView" name="title" readonly /> 
 			</div>
 			<!-- Card Details -->
 			<div id="noticeDetailsWrap">
