@@ -21,6 +21,13 @@ import kr.or.bit.dto.user;
 import kr.or.bit.service.UserService;
 import kr.or.bit.util.NaverLoginBO;
 
+
+/*
+파일명: NaverLoginController.java
+설명: 네이버 로그인 및 회원가입 처리 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class NaverLoginController {
 	

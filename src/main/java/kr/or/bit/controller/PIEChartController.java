@@ -24,6 +24,13 @@ import kr.or.bit.service.KanbanService;
 import kr.or.bit.service.PIEChartService;
 import kr.or.bit.util.KanbanSortHandler;
 
+
+/*
+파일명: PIEChartController.java
+설명: 차트 진행률 리턴 및 처리 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class PIEChartController {
 	
@@ -180,6 +187,7 @@ public class PIEChartController {
 		}
 	/*멤버 진행도 끝*/
 	
+	//프로젝트 번호와 사용자 이름으로 진행률 리턴하는 컨트롤러
 	@ResponseBody
 	@RequestMapping(value = "getProgressByNameAndProjectSeq.pie", method = RequestMethod.POST)
 	public View getProgressByNameAndProjectSeq(@RequestParam("projectNum") int projectNum, Model model,

@@ -39,4 +39,9 @@ WHERE notice_seq = #{param1}
 <delete id="deleteNoticeByProjectSeq" parameterType = "int">
 	DELETE FROM notice WHERE PROJECT_SEQ = #{param1}
 </delete>
+
+<select id="getNoticeCommentsSeqByProjectSeq" resultType = "int" parameterType = "int" >
+	SELECT NOTICE_SEQ FROM notice WHERE PROJECT_SEQ = #{param1}
+</select>
+
 </mapper>

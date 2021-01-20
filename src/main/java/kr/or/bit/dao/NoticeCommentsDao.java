@@ -16,4 +16,6 @@ public interface NoticeCommentsDao {
 	
 	public void deleteAllNoticeComments(int notice_seq);
 	
+	public void deleteNoticeCommentsByNoticeSeq(int notice_seq);
+	
 }

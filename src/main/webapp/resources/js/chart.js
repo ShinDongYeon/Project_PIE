@@ -1,3 +1,10 @@
+/*
+파일명: chart.js
+설명: 차트 생성 및 진행률 처리 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 
 	let project_seq = Number($("#projectNum").val());

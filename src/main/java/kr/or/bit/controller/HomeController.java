@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.bit.dto.user;
 
+/*
+파일명: HomeController.java
+설명: 경로 리턴 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class HomeController {
 

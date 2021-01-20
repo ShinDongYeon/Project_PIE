@@ -13,7 +13,7 @@
 <script src="<c:url value="/resources/js/googleLogin.js"/>"></script>
 <body>
 	<!-- Top -->
-	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/main_top2.jsp"></jsp:include>
 
 	<!-- login left navbar -->
 	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>
@@ -21,20 +21,20 @@
 	<!-- 이메일 인증 성공 or 실패 alert -->
 	<c:if test="${sessionScope.trueOrFalse == true}">
 		<script>
-				alert("이메일 인증이 완료되었습니다.");
+			Swal.fire("이메일 인증이 완료되었습니다.");
 			</script>
 			<%session.removeAttribute("trueOrFalse"); %>
 	</c:if>
 	<c:if test="${sessionScope.trueOrFalse == false}">
 		<script>
-				alert("이메일 인증이 실패하였습니다.");
+			Swal.fire("이메일 인증이 실패하였습니다.");
 			</script>
 			<%session.removeAttribute("trueOrFalse"); %>
 
 	</c:if>
 	<c:if test="${sessionScope.check}">
 		<script>
-				alert("비밀번호가 변경되었습니다.");
+				Swal.fire("비밀번호가 변경되었습니다.");
 				${sessionScope.check = false}
 		</script>
 	</c:if>

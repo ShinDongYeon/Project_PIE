@@ -17,6 +17,14 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import kr.or.bit.dao.UserDao;
 import kr.or.bit.dto.user;
 
+
+/*
+파일명: UserService.java
+설명: 사용자 로그인, 회원가입, 비밀번호 관리 처리 서비스
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 @Service
 public class UserService {
 

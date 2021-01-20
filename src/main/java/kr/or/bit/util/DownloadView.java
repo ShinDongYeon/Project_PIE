@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
+/*
+파일명: DownloadView.java
+설명: 파일 다운로드 처리 유틸
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 public class DownloadView extends AbstractView {
 
 	@Override

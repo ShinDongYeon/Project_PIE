@@ -1,5 +1,6 @@
 package kr.or.bit.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.or.bit.dto.notice;
@@ -21,5 +22,7 @@ public interface NoticeDao {
 	public void noticeDelete(int notice_seq);
 
 	public void deleteNoticeByProjectSeq(int project_seq);
+	
+	public ArrayList<Integer> getNoticeCommentsSeqByProjectSeq(int project_seq);
 
 }

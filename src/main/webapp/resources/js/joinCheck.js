@@ -1,3 +1,10 @@
+/*
+파일명: joinCheck.js
+설명: 회원가입 처리 및 유효성 검증 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 //submit에 관여하는 변수들 전부 true가 되어야 함 
 let emailCheck = false;
 let firstPwdCheck = false;

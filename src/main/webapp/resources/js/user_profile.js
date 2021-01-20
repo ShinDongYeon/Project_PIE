@@ -1,3 +1,10 @@
+/*
+파일명: user_profile.js
+설명: 유저 프로필 업로드 및 화면 처리 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 	
 		//여기서 아이디로 파일 이름 겟 ajax 
