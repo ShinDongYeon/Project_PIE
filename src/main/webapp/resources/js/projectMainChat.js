@@ -26,6 +26,7 @@ $(document).ready(function(){
 		modal.style.display = 'block';
 		crtChatBackground.style.display = 'block';
 		
+		//프로젝트 내의 회원정보를 불러옵니다.
 		$.ajax(
 			{
 				type : "GET",
@@ -41,7 +42,7 @@ $(document).ready(function(){
 			$('.crtChat-btn-created').attr('class','crtChat-btn-created-not');
 		}
 		
-		
+		//팀원을 초대하지 않았을 경우 팀원을 초대하도록 안내해줍니다.
 		if($('#Chatting-UserList').html() == ''){
 			let message = '<div class="crtChat-middle-select-none">현재 채팅할 파이원이 없습니다.<br>파이원을 초대하세요.</div>';
 				message+= '<button onclick="location.href=\'main.pie\'" id="crtChatBtn" class="crtChat-middle-select-button">프로젝트 홈가기</button>';
@@ -84,6 +85,7 @@ $(document).ready(function(){
 			}
 			user_array.push($('#session_email').val());
 			
+			//채팅 리스트 화면에 리스트를 갱신합니다.
 			$.ajax(
 					{
 						type 		: "POST",
@@ -105,7 +107,7 @@ $(document).ready(function(){
 		}
 	}
 	
-	
+	//채팅방 생성창에서 백그라운드를 클릭하였을 때 생성창이 종료
 	crtChatBackground.onclick = () => {
 		// 채팅방 생성창에서 blur된 화면을 클릭했을때
 		if(event.target == crtChatBackground) {
@@ -184,8 +186,6 @@ $(document).ready(function(){
 				let div = $('#Selected-List').find('div:eq('+j+')').text();
 				user_array.push(div);
 			}
-			console.log('user_array');
-			console.log(user_array);
 			
 			$.ajax(
 				{
@@ -198,7 +198,6 @@ $(document).ready(function(){
 					async: false,
 					traditional : true,
 					success 	: function(data){
-						console.log(data);
 						userList(data);
 						if(data.length == 0){
 							let message = '<div class="crtChat-middle-select-all">\''+$('#crtChat-search-box').val()+'\'의 검색 결과가 없습니다.</div>';
@@ -280,8 +279,25 @@ function popupOpen(roomno,roomname){
 				'select' : roomno
 			},
 			async		: false,
-			success 	: function(data){
+			success 	: function(checked_alarm_count){
 				
+				$.ajax({
+						type 		: "GET",
+						url  		: "../chat/checkalarm/sidebar",
+						async		: false,
+						success 	: function(total_alarm_count){
+							let count = total_alarm_count - checked_alarm_count;
+							$('#chatAlarmCount').css('display','block');
+							$('#chatAlarmCount').html(count);
+							
+							if($('#chatAlarmCount').text() == 0){
+								$('#chatAlarmCount').css('display','none');
+							}
+						},
+						error		: function(request,status,error){
+							alert(error);
+						}
+				});
 			},
 			error		: function(request,status,error){
 				alert(error);
@@ -618,12 +634,6 @@ function updateChatRoomName(me){
 		}
 	});
 	
-	/*
-	window.onmouseup = (event) => {
-		event.stopPropagation();
-	}
-	*/
-	
 	$('#chat-list-letter-a'+div_substr).click( () => {return false});
 }
 
@@ -903,17 +913,7 @@ function selectedClose(me){
 	//selected list에서 해당 유저 삭제
 	let email = div.prev().html();
 	div.parent('div').parent('div').remove();
-	//$('#crtChat-selected-user-wrapper-'+close_substr).remove();
 
-	//selected list에 유저가 아무도 없을 때 display none
-	//let close_attr_class = $('.crtChat-selected-user-letter-wrapper').attr("class");
-	/*if(close_attr_class === undefined){
-		$('#Selected-List').css("display","none");
-		$('#Selectedlist-Subject').css("display","none");
-	}*/
-
-	//$('#crtChat-select-users-wrapper-'+close_substr).css("display","block");
-	
 	
 	if($('#Selected-List').html() != ''){
 		
@@ -927,7 +927,7 @@ function selectedClose(me){
 			}
 		}
 		
-		//채팅방 취소버튼을 눌렀을 떄 유저리스트에 적용될 데이터 전달
+		//선택회원의 취소버튼을 눌렀을 떄 유저리스트에 적용될 데이터 전달
 		$.ajax(
 			{
 				type 		: "POST",
@@ -947,7 +947,7 @@ function selectedClose(me){
 			}
 		);
 		
-		//채팅방 취소버튼을 눌렀을 떄 '선택된파이원' 리스트에 적용될 데이터 전달
+		//선택회원의 취소버튼을 눌렀을 떄 '선택된파이원' 리스트에 적용될 데이터 전달
 		$.ajax(
 			{
 				type 		: "GET",

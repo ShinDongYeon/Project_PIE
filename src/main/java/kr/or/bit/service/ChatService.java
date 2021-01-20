@@ -68,7 +68,6 @@ public class ChatService {
 		return dao.getProfiles();
 	}
 	
-	
 	public room getRoomListBySeq(int room_seq) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		return dao.getRoomListBySeq(room_seq);
@@ -138,6 +137,16 @@ public class ChatService {
 	public void checkalarm(Map<String, Object> checkAlarmMap) {
 		ChatDao dao = sqlsession.getMapper(ChatDao.class);
 		dao.checkalarm(checkAlarmMap);
+	}
+	
+	public List<Integer> checkalarmSidebarChecked(Map<String, Object> checkAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.checkalarmSidebarChecked(checkAlarmMap);
+	}
+	
+	public List<Integer> checkalarmSidebar(Map<String, Object> checkAlarmMap) {
+		ChatDao dao = sqlsession.getMapper(ChatDao.class);
+		return dao.checkalarmSidebar(checkAlarmMap);
 	}
 	
 	public void roomClicked(Map<String, Object> checkAlarmMap) {

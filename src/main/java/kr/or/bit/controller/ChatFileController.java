@@ -44,9 +44,8 @@ public class ChatFileController {
 		
 		//폴더 존재 여부 
 		if(fileOb.isDirectory()) {
-			System.out.println("폴더 존재");
+			
 		}else {
-			System.out.println("폴더 없음");
 			fileOb.mkdir();
 		}
 		
@@ -61,11 +60,9 @@ public class ChatFileController {
 			fi.setProject_seq(projectNum);
 		
 			if(chatfileservice.isExistFileMethod(fi)) {
-				System.out.println("파일 이름 중복");
 				fi.setFile_original_name(fileOGName);
 				String dupelName = chatfileservice.getDupledNameMethod(fi);
 				
-				System.out.println("중복이름 "+ dupelName);
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
@@ -95,7 +92,6 @@ public class ChatFileController {
 				 
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				return "fail";
 			}

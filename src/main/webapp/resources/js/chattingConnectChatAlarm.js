@@ -1,3 +1,11 @@
+/*
+파일명: chattingConnectChatAlarm.js
+설명: 프로젝트메인 window가 띄워질 때 생성하도록 한 웹소켓입니다.
+	 채팅방의 채팅 내용이 프로젝트메인에서 알람으로 실시간 표시기능을 구현하기 위해 생성하였습니다.
+작성일: 2021-01-17
+기능구현: 도재구
+*/
+
 
 var connectChatAlarm_Socket = null;
 
@@ -13,14 +21,33 @@ function connectWS_connectChatAlarm(){
 	connectChatAlarm_ws.onmessage = (event) => {
 		let data = event.data;
 		chattingAlarm(JSON.parse(data));
+		chattingAlarm_sidebar(JSON.parse(data));
 	};
 	connectChatAlarm_ws.onclose = (event) => {};
-	connectChatAlarm_ws.onerror = (event) => {
-		console.log("connectChatAlarm_ws Error");
-	};
+	connectChatAlarm_ws.onerror = (event) => {};
 }
 
+//채팅을 할 떄마다 상대방의 채팅방리스트에 알림됩니다. 
+function chattingAlarm_sidebar(data2){
+	$.ajax({
+			type 		: "GET",
+			url  		: "../chat/checkalarm/sidebar",
+			async		: false,
+			success 	: function(data){
+				$('#chatAlarmCount').css('display','block');
+				$('#chatAlarmCount').html(data);
+				
+				if($('#chatAlarmCount').text() == 0){
+					$('#chatAlarmCount').css('display','none');
+				}
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+	});
+}
 
+//채팅을 할 떄마다 상대방의 채팅방리스트에 알림됩니다. 
 function chattingAlarm(data2){
 	
 	$.ajax(

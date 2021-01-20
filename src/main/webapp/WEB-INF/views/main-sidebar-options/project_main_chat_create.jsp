@@ -22,63 +22,14 @@
 			</div>
 			
 			<!-- middle -->
-			<div id="Chatting-UserList" class="crtChat-middle-wrapper">
-				<!-- 
-				<div class="crtChat-select-letter">
-					파이원 선택
-				</div>
-				 -->
-				 
-				<!-- user sample1 -->
-				<!-- 
-				<div class="crtChat-select-users-wrapper">
-					<div class="crtChat-select-user-wrapper">
-						<div class="crtChat-select-user-subWrapper">
-							<div class="crtChat-select-user-pic">
-								<i class="fas fa-user"></i>					
-							</div>
-							<div class="crtChat-select-user-letters-wrapper">
-								<div class="crtChat-select-user-name">
-									도재구
-								</div>
-								<div class="crtChat-select-user-email">
-									ehworn@gmail.com
-								</div>
-							</div>
-						</div>
-						<div class="crtChat-select-user-btn">
-							<i class="fas fa-plus"></i>
-						</div>
-					</div>
-				</div>
-				 -->
-				
-			</div>
+			<div id="Chatting-UserList" class="crtChat-middle-wrapper"></div>
 			
 			<!-- bottom -->
 			<div class="crtChat-bottom-wrapper">
 				<div id="Selectedlist-Subject" class="crtChat-bottom-letter">
 					선택된 파이원
 				</div>
-				<div id="Selected-List" class="crtChat-selected-users-wrapper">
-					<!-- sample selected user1 -->
-					<!-- 
-					<div class="crtChat-selected-user-wrapper">
-						<div class="crtChat-selected-user-pic">
-							<i class="fas fa-user"></i>	
-						</div>
-						<div class="crtChat-selected-user-letter-wrapper">
-							<div class="crtChat-selected-user-letter-name">
-								도재구
-							</div>
-							<div class="crtChat-selected-user-letter-x">
-								<i class="fas fa-times"></i>
-							</div>
-						</div>
-					</div>
-					 -->
-					 
-				</div>
+				<div id="Selected-List" class="crtChat-selected-users-wrapper"></div>
 				
 				<div class="crtChat-bottom-btns-wrapper">
 					<div id="crtChat-btn-cancel" class="crtChat-btn-cancel">

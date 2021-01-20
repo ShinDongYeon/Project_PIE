@@ -56,6 +56,10 @@ public interface ChatDao {
 	 
 	 public void checkalarm(Map<String, Object> checkAlarmMap);
 	 
+	 public List<Integer> checkalarmSidebarChecked(Map<String, Object> checkAlarmMap);
+	 
+	 public List<Integer> checkalarmSidebar(Map<String, Object> checkAlarmMap);
+	 
 	 public void roomClicked(Map<String, Object> checkAlarmMap);
 	 
 	 public void deleteRoomList(int chatting_room_seq);

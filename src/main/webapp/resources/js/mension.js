@@ -1,25 +1,24 @@
-/**
- * 멘션 (@ + 이름)을 표시하여 채팅 메시지를 전송하면 특정 사람이 멘션을 받을 수 있음)
- */
-$(document).ready( () => {
-	
-});
+/*
+파일명: mension.js
+설명: 채팅방에서 멘션기능을 쓸수 있습니다.
+	 (@ + 이름)을 표시하여 채팅 메시지를 전송하면 특정 사람이 멘션을 받을 수 있습니다.
+	우측 사이드바에 멘션을 눌렀을 때 실행되는 함수입니다.
+작성일: 2021-01-12
+작성자: 도재구
+*/
 
 function mensionList(){
 	//SELECT mension
 	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
-		console.log(data.val());
 		let data_arr = [];
 		for(let i in data.val()){
 			data_arr.push(data.val()[i]);
 		}
-		console.log(data_arr);
 		
 		$('#mension-items-wrapper').empty();
 		
 		if(data.val() != null){
 			$.each(data_arr,function(index, elem){
-				console.log(elem);
 					let opr = '';
 					$.ajax({
 							type : "GET",
@@ -30,7 +29,6 @@ function mensionList(){
 								'sender_email' : elem.email
 							},
 							success : function(roomdata){
-								console.log(roomdata);
 								
 								opr += 	'<div onclick="popupOpen('+elem.chatting_room_seq+',\''+roomdata[0].chatting_room_name+'\')" class="mension-item-wrapper">'+
 											'<div class="mension-top-wrapper">'+

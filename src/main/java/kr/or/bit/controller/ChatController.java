@@ -496,22 +496,48 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value="/chat/checkalarm", method = RequestMethod.POST)
-	public void checkalarm(int select, HttpServletRequest request){
+	public int checkalarm(int select, HttpServletRequest request){
 		HttpSession httpsession = request.getSession();
 		String loginuser = (String)httpsession.getAttribute("loginuser");
 		Map<String, Object> checkAlarmMap = new HashMap<String, Object>();
+		int count = 0;
 		
 		try {
 			checkAlarmMap.put("select", select);
 			checkAlarmMap.put("loginuser", loginuser);
 			chatservice.checkalarm(checkAlarmMap);
-			//2번 클릭 방지
-			//chatservice.roomClicked(checkAlarmMap);
+			List<Integer> alarm_count = chatservice.checkalarmSidebarChecked(checkAlarmMap);
+			for(int i : alarm_count) {
+				count += i;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return count;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/chat/checkalarm/sidebar", method = RequestMethod.GET)
+	public int checkalarmSidebar(HttpServletRequest request){
+		HttpSession httpsession = request.getSession();
+		String loginuser = (String)httpsession.getAttribute("loginuser");
+		
+		Map<String, Object> checkAlarmMap = new HashMap<String, Object>();
+		int count = 0;
+		
+		try {
+			checkAlarmMap.put("loginuser", loginuser);
+			List<Integer> alarm_count = chatservice.checkalarmSidebar(checkAlarmMap);
+			
+			for(int i : alarm_count) {
+				count += i;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	
 }
