@@ -342,7 +342,7 @@ cursor: pointer;
 	box-shadow: none;
 }
 
-input[type="checkbox"] {
+input[id="checkList"] {
 	position: absolute;
 	height: 0;
 	width: 0;

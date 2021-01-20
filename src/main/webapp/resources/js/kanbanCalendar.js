@@ -26,11 +26,9 @@ $(document).ready(function() {
 			}
 $('.setDueDateBtn').click(function(){
 		document.getElementById('calendarInsert_modal_contents').style.display='block'
-       	document.getElementById('calendar_modal_background').style.display = 'block';
           $("#insertCancelKanBan").unbind('click');
           $('#insertCancelKanBan').click(function(){
         	  insertButton()			
-        	  document.getElementById('calendar_modal_background').style.display = 'none';
 				})
 			$.ajax({
 			type: "post",
@@ -45,7 +43,6 @@ $('.setDueDateBtn').click(function(){
 			})		
 		$("#insertCalendarKanBan").unbind('click');		
 		$('#insertCalendarKanBan').click(function(){
-			 document.getElementById('calendar_modal_background').style.display = 'none';
 			  if($("input:checkbox[name=allDay]").is(":checked") == true) {
 				  allDay=true
 				}else{
@@ -123,7 +120,6 @@ $('.getDueDateBtn').click(function(){
 				}
 		})
 	document.getElementById('calendarEdit_modal_contents').style.display='block'
-    document.getElementById('calendar_modal_background').style.display = 'block';
 	$("#deleteCalendar").unbind('click');
 			$('#deleteCalendar').click(function() {
 				Swal.fire({
@@ -137,7 +133,6 @@ $('.getDueDateBtn').click(function(){
 					.then((result) => {
 						if (result.isConfirmed) {
 							document.getElementById('calendarEdit_modal_contents').style.display = 'none';
-							document.getElementById('calendar_modal_background').style.display = 'none';
 							$.ajax({
 							type: "POST",
 							url: "calendarDelete.pie",
@@ -149,14 +144,12 @@ $('.getDueDateBtn').click(function(){
 							});
 						} else {
 							document.getElementById('calendarEdit_modal_contents').style.display = 'none';
-							document.getElementById('calendar_modal_background').style.display = 'none';
 						}
 					});
 			})
 			$("#editCancel").unbind('click');
 			$('#editCancel').click(function() {
 				editButton()
-				document.getElementById('calendar_modal_background').style.display = 'none';
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
@@ -174,12 +167,10 @@ $('.getDueDateBtn').click(function(){
 				$("#startDateView, #endDateView").flatpickr({ enableTime: true, time_24hr: true, dateFormat: "Y-m-d H:i" }, 'disableMobile', false);
 			})
 			$('#editCancelCalendar').click(function() {
-				document.getElementById('calendar_modal_background').style.display = 'none';
 				editButton()
 			})
 					$("#okeditCalendar").unbind('click');
 			$('#okeditCalendar').click(function() {
-				document.getElementById('calendar_modal_background').style.display = 'none';
 				if ($("input:checkbox[id=allDayView]").is(":checked") == true) {
 					allDay = true
 				} else {
@@ -241,7 +232,6 @@ window.onclick = function(event) {
 		if (event.target === document.getElementById('calendar_modal_background')) {
 			editButton();
 			insertButton();
-			document.getElementById('calendar_modal_background').style.display = 'none';
 			document.getElementById('calendarEdit_modal_contents').style.display = 'none';
 			document.getElementById('detailsInsertModal').style.display = 'none';
 			
