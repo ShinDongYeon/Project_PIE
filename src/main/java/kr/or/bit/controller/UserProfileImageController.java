@@ -1,6 +1,9 @@
 package kr.or.bit.controller;
 
 import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
+
 import kr.or.bit.dto.user;
 import kr.or.bit.service.UserProfileService;
 
@@ -38,8 +42,9 @@ public class UserProfileImageController {
 	@ResponseBody
 	@RequestMapping(value = "uploadProfile.pie", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("profile") MultipartFile file, 
-							 @RequestParam("email") String email) throws IOException {
-		ups.profileUploadService(file, email);
+							 @RequestParam("email") String email,
+							 HttpServletRequest request) throws IOException {
+		ups.profileUploadService(file, email, request);
 		return null;
   }
 }

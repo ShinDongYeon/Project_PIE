@@ -255,7 +255,7 @@ body {
 	margin-right : 5px;
 	width: 70px;
 	height: 50px;
-	background-color: #ec5353;
+	background-color: #fedd68;
 	border: none;
 	border-radius: 6px;
 	color: #31353d;
@@ -270,8 +270,8 @@ body {
 }
 
 .delete-pie-btn:hover {
-	background-color: #31353d;
-	color: #f2dd68;
+	background-color: #ec5353;
+	color: #31353d;
 }
 
 .main-list-project-right-btn2 {

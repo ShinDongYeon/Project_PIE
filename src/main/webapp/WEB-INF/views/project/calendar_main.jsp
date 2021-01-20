@@ -11,6 +11,7 @@
 	<script src="/resources/js/projectMainTop.js"></script>
 	<script src="/resources/js/NewprojectSidebar.js"></script>
 	<script src="/resources/js/projectMainChat.js"></script>
+	<script src="/resources/js/mension.js"></script>
 	<script src="/resources/js/logonWebSocket.js"></script>
 	<script src="/resources/js/chattingConnect.js"></script>
 	<script src="/resources/js/chattingConnectChatAlarm.js"></script>
