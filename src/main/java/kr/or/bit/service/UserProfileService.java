@@ -3,6 +3,9 @@ package kr.or.bit.service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,14 @@ public class UserProfileService{
 	@Autowired
 	private SqlSession sqlsession;
 
-
-
 	//파일 업로드 서비스 
-	public void profileUploadService(MultipartFile file, String email) {
+	public void profileUploadService(MultipartFile file, String email,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String UPLOAD_PATH = session.getServletContext().getRealPath("/resources/profile");
+		
 		String fileOGName = file.getOriginalFilename();
-		String UPLOAD_PATH = UploadPath.upload_path_profile();
+	//	String UPLOAD_PATH = UploadPath.upload_path_profile();
 		String fullName = UPLOAD_PATH+"/"+email+"_"+fileOGName;
 
 			byte[] data;
