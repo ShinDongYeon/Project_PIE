@@ -280,8 +280,25 @@ function popupOpen(roomno,roomname){
 				'select' : roomno
 			},
 			async		: false,
-			success 	: function(data){
+			success 	: function(checked_alarm_count){
 				
+				$.ajax({
+						type 		: "GET",
+						url  		: "../chat/checkalarm/sidebar",
+						async		: false,
+						success 	: function(total_alarm_count){
+							let count = total_alarm_count - checked_alarm_count;
+							$('#chatAlarmCount').css('display','block');
+							$('#chatAlarmCount').html(count);
+							
+							if($('#chatAlarmCount').text() == 0){
+								$('#chatAlarmCount').css('display','none');
+							}
+						},
+						error		: function(request,status,error){
+							alert(error);
+						}
+				});
 			},
 			error		: function(request,status,error){
 				alert(error);

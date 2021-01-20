@@ -13,13 +13,31 @@ function connectWS_connectChatAlarm(){
 	connectChatAlarm_ws.onmessage = (event) => {
 		let data = event.data;
 		chattingAlarm(JSON.parse(data));
+		chattingAlarm_sidebar(JSON.parse(data));
 	};
 	connectChatAlarm_ws.onclose = (event) => {};
 	connectChatAlarm_ws.onerror = (event) => {
 		console.log("connectChatAlarm_ws Error");
 	};
 }
-
+function chattingAlarm_sidebar(data2){
+	$.ajax({
+			type 		: "GET",
+			url  		: "../chat/checkalarm/sidebar",
+			async		: false,
+			success 	: function(data){
+				$('#chatAlarmCount').css('display','block');
+				$('#chatAlarmCount').html(data);
+				
+				if($('#chatAlarmCount').text() == 0){
+					$('#chatAlarmCount').css('display','none');
+				}
+			},
+			error		: function(request,status,error){
+				alert(error);
+			}
+	});
+}
 
 function chattingAlarm(data2){
 	

@@ -278,5 +278,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM CHATTINGROOM WHERE PROJECT_SEQ = #{param1}
 	</delete>
 	
+	<select id="checkalarmSidebar" resultType="int" parameterType="hashMap">
+		SELECT CHATTING_ALARM
+		FROM CHATTINGROOMLIST
+		WHERE EMAIL = #{loginuser}
+	</select>
+	
+	<select id="checkalarmSidebarChecked" resultType="int" parameterType="hashMap">
+		SELECT CHATTING_ALARM
+		FROM CHATTINGROOMLIST
+		WHERE EMAIL = #{loginuser}
+		AND CHATTING_ROOM_SEQ = #{select}
+	</select>
 	
 </mapper>
