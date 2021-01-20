@@ -12,7 +12,7 @@ import kr.or.bit.dto.users;
 import kr.or.bit.service.UsersService;
 /*
 파일명: UsersController.java
-설명: 가입멤버목록
+설명: 가입된 팀원 목록 컨트롤러
 작성일: 2021-01-10 ~ 
 작성자: 신동연
 */
@@ -21,7 +21,7 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersservice;
-	
+	//팀원 정보가져오기
 	@ResponseBody
 	@RequestMapping (value= "usersList.pie", method = RequestMethod.GET)
 	public List<users> usersList(int project_seq){

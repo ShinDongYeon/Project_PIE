@@ -53,10 +53,10 @@ public class FileController {
 							 @RequestParam("projectNum") int projectNum,
 							 @RequestParam("nick") String nick) throws IOException {
 		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick);
-		System.out.println(nick);
 		int fileLastSeq = fileservice.fileLastSeq();
 		if(check) {
 			System.out.println("파일 업로드 성공");
+			System.out.println(fileLastSeq);
 			return fileLastSeq;
 		}else {
 			System.out.println("파일 업로드 실패");

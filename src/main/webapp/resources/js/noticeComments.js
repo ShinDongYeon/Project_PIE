@@ -243,8 +243,8 @@ $(document).ready(function(){
 	});
 	
 
-	//close Modal
-	$(document).on("click", "#editCancel", function(e) {
+	//게시판 상세창 종료및 삭제시 실행되는 이벤트
+	$(document).on("click", "#editCancel, #deletenotice", function(e) {
 		e.preventDefault();
 		$(".comments-notice").empty();
 		$('.commentsForm-notice').hide();
