@@ -1,3 +1,10 @@
+/*
+파일명: googleLogin.js
+설명: 구글 로그인 처리 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 function onSignIn(googleUser) {
 	//구글로 로그인한 사용자 정보 
 	let profile = googleUser.getBasicProfile();

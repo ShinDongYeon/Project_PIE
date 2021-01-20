@@ -16,6 +16,14 @@ import kr.or.bit.dao.FileDao;
 import kr.or.bit.dto.file;
 import kr.or.bit.util.UploadPath;
 
+
+/*
+파일명: FileService.java
+설명: 파일 업로드, 다운로드 처리 서비스
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 @Service
 public class FileService{
 	

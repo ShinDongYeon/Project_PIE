@@ -7,6 +7,13 @@ import java.util.Comparator;
 import kr.or.bit.dto.card;
 import kr.or.bit.dto.list;
 
+
+/*
+파일명: KanbanSortHandler.java
+설명: 칸반 카드 및 리스트 순서 정리해주는 유틸
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 public class KanbanSortHandler {
 	
 	public static ArrayList<list> kanbanSort(ArrayList<card> cardlist, ArrayList<list> listList){

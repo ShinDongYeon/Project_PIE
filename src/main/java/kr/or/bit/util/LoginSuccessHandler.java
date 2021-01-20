@@ -12,8 +12,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Service;
 import kr.or.bit.dao.UserDao;
 import kr.or.bit.dto.user;
- 
-//security login 성공시 동작하는 클래스 및 함수 
+
+
+/*
+파일명: LoginSuccessHandler.java
+설명: 시큐리티 로그인 성공시 전처리 유틸
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Service
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	

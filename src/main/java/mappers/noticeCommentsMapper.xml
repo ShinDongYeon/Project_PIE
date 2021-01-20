@@ -32,6 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM notice_comments WHERE notice_SEQ=#{notice_seq}
 	</delete>
 	
+	<delete id="deleteNoticeCommentsByNoticeSeq" parameterType="int">
+		DELETE FROM notice_comments WHERE notice_SEQ= #{param1}
+	</delete>
+	
+	
 </mapper>
 
 

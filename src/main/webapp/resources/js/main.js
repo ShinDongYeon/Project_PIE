@@ -1,3 +1,10 @@
+/*
+파일명: main.js
+설명: 프로젝트 메인 페이지 파이 생성, 삭제, 초대 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 
 	let modal_background = document.getElementById('userEdit_modal_background');
