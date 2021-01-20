@@ -8,16 +8,16 @@
 $(document).ready(function(){
 
 					
-	function commentsIcon(notice_notice_comments_seq,email,nickName,reg_date,comments){
-		let commTag = '<div class="commMemWrap-notice" data-com-seq="'+notice_notice_comments_seq+'"value="'+email+
+	function commentsIcon(notice_comments_seq,email,nickName,reg_date,comments){
+		let commTag = '<div class="commMemWrap-notice" data-com-seq="'+notice_comments_seq+'"value="'+email+
 						'"><img class="commPro-notice" src="/resources/img/icon/none.png">'+
 						'<div class="writerWrap-notice"><p class="commWriter-notice">'+nickName+'</p><p class="commDate-notice">'+reg_date+'</p></div>'+
 						'<div class="memCommentWrap-notice"><div class="memComment-notice">'+comments;
 		return commTag;
 	}
 	
-	function commentsPro(notice_notice_comments_seq,email,profile,nickName,reg_date,comments){
-		let commTag = '<div class="commMemWrap-notice" data-com-seq="'+notice_notice_comments_seq+'"value="'+email+
+	function commentsPro(notice_comments_seq,email,profile,nickName,reg_date,comments){
+		let commTag = '<div class="commMemWrap-notice" data-com-seq="'+notice_comments_seq+'"value="'+email+
 						'"><img class="commPro-notice" src="resources/profile/'+email+'_'+profile+'">'+
 						'<div class="writerWrap-notice"><p class="commWriter-notice">'+nickName+'</p><p class="commDate-notice">'+reg_date+'</p></div>'+
 						'<div class="memCommentWrap-notice"><div class="memComment-notice">'+comments;
@@ -80,7 +80,7 @@ $(document).ready(function(){
 					let comments=data.comments;
 					console.log(comments)
 					if(comments.profile==null){
-						let commIcon = commentsIcon(comments.notice_notice_comments_seq,comments.email,nickName,dateTime,comments.comments);
+						let commIcon = commentsIcon(comments.notice_comments_seq,comments.email,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
 							commIcon += FormWithIcon()
 							$('.comments-notice').append(commIcon);
@@ -89,7 +89,7 @@ $(document).ready(function(){
 							$('.comments-notice').append(commIcon);
 						}
 					}else {
-						let commPro = commentsPro(comments.notice_notice_comments_seq,comments.email,comments.profile,nickName,comments.reg_date,comments.comments);
+						let commPro = commentsPro(comments.notice_comments_seq,comments.email,comments.profile,nickName,comments.reg_date,comments.comments);
 						if(comments.email==myEmail){
 							commPro += FormWithIcon()
 							$('.comments-notice').append(commPro);
@@ -123,8 +123,8 @@ $(document).ready(function(){
 					console.log(data)
 					$.each(commList, function(index, item) {
 					if(item.profile==null){
-						let commIcon = commentsIcon(item.notice_notice_comments_seq,item.email,item.nickName,item.reg_date,item.comments);
-						let editedIcon = commentsIcon(item.notice_notice_comments_seq,item.email,item.nickName,item.reg_date+' (edited)',item.comments);
+						let commIcon = commentsIcon(item.notice_comments_seq,item.email,item.nickName,item.reg_date,item.comments);
+						let editedIcon = commentsIcon(item.notice_comments_seq,item.email,item.nickName,item.reg_date+' (edited)',item.comments);
 						if(item.email==myEmail&&item.edited===1){
 							editedIcon += FormWithIcon();
 							$('.comments-notice').append(editedIcon);
@@ -139,7 +139,7 @@ $(document).ready(function(){
 							$('.comments-notice').append(commIcon);
 						}
 					}else {
-						let commPro = commentsPro(item.notice_notice_comments_seq,item.email,item.profile,item.nickName,item.reg_date,item.comments);
+						let commPro = commentsPro(item.notice_comments_seq,item.email,item.profile,item.nickName,item.reg_date,item.comments);
 						let editedPro = commentsPro(item.notice_comments_seq,item.email,item.profile,item.nickName,item.reg_date+' (edited)',item.comments);
 						if(item.email==myEmail&&item.edited===1){
 							editedPro += FormWithIcon();
