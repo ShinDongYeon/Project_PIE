@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +34,14 @@ public class FileService{
 	private SqlSession sqlsession;
 
 	//파일 업로드 서비스 
-	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
-		String UPLOAD_PATH = UploadPath.upload_path_files();
+	public boolean fileUploadService(ArrayList<MultipartFile> files, 
+									int projectNum, 
+									String nick,
+									HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String UPLOAD_PATH = session.getServletContext().getRealPath("/resources/files");
+		
+		//String UPLOAD_PATH = UploadPath.upload_path_files();
 		//파일 저장 경로 (프로젝트번호 기준)
 		String specific_path = "/file_directory_project_seq_"+projectNum;
 		

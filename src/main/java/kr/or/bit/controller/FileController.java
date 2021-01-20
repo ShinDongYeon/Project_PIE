@@ -3,6 +3,10 @@ package kr.or.bit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+
 import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
 import kr.or.bit.util.UploadPath;
@@ -38,9 +43,10 @@ public class FileController {
 	@RequestMapping(value = "file.pie", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("files") ArrayList<MultipartFile> files,
 							 @RequestParam("projectNum") int projectNum,
-							 @RequestParam("nick") String nick) throws IOException {
+							 @RequestParam("nick") String nick,
+							 HttpServletRequest request) throws IOException {
 		
-		boolean check = fileservice.fileUploadService(files, projectNum, nick);
+		boolean check = fileservice.fileUploadService(files, projectNum, nick, request);
 		
 		if(check) {
 			System.out.println("파일 업로드 성공");
@@ -119,9 +125,11 @@ public class FileController {
 	@RequestMapping(value = "fileDownload.pie", method = RequestMethod.GET)
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
-								 ModelAndView mv) {
-		String fullPath = UploadPath.upload_path_files();
-		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+								 ModelAndView mv,
+								 HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String upload_path = session.getServletContext().getRealPath("/resources/files");
+		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
