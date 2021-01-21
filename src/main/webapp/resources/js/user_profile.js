@@ -52,7 +52,7 @@ $(document).ready(function() {
 				
 			}else{
 				//초기화
-				Swal.fire("png, jpg, jpge only");
+				Swal.fire("Try Again!","png, jpg, jpeg only","info");
 				img = null;
 				return;
 			}

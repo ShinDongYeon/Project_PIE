@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
-				Swal.fire("","수정이 가능합니다","info");
+				Swal.fire("","일정 수정이 가능합니다","info");
 				$('#seqView').val(info.event.id)
 				$('#titleView').removeAttr("readonly");
 				$('#startDateView').removeAttr("readonly");
