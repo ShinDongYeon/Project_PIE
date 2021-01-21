@@ -55,8 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBANCARD_MEMBER WHERE CARD_SEQ=#{card_seq}
 	</delete>
 	
-	<select id="getCardSeqByMemberEmail" parameterType="String" resultType="cardMemberDto">
-		SELECT * FROM KANBANCARD_MEMBER WHERE EMAIL = #{param1}
+	<select id="getCardSeqByMemberEmail" parameterType="String" resultType="int">
+		SELECT CARD_SEQ FROM KANBANCARD_MEMBER WHERE EMAIL = #{param1}
 	</select>
 	
 </mapper>

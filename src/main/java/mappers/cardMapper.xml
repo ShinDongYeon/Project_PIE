@@ -53,6 +53,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM KANBANCARD WHERE PROJECT_SEQ = #{param1}
 	</delete>
 	
+	<select id="getCardSeqByProjectNum" resultType="int" parameterType="HashMap">
+		select card_seq from kanbancard where project_seq = #{projectNum} AND 
+		card_seq = any (SELECT card_seq FROM KANBANCARD_MEMBER WHERE EMAIL = #{name})
+	</select>
+	
+	
 	
 </mapper>
 

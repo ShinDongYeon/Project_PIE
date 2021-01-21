@@ -143,30 +143,30 @@ $(document).ready(function() {
 //submit전 검사 함수 
 function check() {
 	if (!emailCheck) {
-		Swal.fire("이메일을 확인해주세요.");
+		Swal.fire("", "이메일을 확인해주세요", "warning");
 		$("#email").val("");
 		$("#email").focus();
 		return false;
 	}
 	if (!emailDoubleCheck) {
-		Swal.fire("이메일 중복을 확인해주세요.");
+		Swal.fire("", "이메일 중복을 확인해주세요", "warning");
 		return false;
 	}
 	if (!nickNameCheck) {
-		Swal.fire("닉네임을 확인해주세요.");
+		Swal.fire("", "이름을 확인해주세요", "warning");
 		$("#nickName").val("");
 		$("#nickName").focus();
 		return false;
 	}
 	if (!firstPwdCheck) {
-		Swal.fire("비밀번호를 확인해주세요.");
+		Swal.fire("", "비밀번호를 확인해주세요", "warning");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwd").focus();
 		return false;
 	}
 	if (!doublePwdCheck) {
-		Swal.fire("비밀번호 확인이 틀렸습니다.");
+		Swal.fire("", "비밀번호가 일치하지 않습니다", "warning");
 		$("#pwd").val("");
 		$("#pwdCheck").val("");
 		$("#pwdCheck").focus();
