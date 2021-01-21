@@ -22,9 +22,31 @@ function connectWS_connectChatAlarm(){
 		let data = event.data;
 		chattingAlarm(JSON.parse(data));
 		chattingAlarm_sidebar(JSON.parse(data));
+		mensionAlarm_sidebar(JSON.parse(data));
 	};
 	connectChatAlarm_ws.onclose = (event) => {};
 	connectChatAlarm_ws.onerror = (event) => {};
+}
+
+//채팅을 할 떄마다 상대방의 멘션에 알림됩니다. 
+function mensionAlarm_sidebar(data2){
+	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
+		let data_arr = [];
+		for(let i in data.val()){
+			data_arr.push(data.val()[i]);
+		}
+
+		let countAlarm = 0;
+		$.each(data_arr,function(index, elem){
+			countAlarm += elem.count;
+		});
+		
+		$('#mensionAlarmCount').css('display','block');
+		$('#mensionAlarmCount').html(countAlarm);
+		if($('#mensionAlarmCount').text() == 0){
+			$('#mensionAlarmCount').css('display','none');
+		}
+	});
 }
 
 //채팅을 할 떄마다 상대방의 채팅방리스트에 알림됩니다. 
