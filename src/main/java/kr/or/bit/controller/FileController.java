@@ -59,8 +59,9 @@ public class FileController {
 	@RequestMapping(value = "fileNotice.pie", method = RequestMethod.POST)
 	public int uploadFileNotice(@RequestParam("noticefile") MultipartFile file,
 							 @RequestParam("projectNum") int projectNum,
-							 @RequestParam("nick") String nick) throws IOException {
-		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick);
+							 @RequestParam("nick") String nick,
+							 HttpServletRequest request) throws IOException {
+		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick,request);
 		int fileLastSeq = fileservice.fileLastSeq();
 		if(check) {
 			return fileLastSeq;
