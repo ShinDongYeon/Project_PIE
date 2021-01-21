@@ -106,8 +106,8 @@ public class ChatFileController {
 								 ModelAndView mv,
 								 HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String upload_path = session.getServletContext().getRealPath("/resources/files");
-		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+		String upload_path = session.getServletContext().getRealPath("\\resources\\files");
+		String fullPath = upload_path + "\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
