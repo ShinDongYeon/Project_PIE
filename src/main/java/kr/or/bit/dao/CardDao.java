@@ -33,4 +33,7 @@ public interface CardDao {
 	
 	public void deleteKanbanCardByProjectSeq(int projectNum);
 	
+	public ArrayList<Integer> getCardSeqByProjectNum(HashMap<String, Object> hm);
+	
+	
 }

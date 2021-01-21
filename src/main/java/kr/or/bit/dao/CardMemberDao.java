@@ -23,7 +23,7 @@ public List<user> projectMemList(Map<String, Object> projectMemListMap);
 
 	public List<user> getCardMemBySession(Map<String, Object> cardMemMap);
 	
-	public ArrayList<cardMember> getCardSeqByMemberEmail(String email);
+	public ArrayList<Integer> getCardSeqByMemberEmail(String email);
 }
 
 
