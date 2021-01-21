@@ -1,3 +1,10 @@
+/*
+파일명: changePwd.js
+설명: 비밀번호 변경 및 유효성 검증 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 //submit 전 검증 변수 : 둘다 true여야 form 전송 가능 
 let firstPwdCheck = false;
 let doublePwdCheck = false;
@@ -31,15 +38,10 @@ function isPassword(asValue) {
     let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
     return regExp.test(asValue);
 }
-
-
-
     $(document).ready(function(){
 
         //비밀번호 정규표현 확인 함수
     $(document).on('keyup', '#pwd', function(){
-        console.log(firstPwdCheck);
-        console.log($("#pwd").val())
         if($("#pwd").val().search(/\s/) != -1){
             Swal.fire("오류", "공백은 허용되지 않습니다.", "error");
             $("#pwd").val("");

@@ -45,7 +45,7 @@
 				<!-- <textarea id="message" class="chat-msgWrite" placeholder="메시지를 입력하세요" ></textarea> -->
 				<div contenteditable="true" placeholder="메시지를 입력하세요" id="message" class="chat-msgWrite"></div>
 				<img id="img_zone" class="chat-msgWrite-file" src =""/>
-				<!-- <div contentEditable="true"></div> -->
+
 				<!-- 파일 업로드 폼 -->
 				<form name="chat_uploadForm" id="chat_uploadForm" method="post" enctype="multipart/form-data">
 					<input type="file" id="file-input" name="chat_file" style="display:none;">

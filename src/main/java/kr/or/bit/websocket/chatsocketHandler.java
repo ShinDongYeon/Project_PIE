@@ -11,6 +11,12 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import kr.or.bit.service.ChatService;
 
+/*
+파일명: chatsocketHandler.java
+설명:  채팅방에 입장한 회원의 소켓을 저장하고, 메시지를 보낼때 타게되는 웹소켓 핸들러
+작성일: 2021-01-17
+기능구현: 도재구
+*/
 public class chatsocketHandler extends TextWebSocketHandler{
 		
 		@Autowired
@@ -36,8 +42,7 @@ public class chatsocketHandler extends TextWebSocketHandler{
 
 		@Override
 		public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-			System.out.println(message.getPayload());
-			//'|' 이 문자가 있으면 => 실제 채팅메시지를 보낼때
+			//'|' 이 문자가 있으면 => 메시지를 보낼때
 			if(message.getPayload().toString().indexOf("|") != -1) {
 				String select = getCurrentChatRoom(session);
 				
@@ -46,6 +51,7 @@ public class chatsocketHandler extends TextWebSocketHandler{
 					sess.sendMessage(message);
 				}
 			
+			//메시지를 보내고 나서 다시 한번 더 이곳을 타게됩니다.
 			}else {
 				Map<String, Object> pushAlarmMap = new HashMap<String, Object>();
 				String select = getCurrentChatRoom(session);
@@ -76,7 +82,8 @@ public class chatsocketHandler extends TextWebSocketHandler{
 				roomCloseMap.put("loginuser", loginuser);
 				chatservice.roomClosed(roomCloseMap);
 				
-				selectmap.get(select).remove(session.getId());  // 채팅방에서 클라이언트라 접속을 끊으면, 참여중인 목록에서 session을 삭제한 후
+				//세션 종료
+				selectmap.get(select).remove(session.getId());  
 				
 			} catch (Exception e) {
 				e.printStackTrace();

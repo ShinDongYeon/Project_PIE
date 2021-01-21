@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
 	function makeChkList(check_seq, check_name, ischecked) {
-		let chkTag = '<span class="todo-wrap"><input type="checkbox" data-check-seq="' +
+		let chkTag = '<span class="todo-wrap"><input type="checkbox" id="checkList" data-check-seq="' +
 			check_seq + '" isChecked="' + ischecked + '"/><label for="' + check_seq +
 			'" class="todo"><i class="fa fa-check"></i>' + check_name + '</label>' +
 			'<span class="delete-item" title="remove"><i class="fa fa-times-circle"></i></span></span>';
@@ -75,7 +75,6 @@ $(document).ready(function() {
 		//set clicked Card Content cardSeq as a value
 		$('.modal_card_seq').attr("value", $(this).data().cardSeq);
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
-		console.log("cardSeq:" + cardSeq);
 			/*캘린더연동 유무*/
 			$.ajax({
 			type : "GET",
@@ -267,9 +266,7 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {
-					console.log(data);
-				}
+				success: function(data) {}
 			});
 			$('.cardContents').html(contents);
 			$('.cardDetailsForm').hide();
@@ -285,9 +282,7 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {
-					console.log(data);
-				}
+				success: function(data) {}
 			});
 			$('.cardDetailsForm').show();
 			$('.cardContents').hide();
@@ -312,7 +307,7 @@ $(document).ready(function() {
 
 		let newId = Number(lastSibling) + 1;
 
-		$(this).before('<span class="editing todo-wrap"><input type="checkbox" data-check-seq="' +
+		$(this).before('<span class="editing todo-wrap"><input type="checkbox" id="checkList" data-check-seq="' +
 			newId + '"/><label for="' + newId +
 			'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo' +
 			newId + '"/></label></div>');
@@ -427,9 +422,7 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			data: check,
-			success: function(data) {
-				console.log(data);
-			}
+			success: function(data) {}
 		})
 
 

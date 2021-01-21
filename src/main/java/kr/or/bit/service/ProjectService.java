@@ -16,6 +16,7 @@ import kr.or.bit.dao.ChatDao;
 import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.FileDao;
 import kr.or.bit.dao.ListDao;
+import kr.or.bit.dao.NoticeCommentsDao;
 import kr.or.bit.dao.NoticeDao;
 import kr.or.bit.dao.ProjectDao;
 import kr.or.bit.dao.Project_memberDao;
@@ -89,7 +90,8 @@ public class ProjectService {
 		ProjectDao pdao = sqlsession.getMapper(ProjectDao.class);
 		NoticeDao ndao = sqlsession.getMapper(NoticeDao.class);
 		ChatDao chatdao = sqlsession.getMapper(ChatDao.class);
-
+		NoticeCommentsDao ncdao = sqlsession.getMapper(NoticeCommentsDao.class);
+		
 		try {
 			listdao.deleteKanbanListByProjectSeq(projectNum);
 			ArrayList<Integer> cardNumbers = carddao.getCardSeqByProjectSeq(projectNum);
@@ -104,7 +106,15 @@ public class ProjectService {
 			fidao.deleteFileByProjectSeq(projectNum);
 			ardao.deleteAlarmByProjectSeq(projectNum);
 			calendao.deleteCalendarByProjectSeq(projectNum);
+			
+			ArrayList<Integer> noticeSeqNumbers = ndao.getNoticeCommentsSeqByProjectSeq(projectNum);
+			
+			for (int k = 0; k < noticeSeqNumbers.size(); k++) {
+				ncdao.deleteNoticeCommentsByNoticeSeq(noticeSeqNumbers.get(k));
+			}
+			
 			ndao.deleteNoticeByProjectSeq(projectNum);
+			
 			ArrayList<Integer> chatSeqNumbers = chatdao.getChatSeqByProjectSeq(projectNum);
 			
 			for (int j = 0; j < chatSeqNumbers.size(); j++) {
@@ -115,7 +125,6 @@ public class ProjectService {
 			pmdao.deletePmByProjectSeq(projectNum);
 			pdao.deleteProjectByProjectSeq(projectNum);
 		} catch (Exception e) {
-			System.out.println("delete Pie Error" + e.getMessage());
 			throw new Exception();
 		}
 		return true;

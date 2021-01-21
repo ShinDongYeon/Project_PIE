@@ -1,3 +1,10 @@
+/*
+파일명: user_profile.js
+설명: 유저 프로필 업로드 및 화면 처리 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 	
 		//여기서 아이디로 파일 이름 겟 ajax 
@@ -75,12 +82,10 @@ $(document).ready(function() {
 	
 			//파일 안 올리고 업로드 시 
 			if($("#img-input").val()===''){
-				console.log("파일없음");
 				return;
 			}
 			
             let formData = new FormData(form);
-			console.log(formData);
 
 			$.ajax({
 				url: "uploadProfile.pie?email="+$("#input_email").val(),
@@ -92,7 +97,7 @@ $(document).ready(function() {
 				async: false,
 				cache: false,
 				success: function(data) {
-					console.log(data);
+					
 				}
 			});
 	}

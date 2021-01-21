@@ -1,6 +1,14 @@
 package kr.or.bit.util;       
 
-import com.github.scribejava.core.builder.api.DefaultApi20;             
+import com.github.scribejava.core.builder.api.DefaultApi20;       
+
+/*
+파일명: NaverLoginApi.java
+설명: 네이버 로그인 API
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 public class NaverLoginApi extends DefaultApi20{
 
     

@@ -10,7 +10,13 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
-
+/*
+파일명: chatHandShakeInterceptor.java
+설명: 채팅 웹소켓이 실행될 때 먼저 적용될 인터셉터
+	채팅방 정보와 유저 이메일 정보를 이곳에서 미리 저장합니다.
+작성일: 2021-01-17
+기능구현: 도재구
+*/
 public class chatHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
 	  
     @Override

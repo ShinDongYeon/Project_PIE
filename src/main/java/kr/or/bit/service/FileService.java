@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,14 @@ import kr.or.bit.dao.FileDao;
 import kr.or.bit.dto.file;
 import kr.or.bit.util.UploadPath;
 
+
+/*
+파일명: FileService.java
+설명: 파일 업로드, 다운로드 처리 서비스
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 @Service
 public class FileService{
 	
@@ -23,8 +34,14 @@ public class FileService{
 	private SqlSession sqlsession;
 
 	//파일 업로드 서비스 
-	public boolean fileUploadService(ArrayList<MultipartFile> files, int projectNum, String nick) {
-		String UPLOAD_PATH = UploadPath.upload_path_files();
+	public boolean fileUploadService(ArrayList<MultipartFile> files, 
+									int projectNum, 
+									String nick,
+									HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String UPLOAD_PATH = session.getServletContext().getRealPath("/resources/files");
+		
+		//String UPLOAD_PATH = UploadPath.upload_path_files();
 		//파일 저장 경로 (프로젝트번호 기준)
 		String specific_path = "/file_directory_project_seq_"+projectNum;
 		
@@ -32,9 +49,8 @@ public class FileService{
 		
 		//폴더 존재 여부 
 		if(fileOb.isDirectory()) {
-			System.out.println("폴더 존재");
+			
 		}else {
-			System.out.println("폴더 없음");
 			fileOb.mkdir();
 		}
 		
@@ -50,11 +66,8 @@ public class FileService{
 			fi.setProject_seq(projectNum);
 		
 			if(isExistFileMethod(fi)) {
-				System.out.println("파일 이름 중복");
 				fi.setFile_original_name(fileOGName);
 				String dupelName = getDupledNameMethod(fi);
-				
-				System.out.println("중복이름 "+ dupelName);
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
@@ -84,7 +97,6 @@ public class FileService{
 				 
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				return false;
 			}
@@ -97,17 +109,19 @@ public class FileService{
 		return filedao.fileLastSeq();
 	}
 	//게시판 파일 업로드
-		public boolean fileUploadNoticeService(MultipartFile file, int projectNum, String nick) {
-			String UPLOAD_PATH = UploadPath.upload_path_files();
+		public boolean fileUploadNoticeService(MultipartFile file, int projectNum, String nick,
+											   HttpServletRequest request) {
+			//String UPLOAD_PATH = UploadPath.upload_path_files();
 			//파일 저장 경로 (프로젝트번호 기준)
+			HttpSession session = request.getSession();
+			String UPLOAD_PATH = session.getServletContext().getRealPath("/resources/files");
 			String specific_path = "/file_directory_project_seq_"+projectNum;
 			
 			File fileOb = new File(UPLOAD_PATH+specific_path);
 			//폴더 존재 여부 
 			if(fileOb.isDirectory()) {
-				System.out.println("폴더 존재");
+				
 			}else {
-				System.out.println("폴더 없음");
 				fileOb.mkdir();
 			}
 
@@ -122,11 +136,9 @@ public class FileService{
 				fi.setProject_seq(projectNum);
 			
 				if(isExistFileMethod(fi)) {
-					System.out.println("파일 이름 중복");
 					fi.setFile_original_name(fileOGName);
 					String dupelName = getDupledNameMethod(fi);
 					
-					System.out.println("중복이름 "+ dupelName);
 					
 					//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 					dupelName = dupelName.substring(0, dupelName.indexOf("."));
@@ -156,7 +168,6 @@ public class FileService{
 					 
 					fos.close();
 				} catch (IOException e) {
-					System.out.println(e.getMessage());
 					e.printStackTrace();
 					return false;
 				}

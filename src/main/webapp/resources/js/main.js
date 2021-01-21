@@ -1,3 +1,10 @@
+/*
+파일명: main.js
+설명: 프로젝트 메인 페이지 파이 생성, 삭제, 초대 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function() {
 
 	let modal_background = document.getElementById('userEdit_modal_background');
@@ -204,7 +211,6 @@ $(document).ready(function() {
 				} else {
 					$("#userList").append(users);
 					pies.push($("#userName").val());
-					console.log(pies);
 				}
 				//이메일 형식이 틀리면 alert 		
 			} else {
@@ -291,7 +297,6 @@ $(document).ready(function() {
 			denyButtonText: `취소`,
 		}).then((result) => {
 			if (result.isConfirmed) {
-				console.log("삭제");
 
 				$.ajax({
 					type: "post",

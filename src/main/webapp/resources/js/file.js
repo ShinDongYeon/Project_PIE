@@ -1,3 +1,10 @@
+/*
+파일명: file.js
+설명: 파일 업로드(drag and drop) 및 유효성 검증 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 /*페이징 관련 변수*/
 //페이지 버튼 개수 
 let totalNum = null;
@@ -159,9 +166,7 @@ $(document).ready(function() {
 						$("#fileZone").append(file);
 					});
 				},
-				error: function(data) {
-					console.log(data);
-				}
+				error: function(data) {}
 			});
 		}
 		}

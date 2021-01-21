@@ -1,3 +1,10 @@
+/*
+파일명: googleLogout.js
+설명: 구글 로그아웃 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 	//google 로그아웃 함수
 	function onLoad() {
 		gapi.load('auth2', function() {

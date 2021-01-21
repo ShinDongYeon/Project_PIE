@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- Top -->
-	<jsp:include page="/WEB-INF/views/common/main_top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/main_top2.jsp"></jsp:include>
 	
 	<!-- login-register left navbar -->
 	<jsp:include page="/WEB-INF/views/common/loginRegisterLeftNavbar.jsp"></jsp:include>

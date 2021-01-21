@@ -39,14 +39,13 @@ public class ChatFileController {
 		String upload_path = session.getServletContext().getRealPath("/resources/files");
 		//boolean check = chatservice.file
 		//파일 저장 경로 (프로젝트번호 기준)
-		String specific_path = "\\file_directory_project_seq_"+projectNum;
+		String specific_path = "/file_directory_project_seq_"+projectNum;
 		File fileOb = new File(upload_path+specific_path);
 		
 		//폴더 존재 여부 
 		if(fileOb.isDirectory()) {
-			System.out.println("폴더 존재");
+			
 		}else {
-			System.out.println("폴더 없음");
 			fileOb.mkdir();
 		}
 		
@@ -61,15 +60,13 @@ public class ChatFileController {
 			fi.setProject_seq(projectNum);
 		
 			if(chatfileservice.isExistFileMethod(fi)) {
-				System.out.println("파일 이름 중복");
 				fi.setFile_original_name(fileOGName);
 				String dupelName = chatfileservice.getDupledNameMethod(fi);
 				
-				System.out.println("중복이름 "+ dupelName);
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
-				upload_file_name = dupelName+"#."+ext;
+				upload_file_name = dupelName+"1."+ext;
 			}else {
 				upload_file_name = fileOGName;
 			}
@@ -95,7 +92,6 @@ public class ChatFileController {
 				 
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				return "fail";
 			}
@@ -111,6 +107,7 @@ public class ChatFileController {
 								 HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String upload_path = session.getServletContext().getRealPath("/resources/files");
+		System.out.println(upload_path);
 		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);

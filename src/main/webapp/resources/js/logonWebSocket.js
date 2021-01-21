@@ -1,6 +1,6 @@
 /*
 파일명: projectMainChat.js
-설명: 채팅생성창에서 회원 ON/OFF 상태 확인
+설명: 채팅생성창 및 사용자 화면에서 회원 ON/OFF 상태 확인
 작성일: 2021-01-12
 작성자: 도재구
 */
@@ -25,9 +25,7 @@ function connectWS_logon(){
 	logon_ws.onclose = (event) => {
 		
 	};
-	logon_ws.onerror = (event) => {
-		console.log("logon_WS Error");
-	};
+	logon_ws.onerror = (event) => {};
 }
 	function usersLogon(data){
 	//유저리스트의 데이터

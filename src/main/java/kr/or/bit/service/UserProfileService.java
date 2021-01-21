@@ -14,6 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.or.bit.dao.UserDao;
 import kr.or.bit.util.UploadPath;
 
+
+/*
+파일명: UserProfileService.java
+설명: 유저 프로필 이미지 처리 서비스
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 @Service
 public class UserProfileService{
 	
@@ -43,7 +51,6 @@ public class UserProfileService{
 				fos.write(data);
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 	}

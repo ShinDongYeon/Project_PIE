@@ -1,3 +1,10 @@
+/*
+파일명: findPassword.js
+설명: 비밀번호 찾기 및 유효성 검증 js
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
+
 $(document).ready(function(){
 		//이메일 존재여부 체크 ajax 
 		$('#emailCheck').click(function(){
@@ -20,7 +27,6 @@ $(document).ready(function(){
 												data : { email :$('#email').val()},
 												async : false,
 												success : function(data){
-													console.log(data);
 													//location.href = "pwdForgot_emailRequest.pie";
 													
 													//인증번호 텍스트 박스 만들기 
@@ -61,7 +67,6 @@ $(document).ready(function(){
 							data : { certifyNum :$('#certifyNum').val()},
 							async : false,
 							success : function(data){
-									console.log(data);
 									if(data === "success"){
 										Swal.fire("인증 번호 확인 완료");
 										location.href = "changePwdAfterCertify.pie?email="+$('#email').val();

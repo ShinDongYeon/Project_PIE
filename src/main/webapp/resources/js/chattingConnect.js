@@ -1,3 +1,10 @@
+/*
+파일명: chattingConnect.js
+설명: 채팅방 window와 프로젝트메인 window가 띄워질 때 생성하도록 한 웹소켓입니다.
+	 채팅방의 채팅 내용이 프로젝트메인에서 알람으로 실시간 표시기능을 구현하기 위해 생성하였습니다.
+작성일: 2021-01-17
+기능구현: 도재구
+*/
 
 var connectSocket = null;
 
@@ -15,9 +22,7 @@ function connectWS_connect(){
 		chattingConnect(data);
 	};
 	connect_ws.onclose = (event) => {};
-	connect_ws.onerror = (event) => {
-		console.log("connectSocket Error");
-	};
+	connect_ws.onerror = (event) => {};
 }
 
 function chattingConnect(roomno){

@@ -9,6 +9,13 @@ import kr.or.bit.dto.list;
 import kr.or.bit.dto.list_progress;
 import kr.or.bit.service.PIEChartService;
 
+
+/*
+파일명: ChartCalculator.java
+설명: 차트 진행률 계산 유틸
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 public class ChartCalculator {
 	
 	@Autowired

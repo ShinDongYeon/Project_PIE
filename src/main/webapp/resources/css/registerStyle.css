@@ -32,7 +32,11 @@
     padding-top: 10px;
     border-radius: 100%;
 }
-
+.register-message1{
+	margin-left : 55px;
+	font-size: 2.5rem;
+	font-weight: 700;
+}
 .register-user-pic-select-wrapper{
     position: relative;
     top: 98px;

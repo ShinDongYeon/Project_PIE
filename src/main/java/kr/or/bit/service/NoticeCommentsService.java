@@ -40,7 +40,11 @@ public class NoticeCommentsService {
 		NoticeCommentsDao noticecommentsdao = sqlsession.getMapper(NoticeCommentsDao.class);
 		noticecommentsdao.deleteNoticeComments(notice_comments_seq);
 	}
-	
+	//댓글 전체 삭제
+		public void deleteAllNoticeComments(int notice_seq) {
+			NoticeCommentsDao noticecommentsdao = sqlsession.getMapper(NoticeCommentsDao.class);
+			noticecommentsdao.deleteAllNoticeComments(notice_seq);
+		}
 	//댓글 수정
 	public void updateNoticeComments(noticeComments noticecomments) {
 		NoticeCommentsDao noticecommentsdao = sqlsession.getMapper(NoticeCommentsDao.class);

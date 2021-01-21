@@ -30,7 +30,6 @@ public class CheckListService {
 	public int getLastCheckSeqService() {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		int check_seq = chkdao.getLastCheckSeq();
-		System.out.println("check_seq:" + check_seq);
 		return check_seq;
 	}
 
@@ -38,7 +37,6 @@ public class CheckListService {
 	public boolean insertCheckListService(HashMap<String, Object> checkListInfo) {
 		CheckListDao chkdao = sqlsession.getMapper(CheckListDao.class);
 		chkdao.insertCheckList(checkListInfo);
-		System.out.println("insert chk Service:" + checkListInfo);
 		return true;
 	}
 
@@ -57,7 +55,6 @@ public class CheckListService {
 		try {
 			chkdao.deleteChkList(check_seq);
 		} catch (Exception e) {
-			System.out.println("delteChkList Error" + e.getMessage());
 			throw e;
 		}
 	}

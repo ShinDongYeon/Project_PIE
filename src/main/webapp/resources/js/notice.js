@@ -6,7 +6,35 @@ $(document).ready(function() {
 	let today = new Date();
 	let hours = today.getHours();
 	let minutes = today.getMinutes();
-	
+				//게시글 등록시 알람	
+				function noticeAlarm(){
+					$.ajax({
+					type: "POST",
+					url: "alramLastSeq.pie",
+					success: function(data) {
+						let alramOb = new Object();
+						alramOb.email = $("#email").val()
+						alramOb.nickName = $("#nick").val()
+						alramOb.title = "게시물"
+						alramOb.state = "등록"
+						alramOb.alramTime = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+						alramOb.project_seq = Number($("#projectNum").val())
+						alramOb.alramseq = (data + 1)
+						let alram = JSON.stringify(alramOb);
+						$.ajax({
+							type: "POST",
+							url: "alramInsert.pie",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							async: false,
+							data: alram,
+							success: function(data) {
+								socket.send("등록")
+							},
+						})
+					}
+				})					
+				}
 	//게시물 총개수
 	function getNoticeTotalNumber(){
 		$.ajax({
@@ -49,6 +77,16 @@ $(document).ready(function() {
 				var fileName = fileValue[fileValue.length-1]; // 파일명
 				let form = $("#uploadFormNotice")[0];
 				let formData = new FormData(form)
+
+				document.getElementById('notice_modal_background').style.display = 'none';
+				let noticeInsertOb = new Object();
+				noticeInsertOb.title = $('#noticeTitle').val()
+				noticeInsertOb.content = $('#summernote').val()
+				noticeInsertOb.project_seq = $("#projectNum").val()
+				noticeInsertOb.nickName = $("#nick").val()
+				noticeInsertOb.email = $("#email").val()
+				noticeInsertOb.writeDate = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
+				noticeInsertOb.filename = fileName
 				//파일 업로드 파일이 있을때만 적용
 				if($("#filename").val() !== null && $("#filename").val() !== ""){
 				$.ajax({
@@ -62,19 +100,12 @@ $(document).ready(function() {
 					cache: false,
 					success: function(result) {
 						fileNumber = result;
+					noticeInsertOb.file_seq = fileNumber
 						}
 				})
+				}else{
+					noticeInsertOb.file_seq = fileNumber
 				}
-			document.getElementById('notice_modal_background').style.display = 'none';
-				let noticeInsertOb = new Object();
-				noticeInsertOb.title = $('#title').val()
-				noticeInsertOb.content = $('#summernote').val()
-				noticeInsertOb.project_seq = $("#projectNum").val()
-				noticeInsertOb.nickName = $("#nick").val()
-				noticeInsertOb.email = $("#email").val()
-				noticeInsertOb.writeDate = moment(today).format('YYYY-MM-DD' + " " + 'HH:mm')
-				noticeInsertOb.filename = fileName
-				noticeInsertOb.file_seq = fileNumber
 				let noticeInsert = JSON.stringify(noticeInsertOb);
 				$.ajax({
 					type: "POST",
@@ -84,12 +115,13 @@ $(document).ready(function() {
 					async: false,
 					data: noticeInsert,
 					success: function(data) {
+						noticeAlarm()
 						loadNotice(currentPage);
 						getNoticeTotalNumber();
 						makePageBtn(totalNum, currentPage);
 					}
 				})
-						$("#title").val("");
+						$("#noticeTitle").val("");
 						$("#filename").val("");
 						$(".note-editable").empty()
 		})
@@ -149,13 +181,15 @@ $(document).ready(function() {
 					url:"getFileSeqName.pie",
 					data:{file_seq:data.file_seq},
 					success:function(result){
-						document.getElementById('downloadfile').style.display='block'
+						$("#downloadFilename").empty()
+						document.getElementById('downloadDiv').style.display='block'
+						$("#downloadFilename").append(data.filename)
 					$(".noticedownload").prop('href','fileDownload.pie?project_seq=' +$("#projectNum").val() + '&file_uploaded_name=' + result)
 					}
 				})
 				}
 				document.getElementById('noticeEdit_modal_contents').style.display='block'
-				$("#titleView").val(data.title)
+				$("#noticeTitleView").val(data.title)
 				$("#notice_seq_hidden").val(data.notice_seq)
 				document.getElementById('noticeContentView').innerHTML= data.content
 				document.getElementById('summernoteEdit').innerHTML= data.content
@@ -170,7 +204,8 @@ $(document).ready(function() {
 		document.getElementById('editnotice').style.display='none'
 		document.getElementById('okeditnotice').style.display='block'
 		document.getElementById('deletenotice').style.display='none'
-		$('#titleView').removeAttr("readonly");
+		document.getElementById('downloadDiv').style.display='none'
+		$('#noticeTitleView').removeAttr("readonly");
 		$('#summernoteEdit').summernote({
 		  toolbar: [
    			 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -214,7 +249,7 @@ $(document).ready(function() {
 				})
 				}
 				let noticeEditOb = new Object();
-				noticeEditOb.title = $('#titleView').val()
+				noticeEditOb.title = $('#noticeTitleView').val()
 				noticeEditOb.content = $('#summernoteEdit').val()
 				noticeEditOb.notice_seq = $("#notice_seq_hidden").val()
 				noticeEditOb.filename = fileName
@@ -264,13 +299,13 @@ $(document).ready(function() {
 						}
 					});
 	})
-
+	//게시글 등록 취소시 실행되는 이벤트
 	$("#insertCancel").click(function(){
-		$("#title").val("");
+		$("#noticeTitle").val("");
 		$("#filename").val("");
 		$(".note-editable").empty()
 	})
-	
+	//게시글 수정 및 수정 취소시 실행되는 이벤트
 	$("#editCancel, #okeditnotice").click(function(){
 		document.getElementById('CommetnsWrap-notice').style.display='block'
 		document.getElementById('noticeContentView').style.display='block'
@@ -278,6 +313,7 @@ $(document).ready(function() {
 		document.getElementById('editnotice').style.display='block'
 		document.getElementById('okeditnotice').style.display='none'
 		document.getElementById('deletenotice').style.display='block'
+		document.getElementById('downloadDiv').style.display='none'
 		$(".note-editable").empty()
 	})
 	loadNotice(1)

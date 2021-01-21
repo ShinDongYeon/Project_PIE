@@ -39,11 +39,9 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		//서버에 접속 성공했을때
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) {
-			System.out.println("afterConnectionEstablished: "+session);
 			sessionList.add(session);
 			String senderEmail = getEmail(session);
 			userSessionsMap.put(senderEmail, session);
-			System.out.println("칸반연결됨:"+getEmail(session));
 		}
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -54,7 +52,6 @@ public class kanbanWebsocketHandler extends TextWebSocketHandler{
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 			sessionList.remove(session);
-			System.out.println("끊김:"+session.getId());
 		}
 		private String getEmail(WebSocketSession session) {
 			Map<String, Object> httpSession = session.getAttributes();

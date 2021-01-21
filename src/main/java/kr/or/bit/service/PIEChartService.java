@@ -16,6 +16,12 @@ import kr.or.bit.dao.UserDao;
 import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.project_member;
 
+/*
+파일명: PIEChartService.java
+설명: 차트 진행률 처리 서비스
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Service
 public class PIEChartService {
 	

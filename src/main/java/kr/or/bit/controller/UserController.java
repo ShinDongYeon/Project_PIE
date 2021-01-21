@@ -18,6 +18,13 @@ import org.springframework.web.servlet.View;
 import kr.or.bit.dto.user;
 import kr.or.bit.service.UserService;
 
+
+/*
+파일명: UserController.java 
+설명: 사용자 로그인 및 회원가입 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class UserController {
 
@@ -96,7 +103,6 @@ public class UserController {
 			userservice.passwordCertify(u.getEmail(), ran);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		model.addAttribute("user", u.getEmail());
 		return jsonview;

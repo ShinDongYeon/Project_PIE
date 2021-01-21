@@ -52,7 +52,6 @@ public class CardMemberController {
 			projectMemListMap.put("cardSeq", cardSeq);
 			projectMemListMap.put("projectNum", projectNum);
 			memberList = cardMemService.projectMemListService(projectMemListMap);
-			System.out.println("memberList:::" + memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,7 +73,6 @@ public class CardMemberController {
 			cardMemMap.put("sessionEmail", sessionEmail);
 			cardMemMap.put("projectNum", projectNum);
 			mycardList = cardMemService.getCardMemBySessionService(cardMemMap);
-			System.out.println("memberList:::" + mycardList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

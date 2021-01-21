@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,12 @@ import kr.or.bit.dto.file;
 import kr.or.bit.service.FileService;
 import kr.or.bit.util.UploadPath;
 
+/*
+파일명: FileController.java
+설명: 파일함 관련 파일 업로드 및 다운로드 컨트롤러
+작성일: 2021-01-10 ~ 
+작성자: 변재홍
+*/
 @Controller
 public class FileController {
 	
@@ -34,15 +43,14 @@ public class FileController {
 	@RequestMapping(value = "file.pie", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("files") ArrayList<MultipartFile> files,
 							 @RequestParam("projectNum") int projectNum,
-							 @RequestParam("nick") String nick) throws IOException {
+							 @RequestParam("nick") String nick,
+							 HttpServletRequest request) throws IOException {
 		
-		boolean check = fileservice.fileUploadService(files, projectNum, nick);
+		boolean check = fileservice.fileUploadService(files, projectNum, nick, request);
 		
 		if(check) {
-			System.out.println("파일 업로드 성공");
 			return "success";
 		}else {
-			System.out.println("파일 업로드 실패");
 			return "fail";
 		}
   }
@@ -51,15 +59,13 @@ public class FileController {
 	@RequestMapping(value = "fileNotice.pie", method = RequestMethod.POST)
 	public int uploadFileNotice(@RequestParam("noticefile") MultipartFile file,
 							 @RequestParam("projectNum") int projectNum,
-							 @RequestParam("nick") String nick) throws IOException {
-		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick);
-		System.out.println(nick);
+							 @RequestParam("nick") String nick,
+							 HttpServletRequest request) throws IOException {
+		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick,request);
 		int fileLastSeq = fileservice.fileLastSeq();
 		if(check) {
-			System.out.println("파일 업로드 성공");
 			return fileLastSeq;
 		}else {
-			System.out.println("파일 업로드 실패");
 			return 0;
 		}
   }
@@ -115,9 +121,11 @@ public class FileController {
 	@RequestMapping(value = "fileDownload.pie", method = RequestMethod.GET)
 	public ModelAndView download(@RequestParam("project_seq")int project_seq,
 								 @RequestParam("file_uploaded_name")String file_uploaded_name,
-								 ModelAndView mv) {
-		String fullPath = UploadPath.upload_path_files();
-		fullPath += "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
+								 ModelAndView mv,
+								 HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String upload_path = session.getServletContext().getRealPath("/resources/files");
+		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
@@ -129,7 +137,6 @@ public class FileController {
 	@ResponseBody
 	@RequestMapping(value = "getFileSeqName.pie", method = RequestMethod.POST)
 	public String getFileSeqName(int file_seq) {
-		System.out.println("ddddd"+file_seq);
 		String file_uploaded_name = null;
 		file_uploaded_name = fileservice.getFileSeqName(file_seq);
 		return file_uploaded_name;
