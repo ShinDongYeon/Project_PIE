@@ -656,6 +656,7 @@ $(document).ready(function() {
 					dataType: "json",
 					data: cardMem,
 					success: function(data) {
+						swal.fire("Done!", "It's succesfully deleted!", "success");
 						deletedMem.animate({
 							bottom: "-30%",
 							height: 0,

@@ -193,11 +193,12 @@ $(document).ready(function() {
 					swal.fire({
 						title: 'Confirm',
 						text: '채팅기록은 저장됩니다',
-						icon: 'success',
+						icon: 'info',
 						confirmButtonColor: '#3085d6',
 						confirmButtonText: '확인',
 					}).then((result) => {
 						if(result.isConfirmed){
+							swal.fire("완료", "채팅 기록이 저장되었습니다.", "success");
 							disconnect();
 							window.close();
 						}
@@ -367,11 +368,12 @@ function readURL(file) {
 							swal.fire({
 								title: 'Confirm',
 								text: '채팅기록은 저장됩니다',
-								icon: 'success',
+								icon: 'info',
 								confirmButtonColor: '#3085d6',
 								confirmButtonText: '확인',
 							}).then((result) => {
 								if(result.isConfirmed){
+									swal.fire("완료", "채팅 기록이 저장되었습니다", "success");
 									disconnect();
 									window.close();
 								}
