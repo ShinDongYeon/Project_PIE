@@ -75,7 +75,6 @@ $(document).ready(function() {
 		//set clicked Card Content cardSeq as a value
 		$('.modal_card_seq').attr("value", $(this).data().cardSeq);
 		let cardSeq = Number($('.modal_card_seq').attr("value"));
-		console.log("cardSeq:" + cardSeq);
 			/*캘린더연동 유무*/
 			$.ajax({
 			type : "GET",
@@ -267,9 +266,7 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {
-					console.log(data);
-				}
+				success: function(data) {}
 			});
 			$('.cardContents').html(contents);
 			$('.cardDetailsForm').hide();
@@ -285,9 +282,7 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				data: card,
-				success: function(data) {
-					console.log(data);
-				}
+				success: function(data) {}
 			});
 			$('.cardDetailsForm').show();
 			$('.cardContents').hide();
@@ -427,9 +422,7 @@ $(document).ready(function() {
 			dataType: "json",
 			async: false,
 			data: check,
-			success: function(data) {
-				console.log(data);
-			}
+			success: function(data) {}
 		})
 
 

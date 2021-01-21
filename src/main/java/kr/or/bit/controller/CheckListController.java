@@ -54,7 +54,6 @@ public class CheckListController {
 		checkListInfo.put("checkList", chk);
 		boolean check = checklistservice.insertCheckListService(checkListInfo);
 		if (check) {
-			System.out.println("insertCheckList");
 			return jsonview;
 		}
 		model.addAttribute("data", false);

@@ -82,12 +82,10 @@ $(document).ready(function() {
 	
 			//파일 안 올리고 업로드 시 
 			if($("#img-input").val()===''){
-				console.log("파일없음");
 				return;
 			}
 			
             let formData = new FormData(form);
-			console.log(formData);
 
 			$.ajax({
 				url: "uploadProfile.pie?email="+$("#input_email").val(),
@@ -99,7 +97,7 @@ $(document).ready(function() {
 				async: false,
 				cache: false,
 				success: function(data) {
-					console.log(data);
+					
 				}
 			});
 	}

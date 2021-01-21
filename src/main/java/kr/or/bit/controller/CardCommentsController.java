@@ -104,7 +104,6 @@ public class CardCommentsController {
 		try {
 			commTotal.put("projectNum", projectNum);
 			commList = cardcomservice.getTotalCommByCardService(commTotal);
-			System.out.println("chkList:::" + commList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

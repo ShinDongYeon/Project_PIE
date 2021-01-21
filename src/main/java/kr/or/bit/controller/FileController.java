@@ -49,10 +49,8 @@ public class FileController {
 		boolean check = fileservice.fileUploadService(files, projectNum, nick, request);
 		
 		if(check) {
-			System.out.println("파일 업로드 성공");
 			return "success";
 		}else {
-			System.out.println("파일 업로드 실패");
 			return "fail";
 		}
   }
@@ -65,11 +63,8 @@ public class FileController {
 		boolean check = fileservice.fileUploadNoticeService(file, projectNum, nick);
 		int fileLastSeq = fileservice.fileLastSeq();
 		if(check) {
-			System.out.println("파일 업로드 성공");
-			System.out.println(fileLastSeq);
 			return fileLastSeq;
 		}else {
-			System.out.println("파일 업로드 실패");
 			return 0;
 		}
   }
@@ -141,7 +136,6 @@ public class FileController {
 	@ResponseBody
 	@RequestMapping(value = "getFileSeqName.pie", method = RequestMethod.POST)
 	public String getFileSeqName(int file_seq) {
-		System.out.println("ddddd"+file_seq);
 		String file_uploaded_name = null;
 		file_uploaded_name = fileservice.getFileSeqName(file_seq);
 		return file_uploaded_name;

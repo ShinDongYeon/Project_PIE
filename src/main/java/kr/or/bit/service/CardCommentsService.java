@@ -47,7 +47,6 @@ public class CardCommentsService {
 		try {
 			comdao.deleteCardComment(commSeq);
 		}catch (Exception e) {
-			System.out.println("delteChkList Error" + e.getMessage());
 			throw e;
 		}
 	}

@@ -51,7 +51,6 @@ public class UserProfileService{
 				fos.write(data);
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 	}

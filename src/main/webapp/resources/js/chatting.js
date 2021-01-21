@@ -214,6 +214,7 @@ $(document).ready(function() {
 	
 });
 
+
 /*
 파일명: projectMainChat.js
 설명: 멘션 기능(회원을 선택하면 멘션이 적용되도록 하는 함수)
@@ -334,8 +335,8 @@ function readURL(file) {
 			//엔터키를 눌렀을 경우
 			if (event.keyCode == 13 || event.which == 13) {
 				let filename = $('#file-input').val();
-				if(filename != null && filename != ''){
-					sendFiles(filename);
+				if(file.name != null && file.name != ''){
+					sendFiles(file.name);
 				}else{
 					send();
 				}

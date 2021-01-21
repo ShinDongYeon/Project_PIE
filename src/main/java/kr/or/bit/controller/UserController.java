@@ -103,7 +103,6 @@ public class UserController {
 			userservice.passwordCertify(u.getEmail(), ran);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		model.addAttribute("user", u.getEmail());
 		return jsonview;

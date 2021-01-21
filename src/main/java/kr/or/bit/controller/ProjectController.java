@@ -80,7 +80,6 @@ public class ProjectController {
 	@RequestMapping(value = "getPieList.pie", method = RequestMethod.POST)
 	public View getPieList(@RequestParam("userEmail") String userEmail, Model model) {
 		ArrayList<project> pieList = projectservice.getPieListService(userEmail);
-		System.out.println(pieList);
 		model.addAttribute("pieList", pieList);
 		return jsonview;
 	}
@@ -107,7 +106,6 @@ public class ProjectController {
 			try {
 				userservice.inviteEmail(pies.get(i), projectNum, fromWho, fromProjectName);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 		}

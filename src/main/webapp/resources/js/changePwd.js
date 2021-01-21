@@ -42,8 +42,6 @@ function isPassword(asValue) {
 
         //비밀번호 정규표현 확인 함수
     $(document).on('keyup', '#pwd', function(){
-        console.log(firstPwdCheck);
-        console.log($("#pwd").val())
         if($("#pwd").val().search(/\s/) != -1){
             Swal.fire("공백은 허용되지 않습니다.");
             $("#pwd").val("");

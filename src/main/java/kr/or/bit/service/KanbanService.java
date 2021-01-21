@@ -124,7 +124,6 @@ public class KanbanService {
 			}
 			listdao.deleteKanbanList(list_seq); // delete List
 		} catch (Exception e) {
-			System.out.println("delete List error:" + e.getMessage());
 			throw new Exception(); // 시점에 트랜잭션 감지하고 있다가 롤백 처리
 		}
 	}
@@ -144,7 +143,6 @@ public class KanbanService {
 			cmdao.deleteAllCardMem(card_seq);
 			carddao.deleteKanbanCard(card_seq);
 		} catch (Exception e) {
-			System.out.println("delteCardAndList Error" + e.getMessage());
 			throw new Exception(); 
 		}
 	}

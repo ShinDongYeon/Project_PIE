@@ -30,7 +30,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
 		
-		System.out.println("security login successed");
 		HttpSession session = request.getSession();
 		
 		UserDao userdao = sqlsession.getMapper(UserDao.class);

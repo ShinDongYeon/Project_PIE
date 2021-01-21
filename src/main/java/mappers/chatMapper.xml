@@ -279,9 +279,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="checkalarmSidebar" resultType="int" parameterType="hashMap">
-		SELECT CHATTING_ALARM
-		FROM CHATTINGROOMLIST
-		WHERE EMAIL = #{loginuser}
+		SELECT L.CHATTING_ALARM
+		FROM CHATTINGROOMLIST L JOIN CHATTINGROOM C
+		ON L.CHATTING_ROOM_SEQ = C.CHATTING_ROOM_SEQ
+		WHERE L.EMAIL = #{loginuser}
+		AND C.PROJECT_SEQ = #{projectNum}
 	</select>
 	
 	<select id="checkalarmSidebarChecked" resultType="int" parameterType="hashMap">
