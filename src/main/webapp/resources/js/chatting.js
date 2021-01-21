@@ -808,13 +808,15 @@ function appendMessage(msg) {
 													message_time : '',
 													email : '',
 													nickName : '',
-													profile : ''
+													profile : '',
+													count : 0,
 													
 												});
 												firebase.database().ref().child('mension').once('value',function(data){
 													let mension_seq = data.val().length;
 													
 													firebase.database().ref().child('mension/'+mension_seq).set({
+														mension_seq : mension_seq,
 														mension_email : email,
 														chatting_room_seq : $('#select').val(),
 														message_seq : message_seq,
@@ -823,7 +825,8 @@ function appendMessage(msg) {
 														message_time : time,
 														email : $('#session_email').val(),
 														nickName : $('#nickname').val(),
-														profile : elem.profile
+														profile : elem.profile,
+														count : 1
 													});
 												});
 												
