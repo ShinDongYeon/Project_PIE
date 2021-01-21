@@ -44,10 +44,8 @@ public class UserService {
 		UserDao userdao = sqlsession.getMapper(UserDao.class);
 		try {
 			userdao.insertUser(u);// db에 user insert
-			System.out.println("insertUser 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		return "projectList";
 	}
@@ -115,10 +113,8 @@ public class UserService {
 		UserDao userdao = sqlsession.getMapper(UserDao.class);
 		try {
 			userdao.modifyPassword(u);//비밀번호 변경
-			System.out.println("modifyPassword 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		return "projectList";
 	}

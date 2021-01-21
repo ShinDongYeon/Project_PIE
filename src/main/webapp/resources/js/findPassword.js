@@ -27,7 +27,6 @@ $(document).ready(function(){
 												data : { email :$('#email').val()},
 												async : false,
 												success : function(data){
-													console.log(data);
 													//location.href = "pwdForgot_emailRequest.pie";
 													
 													//인증번호 텍스트 박스 만들기 
@@ -68,7 +67,6 @@ $(document).ready(function(){
 							data : { certifyNum :$('#certifyNum').val()},
 							async : false,
 							success : function(data){
-									console.log(data);
 									if(data === "success"){
 										Swal.fire("인증 번호 확인 완료");
 										location.href = "changePwdAfterCertify.pie?email="+$('#email').val();

@@ -55,7 +55,6 @@ $(document).ready(function() {
 						$("#emailDiv").children().remove();
 						$("#emailDiv").append("<p style ='font-size: small; margin : 0; color : yellow; padding-top : 0; padding-bottom : 0;'>중복된 이메일 입니다.</p>");
 						emailCheck = false;
-						console.log("사용 불가");
 					}
 				}
 			}
@@ -71,8 +70,6 @@ $(document).ready(function() {
 	});
 	//비밀번호 정규표현 확인 함수
 	$("#pwd").keyup(function() {
-		console.log(firstPwdCheck);
-		console.log($("#pwd").val())
 		if ($("#pwd").val().search(/\s/) != -1) {
 			//alert("공백은 허용되지 않습니다.");
 			$("#pwd").val("");

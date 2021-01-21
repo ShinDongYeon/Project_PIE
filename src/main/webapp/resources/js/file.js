@@ -166,9 +166,7 @@ $(document).ready(function() {
 						$("#fileZone").append(file);
 					});
 				},
-				error: function(data) {
-					console.log(data);
-				}
+				error: function(data) {}
 			});
 		}
 		}

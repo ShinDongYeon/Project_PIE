@@ -43,7 +43,6 @@ public class CalendarController {
 			calendarservice.insertCalendar(calendar);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러:" + e.getMessage());
 		}
 			return jsonview;
 	}
@@ -56,7 +55,6 @@ public class CalendarController {
 			calendarservice.calendarUpdate(calendar);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러:" + e.getMessage());
 		}
 		return jsonview;
 
@@ -72,7 +70,6 @@ public class CalendarController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러:" + e.getMessage());
 		}
 		return calendarList;
 	}
@@ -87,7 +84,6 @@ public class CalendarController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러:" + e.getMessage());
 
 		}
 		return calendarListKanban;
@@ -103,7 +99,6 @@ public class CalendarController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러:" + e.getMessage());
 
 		}
 		return calendarListKanbanDetail;
@@ -124,7 +119,7 @@ public class CalendarController {
 			calendarservice.calendarEdit(start, end, id);
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			
 		}
 
 	}
@@ -136,7 +131,6 @@ public class CalendarController {
 		try {
 			calendarservice.calendarDelete(id);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -147,7 +141,6 @@ public class CalendarController {
 		try {
 			calendarservice.calendarDeleteKandan(card_seq);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 

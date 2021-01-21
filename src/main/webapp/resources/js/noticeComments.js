@@ -47,8 +47,6 @@ $(document).ready(function(){
 	//session EMail
 	let myEmail = $('#email').val();
 	let nickName = $('#nick').val();
-	console.log(myEmail);
-	console.log("nickName::::"+nickName);
 	
 	//get time for ajax
 	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -62,7 +60,6 @@ $(document).ready(function(){
 		let comments = $(this).children('.addComments-notice').val();
 		let notice_seq = $("#notice_seq_hidden").val();
 		
-		console.log(commentsOb);
 		commentsOb.comments=comments;
 		commentsOb.notice_seq=$("#notice_seq_hidden").val();
 		commentsOb.email=myEmail;
@@ -78,7 +75,6 @@ $(document).ready(function(){
 				data: noticeComments,
 				success: function(data) {
 					let comments=data.comments;
-					console.log(comments)
 					if(comments.profile==null){
 						let commIcon = commentsIcon(comments.notice_comments_seq,comments.email,nickName,dateTime,comments.comments);
 						if(comments.email==myEmail){
@@ -111,7 +107,6 @@ $(document).ready(function(){
 		$('.commentsForm-notice').show();
 		
 		let notice_seq=$("#notice_seq_hidden").val()
-		console.log(notice_seq);
 		$.ajax({
 				type: "post",
 				url: "loadNoticeComments.pie?notice_seq="+notice_seq,
@@ -120,7 +115,6 @@ $(document).ready(function(){
 				async: false,
 				success: function(data) {
 					let commList = data.commList;
-					console.log(data)
 					$.each(commList, function(index, item) {
 					if(item.profile==null){
 						let commIcon = commentsIcon(item.notice_comments_seq,item.email,item.nickName,item.reg_date,item.comments);

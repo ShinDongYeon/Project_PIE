@@ -522,12 +522,14 @@ public class ChatController {
 	public int checkalarmSidebar(HttpServletRequest request){
 		HttpSession httpsession = request.getSession();
 		String loginuser = (String)httpsession.getAttribute("loginuser");
+		int projectNum = (int)httpsession.getAttribute("projectNum");
 		
 		Map<String, Object> checkAlarmMap = new HashMap<String, Object>();
 		int count = 0;
 		
 		try {
 			checkAlarmMap.put("loginuser", loginuser);
+			checkAlarmMap.put("projectNum", projectNum);
 			List<Integer> alarm_count = chatservice.checkalarmSidebar(checkAlarmMap);
 			
 			for(int i : alarm_count) {

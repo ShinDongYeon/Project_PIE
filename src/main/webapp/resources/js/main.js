@@ -211,7 +211,6 @@ $(document).ready(function() {
 				} else {
 					$("#userList").append(users);
 					pies.push($("#userName").val());
-					console.log(pies);
 				}
 				//이메일 형식이 틀리면 alert 		
 			} else {
@@ -298,7 +297,6 @@ $(document).ready(function() {
 			denyButtonText: `취소`,
 		}).then((result) => {
 			if (result.isConfirmed) {
-				console.log("삭제");
 
 				$.ajax({
 					type: "post",

@@ -125,7 +125,6 @@ public class ProjectService {
 			pmdao.deletePmByProjectSeq(projectNum);
 			pdao.deleteProjectByProjectSeq(projectNum);
 		} catch (Exception e) {
-			System.out.println("delete Pie Error" + e.getMessage());
 			throw new Exception();
 		}
 		return true;

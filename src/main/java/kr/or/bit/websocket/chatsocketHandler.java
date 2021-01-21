@@ -42,7 +42,6 @@ public class chatsocketHandler extends TextWebSocketHandler{
 
 		@Override
 		public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-			System.out.println(message.getPayload());
 			//'|' 이 문자가 있으면 => 메시지를 보낼때
 			if(message.getPayload().toString().indexOf("|") != -1) {
 				String select = getCurrentChatRoom(session);

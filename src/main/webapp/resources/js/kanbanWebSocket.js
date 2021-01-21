@@ -14,15 +14,15 @@ $(document).ready(function(){
 		let socket = new WebSocket("ws://localhost:8090/websocket/kanban/websocket");
 		socket = ws;
 		ws.open = function(msg){
-			console.log(msg);
+		
 		}
 		
 		ws.onclose = function(){
-			console.log("Sever Close");
+		
 		}
 		
 		ws.onerror = function(){
-			console.log("Server Error");
+		
 		}
 	}
 	

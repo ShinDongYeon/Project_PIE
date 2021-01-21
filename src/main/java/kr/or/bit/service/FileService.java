@@ -49,9 +49,8 @@ public class FileService{
 		
 		//폴더 존재 여부 
 		if(fileOb.isDirectory()) {
-			System.out.println("폴더 존재");
+			
 		}else {
-			System.out.println("폴더 없음");
 			fileOb.mkdir();
 		}
 		
@@ -67,11 +66,8 @@ public class FileService{
 			fi.setProject_seq(projectNum);
 		
 			if(isExistFileMethod(fi)) {
-				System.out.println("파일 이름 중복");
 				fi.setFile_original_name(fileOGName);
 				String dupelName = getDupledNameMethod(fi);
-				
-				System.out.println("중복이름 "+ dupelName);
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
@@ -101,7 +97,6 @@ public class FileService{
 				 
 				fos.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				return false;
 			}
@@ -125,9 +120,8 @@ public class FileService{
 			File fileOb = new File(UPLOAD_PATH+specific_path);
 			//폴더 존재 여부 
 			if(fileOb.isDirectory()) {
-				System.out.println("폴더 존재");
+				
 			}else {
-				System.out.println("폴더 없음");
 				fileOb.mkdir();
 			}
 
@@ -142,11 +136,9 @@ public class FileService{
 				fi.setProject_seq(projectNum);
 			
 				if(isExistFileMethod(fi)) {
-					System.out.println("파일 이름 중복");
 					fi.setFile_original_name(fileOGName);
 					String dupelName = getDupledNameMethod(fi);
 					
-					System.out.println("중복이름 "+ dupelName);
 					
 					//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 					dupelName = dupelName.substring(0, dupelName.indexOf("."));
@@ -176,7 +168,6 @@ public class FileService{
 					 
 					fos.close();
 				} catch (IOException e) {
-					System.out.println(e.getMessage());
 					e.printStackTrace();
 					return false;
 				}
