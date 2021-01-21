@@ -166,14 +166,14 @@ public class PIEChartController {
 						member_progress mp = new member_progress();
 						String email = chartservice.getNickNameByEmailService(members.get(i).getEmail());
 						
-						
 						int total_count = 0;
 						int done_count = 0;
 						
-						ArrayList<cardMember> cdm = chartservice.getCardSeqByMemberEmailService(members.get(i).getEmail());
-						for(int j = 0; j < cdm.size(); j++) {
-							total_count	+= chartservice.getTotalCheckListByCardSeqService(cdm.get(j).getCard_seq());
-							done_count += chartservice.getTotalCheckedCheckListByCardSeqService(cdm.get(j).getCard_seq());
+						ArrayList<Integer> card_seq_numbers = chartservice.getCardSeqByProjectNumService(projectNum, members.get(i).getEmail());
+						
+						for(int j = 0; j < card_seq_numbers.size(); j++) {
+							total_count	+= chartservice.getTotalCheckListByCardSeqService(card_seq_numbers.get(j));
+							done_count += chartservice.getTotalCheckedCheckListByCardSeqService(card_seq_numbers.get(j));
 						}
 						DecimalFormat form = new DecimalFormat("#.##");
 						String done = form.format(((double)done_count/(double)total_count)*100);
@@ -197,10 +197,13 @@ public class PIEChartController {
 				
 				double hundred = 100;
 				
-				ArrayList<cardMember> cdm = chartservice.getCardSeqByMemberEmailService(name);
-				for(int j = 0; j < cdm.size(); j++) {
-					total_count	+= chartservice.getTotalCheckListByCardSeqService(cdm.get(j).getCard_seq());
-					done_count += chartservice.getTotalCheckedCheckListByCardSeqService(cdm.get(j).getCard_seq());
+				ArrayList<Integer> card_seq_numbers = chartservice.getCardSeqByProjectNumService(projectNum, name);
+				
+				System.out.println("카드세크 넘버즈"+card_seq_numbers);
+				
+				for(int j = 0; j < card_seq_numbers.size(); j++) {
+					total_count	+= chartservice.getTotalCheckListByCardSeqService(card_seq_numbers.get(j));
+					done_count += chartservice.getTotalCheckedCheckListByCardSeqService(card_seq_numbers.get(j));
 				}
 				DecimalFormat form = new DecimalFormat("#.##");
 				String done = form.format(((double)done_count/(double)total_count)*100);

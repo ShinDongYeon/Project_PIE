@@ -108,7 +108,6 @@ public class ChatFileController {
 		HttpSession session = request.getSession();
 		String upload_path = session.getServletContext().getRealPath("/resources/files");
 
-		System.out.println(upload_path);
 		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 

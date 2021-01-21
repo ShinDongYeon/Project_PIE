@@ -74,7 +74,9 @@ $(document).ready(function() {
 		sideBarOpen("right-sidebar-contents-wrapper-mension");
 		if(document.getElementById("right-sidebar-contents-wrapper-mension").className == "right-sidebar-contents-wrapper-display"){
 			mensionList();
+			mensionClicked();
 		}
+	
 	});
 	
 	//사이드바 오픈 함수

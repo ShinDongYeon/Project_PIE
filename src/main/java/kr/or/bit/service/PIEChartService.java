@@ -1,6 +1,7 @@
 package kr.or.bit.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import kr.or.bit.dao.CheckListDao;
 import kr.or.bit.dao.ListDao;
 import kr.or.bit.dao.Project_memberDao;
 import kr.or.bit.dao.UserDao;
-import kr.or.bit.dto.cardMember;
 import kr.or.bit.dto.project_member;
 
 /*
@@ -89,9 +89,9 @@ public class PIEChartService {
 		return members;
 	}
 	//멤버 이메일로 카드 시퀀스들 가져오기 
-	public ArrayList<cardMember> getCardSeqByMemberEmailService(String email){
+	public ArrayList<Integer> getCardSeqByMemberEmailService(String email){
 		CardMemberDao cdmdao = sqlsession.getMapper(CardMemberDao.class);
-		ArrayList<cardMember> cdmem = cdmdao.getCardSeqByMemberEmail(email);
+		ArrayList<Integer> cdmem = cdmdao.getCardSeqByMemberEmail(email);
 		return cdmem;
 	}
 	//멤버 이메일로 닉네임 가져오기 
@@ -100,5 +100,15 @@ public class PIEChartService {
 		String nickName = userdao.getNickNameByEmail(email);
 		return nickName;
 	}
+	//프로젝트 번호로 카스 시퀀스 가져오기 
+	public ArrayList<Integer> getCardSeqByProjectNumService(int projectNum, String name){
+		CardDao carddao = sqlsession.getMapper(CardDao.class);
+		HashMap<String, Object> hm = new HashMap<String, Object>();
+		hm.put("projectNum", projectNum);
+		hm.put("name", name);
+		ArrayList<Integer> card_seqs = carddao.getCardSeqByProjectNum(hm);
+		return card_seqs;
+	}
+	
 	
 }

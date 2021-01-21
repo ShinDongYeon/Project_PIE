@@ -14,5 +14,7 @@
 	<i id="sidebar-calendar" class="fas fa-calendar-alt"><span class="sidebar-icon-tooltip">캘린더</span></i>
 	<i id="sidebar-users" class="fas fa-users"><span class="sidebar-icon-tooltip">사용자</span></i>
 	<i id="sidebar-chart" class="far fa-chart-bar"><span class="sidebar-icon-tooltip">차트</span></i>
-	<i id="sidebar-mension" class="fas fa-at"><span class="sidebar-icon-tooltip">멘션</span></i>
+	<i id="sidebar-mension" class="fas fa-at"><span class="sidebar-icon-tooltip">멘션</span>
+		<div class="mensionAlarmCount" id="mensionAlarmCount" style="display:none;">1</div>
+	</i>
 </div>

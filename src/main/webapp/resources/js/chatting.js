@@ -193,11 +193,12 @@ $(document).ready(function() {
 					swal.fire({
 						title: 'Confirm',
 						text: '채팅기록은 저장됩니다',
-						icon: 'success',
+						icon: 'info',
 						confirmButtonColor: '#3085d6',
 						confirmButtonText: '확인',
 					}).then((result) => {
 						if(result.isConfirmed){
+							swal.fire("완료", "채팅 기록이 저장되었습니다.", "success");
 							disconnect();
 							window.close();
 						}
@@ -367,11 +368,12 @@ function readURL(file) {
 							swal.fire({
 								title: 'Confirm',
 								text: '채팅기록은 저장됩니다',
-								icon: 'success',
+								icon: 'info',
 								confirmButtonColor: '#3085d6',
 								confirmButtonText: '확인',
 							}).then((result) => {
 								if(result.isConfirmed){
+									swal.fire("완료", "채팅 기록이 저장되었습니다", "success");
 									disconnect();
 									window.close();
 								}
@@ -808,13 +810,15 @@ function appendMessage(msg) {
 													message_time : '',
 													email : '',
 													nickName : '',
-													profile : ''
+													profile : '',
+													count : 0,
 													
 												});
 												firebase.database().ref().child('mension').once('value',function(data){
 													let mension_seq = data.val().length;
 													
 													firebase.database().ref().child('mension/'+mension_seq).set({
+														mension_seq : mension_seq,
 														mension_email : email,
 														chatting_room_seq : $('#select').val(),
 														message_seq : message_seq,
@@ -823,7 +827,8 @@ function appendMessage(msg) {
 														message_time : time,
 														email : $('#session_email').val(),
 														nickName : $('#nickname').val(),
-														profile : elem.profile
+														profile : elem.profile,
+														count : 1
 													});
 												});
 												

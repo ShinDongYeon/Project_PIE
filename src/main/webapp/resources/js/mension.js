@@ -7,6 +7,41 @@
 작성자: 도재구
 */
 
+$(document).ready(function(){
+	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
+		let data_arr = [];
+		for(let i in data.val()){
+			data_arr.push(data.val()[i]);
+		}
+
+		let countAlarm = 0;
+		$.each(data_arr,function(index, elem){
+			countAlarm += elem.count;
+		});
+		
+		$('#mensionAlarmCount').html(countAlarm);
+		$('#mensionAlarmCount').css('display','block');
+		if($('#mensionAlarmCount').text() == 0){
+			$('#mensionAlarmCount').css('display','none');
+		}
+	});
+});
+
+function mensionClicked(){
+	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
+		let data_arr2 = [];
+		for(let i in data.val()){
+			data_arr2.push(data.val()[i]);
+		}
+		$.each(data_arr2,function(index, elem){
+			firebase.database().ref().child('mension/'+elem.mension_seq).update({
+				count : 0
+			});
+		});
+		$('#mensionAlarmCount').css('display','none');
+	});
+}
+
 function mensionList(){
 	//SELECT mension
 	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
@@ -53,12 +88,9 @@ function mensionList(){
 							}
 					});
 					$('#mension-items-wrapper').append(opr);
-				
-				
 			});
-				
-				
 		}
-		
 	});
+	
+	
 }
