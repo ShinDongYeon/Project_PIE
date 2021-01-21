@@ -8,6 +8,7 @@
 */
 
 $(document).ready(function(){
+	//페이지를 로드할 때마다 멘션 알림 숫자를 확인합니다.
 	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
 		let data_arr = [];
 		for(let i in data.val()){
@@ -27,6 +28,7 @@ $(document).ready(function(){
 	});
 });
 
+//멘션 아이콘을 클릭하면 알림 숫자가 초기화 됩니다.
 function mensionClicked(){
 	firebase.database().ref().child('mension').orderByChild('mension_email').equalTo($('#session_email').val()).once('value',function(data){
 		let data_arr2 = [];
