@@ -39,7 +39,7 @@ public class ChatFileController {
 		String upload_path = session.getServletContext().getRealPath("/resources/files");
 		//boolean check = chatservice.file
 		//파일 저장 경로 (프로젝트번호 기준)
-		String specific_path = "\\file_directory_project_seq_"+projectNum;
+		String specific_path = "/file_directory_project_seq_"+projectNum;
 		File fileOb = new File(upload_path+specific_path);
 		
 		//폴더 존재 여부 
@@ -66,7 +66,7 @@ public class ChatFileController {
 				
 				//파일 이름 뒤에 @ 붙여준 후 업로드 진행 
 				dupelName = dupelName.substring(0, dupelName.indexOf("."));
-				upload_file_name = dupelName+"#."+ext;
+				upload_file_name = dupelName+"1."+ext;
 			}else {
 				upload_file_name = fileOGName;
 			}
@@ -106,8 +106,9 @@ public class ChatFileController {
 								 ModelAndView mv,
 								 HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String upload_path = session.getServletContext().getRealPath("\\resources\\files");
-		String fullPath = upload_path + "\\file_directory_project_seq_"+project_seq + "\\" + file_uploaded_name;
+		String upload_path = session.getServletContext().getRealPath("/resources/files");
+		System.out.println(upload_path);
+		String fullPath = upload_path + "/file_directory_project_seq_"+project_seq + "/" + file_uploaded_name;
 
 		File file = new File(fullPath);
 		
