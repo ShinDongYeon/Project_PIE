@@ -163,7 +163,7 @@ $(document).ready(function() {
 		})	
 		//글 수정하기
 	$("#editnotice").click(function(){
-		Swal.fire("수정이 가능합니다")
+		Swal.fire("","수정이 가능합니다","info")
 		document.getElementById('CommetnsWrap-notice').style.display='none'
 		document.getElementById('noticeContentView').style.display='none'
 		document.getElementById('noticeContentEdit').style.display='block'
@@ -254,6 +254,7 @@ $(document).ready(function() {
 						data: {notice_seq:notice_seq},
 						async: false,
 						success: function(result) {
+							swal.fire("완료", "일정이 삭제되었습니다", "success");
 							loadNotice(currentPage);
 							getNoticeTotalNumber();
 							makePageBtn(totalNum, currentPage);

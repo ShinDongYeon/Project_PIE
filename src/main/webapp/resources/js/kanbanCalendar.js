@@ -136,6 +136,7 @@ $('.getDueDateBtn').click(function(){
 				})
 					.then((result) => {
 						if (result.isConfirmed) {
+							swal.fire("완료", "일정이 삭제되었습니다", "success");
 							document.getElementById('calendarEdit_modal_contents').style.display = 'none';
 							document.getElementById('calendar_modal_background').style.display = 'none';
 							$.ajax({
@@ -160,7 +161,7 @@ $('.getDueDateBtn').click(function(){
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
-				Swal.fire("수정이 가능합니다")
+				Swal.fire("","수정이 가능합니다","info")
 				$('#titleView').removeAttr("readonly");
 				$('#startDateView').removeAttr("readonly");
 				$('#endDateView').removeAttr("readonly");

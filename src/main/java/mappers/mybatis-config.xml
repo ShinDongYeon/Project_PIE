@@ -8,7 +8,6 @@
 		<typeAlias type="kr.or.bit.dto.card" alias="cardDto"/>
 		<typeAlias type="kr.or.bit.dto.list" alias="listDto"/>
 		<typeAlias type="kr.or.bit.dto.calendar" alias="calendarDto"/>
-		<typeAlias type="kr.or.bit.dto.calendarKanban" alias="calendarKanbanDto"/>
 		<typeAlias type="kr.or.bit.dto.project" alias="projectDto"/>
 		<typeAlias type="kr.or.bit.dto.room" alias="roomDto"/>
 		<typeAlias type="kr.or.bit.dto.roomlist" alias="roomlistDto"/>

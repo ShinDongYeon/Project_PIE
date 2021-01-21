@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 				.then((result) => {
 					if (result.isConfirmed) {
+						swal.fire("완료", "일정이 변경되었습니다", "success");
 						var msg = editCalendar(info);
 					} else {
 						info.revert();
@@ -254,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 				.then((result) => {
 					if (result.isConfirmed) {
+						swal.fire("완료", "일정이 변경되었습니다", "success");
 						var msg = editCalendar(info);
 					} else {
 						info.revert();
@@ -302,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							var event = calendar.getEventById(info.event.id);
 							document.getElementById('calendar_modal_background').style.display = 'none';
 							event.remove();
+							swal.fire("완료", "일정이 삭제되었습니다", "success");
 						} else {
 							document.getElementById('calendar_modal_background').style.display = 'none';
 						}
@@ -314,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 			$("#editCalendar").unbind('click');
 			$('#editCalendar').click(function() {
-				Swal.fire("수정이 가능합니다")
+				Swal.fire("","수정이 가능합니다","info");
 				$('#seqView').val(info.event.id)
 				$('#titleView').removeAttr("readonly");
 				$('#startDateView').removeAttr("readonly");
