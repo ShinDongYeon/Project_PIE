@@ -41,7 +41,7 @@
 					<div class="userEdit-pwdCheck-pwd-letter">
 						비밀번호
 					</div>
-					<input type="text" class="userEdit-pwdCheck-pwd" id="pwd" name="pwd">
+					<input type="text" class="userEdit-pwdCheck-pwd" id="pwd" name="pwd" autocomplete="off">
 					<div class="userEdit-pwdCheck-pwd-check">
 						비밀번호가 일치하지 않습니다.
 					</div>

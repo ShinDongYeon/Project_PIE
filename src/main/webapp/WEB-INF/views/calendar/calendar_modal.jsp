@@ -27,7 +27,7 @@
 			<i class="fas fa-pen"></i> 일정명
 			</h3>
 			<div id="calendarInput" class="calendarTitle">
-				<input type="text" id="title" name="title" placeholder=""> 
+				<input type="text" id="title" name="title" placeholder="" autocomplete="off"> 
 			</div>
 			<!-- Start Date -->
 			<div class="calendars"></div>
@@ -35,7 +35,7 @@
 					<i class="fas fa-calendar-alt"></i> 시작일
 				</h3>
 			<div id="calendarInput" class="calendarStart">
-				<input type="text" id="startDate" name="start" placeholder="">
+				<input type="text" id="startDate" name="start" placeholder="" autocomplete="off">
 			</div>
 			<!-- end Date -->
 			<div class="calendars"></div>
@@ -43,7 +43,7 @@
 			<i class="fas fa-calendar-alt"></i> 종료일
 			</h3>
 			<div id="calendarInput" class="calendarEnd">
-			<input type="text" id="endDate" name="end" placeholder="">
+			<input type="text" id="endDate" name="end" placeholder="" autocomplete="off">
 			</div>
 			<!-- Card Details -->
 			<div id="calendarDetailsWrap">
@@ -96,7 +96,7 @@
 			<div class="calendarCheckBox"></div>
 			<h3 class="CheckBox">
 			<i class="far fa-check-square"></i> AllDay
-			<input class="" type="checkbox" id="allDayView" name="allDay"  disabled/>
+			<input class="" type="checkbox" id="allDayView" name="allDay"  disabled autocomplete="off"/>
 			</h3>	
 			<!-- Card Title -->
 			<div class="calendars"></div>
@@ -104,7 +104,7 @@
 			<i class="fas fa-pen"></i> 일정명
 			</h3>
 			<div id="calendarInput" class="calendarTitle">
-				<input type="text" id="titleView" name="title" readonly /> 
+				<input type="text" id="titleView" name="title" readonly autocomplete="off"/> 
 			</div>
 			<!-- Start Date -->
 			<div class="calendars"></div>
@@ -112,7 +112,7 @@
 					<i class="fas fa-calendar-alt"></i> 시작일
 				</h3>
 			<div id="calendarInput" class="calendarStart">
-				<input type="text" id="startDateView" name="start" readonly />
+				<input type="text" id="startDateView" name="start" readonly autocomplete="off"/>
 			</div>
 			<!-- end Date -->
 			<div class="calendars"></div>

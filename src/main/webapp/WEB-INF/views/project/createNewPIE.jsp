@@ -20,7 +20,7 @@
 					<div class="userEdit-pwd-letter">
 						파이명
 					</div>
-					<input type="text" class="userEdit-pwd" id="project_name" name="project_name">
+					<input type="text" class="userEdit-pwd" id="project_name" name="project_name" autocomplete="off">
 					<input type="hidden" id="leader_email" name="leader_email" value = "${sessionScope.loginuser}">
 				</div>
 				<!-- create pie btn -->

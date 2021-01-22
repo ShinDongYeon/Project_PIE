@@ -40,7 +40,7 @@
 					<div class="register-email-wrapper">
 						<div class="register-email-letter">이메일(아이디)</div>
 						<input type="text" class="register-email" id="email" name="email"
-							placeholder="pie@pie.com">
+							placeholder="pie@pie.com" autocomplete="off">
 					</div>
 
 					<!-- email duplicated check button 
@@ -53,7 +53,7 @@
 					<div class="register-name-wrapper">
 						<div class="register-name-letter">이름</div>
 						<input type="text" class="register-name" name="nickName"
-							id="nickName" placeholder = "한글,영문 3~20 글자">
+							id="nickName" placeholder = "한글,영문 3~20 글자" autocomplete="off">
 						<div class="register-email-check" id="nickNameDiv"></div>
 					</div>
 
@@ -61,7 +61,7 @@
 					<div class="register-password-wrapper">
 						<div class="register-password-letter">비밀번호</div>
 						<input type="password" class="register-password" id="pwd"
-							name="pwd" placeholder="영문,숫자,특수문자 조합 8~16 글자">
+							name="pwd" placeholder="영문,숫자,특수문자 조합 8~16 글자" autocomplete="off">
 						<div class="register-password-check" id="pwdDiv"></div>
 					</div>
 
@@ -69,7 +69,7 @@
 					<div class="register-password-wrapper">
 						<div class="register-password-letter">비밀번호 재입력</div>
 						<input type="password" class="register-password" id="pwdCheck"
-							name="pwdCheck" placeholder="영문,숫자,특수문자 조합 8~16글자">
+							name="pwdCheck" placeholder="영문,숫자,특수문자 조합 8~16글자" autocomplete="off">
 						<div class="register-password-check" id="pwdCheckDiv"></div>
 					</div>
 

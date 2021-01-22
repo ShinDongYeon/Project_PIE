@@ -34,7 +34,7 @@
 					<div class="pwdForgot-reset-pwd-wrapper">
 						<div class="pwdForgot-reset-pwd-letter">비밀번호</div>
 						<input type="password" class="pwdForgot-reset-pwd" id="pwd"
-							name="pwd">
+							name="pwd" autocomplete="off">
 						<div id='pwdDiv' class="pwdForgot-reset-pwd-check"></div>
 					</div>
 
@@ -42,14 +42,14 @@
 					<div class="pwdForgot-reset-pwd-wrapper">
 						<div class="pwdForgot-reset-pwd-letter">비밀번호 재입력</div>
 						<input type="password" class="pwdForgot-reset-pwd" id="pwdCheck"
-							name="pwdCheck">
+							name="pwdCheck" autocomplete="off">
 						<div id="pwdCheckDiv" class="pwdForgot-reset-pwd-check"></div>
 					</div>
 
 					<!-- pwdForgot reset button -->
 					<div class="pwdForgot-reset-btn-wrapper">
 						<input type="submit" id='modifyPwd' value="비밀번호 변경"
-							class="pwdForgot-reset-btn">
+							class="pwdForgot-reset-btn" autocomplete="off">
 					</div>
 
 				</form>

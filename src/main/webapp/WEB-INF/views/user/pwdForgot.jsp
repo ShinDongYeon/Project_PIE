@@ -39,7 +39,7 @@
 						<div class="pwdForgot-email-letter">
 							이메일(아이디)
 						</div>
-						<input type="text" class="pwdForgot-email" id="email" name="email" placeholder="pie@pie.com">
+						<input type="text" class="pwdForgot-email" id="email" name="email" placeholder="pie@pie.com" autocomplete="off">
 						<div class="pwdForgot-email-check">
 						</div>
 					</div>

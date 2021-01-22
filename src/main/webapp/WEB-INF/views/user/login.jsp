@@ -52,17 +52,17 @@
 					<div class="login-email-wrapper">
 						<div class="login-email-letter">이메일(아이디)</div>
 						<input type="text" class="login-email" id="email" name="username"
-							placeholder="pie@pie.com">
+							placeholder="pie@pie.com" autocomplete="off">
 					</div>
 					<div class="login-password-wrapper">
 						<div class="login-password-letter">비밀번호</div>
 						<input type="password" class="login-password" id="pwd" name="password"
-							placeholder="">
+							placeholder="" autocomplete="off">
 					</div>
 
 					<!-- Login button -->
 					<div class="login-btn-wrapper">
-					<input type="submit" value="로그인" class="login-btn"> 
+					<input type="submit" value="로그인" class="login-btn" autocomplete="off"> 
 						<div class="login-btn-check">
 							<c:if test="${param.error != null }">
 								<div>

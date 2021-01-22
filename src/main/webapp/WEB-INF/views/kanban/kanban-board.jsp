@@ -31,7 +31,7 @@
 		<div id="projectTitleWrap">
 			<div id="projectTitle"></div>
 			<form id="projectTitleEdit">
-				<input type="text" id="projectTitleInput" placeholder=""> <input
+				<input type="text" id="projectTitleInput" placeholder="" autocomplete="off"> <input
 					type="submit" style="display: none;">
 			</form>
 		</div>
@@ -45,7 +45,7 @@
 			<div id="addListLabel">+ Add another List</div>
 			<form id="addList">
 				<input type="text" id="addListTitleInput"
-					placeholder="Enter a List Title">
+					placeholder="Enter a List Title" autocomplete="off">
 				<button class="addList-btn">Add List</button>
 				<span class="close" id="closeList">&times;</span>
 			</form>
@@ -61,7 +61,7 @@
 			<!-- Card Title -->
 			<div class="cardTitleMo"></div>
 			<form id="cardTitleForm" class="cardTitleForm">
-				<input type="text" id="cardTitleInput" placeholder=""> 
+				<input type="text" id="cardTitleInput" placeholder="" autocomplete="off"> 
 				<input type="hidden" class="modal_card_seq" name="modal_card_seq" value="">
 				<input type="submit" style="display: none;">
 			</form>
